@@ -1,5 +1,5 @@
 import React from "react";
-import { Formik, Field, FieldAttributes, useField, Form } from "formik";
+import { Formik, FieldAttributes, useField, Form } from "formik";
 import { TextField, Button } from "@material-ui/core";
 import * as Yup from "yup";
 
@@ -57,6 +57,7 @@ const MyTextField: React.FC<FieldAttributes<{}>> = ({
         helperText={errorText}
         error={!!errorText}
         type={placeholder === "Password" ? "password" : ""}
+        autoComplete={placeholder === "Password" ? "on" : ""}
       />
     </div>
   );
@@ -77,20 +78,15 @@ const SignUp = () => {
       >
         {({ values, errors, isSubmitting }) => (
           <Form>
-            <input accept="image/*" id="raised-button-file" type="file" />
+            {/* <input accept="image/*" id="raised-button-file" type="file" />
             <label htmlFor="raised-button-file">
               <Button component="span">Upload</Button>
-            </label>
+            </label> */}
             <MyTextField placeholder="First Name" name="firstName" />
             <MyTextField placeholder="Last Name" name="lastName" />
             <MyTextField placeholder="Login" name="login" />
             <MyTextField placeholder="Email" name="email" />
-            <MyTextField
-              placeholder="Password"
-              type="password"
-              name="password"
-              //   autoComplete="on"
-            />
+            <MyTextField placeholder="Password" name="password" />
             <div>
               <Button disabled={isSubmitting} type="submit">
                 Submit
