@@ -21,13 +21,10 @@ app.use("*", cors());
 //SERVER SETUP
 const httpServer = createServer(app);
 const port = 3000;
+require("./Mongo/connect").startMongoServer();
 httpServer.listen(port, (): void =>
   console.log(`🚀   GraphQL running on ${port}${server.graphqlPath}`)
 );
 
 //TESTING ROUTES
 app.use("/api/test", (req, res) => res.send({ hello: "world" }));
-app.use("/api/mongoTest", (req, res) => {
-  require("./Mongo/connect.ts");
-  res.send("working");
-});

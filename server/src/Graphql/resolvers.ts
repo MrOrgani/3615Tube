@@ -6,8 +6,8 @@ const resolverMap: IResolvers = {
     helloWorld: (_: void, args: void): string => {
       return `👋 Hello world! 👋`;
     },
-    users: () => {
-      const usersList = User.find();
+    users: async () => {
+      const usersList = await User.find();
       console.log("userList", usersList);
       return usersList;
     }

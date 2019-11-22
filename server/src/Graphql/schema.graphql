@@ -4,8 +4,12 @@ type Query {
 }
 
 type User {
-  name: String!
-  id: ID!
+  _id: ID!
+  firstName: String!
+  lastName: String!
+  login: String!
+  password: String!
+  avatar: String!
 }
 
 type Mutation {
