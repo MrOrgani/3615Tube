@@ -1,24 +1,30 @@
-import express from 'express';
-import { ApolloServer } from 'apollo-server-express';
-import depthLimit from 'graphql-depth-limit';
-import { createServer } from 'http';
-import compression from 'compression';
-import cors from 'cors';
-import schema from './schema';
-
+import express from "express";
+import { ApolloServer } from "apollo-server-express";
+import depthLimit from "graphql-depth-limit";
+import { createServer } from "http";
+import compression from "compression";
+import cors from "cors";
+import schema from "./Graphql/schema";
 const app = express();
-const server = new ApolloServer({
-    schema,
-    validationRules: [depthLimit(7)],
-});
 
-app.use('*', cors());
+//GRAPHQL SETUP
+const server = new ApolloServer({
+  schema,
+  validationRules: [depthLimit(7)]
+});
+server.applyMiddleware({ app, path: "/graphql" });
 app.use(compression());
 
-server.applyMiddleware({ app, path: '/graphql' });
+//MIDDLEWARES
+app.use("*", cors());
 
+//SERVER SETUP
 const httpServer = createServer(app);
+const port = 3000;
+require("./Mongo/connect").startMongoServer();
+httpServer.listen(port, (): void =>
+  console.log(`🚀   GraphQL running on ${port}${server.graphqlPath}`)
+);
 
-httpServer.listen(
-    { port: 3000 },
-    (): void => console.log(`\n🚀      GraphQL is now running on http://localhost:3000/graphql`));
+//TESTING ROUTES
+app.use("/api/test", (req, res) => res.send({ hello: "world" }));
