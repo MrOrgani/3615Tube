@@ -65,7 +65,9 @@ const MyTextField: React.FC<FieldAttributes<{}>> = ({
 
 const SignUp = () => {
   return (
-    <div>
+    <div className="sign-up">
+      <h2>I don't have an account</h2>
+      <span>Fill these fields to sign up</span>
       <Formik
         validateOnChange={true}
         initialValues={initialValues}
