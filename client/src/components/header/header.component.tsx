@@ -12,6 +12,9 @@ const Header = () => {
         </h1>
       </Link>
       <div className="options">
+        <Link className="option" to="/profile">
+          PROFILE
+        </Link>
         <Link className="option" to="/signin">
           SIGN IN
         </Link>

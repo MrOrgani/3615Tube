@@ -1,31 +1,23 @@
 import React from "react";
-import {
-  Formik,
-  // FieldAttributes, useField,
-  Form
-} from "formik";
-// import { TextField, Button } from "@material-ui/core";
-import { SignupSchema } from "../../utils/SchemaProfile";
-import { useAuth0 } from "../../react-auth0-spa";
+import { Formik, Form } from "formik";
 import FieldInput from "../FiledInput/FieldInput.component";
 import CustomButton from "../button/button.component";
+import { SignupSchema } from "../../utils/SchemaProfile";
 
-const SignIn = () => {
-  const {
-    isAuthenticated,
-    loginWithRedirect
-    // logout
-  } = useAuth0();
-  console.log(useAuth0());
+const UserProfile = () => {
   return (
-    <div className="sign-in">
-      <h2>I already have an account</h2>
-      <span>Sign in with your login and password</span>
+    <div className="user-profile-container">
+      <h2>Profile Page</h2>
+      <span>Upload your info</span>
       <Formik
         validateOnChange={true}
         initialValues={{
+          firstName: "",
+          lastName: "",
           login: "",
-          password: ""
+          email: "",
+          password: "",
+          file: ""
         }}
         validationSchema={SignupSchema}
         onSubmit={(data, { setSubmitting }) => {
@@ -36,15 +28,15 @@ const SignIn = () => {
       >
         {({ values, errors, isSubmitting }) => (
           <Form>
+            <FieldInput placeholder="First Name" name="firstName" />
+            <FieldInput placeholder="Last Name" name="lastName" />
             <FieldInput placeholder="Login" name="login" />
+            <FieldInput placeholder="Email" name="email" />
             <FieldInput placeholder="Password" name="password" />
-            <div className="buttons">
+            <div>
               <CustomButton disabled={isSubmitting} type="submit">
-                Submit
+                Modify
               </CustomButton>
-              {!isAuthenticated && (
-                <button onClick={() => loginWithRedirect({})}>Log in</button>
-              )}
             </div>
           </Form>
         )}
@@ -53,4 +45,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default UserProfile;
