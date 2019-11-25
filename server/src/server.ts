@@ -6,18 +6,14 @@ import compression from "compression";
 import cors from "cors";
 import schema from "./Graphql/schema";
 import dotenv from "dotenv";
-import makeCallBack from "./express-callback";
-import { createUser } from "./controlers";
+// import makeCallBack from "./express-callback";
+// import { createUser } from "./controlers";
 const app = express();
 dotenv.config();
 
-//GRAPHQL SETUP
-const server = new ApolloServer({
-  schema,
-  validationRules: [depthLimit(7)]
-});
-server.applyMiddleware({ app, path: "/graphql" });
-app.use(compression());
+//when a query arrives at the GraphQL server, https://medium.com/@paigen11/what-is-graphql-really-76c48e720202
+//it resolves the query by reading the payload and fetching the data.
+//Then it uses the schema to return the data in the correct format to the client.
 
 //MIDDLEWARES
 app.use("*", cors());
@@ -30,7 +26,15 @@ httpServer.listen(port, (): void =>
   console.log(`🚀   GraphQL running on ${port}${server.graphqlPath}`)
 );
 
-//TESTING ROUTES
+//GRAPH API && GRAPHQL SETUP
+const server = new ApolloServer({
+  schema,
+  validationRules: [depthLimit(7)]
+});
+server.applyMiddleware({ app, path: "/graphql" });
+app.use(compression());
+
+//TESTING ROUTES && TO BE DELETED
 const apiRoot = process.env.apiRoot;
-app.post(`${apiRoot}/user`, makeCallBack(createUser));
+// app.post(`${apiRoot}/user`, makeCallBack(createUser));
 app.use("/api/test", (req, res) => res.send({ hello: "world" }));

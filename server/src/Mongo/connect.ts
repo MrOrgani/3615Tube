@@ -1,4 +1,4 @@
-// const mongoose = require("mongoose");
+const mongoose = require("mongoose");
 
 exports.startMongoServer = async (): Promise<any> => {
   const mongoDb = process.env.dbHost;

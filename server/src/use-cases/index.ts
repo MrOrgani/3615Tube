@@ -1,10 +1,10 @@
-import { makeAddUser, user } from "./addUser";
+import { makeUcCreateUser, user } from "./createUser";
 import { tubeDb } from "../data-access";
 
-const addUser = makeAddUser(tubeDb);
+const UcCreateUser = makeUcCreateUser(tubeDb);
 
 const userService = Object.freeze({
-  addUser
+  UcCreateUser
 });
 
-export { userService, user };
+export { userService, user, UcCreateUser };
