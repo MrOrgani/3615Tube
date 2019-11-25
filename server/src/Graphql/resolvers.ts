@@ -26,4 +26,4 @@ const resolverMap: IResolvers = {
   }
 };
 
-export default resolverMap;
+export default resolvers;

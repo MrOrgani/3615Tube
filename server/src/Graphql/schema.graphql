@@ -10,6 +10,14 @@ type User {
   login: String!
   password: String!
   avatar: String!
+  #seenMovies: [film]!
+}
+
+type Comment {
+  _id: ID!
+  text: String!
+  date: String!
+  authorId: String!
 }
 
 type Mutation {

@@ -12,14 +12,16 @@ mode detailed - https://www.youtube.com/watch?v=YFkJGEefgU8
 
 # Install Mongo locally :
 
-# --> install mongo
-
+--> install mongo
 brew tap mongodb/brew
 brew install mongodb-community
 
-# --> setup for 42 computers
-
+--> setup for 42 computers
 (Usually we put mongodb info in /data/db but no access in 42)
 mkdir -p ~/data/db
 vim ~/.brew/etc/mongod.conf --> modify the dbpath from "vim ~/.brew/etc/mongod.conf" to "~/data/db"
 you can now run mongo to start cli
+
+# clean architecture objective !
+
+https://www.youtube.com/watch?v=CnailTcJV_U&t=816s
