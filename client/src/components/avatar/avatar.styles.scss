@@ -1,0 +1,22 @@
+.avatar-container {
+  // background-color: red;
+  border: 3px solid;
+  width: 150px;
+  height: 150px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 50%;
+  overflow: hidden;
+
+  .image {
+    // max-width: 100%;
+    max-height: 100%;
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .form-control {
+    display: none;
+  }
+}
