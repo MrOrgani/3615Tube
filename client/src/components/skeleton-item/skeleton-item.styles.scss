@@ -27,6 +27,13 @@
   }
 }
 
+.cardMedia {
+  margin: 0 10px;
+  border-radius: 10px;
+  background-color: "#8e8e8e";
+  min-width: "185px";
+  min-height: "300px";
+}
 @keyframes shine {
   from {
     opacity: 0.5;

@@ -70,7 +70,6 @@ const SignUp = () => {
             <FieldInput placeholder="Email" name="email" />
             <FieldInput placeholder="Password" name="password" />
             <div>
-              /
               <CustomButton disabled={isSubmitting} type="submit">
                 Submit
               </CustomButton>

@@ -4,6 +4,8 @@ import FieldInput from "../FiledInput/FieldInput.component";
 import CustomButton from "../button/button.component";
 import { SignupSchema } from "../../utils/SchemaProfile";
 
+import "./user-profile.styles.scss";
+
 const UserProfile = () => {
   return (
     <div className="user-profile-container">

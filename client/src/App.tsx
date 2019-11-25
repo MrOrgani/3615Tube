@@ -8,6 +8,7 @@ import Homepage from "./pages/homepage/homepage.component";
 import SignInSignUpPage from "./pages/sign-in-sign-up/sign-in-sign-up.component";
 import Profile from "./pages/profile/profile.component";
 import history from "./../src/utils/history";
+import Footer from "./components/footer/footer.component";
 
 const App: React.FC = () => {
   const { loading } = useAuth0();
@@ -25,6 +26,7 @@ const App: React.FC = () => {
           <Route exact path="/profile" component={Profile} />
           {/* <Route exact path="/profile" component={MyProfile} /> */}
         </Switch>
+        <Footer />
       </Router>
     </div>
   );
