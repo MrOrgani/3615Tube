@@ -16,19 +16,19 @@ const resolvers: IResolvers = {
     createUser: async (_: void, args: any) => {
       return (): any => addUser(args);
     }
+  },
+  Mutation: {
+    createUser: async (_: void, args: { firstName: string }) => {
+      console.log(args.firstName);
+      const newPlayer = new User(args);
+      // newPlayer.id = newPlayer._id;
+      console.log(newPlayer);
+      await newPlayer.save();
+      console.log("salut", newPlayer.firstName, "Kiff Nik la bese ?");
+      return newPlayer;
+      //   return args;
+    }
   }
-  // Mutation: {
-  //   createUser: async (_: void, args: { firstName: string }) => {
-  //     console.log(args.firstName);
-  //     const newPlayer = new User(args);
-  //     // newPlayer.id = newPlayer._id;
-  //     console.log(newPlayer);
-  //     await newPlayer.save();
-  //     console.log("salut", newPlayer.firstName, "Kiff Nik la bese ?");
-  //     return newPlayer;
-  //     //   return args;
-  //   }
-  // }
 };
 
 export default resolvers;
