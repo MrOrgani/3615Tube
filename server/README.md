@@ -17,10 +17,12 @@ brew tap mongodb/brew
 brew install mongodb-community
 
 --> setup for 42 computers
+mongod --config ~/.brew/etc/mongod.conf
+
 (Usually we put mongodb info in /data/db but no access in 42)
-mkdir -p ~/data/db
-vim ~/.brew/etc/mongod.conf --> modify the dbpath from "vim ~/.brew/etc/mongod.conf" to "~/data/db"
-you can now run mongo to start cli
+mkdir -p ~/goinfre/data/db
+FALSE -- vim ~/.brew/etc/mongod.conf --> modify the dbpath from "vim ~/.brew/etc/mongod.conf" to "~/goinfre/data/db"
+FALSE -- you can now run mongo to start cli
 
 # clean architecture objective !
 
