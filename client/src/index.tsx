@@ -9,6 +9,20 @@ import config from "./auth_config.json";
 import history from "./utils/history";
 import dotenv from "dotenv";
 
+import { ApolloProvider } from "react-apollo";
+import { ApolloClient } from "apollo-client";
+import { createHttpLink } from "apollo-link-http";
+import { InMemoryCache } from "apollo-cache-inmemory";
+
+const httpLink = createHttpLink({
+  uri: "http://localhost:9000"
+});
+
+const client = new ApolloClient({
+  link: httpLink,
+  cache: new InMemoryCache()
+});
+
 dotenv.config();
 
 const onRedirectCallback: any = appState => {
@@ -26,9 +40,11 @@ ReactDOM.render(
     redirect_uri={window.location.origin}
     onRedirectCallback={onRedirectCallback}
   >
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <ApolloProvider client={client}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </ApolloProvider>
   </Auth0Provider>,
   document.getElementById("root")
 );
