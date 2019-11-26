@@ -6,40 +6,56 @@ import { Field, ObjectType, ID } from "type-graphql";
 class User {
   @Field()
   firstName: string;
-
   @Field()
   lastName: string;
-
   @Field()
   email: string;
-
   @Field()
   login: string;
-
   @Field()
   password: string;
-
   @Field()
   id: string;
-
   @Field()
   picture: string;
-
-  @Field()
-  verified: boolean;
+  @Field() verified: boolean;
 }
 
-const buildCreateUser = ({}: any) => {
+const buildCreateUser = ({ uuid }: any) => {
   return function createUser(user: User) {
-    const { firstName, lastName, email, login, password, id, picture } = user;
+    // const {
+    //   firstName,
+    //   lastName,
+    //   email,
+    //   login,
+    //   password,
+    //   picture,
+    //   verified
+    // } = user;
+    user.id = uuid.makeUuid();
+    console.log("in entity user, newUuid : ", id);
+
     if (user.firstName.length < 2)
       throw new Error("users must have a valid firstName");
-    // if (user.password.length < 2)
-    // throw new Error
-    return Object.freeze({
-      getFirstName: (): string => firstName,
-      getId: (): string => id
-    });
+    if (user.lastName.length < 2)
+      throw new Error("users must have a valid firstName");
+    if (user.email.length < 2)
+      throw new Error("users must have a valid firstName");
+    if (user.login.length < 2)
+      throw new Error("users must have a valid firstName");
+    if (user.password.length < 2)
+      throw new Error("users must have a valid firstName");
+    return user;
+
+    // return Object.freeze({
+    //   getFirstName: (): string => firstName,
+    //   getLastName: (): string => lastName,
+    //   getemail: (): string => email,
+    //   getLogin: (): string => login,
+    //   getPassword: (): string => password,
+    //   getUuid: (): string => id,
+    //   getPicture: (): string => picture
+    // });
   };
 };
 

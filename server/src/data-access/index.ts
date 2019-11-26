@@ -38,5 +38,5 @@ const userSchema = new mongoose.Schema({
 });
 const userModel = mongoose.model("user", userSchema);
 
-const tubeDb = makeTubeDb({ makeDb, userModel }); // data-access functions object
+const tubeDb = makeTubeDb({ makeDb, userModel, User }); // data-access functions object
 export { makeDb, tubeDb };

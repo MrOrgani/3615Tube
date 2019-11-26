@@ -1,10 +1,10 @@
 const makeTubeDb = ({ makeDb, userModel }: any) => {
-  async function insertUser({ ...userInfo }) {
-    const firstName = await userInfo.getFirstName();
+  async function insertUser(newUserInfo: User) {
+    // const firstName = await (() => )newUserInfo.getFirstName();
     const db = await makeDb();
     // console.log("makeDb alias la db", db);
     // const userModel = await db.model("User", { firstName: String }); // pas a sa place devrait arriver avec index.ts
-    const newUser = new userModel({ firstName });
+    const newUser = new userModel(newUserInfo);
     await newUser.save();
     // console.log("newUser", newUser);
     return newUser;
