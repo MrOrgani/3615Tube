@@ -23,9 +23,9 @@ const resolvers: IResolvers = {
   },
   Mutation: {
     createUser: async (_: void, args: { firstName: string }) => {
-      console.log(args);
+      // console.log(args);
       const result = resolveCreateUser(args);
-      console.log(result);
+      // console.log(result);
       return result;
     }
   }

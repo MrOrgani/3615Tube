@@ -4,7 +4,7 @@ type Query {
 }
 
 type User {
-  id: ID!
+  _id: ID!
   firstName: String!
   lastName: String!
   login: String!

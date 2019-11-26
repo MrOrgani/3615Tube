@@ -1,11 +1,12 @@
 const mongoose = require("mongoose");
 import { makeTubeDb } from "./tubeDb";
+import { User } from "../use-cases";
 //in TS we export and import to create modules, else they are global variables (module.exports is not recognized)
 
 const makeDb = async (): Promise<any> => {
   const mongoDbUrl = process.env.dbHost;
   try {
-    console.log("mongoose is connected", mongoose.connection.readyState);
+    // console.log("mongoose is connected", mongoose.connection.readyState);
     if (!mongoose.connection.readyState)
       await mongoose.connect(
         mongoDbUrl,
@@ -25,5 +26,17 @@ const makeDb = async (): Promise<any> => {
   // mongoose.Promise = global.Promise;
 };
 
-const tubeDb = makeTubeDb({ makeDb }); // data-access functions object
+const userSchema = new mongoose.Schema({
+  firstName: String,
+  lastName: String,
+  email: String,
+  login: String,
+  password: String,
+  id: String,
+  picture: String,
+  verified: Boolean
+});
+const userModel = mongoose.model("user", userSchema);
+
+const tubeDb = makeTubeDb({ makeDb, userModel }); // data-access functions object
 export { makeDb, tubeDb };

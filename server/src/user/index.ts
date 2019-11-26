@@ -1,5 +1,5 @@
-import { buildCreateUser, user } from "./user";
+import { buildCreateUser, User } from "./user";
 
 const createUser = buildCreateUser({});
 
-export { createUser, user };
+export { createUser, User };

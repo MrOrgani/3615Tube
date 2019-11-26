@@ -1,3 +1,4 @@
+import "reflect-metadata"; // needs to be on top
 import express from "express";
 import { ApolloServer } from "apollo-server-express";
 import depthLimit from "graphql-depth-limit";
@@ -23,18 +24,13 @@ const httpServer = createServer(app);
 const port = 9000;
 // require("./Mongo/connect").startMongoServer();
 httpServer.listen(port, (): void =>
-  console.log(`🚀   GraphQL running on ${port}${server.graphqlPath}`)
+  console.log(`🚀   GraphQL running on ${port}${serverApollo.graphqlPath}`)
 );
 
 //GRAPH API && GRAPHQL SETUP
-const server = new ApolloServer({
+const serverApollo = new ApolloServer({
   schema,
   validationRules: [depthLimit(7)]
 });
-server.applyMiddleware({ app, path: "/graphql" });
+serverApollo.applyMiddleware({ app, path: "/graphql" });
 app.use(compression());
-
-//TESTING ROUTES && TO BE DELETED
-const apiRoot = process.env.apiRoot;
-// app.post(`${apiRoot}/user`, makeCallBack(createUser));
-app.use("/api/test", (req, res) => res.send({ hello: "world" }));
