@@ -8,9 +8,12 @@
     "typescript": "3.7.2"
   },
   "dependencies": {
+    "@types/bcryptjs": "^2.4.2",
     "@types/uuid": "^3.4.6",
+    "bcryptjs": "^2.4.3",
     "graphql-import": "^0.7.1",
     "graphql-yoga": "^1.18.3",
+    "js": "^0.1.0",
     "nodemon": "^2.0.1",
     "pg": "^7.14.0",
     "reflect-metadata": "^0.1.13",
