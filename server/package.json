@@ -8,11 +8,20 @@
     "typescript": "3.7.2"
   },
   "dependencies": {
-    "typeorm": "0.2.20",
+    "@types/uuid": "^3.4.6",
+    "graphql-import": "^0.7.1",
+    "graphql-yoga": "^1.18.3",
+    "nodemon": "^2.0.1",
+    "pg": "^7.14.0",
     "reflect-metadata": "^0.1.13",
-    "pg": "^7.14.0"
+    "tslint": "^5.20.1",
+    "tslint-config-prettier": "^1.18.0",
+    "typeorm": "0.2.20",
+    "uuid": "^3.3.3"
   },
   "scripts": {
-    "start": "ts-node src/index.ts"
+    "start": "nodemon --exec ts-node --files src/index.ts",
+    "typeorm": "ts-node ../node_modules/.bin/typeorm",
+    "gen-schema-types": "gql2ts src/schema.graphql -o src/types/schema.d.ts"
   }
 }
