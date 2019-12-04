@@ -9,22 +9,30 @@
   },
   "dependencies": {
     "@types/bcryptjs": "^2.4.2",
+    "@types/jest": "^24.0.23",
     "@types/uuid": "^3.4.6",
     "bcryptjs": "^2.4.3",
     "graphql-import": "^0.7.1",
+    "graphql-request": "^1.8.2",
     "graphql-yoga": "^1.18.3",
+    "jest": "^24.9.0",
     "js": "^0.1.0",
     "nodemon": "^2.0.1",
     "pg": "^7.14.0",
     "reflect-metadata": "^0.1.13",
+    "ts-jest": "^24.2.0",
     "tslint": "^5.20.1",
     "tslint-config-prettier": "^1.18.0",
     "typeorm": "0.2.20",
     "uuid": "^3.3.3"
   },
   "scripts": {
-    "start": "nodemon --exec ts-node --files src/index.ts",
+    "start": "nodemon -L --exec ts-node --files src/index.ts",
     "typeorm": "ts-node ../node_modules/.bin/typeorm",
+    "test": "jest",
     "gen-schema-types": "gql2ts src/schema.graphql -o src/types/schema.d.ts"
+  },
+  "jest": {
+    "preset": "ts-jest"
   }
 }
