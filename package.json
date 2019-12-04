@@ -1,6 +1,28 @@
 {
-  "private": true,
-  "workspaces": [
-    "packages/*"
-  ]
+  "name": "3615tube",
+  "version": "1.0.0",
+  "description": "42school video streaming platform project",
+  "main": "",
+  "scripts": {
+    "server": "nodemon ./server/server.js",
+    "client": "cd client && npm start",
+    "dev": "concurrently --names \"server,client\" \"npm run server --silent\" \"npm run client --silent\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MrOrgani/3615Tube.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^1.17.5"
+  },
+  "bugs": {
+    "url": "https://github.com/MrOrgani/3615Tube/issues"
+  },
+  "homepage": "https://github.com/MrOrgani/3615Tube#readme",
+  "dependencies": {
+    "concurrently": "^5.0.0"
+  }
 }
