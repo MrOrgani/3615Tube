@@ -3,7 +3,6 @@ import { GraphQLServer } from "graphql-yoga";
 import { importSchema } from "graphql-import";
 import { resolvers } from "./resolvers";
 import { createConnection } from "typeorm";
-// import { User } from "./entity/User";
 
 const startServer = async () => {
   const typeDefs = importSchema("src/schema.graphql");
@@ -24,6 +23,6 @@ const startServer = async () => {
   }
 
   const server = new GraphQLServer({ typeDefs, resolvers });
-  server.start(() => console.log("Server is running on localhost:4000"));
+  await server.start(() => console.log("Server is running on localhost:4000"));
 };
-startServer();
+export default startServer();

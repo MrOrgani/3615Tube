@@ -1,14 +1,7 @@
 import { request } from "graphql-request";
-import { User } from "../src/entity/User";
+import { User } from "../entity/User";
 import { createConnection } from "typeorm";
 import { getConnection } from "typeorm";
-
-function sum(a: number, b: number) {
-  return a + b;
-}
-test("sum", (): void => {
-  expect(sum(1, 2)).toBe(3);
-});
 
 const firstName: string = "asdf";
 const lastName: string = "asdf";
@@ -20,16 +13,17 @@ const mutation: string = `mutation{register(firstName:"${firstName}", lastName:"
 test("register User", async () => {
   const response = await request("http://localhost:4000", mutation);
   expect(response).toEqual({ register: true });
+});
 
+test("created user, info verif", async () => {
   await createConnection();
   const users = await User.find({ where: { email } });
-  // expect(users).toHaveLength(1);
+  expect(users).toHaveLength(1);
   const user = users[0];
-  console.log(user);
+  // console.log(user);
   expect(user.email).toEqual(email);
   expect(user.password).not.toEqual(password);
   expect(user.verified).toEqual(false);
-  // users.delete();
   await getConnection()
     .createQueryBuilder()
     .delete()

@@ -27,9 +27,9 @@
     "uuid": "^3.3.3"
   },
   "scripts": {
-    "start": "nodemon --exec ts-node --files src/index.ts",
-    "test": "jest --detectOpenHandles",
+    "start": "nodemon -L --exec ts-node --files src/index.ts",
     "typeorm": "ts-node ../node_modules/.bin/typeorm",
+    "test": "jest",
     "gen-schema-types": "gql2ts src/schema.graphql -o src/types/schema.d.ts"
   },
   "jest": {
