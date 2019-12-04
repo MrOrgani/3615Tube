@@ -1,19 +1,23 @@
-version: "3.7"
+# Ben Awad inspiration for project setup : https://github.com/benawad/graphql-typescript-stripe-example/blob/docker-compose/server/docker-compose.yml
+# OPTIMIZATION: https://engageinteractive.co.uk/blog/making-docker-faster-on-mac
+# docker  --> preferences/Advanced --> memory 4 gb CPU 4
+
+version: "2.2"
 services:
   db:
     image: postgres:11
     environment:
       POSTGRES_PASSWORD: postgres
       POSTGRES_USER: postgres
-      POSTGRES_DB: stripe-example
+      POSTGRES_DB: postgres
     volumes:
-      - ./pgdata:/var/lib/postgresql/data
+      - ./pgdata:/var/lib/postgresql/data:delegated
     ports:
-      - "5432"
+      - "5432:5432"
   web:
     build: .
     volumes:
-      - ~/42/3615Tube/server:/usr/app
+      - ~/42/3615Tube/server:/usr/app:delegated
     depends_on:
       - db
     ports:

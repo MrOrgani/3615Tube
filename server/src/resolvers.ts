@@ -27,7 +27,8 @@ const resolvers: ResolverMap = {
         lastName,
         login,
         email,
-        password: hashedPwd
+        password: hashedPwd,
+        verified: false
       });
       await user.save();
       return true;
