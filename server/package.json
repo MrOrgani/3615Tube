@@ -11,6 +11,7 @@
   "license": "ISC",
   "devDependencies": {},
   "dependencies": {
+    "@gql2ts/from-schema": "^1.10.1",
     "@types/bcryptjs": "^2.4.2",
     "@types/glob": "^7.1.1",
     "@types/jest": "^24.0.23",
@@ -23,6 +24,7 @@
     "graphql": "0.13",
     "graphql-import": "^0.7.1",
     "graphql-request": "^1.8.2",
+    "graphql-tools": "^4.0.6",
     "graphql-yoga": "^1.18.3",
     "jest": "^24.9.0",
     "js": "^0.1.0",
