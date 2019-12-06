@@ -1,34 +1,48 @@
 import { ResolverMap } from "../../types/graphql-utils";
 import * as bcrypt from "bcryptjs";
+import { SignupSchema } from "../../common/yupSchemas/user";
 import { User } from "../../entity/User";
 
 const resolvers: ResolverMap = {
   Query: {
-    dummy: (_: any, { name }: any) =>
-      `${name || "You"} is a dummy`
+    dummy: (_: any, { name }: any) => `${name || "You"} is a dummy`
   },
   Mutation: {
-    register: async (
-      _: any,
-      {
-        firstName,
-        lastName,
-        login,
-        email,
-        password
-      }: GQL.IRegisterOnMutationArguments
-    ) => {
-      const hashedPwd = await bcrypt.hash(password, 10);
-      const user = User.create({
-        firstName,
-        lastName,
-        login,
-        email,
-        password: hashedPwd,
-        verified: false
-      });
-      await user.save();
-      return true;
+    register: async (_: any, args: GQL.IRegisterOnMutationArguments) => {
+      try {
+        await SignupSchema.validate(args, { abortEarly: false });
+      } catch (error) {
+        console.log("yup error", error.message);
+        // return error;
+        return false;
+      }
+
+      const { firstName, lastName, login, email, password } = args;
+      try {
+        const userAlreadyExists = await User.findOne({
+          where: { email },
+          select: ["id"]
+        });
+        if (userAlreadyExists) {
+          console.log("email already taken, resolver");
+          throw Error("user already exists");
+        }
+        const hashedPwd = await bcrypt.hash(password, 10);
+        const user = User.create({
+          firstName,
+          lastName,
+          login,
+          email,
+          password: hashedPwd,
+          verified: false
+        });
+        await user.save();
+        return true;
+      } catch (error) {
+        console.log("error in register resolver --> ", error);
+        return false;
+        // return error;
+      }
     }
   }
 };

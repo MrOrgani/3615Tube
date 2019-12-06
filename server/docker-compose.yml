@@ -24,7 +24,7 @@ services:
     volumes:
       - .:/usr/app:delegated
       # - ../../node_modules:/usr/app/node_modules:delegated
-      # - ../common:/usr/app/common:delegated
+      - ./src/common:/usr/app/src/common:delegated
     depends_on:
       - db
     ports:
