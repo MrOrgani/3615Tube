@@ -10,6 +10,7 @@ const resolvers: ResolverMap = {
   Mutation: {
     register: async (_: any, args: GQL.IRegisterOnMutationArguments) => {
       try {
+        console.log("args", args);
         await SignupSchema.validate(args, { abortEarly: false });
       } catch (error) {
         console.log("yup error", error.message);

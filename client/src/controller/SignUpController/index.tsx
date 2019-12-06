@@ -2,36 +2,45 @@ import { useMutation, useQuery } from "react-apollo";
 import { withRouter } from "react-router-dom";
 import gql from "graphql-tag";
 
-// const signupMutation = gql`
-//   mutation Signup($email: String!, $name: String!, $password: String!) {
-//     signup(email: $email, name: $name, password: $password) {
-//       path
-//       message
-//     }
-//   }
-// `;
-
-const helloQuery = gql`
-  query Hello($name: String!) {
-    hello(name: $name)
+const signupMutation = gql`
+  mutation register(
+    $firstName: String!
+    $lastName: String!
+    $login: String!
+    $email: String!
+    $password: String!
+  ) {
+    register(
+      firstName: $firstName
+      lastName: $lastName
+      login: $login
+      email: $email
+      password: $password
+    )
   }
 `;
 
 const SignUpController = props => {
-  const query = useQuery(helloQuery, { variables: { name: "MAx" } });
-  if (query.data) console.log(query.data.hello);
+  const [mutate] = useMutation(signupMutation, {
+    variables: {
+      firstName: "Max",
+      lastName: "Org",
+      login: "morg",
+      email: "morg@gmail.com",
+      password: "Hello*!1"
+    }
+  });
 
-  // const [mutate] = useMutation(signupMutation);
-
+  mutate();
+  console.log(mutate);
   // async function submit(values) {
-  // const { data } = await query({ variables: {name: "Max" }});
-  //   mutate({
-  // variables: values
+  //   const { data } = await mutate({
+  //     variables: values
   //   });
-  //   if (data) {
-  //     return data.signup;
-  //   }
-  //   console.log("data is", query);
+  // if (data) {
+  //   return data.signup;
+  // }
+  // console.log("data is", query);
   //   return null;
   // }
 
