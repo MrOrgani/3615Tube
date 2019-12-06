@@ -5,7 +5,7 @@ import {
   Form
 } from "formik";
 // import { TextField, Button } from "@material-ui/core";
-import { SignupSchema } from "@3615tube/common";
+import { SignupSchema } from "../../common";
 // import { useAuth0 } from "../../react-auth0-spa";
 import FieldInput from "../FiledInput/FieldInput.component";
 import CustomButton from "../button/button.component";

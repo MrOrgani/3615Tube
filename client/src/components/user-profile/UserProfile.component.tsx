@@ -2,7 +2,7 @@ import React from "react";
 import { Formik, Form } from "formik";
 import FieldInput from "../FiledInput/FieldInput.component";
 import CustomButton from "../button/button.component";
-import { SignupSchema } from "@3615tube/common";
+import { SignupSchema } from "../../common";
 
 import "./user-profile.styles.scss";
 
