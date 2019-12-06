@@ -1,5 +1,5 @@
+import { User } from "../../entity/User";
 import { request } from "graphql-request";
-import { User } from "../entity/User";
 import { createConnection } from "typeorm";
 import { getConnection } from "typeorm";
 
@@ -23,16 +23,10 @@ test("register User", async () => {
 });
 
 test("created user, info verif", async () => {
-  // await createConnection();
   const users = await User.find({ where: { email } });
   expect(users).toHaveLength(1);
   const user = users[0];
-  // console.log(user);
   expect(user.email).toEqual(email);
   expect(user.password).not.toEqual(password);
   expect(user.verified).toEqual(false);
 });
-
-//use a test databse
-//drop all data on the end of test
-// run test on start ?
