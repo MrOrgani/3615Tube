@@ -17,8 +17,8 @@ export class User extends BaseEntity {
   @Column("varchar", { length: 255 }) email: string;
   @Column("varchar", { length: 255 }) login: string;
   @Column("text") password: string;
-  @Column("boolean", { default: true, nullable: true })
-  verified: boolean = false;
+  @Column("boolean", { default: false })
+  verified: boolean;
 
   @BeforeInsert() //runs before a new user is created
   addId() {

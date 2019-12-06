@@ -11,32 +11,39 @@
   "license": "ISC",
   "devDependencies": {},
   "dependencies": {
-    "ts-node": "8.5.2",
-    "@types/node": "^12.12.14",
     "@types/bcryptjs": "^2.4.2",
+    "@types/glob": "^7.1.1",
     "@types/jest": "^24.0.23",
+    "@types/node": "^12.12.14",
     "@types/uuid": "^3.4.6",
+    "@types/yup": "^0.26.26",
     "bcryptjs": "^2.4.3",
+    "dotenv": "^8.2.0",
+    "glob": "^7.1.6",
+    "gql2ts": "^1.10.1",
     "graphql-import": "^0.7.1",
     "graphql-request": "^1.8.2",
     "graphql-yoga": "^1.18.3",
     "jest": "^24.9.0",
     "js": "^0.1.0",
+    "merge-graphql-schemas": "^1.7.3",
     "nodemon": "^2.0.1",
     "pg": "^7.14.0",
     "reflect-metadata": "^0.1.13",
     "ts-jest": "^24.2.0",
+    "ts-node": "8.5.2",
     "tslint": "^5.20.1",
     "tslint-config-prettier": "^1.18.0",
     "typeorm": "0.2.20",
     "typescript": "^3.7.2",
-    "uuid": "^3.3.3"
+    "uuid": "^3.3.3",
+    "yup": "^0.27.0"
   },
   "scripts": {
     "start": "nodemon -L --exec ts-node --files src/index.ts",
     "typeorm": "ts-node ../node_modules/.bin/typeorm",
     "test": "jest",
-    "gen-schema-types": "gql2ts src/schema.graphql -o src/types/schema.d.ts"
+    "gen-schema-types": "ts-node src/scripts/createTypes.ts"
   },
   "jest": {
     "preset": "ts-jest",
