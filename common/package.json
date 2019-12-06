@@ -1,19 +1,13 @@
 {
-  "name": "@3615tube/common",
+  "name": "common",
   "version": "1.0.0",
-  "main": "dist/index.js",
-  "typings": "dist/index.d.ts",
+  "description": "just for common files like yupschemas",
+  "main": "index.ts",
+  "author": "vlecoq-v & morgani",
   "license": "MIT",
-  "scripts": {
-    "build": "rm -rf ./dist && tsc --watch"
-  },
-  "devDependencies": {
-    "@types/yup": "^0.26.26",
-    "tslint": "^5.20.1",
-    "tslint-config-prettier": "^1.18.0",
-    "typescript": "^3.7.2"
-  },
+  "private": false,
   "dependencies": {
+    "@types/yup": "^0.26.26",
     "yup": "^0.27.0"
   }
 }
