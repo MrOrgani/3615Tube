@@ -20,7 +20,7 @@
     "bcryptjs": "^2.4.3",
     "dotenv": "^8.2.0",
     "glob": "^7.1.6",
-    "gql2ts": "^1.10.1",
+    "graphql": "0.13",
     "graphql-import": "^0.7.1",
     "graphql-request": "^1.8.2",
     "graphql-yoga": "^1.18.3",

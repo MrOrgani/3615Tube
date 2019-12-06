@@ -1,6 +1,5 @@
 // tslint:disable
 // graphql typescript definitions
-//GQL2TS plugin
 
 declare namespace GQL {
   interface IGraphQLResponseRoot {
@@ -22,16 +21,21 @@ declare namespace GQL {
   }
 
   interface IQuery {
-    __typename: "query";
+    __typename: "Query";
     hello: string;
+    dummy: string;
   }
 
   interface IHelloOnQueryArguments {
     name?: string | null;
   }
 
+  interface IDummyOnQueryArguments {
+    name?: string | null;
+  }
+
   interface IMutation {
-    __typename: "mutation";
+    __typename: "Mutation";
     register: boolean | null;
   }
 
