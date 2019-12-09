@@ -30,7 +30,7 @@ interface Props {
 }
 
 const SU: React.FC = props => {
-  console.log("SU props: ", props);
+  // console.log("SU props: ", props);
   const { isSubmitting } = props as any;
   return (
     <div className="sign-up">
@@ -61,15 +61,17 @@ const SignUpView = withFormik<Props, FormValues>({
     password: "",
     file: ""
   }),
-
+  validateOnBlur: false,
+  validateOnChange: false,
   validationSchema: SignupSchema,
 
   handleSubmit: async (values, { props, setErrors }) => {
     console.log("handle submit props are:", props);
     const errors = await props.submit(values);
-    if (errors) {
-      setErrors(errors);
-    }
+    console.log("errors SU: ", errors);
+    // if (errors) {
+    //   setErrors(errors);
+    // }
     // else {
     //   props.onFinish()
     // }
