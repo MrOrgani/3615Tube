@@ -13,9 +13,9 @@ const resolvers: ResolverMap = {
         console.log("args", args);
         await SignupSchema.validate(args, { abortEarly: false });
       } catch (error) {
-        console.log("yup error", error.message);
+        console.log("yup error", error.errors);
         // return error;
-        return false;
+        return error;
       }
 
       const { firstName, lastName, login, email, password } = args;
