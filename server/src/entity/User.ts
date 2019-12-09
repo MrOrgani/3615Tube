@@ -10,7 +10,7 @@ import uuidv4 from "uuid/v4";
 @Entity("users")
 //extends BaseEntity allows to use User.Create({}) to create one
 export class User extends BaseEntity {
-  @PrimaryColumn("uuid") id: string;
+  @PrimaryColumn() id: string;
 
   @Column("varchar", { length: 255 }) firstName: string;
   @Column("varchar", { length: 255 }) lastName: string;

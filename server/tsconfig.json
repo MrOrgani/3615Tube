@@ -23,6 +23,7 @@
     // "allowSyntheticDefaultImports": false,
     // what I added mysel
     "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "strictPropertyInitialization": false,
     "allowSyntheticDefaultImports": true
   },

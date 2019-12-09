@@ -7,7 +7,7 @@ const firstName: string = "asdf";
 const lastName: string = "asdf";
 const login: string = "asdf";
 const password: string = "Asdf1*";
-const email: string = "asdf@gmail.com";
+const email: string = "vlecoq-v@student.42.fr";
 const mutation: string = `mutation{
   register(firstName:"${firstName}", lastName:"${lastName}", email:"${email}", login:"${login}",password:"${password}")
   {path, msg}
@@ -29,8 +29,7 @@ describe("register User", () => {
     const response = await request(process.env.BACK_HOST, mutation);
     expect(response).toEqual({ register: null });
     const response2: any = await request(process.env.BACK_HOST, mutation);
-    expect(response2).toHaveLength(1);
-    console.log("testing the errors in register", response2.register);
+    expect(response2.register).toHaveLength(1);
     expect(response2.register[0].path).toEqual("email");
   });
 

@@ -4,6 +4,8 @@ import { SignupSchema } from "../../common/yupSchemas/user";
 import { User } from "../../entity/User";
 import { createConfirmEmaiLink } from "../../utils/createConfirmEmailLink";
 import { formatYupError, formatError } from "../../utils/formatErrors";
+import { sendMail } from "../confirmEmail/sendEmail";
+import { v4 } from "uuid";
 
 const resolvers: ResolverMap = {
   Query: {
@@ -27,13 +29,16 @@ const resolvers: ResolverMap = {
         if (userAlreadyExists)
           return await formatError("email", "email is already taken");
         const hashedPwd = await bcrypt.hash(password, 10);
+        const id = v4();
         const confirmLink = await createConfirmEmaiLink();
+        sendMail(email, id);
         const user = User.create({
           firstName,
           lastName,
           login,
           email,
           password: hashedPwd,
+          id,
           confirmLink
         });
         await user.save();
