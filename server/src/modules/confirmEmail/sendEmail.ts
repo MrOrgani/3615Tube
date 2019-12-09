@@ -1,6 +1,6 @@
 import * as nodemailer from "nodemailer";
-import SMTPConnection = require("nodemailer/lib/smtp-connection");
-import SMTPTransport = require("nodemailer/lib/smtp-transport");
+// import SMTPConnection = require("nodemailer/lib/smtp-connection");
+// import SMTPTransport = require("nodemailer/lib/smtp-transport");
 // import sendmail from "sendmail";
 export const sendMail = async (
   email: string,
@@ -8,29 +8,26 @@ export const sendMail = async (
   np: boolean = false
 ) => {
   console.log(email, id, np);
-  const testAccount = await nodemailer.createTestAccount();
-  const auth: SMTPConnection.AuthenticationType = {
-    user: testAccount.user,
-    pass: testAccount.pass
-  };
-  const transport: SMTPTransport = {
-    host: "smtp.ethereal.email",
-    port: 587,
-    sendmail: true,
-    secure: false, // true for 465, false for other ports
-    auth: {
-      user: testAccount.user,
-      pass: testAccount.pass
-    }
-  };
+  // const testAccount = await nodemailer.createTestAccount();
+  // const auth: SMTPConnection.AuthenticationType = {
+  //   user: testAccount.user,
+  //   pass: testAccount.pass
+  // };
+  // const transport: SMTPTransport = {
+  //   host: "smtp.ethereal.email",
+  //   port: 587,
+  //   sendmail: true,
+  //   secure: false, // true for 465, false for other ports
+  //   auth: {
+  //     user: testAccount.user,
+  //     pass: testAccount.pass
+  //   }
+  // };
   const transporter = await nodemailer.createTransport({
-    host: "smtp.ethereal.email",
-    port: 587,
-    sendmail: true,
-    secure: false, // true for 465, false for other ports
+    service: "gmail",
     auth: {
-      user: testAccount.user,
-      pass: testAccount.pass
+      user: "matcha.4242@gmail.com",
+      pass: "matcha42"
     }
   });
   const payload: object = {
