@@ -19,6 +19,7 @@ export class User extends BaseEntity {
   @Column("text") password: string;
   @Column("boolean", { default: false })
   verified: boolean;
+  @Column("varchar", { length: 255 }) confirmLink: string;
 
   @BeforeInsert() //runs before a new user is created
   addId() {

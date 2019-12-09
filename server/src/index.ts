@@ -2,6 +2,7 @@ import "reflect-metadata";
 import { GraphQLServer } from "graphql-yoga";
 import connectToDb from "./utils/connecToDb";
 import { genSchema } from "./utils/genSchema";
+import { confirmEmail } from "./modules/confirmEmail/index";
 
 const startServer = async () => {
   await require("dotenv").config();
@@ -10,6 +11,7 @@ const startServer = async () => {
     console.log(`Server is running on ${process.env.BACK_HOST}`)
   );
 
+  server.express.get("/confirm/:id", (req, res) => confirmEmail(req, res));
   //CONNECT TO ORM DB --> POSTGRES BEHIND
   await connectToDb(2);
 };

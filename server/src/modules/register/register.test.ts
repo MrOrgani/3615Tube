@@ -8,7 +8,10 @@ const lastName: string = "asdf";
 const login: string = "asdf";
 const password: string = "Asdf1*";
 const email: string = "asdf@gmail.com";
-const mutation: string = `mutation{register(firstName:"${firstName}", lastName:"${lastName}", email:"${email}", login:"${login}",password:"${password}")}`;
+const mutation: string = `mutation{
+  register(firstName:"${firstName}", lastName:"${lastName}", email:"${email}", login:"${login}",password:"${password}")
+  {path, msg}
+}`;
 
 const rmTestUser = () => {
   getConnection()
@@ -24,7 +27,11 @@ describe("register User", () => {
     await createConnection();
     await rmTestUser();
     const response = await request(process.env.BACK_HOST, mutation);
-    expect(response).toEqual({ register: true });
+    expect(response).toEqual({ register: null });
+    const response2: any = await request(process.env.BACK_HOST, mutation);
+    expect(response2).toHaveLength(1);
+    console.log("testing the errors in register", response2.register);
+    expect(response2.register[0].path).toEqual("email");
   });
 
   test("Information validation", async () => {
