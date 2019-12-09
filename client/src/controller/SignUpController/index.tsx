@@ -1,7 +1,12 @@
-import { useMutation, useQuery } from "react-apollo";
+import { useMutation, useQuery, ChildMutateProps } from "react-apollo";
 import { withRouter } from "react-router-dom";
 import gql from "graphql-tag";
 
+interface Props {
+  children: (data: {
+    submit: (values: any) => Promise<null>;
+  }) => JSX.Element | null;
+}
 const signupMutation = gql`
   mutation register(
     $firstName: String!
@@ -20,36 +25,31 @@ const signupMutation = gql`
   }
 `;
 
-const SignUpController = props => {
-  const [mutate] = useMutation(signupMutation, {
-    variables: {
-      firstName: "Max",
-      lastName: "Org",
-      login: "morg",
-      email: "morg@gmail.com",
-      password: "Hello*!1"
-    }
-  });
+const SignUpController: React.PureComponent<ChildMutateProps<
+  Props,
+  any,
+  any
+>> = props => {
+  const [mutate] = useMutation(signupMutation);
 
-  mutate();
-  console.log(mutate);
-  // async function submit(values) {
-  //   const { data } = await mutate({
-  //     variables: values
-  //   });
-  // if (data) {
-  //   return data.signup;
-  // }
-  // console.log("data is", query);
-  //   return null;
-  // }
+  const submit = async values => {
+    console.log("In SignUpController, values are: ", values);
+    const { data } = await mutate({
+      variables: values
+    });
+    if (data) {
+      console.log("In SignUpController, return of Register Mutation", data);
+      return data.signup;
+    }
+    return null;
+  };
 
   // function onFinish() {
   //   props.history.push("/");
   // }
 
   return props.children({
-    // submit
+    submit
     //  onFinish
   });
 };
