@@ -25,11 +25,7 @@ const signupMutation = gql`
   }
 `;
 
-const SignUpController: React.PureComponent<ChildMutateProps<
-  Props,
-  any,
-  any
->> = props => {
+const SignUpController = props => {
   const [mutate] = useMutation(signupMutation);
 
   const submit = async values => {
