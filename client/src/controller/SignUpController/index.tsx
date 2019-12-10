@@ -1,3 +1,4 @@
+import * as React from 'react'
 import { useMutation, useQuery, ChildMutateProps } from "react-apollo";
 import { withRouter } from "react-router-dom";
 import gql from "graphql-tag";
@@ -25,12 +26,11 @@ const signupMutation = gql`
   }
 `;
 
-const SignUpController: React.PureComponent<ChildMutateProps<
-  Props,
-  any,
-  any
->> = props => {
-  const [mutate] = useMutation(signupMutation);
+const SignUpController = props => {
+  const [mutate, {loading, error}] = useMutation(signupMutation);
+  console.log("sign up mustation", useMutation(signupMutation))
+  if (loading) return (<div>loading</div>);
+  if (error) return <p>{JSON.stringify(error, null, 2)}</p>;
 
   const submit = async values => {
     console.log("In SignUpController, values are: ", values);
@@ -54,4 +54,4 @@ const SignUpController: React.PureComponent<ChildMutateProps<
   });
 };
 
-export default withRouter(SignUpController);
+export default SignUpController;
