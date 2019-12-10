@@ -2,9 +2,7 @@ import { ResolverMap } from "../../types/graphql-utils";
 import * as bcrypt from "bcryptjs";
 import { SignupSchema } from "../../common/yupSchemas/user";
 import { User } from "../../entity/User";
-import { createConfirmEmaiLink } from "../../utils/createConfirmEmailLink";
 import { formatYupError, formatError } from "../../utils/formatErrors";
-import { sendMail } from "../confirmEmail/sendEmail";
 import { v4 } from "uuid";
 
 const resolvers: ResolverMap = {
@@ -30,16 +28,13 @@ const resolvers: ResolverMap = {
           return await formatError("email", "email is already taken");
         const hashedPwd = await bcrypt.hash(password, 10);
         const id = v4();
-        const confirmLink = await createConfirmEmaiLink();
-        sendMail(email, id);
         const user = User.create({
           firstName,
           lastName,
           login,
           email,
           password: hashedPwd,
-          id,
-          confirmLink
+          id
         });
         await user.save();
         return null;

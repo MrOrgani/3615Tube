@@ -7,7 +7,7 @@ const firstName: string = "asdf";
 const lastName: string = "asdf";
 const login: string = "asdf";
 const password: string = "Asdf1*";
-const email: string = "vlecoq-v@student.42.fr";
+const email: string = "asdf@gmail.com";
 const mutation: string = `mutation{
   register(firstName:"${firstName}", lastName:"${lastName}", email:"${email}", login:"${login}",password:"${password}")
   {path, msg}
