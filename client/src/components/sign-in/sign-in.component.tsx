@@ -1,56 +1,69 @@
 import React from "react";
 import {
+  Field,
   Formik,
-  // FieldAttributes, useField,
-  Form
+  FormikErrors,
 } from "formik";
-// import { TextField, Button } from "@material-ui/core";
-import { SignupSchema } from "../../common";
-// import { useAuth0 } from "../../react-auth0-spa";
 import FieldInput from "../FiledInput/FieldInput.component";
 import CustomButton from "../button/button.component";
+import { SignupSchema } from "../../common";
+import { Form } from "antd";
 
-const SignIn = () => {
-  // const {
-  //   isAuthenticated,
-  //   loginWithRedirect
-  //   // logout
-  // } = useAuth0();
-  // console.log(useAuth0());
+interface FormValues {
+  login: string;
+  password: string;
+}
+
+interface Props {
+  submit: (values: FormValues, action?: any) => Promise<FormikErrors<FormValues> | null>;
+  validationSchema?: (
+    values: FormValues
+  ) => Promise<FormikErrors<FormValues> | null>;
+}
+
+
+export default (props : Props) => {
   return (
-    <div className="sign-in">
-      <h2>I already have an account</h2>
-      <span>Sign in with your login and password</span>
-      <Formik
-        validateOnChange={true}
-        initialValues={{
-          login: "" as string,
-          password: "" as string
-        }}
-        validationSchema={SignupSchema}
-        onSubmit={(data, { setSubmitting }) => {
-          setSubmitting(true);
-          console.log("submit: ", data);
-          setSubmitting(false);
-        }}
-      >
-        {({ values, errors, isSubmitting }) => (
-          <Form>
-            <FieldInput placeholder="Login" name="login" />
-            <FieldInput placeholder="Password" name="password" />
-            <div className="buttons">
-              <CustomButton disabled={isSubmitting} type="submit">
-                Submit
-              </CustomButton>
-              {/* {!isAuthenticated && (
-                <button onClick={() => loginWithRedirect({})}>Log in</button>
-              )} */}
-            </div>
-          </Form>
-        )}
-      </Formik>
-    </div>
-  );
-};
+  <div className="sign-up" >
+        <h2>I don't have an account</h2>
+         <span>Fill these fields to sign up</span>
+  <Formik
+    initialValues = {{
+      login: "",
+      password: "",
+  }}
 
-export default SignIn;
+    onSubmit={async (values, actions) => {
+    const errors = await props.submit(values);
+      if (errors) {
+        actions.setErrors(errors)
+    }
+  }}
+  validationSchema={SignupSchema}>
+  {({handleSubmit, isSubmitting}) => (
+    <Form style={{ display: 'flex', flexDirection: "column"}
+    }>
+        <Field
+              name="login"
+              type="text"
+              placeholder="Login"
+              component={FieldInput}
+              />
+      <Field
+            name="password"
+            type="password"
+            placeholder="Password"
+            component={FieldInput}
+          />
+          <div>
+              <CustomButton type="submit" onClick={handleSubmit}>
+          {isSubmitting ? 
+              "CA CHAAAAARGE"
+              :
+              "Sign In!"}
+           </CustomButton>
+            </div>
+            </Form>)}
+    </Formik>
+    </div>)
+}

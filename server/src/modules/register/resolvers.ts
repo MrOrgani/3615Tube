@@ -16,13 +16,7 @@ const resolvers: ResolverMap = {
         console.log("args", args);
         await SignupSchema.validate(args, { abortEarly: false });
       } catch (error) {
-<<<<<<< HEAD
         return await formatYupError(error);
-=======
-        console.log("yup error", error.errors);
-        // return error;
-        return error;
->>>>>>> M-SubmitMutationRegister
       }
 
       const { firstName, lastName, login, email, password } = args;

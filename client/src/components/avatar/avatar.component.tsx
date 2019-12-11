@@ -4,13 +4,13 @@ import React from "react";
 import "./avatar.styles.scss";
 import image from "../../assets/images/avatar.png";
 
-function Avatar(props) {
+function Avatar(props: any) {
   const {
     //   field
     //   ,
     form
   } = props;
-  const handleChange = e => {
+  const handleChange = (e: any) => {
     const file = e.currentTarget.files[0];
     const reader = new FileReader();
     const imgTag: any = document.getElementById("myimage");

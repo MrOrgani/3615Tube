@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.scss";
 // import { Router, Switch, Route } from "react-router-dom";
-import { useAuth0 } from "./react-auth0-spa";
+// import { useAuth0 } from "./react-auth0-spa";
 
 import Header from "./components/header/header.component";
 // import Homepage from "./pages/homepage/homepage.component";
