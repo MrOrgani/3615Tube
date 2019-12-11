@@ -1,0 +1,6 @@
+# import Error from "../../shared.graphql"
+# import User from "../../shared.graphql"
+
+type Query {
+  findOne(id: String): User
+}
