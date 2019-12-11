@@ -1,10 +1,12 @@
-import { useMutation, useQuery, ChildMutateProps } from "react-apollo";
-import { withRouter } from "react-router-dom";
+import * as React from 'react'
+import { useMutation, 
+} from "react-apollo";
 import gql from "graphql-tag";
+import { normalizeErrors } from '../../utils/normalizeErrors';
 
 interface Props {
   children: (data: {
-    submit: (values: any) => Promise<null>;
+    submit: (values: any) => Promise<any>;
   }) => JSX.Element | null;
 }
 const signupMutation = gql`
@@ -22,20 +24,25 @@ const signupMutation = gql`
       email: $email
       password: $password
     )
+    {
+      path
+      msg
+    }
   }
 `;
 
-const SignUpController = props => {
-  const [mutate] = useMutation(signupMutation);
+const SignUpController = (props: Props) => {
+  const [mutate, {error}] = useMutation(signupMutation);
+  
+  if (error) return <p>{JSON.stringify(error, null, 2)}</p>;
 
-  const submit = async values => {
-    console.log("In SignUpController, values are: ", values);
-    const { data } = await mutate({
+  const submit = async (values: any) => {
+    const { data: {register} } = await mutate({
       variables: values
     });
-    if (data) {
-      console.log("In SignUpController, return of Register Mutation", data);
-      return data.signup;
+    
+    if (register) {
+      return normalizeErrors(register);
     }
     return null;
   };
@@ -50,4 +57,4 @@ const SignUpController = props => {
   });
 };
 
-export default withRouter(SignUpController);
+export default SignUpController;

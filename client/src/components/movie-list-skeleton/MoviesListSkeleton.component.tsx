@@ -16,7 +16,9 @@ const MovieListSeleton = () => {
   return (
     <Container className={"cardGrid"} maxWidth="md">
       {/* <Grid container spacing={4}> */}
-      {[...Array(4)].map((movie, key) => (
+      {[...Array(4)].map((
+        // movie, 
+        key) => (
         <MovieItemSkeleton key={key} />
       ))}
       {/* </Grid> */}

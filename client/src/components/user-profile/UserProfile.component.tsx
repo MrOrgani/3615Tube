@@ -1,6 +1,6 @@
 import React from "react";
 import { Formik, Form } from "formik";
-import FieldInput from "../FiledInput/FieldInput.component";
+// import FieldInput from "../FiledInput/FieldInput.component";
 import CustomButton from "../button/button.component";
 import { SignupSchema } from "../../common";
 
@@ -28,13 +28,15 @@ const UserProfile = () => {
           setSubmitting(false);
         }}
       >
-        {({ values, errors, isSubmitting }) => (
+        {({
+          //  values, errors, 
+        isSubmitting }) => (
           <Form>
-            <FieldInput placeholder="First Name" name="firstName" />
+            {/* <FieldInput placeholder="First Name" name="firstName" />
             <FieldInput placeholder="Last Name" name="lastName" />
             <FieldInput placeholder="Login" name="login" />
             <FieldInput placeholder="Email" name="email" />
-            <FieldInput placeholder="Password" name="password" />
+            <FieldInput placeholder="Password" name="password" /> */}
             <div>
               <CustomButton disabled={isSubmitting} type="submit">
                 Modify

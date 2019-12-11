@@ -1,7 +1,7 @@
 import React from "react";
 // import { fromJS } from "immutable";
 
-import { Query } from "react-apollo";
+// import { Query } from "react-apollo";
 
 // import MovieListBase from "../../components/Movie/List";
 // import { MOVIES } from "../../graphql/queries";

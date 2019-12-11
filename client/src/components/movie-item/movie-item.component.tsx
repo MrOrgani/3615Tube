@@ -2,7 +2,14 @@ import React from "react";
 
 import { Grid, Paper, Typography, Button } from "@material-ui/core";
 
-const MovieItem = ({ title, image, date, summary }) => {
+interface Movie {
+  title: string
+  image: string
+  date: string
+  summary: string
+}
+
+const MovieItem = ({ title, image, date, summary }: Movie) => {
   return (
     <Grid item xs={12} sm={6} md={6}>
       <Paper className={"card"}>
