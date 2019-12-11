@@ -13,19 +13,19 @@ const mutation: string = `mutation{
   {path, msg}
 }`;
 
-const rmTestUser = () => {
+export const rmTestUser = async (login: string) => {
   getConnection()
     .createQueryBuilder()
     .delete()
     .from(User)
-    .where("email = :email", { email: email })
+    .where("login = :login", { login })
     .execute();
 };
 
 describe("register User", () => {
   test("Create user", async () => {
     await createConnection();
-    await rmTestUser();
+    await rmTestUser(login);
     const response = await request(process.env.BACK_HOST, mutation);
     expect(response).toEqual({ register: null });
     const response2: any = await request(process.env.BACK_HOST, mutation);
@@ -40,6 +40,6 @@ describe("register User", () => {
     expect(user.email).toEqual(email);
     expect(user.password).not.toEqual(password);
     expect(user.verified).toEqual(false);
-    await rmTestUser();
+    // await rmTestUser(); // commented it to make it work with login test
   });
 });
