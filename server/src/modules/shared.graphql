@@ -2,3 +2,15 @@ type Error {
   path: String!
   msg: String!
 }
+
+type User {
+  id: String!
+  firstName: String!
+  lastName: String!
+  login: String!
+  email: String!
+  password: String
+  avatar: String
+  description: String!
+  language: String!
+}

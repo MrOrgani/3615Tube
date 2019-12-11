@@ -25,7 +25,7 @@ const resolvers: ResolverMap = {
         select: ["id"]
       });
       if (userAlreadyExists) {
-        console.log("not creating the user");
+        // console.log("not creating the user");
         return await formatError("email", "email is already taken");
       }
       const hashedPwd = await bcrypt.hash(password, 10);
@@ -38,7 +38,6 @@ const resolvers: ResolverMap = {
         password: hashedPwd,
         id
       });
-      console.log("created a user:", user.id);
       await user.save();
       return null;
     }
