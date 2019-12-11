@@ -22,8 +22,13 @@ column: number;
 
 interface IQuery {
 __typename: "Query";
+findOne: string;
 hello: string;
 dummy: string;
+}
+
+interface IFindOneOnQueryArguments {
+id?: string | null;
 }
 
 interface IHelloOnQueryArguments {

@@ -11,6 +11,7 @@ const resolvers: ResolverMap = {
   },
   Mutation: {
     register: async (_: any, args: GQL.IRegisterOnMutationArguments) => {
+      // register: async (_: any, args: any) => {
       // console.log("in the register resolver", args);
       try {
         await SignupSchema.validate(args, { abortEarly: false });
@@ -23,8 +24,10 @@ const resolvers: ResolverMap = {
         where: { email },
         select: ["id"]
       });
-      if (userAlreadyExists)
+      if (userAlreadyExists) {
+        console.log("not creating the user");
         return await formatError("email", "email is already taken");
+      }
       const hashedPwd = await bcrypt.hash(password, 10);
       const id = v4();
       const user = User.create({
@@ -35,6 +38,7 @@ const resolvers: ResolverMap = {
         password: hashedPwd,
         id
       });
+      console.log("created a user:", user.id);
       await user.save();
       return null;
     }

@@ -9,6 +9,7 @@ const resolvers: ResolverMap = {
   },
   Mutation: {
     login: async (_: any, args: GQL.ILoginOnMutationArguments) => {
+      // login: async (_: any, args: any) => {
       // console.log("in the login resolver", args);
       // try {
       //   await SignupSchema.validate(args, { abortEarly: false });

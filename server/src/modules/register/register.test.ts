@@ -1,7 +1,7 @@
 import { User } from "../../entity/User";
 import { request } from "graphql-request";
 import { createConnection } from "typeorm";
-import { getConnection } from "typeorm";
+import { rmTestUser } from "../../utils/rmUser";
 
 const firstName: string = "asdf";
 const lastName: string = "asdf";
@@ -13,19 +13,11 @@ const mutation: string = `mutation{
   {path, msg}
 }`;
 
-export const rmTestUser = async (login: string) => {
-  getConnection()
-    .createQueryBuilder()
-    .delete()
-    .from(User)
-    .where("login = :login", { login })
-    .execute();
-};
-
 describe("register User", () => {
   test("Create user", async () => {
     await createConnection();
     await rmTestUser(login);
+    // console.log(mutation);
     const response = await request(process.env.BACK_HOST, mutation);
     expect(response).toEqual({ register: null });
     const response2: any = await request(process.env.BACK_HOST, mutation);

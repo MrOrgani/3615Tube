@@ -1,11 +1,3 @@
-# Awesome Project Build with TypeORM
-
-Steps to run this project:
-
-1. Run `npm i` command
-2. Setup database settings inside `ormconfig.json` file
-3. Run `npm start` command
-
 # base installation process
 
 https://www.youtube.com/watch?v=3P8cDjHsOCA&list=PLN3n1USn4xlky9uj6wOhfsPez7KZOqm2V&index=3&t=31s
@@ -15,15 +7,34 @@ https://www.youtube.com/watch?v=3P8cDjHsOCA&list=PLN3n1USn4xlky9uj6wOhfsPez7KZOq
 typeorm quick start
 npm-check-update
 tsconfig from ben awad
-create database graphql-ts-server
 
-# Install postgre on school computers
+# install on school computers
 
-brew install postgresql
-initdb ~/data/postgres
-postgres -D ~/data/postgres
-createdb graphql-ts-server
-to connect to cli run psql graphql-ts-server
---> CREATE DATABASE htdb --> CREATE ROLE postgresUser VALID UNTIL 'infinity'
---> ALTER DATABASE htdb OWNER TO postgresuser --> ALTER ROLE postgreuser WITH LOGIN
---> \c to connect to database
+sh free_space.sh
+sh docker_init.sh
+brew install docker-compose
+docker-compose build
+
+# connect to the database
+
+docker exec -it postgres_container bash --> attaches your terminal to the running container named postgres_container
+psql -U postgres --> open CLI for postgres with the rigt username
+\c postgres --> connect to the database
+
+# start the tests
+
+docker exec -it server_container bash
+yarn test
+
+# vielle doc --> plus pertinente mais je la garde au cas ou
+
+docker run -p 5432:5432 -d \
+ -e POSTGRES_PASSWORD=postgres \
+ -e POSTGRES_USER=postgres \
+ -e POSTGRES_DB=stripe-example \
+ -v pgdata:/var/lib/postgresql/data \
+ postgres
+
+psql stripe-example -h localhost -U postgres
+
+docker exec -it bdca2b8c09b7 psql -U postgres stripe-exampl

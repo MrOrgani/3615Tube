@@ -1,6 +1,6 @@
 import { request } from "graphql-request";
 // import { createConnection } from "typeorm";
-import { rmTestUser } from "../register/register.test";
+import { rmTestUser } from "../../utils/rmUser";
 
 const login: string = "asdf";
 const password: string = "Asdf1*";
@@ -20,6 +20,7 @@ const wrongMutationPassword: string = `mutation{
 describe("login User", () => {
   test("login user", async () => {
     // await createConnection();
+    console.log(process.env.BACK_HOST);
     const response = await request(process.env.BACK_HOST, mutation);
     expect(response).toEqual({ login: null });
     const response2: any = await request(
