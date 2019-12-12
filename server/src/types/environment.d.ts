@@ -5,5 +5,6 @@ declare namespace NodeJS {
     DB_HOST: string;
     BACK_HOST: string;
     FRONT_HOST: string;
+    SESSION_SECRET: string;
   }
 }

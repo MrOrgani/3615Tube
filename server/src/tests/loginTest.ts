@@ -1,11 +1,13 @@
 import { request } from "graphql-request";
-import { rmTestUser } from "../utils/rmUser";
+// import { rmTestUser } from "../utils/rmUser";
 
-export const loginTest = (login: string, password: string) => {
-  const mutation: string = `mutation{
+export const loginMutation = (login: string, password: string) => `mutation{
   login(login:"${login}",password:"${password}")
   {path, msg}
 }`;
+
+export const loginTest = (login: string, password: string) => {
+  const mutation: string = loginMutation(login, password);
   const wrongMutationLogin: string = `mutation{
   login(login:"AsDf",password:"${password}")
   {path, msg}
@@ -31,7 +33,6 @@ export const loginTest = (login: string, password: string) => {
       );
       expect(response3.login).toHaveLength(1);
       expect(response3.login[0].path).toEqual("password");
-      await rmTestUser(login);
     });
 
     //   test("Information validation", async () => {
