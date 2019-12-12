@@ -15,7 +15,7 @@
     "strictFunctionTypes": true,
     // "strictPropertyInitialization": true,
     "noImplicitThis": true,
-    "noUnusedLocals": true,
+    // "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
@@ -23,6 +23,7 @@
     // "allowSyntheticDefaultImports": false,
     // what I added mysel
     "experimentalDecorators": true,
+    "noUnusedLocals": false,
     "emitDecoratorMetadata": true,
     "strictPropertyInitialization": false,
     "allowSyntheticDefaultImports": true

@@ -1,7 +1,12 @@
 import { request } from "graphql-request";
 import { User } from "../entity/User";
+import { rmTestUser } from "../utils/rmUser";
 
-export const findOneTest = (login: string) => {
+export const findOneTest = (
+  login: string,
+  firstName: string,
+  language: string
+) => {
   describe("findOne", () => {
     test("finding One user by Id", async () => {
       const users = await User.find({ login });
@@ -13,8 +18,9 @@ export const findOneTest = (login: string) => {
       }}`;
       const response = await request(process.env.BACK_HOST, mutation);
       expect(response).toEqual({
-        findOne: { login: "asdf", firstName: "asdf", language: "English" }
+        findOne: { login, firstName, language }
       });
+      await rmTestUser(login);
     });
   });
 };
