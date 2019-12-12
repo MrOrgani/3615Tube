@@ -29,7 +29,7 @@ const resolvers: ResolverMap = {
 
       // login successfull;
       session.userId = user.id;
-      console.log("in the login resolver session.userId = ", session.userId);
+      console.log("in the login resolver session.userId = ", session);
       return null;
     }
   }

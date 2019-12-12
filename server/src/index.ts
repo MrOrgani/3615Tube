@@ -4,11 +4,6 @@ import connectToDb from "./utils/connecToDb";
 import { genSchema } from "./utils/genSchema";
 import session from "express-session";
 
-// const cors = {
-//   credentials: true,
-//   origin: process.env.FRONT_HOST
-// };
-
 const startServer = async () => {
   await require("dotenv").config();
   const server = new GraphQLServer({
@@ -33,6 +28,10 @@ const startServer = async () => {
     })
   );
   await connectToDb(1);
+  // const cors = {
+  //   credentials: true,
+  //   origin: process.env.FRONT_HOST
+  // };
   await server.start(() =>
     console.log(`Server is running on ${process.env.BACK_HOST}`)
   );
