@@ -1,24 +1,33 @@
 import React from "react";
 import { TextField } from "@material-ui/core";
-import { FieldAttributes, useField } from "formik";
+import { FieldProps } from "formik";
 
-const FieldInput: React.FC<FieldAttributes<{}>> = ({
-  placeholder,
+ const FieldInput: React.SFC<
+ FieldProps<any> & {
+   label?: string;
+   useNumberComponent?: boolean;
+ }
+> = (
+  {
+  field,
+  form: { touched, errors,
+  }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
+  label,
+  // useNumberComponent = false,
   ...props
-}) => {
-  const [field, meta] = useField<{}>(props);
-  const errorText = meta.error && meta.touched ? meta.error : "";
+}
+) => {
+  const errorMsg = touched[field.name] && errors[field.name];
   return (
-    <div>
-      <TextField
-        placeholder={placeholder}
-        {...field}
-        helperText={errorText}
-        error={!!errorText}
-        type={placeholder === "Password" ? "password" : ""}
-        autoComplete={placeholder === "Password" ? "on" : ""}
+    <TextField
+      label={label}
+      error={errorMsg ? true : false}
+      helperText={errorMsg}
+      variant='standard'
+      {...field}
+      style={errorMsg ? {color:"red"} : {color:"green"}}
+      {...props}
       />
-    </div>
   );
 };
 
