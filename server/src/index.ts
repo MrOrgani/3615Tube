@@ -16,11 +16,12 @@ const startServer = async () => {
   server.express.use(
     session({
       store: new pgSession({ conString: conString }),
-      name: "HT_id",
+      name: "sid",
       secret: process.env.SESSION_SECRET,
       resave: false,
       saveUninitialized: false,
       cookie: {
+        path: "/",
         httpOnly: true,
         secure: false,
         maxAge: 1000 * 60 * 60 * 24 * 7 //7 days
