@@ -1,6 +1,6 @@
 import React from "react";
-import SignInView from "./sign-in.component";
-import SignInController from "../../controller/SignUpController";
+import SignInView from "./SignInView";
+import SignInController from "../../controller/SignInController";
 
 const SignInConnector: React.FC = () => {
   return (

@@ -6,12 +6,13 @@ import {
 } from "formik";
 import FieldInput from "../FiledInput/FieldInput.component";
 import CustomButton from "../button/button.component";
-import { SignupSchema } from "../../common";
+import { SignInSchema } from "../../common";
 import { Form } from "antd";
+import { Link } from "react-router-dom";
 
 interface FormValues {
-  login: string;
-  password: string;
+  login?: string;
+  password?: string;
 }
 
 interface Props {
@@ -32,14 +33,15 @@ export default (props : Props) => {
       login: "",
       password: "",
   }}
-
     onSubmit={async (values, actions) => {
     const errors = await props.submit(values);
       if (errors) {
         actions.setErrors(errors)
     }
   }}
-  validationSchema={SignupSchema}>
+  validateOnChange={false}
+  validateOnBlur={false}
+  validationSchema={SignInSchema}>
   {({handleSubmit, isSubmitting}) => (
     <Form style={{ display: 'flex', flexDirection: "column"}
     }>
@@ -58,11 +60,12 @@ export default (props : Props) => {
           <div>
               <CustomButton type="submit" onClick={handleSubmit}>
           {isSubmitting ? 
-              "CA CHAAAAARGE"
+              "Loading..."
               :
               "Sign In!"}
            </CustomButton>
             </div>
+            Or <Link to="/forgot-password">Forgot password</Link>
             </Form>)}
     </Formik>
     </div>)

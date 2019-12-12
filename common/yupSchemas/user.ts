@@ -1,5 +1,16 @@
 import * as Yup from "yup";
 
+export const PasswordValidation = Yup.string()
+.matches(/[0-9]/, "It must contain at least 1 digit")
+.matches(/[a-z]/, "It must contain at least 1 letter")
+.matches(/[A-Z]/, "It must contain at least 1 capital letter")
+.matches(
+  /[§!@#$%^&*()]/,
+  "It must contain one of these chars: '§!@#$%^&*()"
+)
+.min(6, "Too Short! Min 6 chars")
+.required("Required")
+
 export const SignupSchema = Yup.object().shape({
   firstName: Yup.string()
     .min(2, "Too Short!")
@@ -19,14 +30,30 @@ export const SignupSchema = Yup.object().shape({
   email: Yup.string()
     .email("Invalid email")
     .required("Required"),
+  password: PasswordValidation
+});
+
+const invalidLogin = "invalid login !"
+
+export const SignInSchema = Yup.object().shape({
+  login: Yup.string()
+    .min(2, invalidLogin)
+    .max(30, invalidLogin)
+    .matches(/^[a-zA-Z0-9-_]+$/, "Only letters & digits!")
+    .required("Required"),
   password: Yup.string()
-    .matches(/[0-9]/, "It must contain at least 1 digit")
-    .matches(/[a-z]/, "It must contain at least 1 letter")
-    .matches(/[A-Z]/, "It must contain at least 1 capital letter")
+    .matches(/[0-9]/, invalidLogin)
+    .matches(/[a-z]/, invalidLogin)
+    .matches(/[A-Z]/, invalidLogin)
     .matches(
       /[§!@#$%^&*()]/,
-      "It must contain one of these chars: '§!@#$%^&*()"
+      invalidLogin
     )
     .min(6, "Too Short! Min 6 chars")
     .required("Required")
 });
+
+export const ChangePasswordSchema = Yup.object().shape({
+  newPassword: PasswordValidation
+})
+

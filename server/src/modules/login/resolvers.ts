@@ -16,7 +16,6 @@ const resolvers: ResolverMap = {
       // } catch (error) {
       //   return await formatYupError(error);
       // }
-
       const { login, password } = args;
       const user = await User.findOne({ where: { login } });
       if (!user)
