@@ -84,7 +84,7 @@ export default (props : Props) => {
           <div>
               <CustomButton type="submit" onClick={handleSubmit}>
           {isSubmitting ? 
-              "CA CHAAAAARGE"
+              "Loading ..."
               :
               "Sign Up!"}
            </CustomButton>

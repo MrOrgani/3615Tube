@@ -9,7 +9,7 @@ import SkeletonItem from "../skeleton-item/skeletom-item.component";
 
 // import useStyles from "./styles";
 
-const MovieItemSkeleton = () => {
+const MovieItemSkeleton = (props: any) => {
   // const '= useStyles(');
   // const elementRef = useRef(null);
 
@@ -23,6 +23,7 @@ const MovieItemSkeleton = () => {
           minWidth: "185px",
           minHeight: "300px"
         }}
+        key={props.key}
       />
       {/* <div className={"cardContent"}>
           <div className={"cardDetails"}>
