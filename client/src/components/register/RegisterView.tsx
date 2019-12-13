@@ -6,13 +6,19 @@ import {
 } from "formik";
 import FieldInput from "../FiledInput/FieldInput.component";
 import CustomButton from "../button/button.component";
-import { SignInSchema } from "../../common";
+import { SignupSchema } from "../../common";
 import { Form } from "antd";
+
+import "./register.scss"
 import { Link } from "react-router-dom";
 
 interface FormValues {
-  login?: string;
-  password?: string;
+  firstName: string;
+  lastName: string;
+  login: string;
+  email: string;
+  password: string;
+  file?: string;
 }
 
 interface Props {
@@ -29,28 +35,51 @@ export default (props : Props) => {
         <h2>I don't have an account</h2>
          <span>Fill these fields to sign up</span>
   <Formik
-    initialValues = {{
-      login: "",
-      password: "",
+  initialValues = {{
+    firstName: "",
+    lastName: "",
+    login: "",
+    email: "",
+    password: "",
+    // file: "",
   }}
+
     onSubmit={async (values, actions) => {
     const errors = await props.submit(values);
       if (errors) {
         actions.setErrors(errors)
     }
   }}
-  validateOnChange={false}
-  validateOnBlur={false}
-  validationSchema={SignInSchema}>
-  {({handleSubmit, isSubmitting}) => (
+  validationSchema={SignupSchema}>
+  {(
+    {handleSubmit, isSubmitting}
+    ) => (
     <Form style={{ display: 'flex', flexDirection: "column"}
     }>
+    <Field
+              name="firstName"
+              type="text"
+              component={FieldInput}
+              placeholder="First Name"
+              />
+        <Field
+              name="lastName"
+              type="text"
+              placeholder="Last Name"
+              component={FieldInput}
+              />
         <Field
               name="login"
               type="text"
               placeholder="Login"
               component={FieldInput}
               />
+      <Field
+            name="email"
+            type="text"
+            placeholder="Email"
+            component={FieldInput}
+            />
       <Field
             name="password"
             type="password"
@@ -60,12 +89,14 @@ export default (props : Props) => {
           <div>
               <CustomButton type="submit" onClick={handleSubmit}>
           {isSubmitting ? 
-              "Loading..."
+             "Loading ..."
               :
-              "Sign In!"}
+              "Sign Up!"}
            </CustomButton>
             </div>
-            Or <Link to="/forgot-password">Forgot password</Link>
+            <span>
+            Or <Link to="/login">Login</Link>
+            </span>
             </Form>)}
     </Formik>
     </div>)

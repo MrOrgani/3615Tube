@@ -19,7 +19,7 @@ const loginMutation = gql`
   }
 `;
 
-const SignInController = (props: Props) => {
+const LoginController = (props: Props) => {
   const [mutate, {error}] = useMutation(loginMutation);
   
 
@@ -54,4 +54,4 @@ const SignInController = (props: Props) => {
   });
 };
 
-export default SignInController;
+export default LoginController;

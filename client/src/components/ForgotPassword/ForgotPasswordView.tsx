@@ -58,7 +58,9 @@ export default (props : Props) => {
               "Reset my password"}
         </CustomButton>          
       </div>
-        Or <Link to="/signin">login now!</Link>
+      <span>
+        Or <Link to="/login">Login</Link> | <Link to="/register">Register</Link>
+        </span>  
     </Form>)}
   </Formik>
 </div>)
