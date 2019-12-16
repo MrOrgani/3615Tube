@@ -11,7 +11,7 @@ const resolvers: ResolverMap = {
     login: async (
       _: any,
       { login, password }: GQL.ILoginOnMutationArguments,
-      { session, req }
+      { session }
     ) => {
       // login: async (_: any, args: any) => {
       // console.log("in the login resolver", login, password);
@@ -20,6 +20,9 @@ const resolvers: ResolverMap = {
       // } catch (error) {
       //   return await formatYupError(error);
       // }
+      if (session.userId) {
+        console.log("user is already connected");
+      }
       const user = await User.findOne({ where: { login } });
       if (!user)
         return await formatError("login", "no such login in the database");
@@ -27,17 +30,8 @@ const resolvers: ResolverMap = {
       if (!validPassword)
         return await formatError("password", "wrong password");
 
-      // login successfull;
+      //LOGIN SUCCESSFULL
       session.userId = user.id;
-      // session.cookie.userId = user.id;
-      req.session.userId = user.id;
-      // req.session.save();
-      console.log(
-        "in the login resolver session.userId = ",
-        session,
-        "session id  = ",
-        req.session.id
-      );
       return null;
     }
   }

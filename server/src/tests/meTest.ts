@@ -44,7 +44,7 @@ export const meTest = (
       })
         .then(res => res.json())
         .then(res => console.log(res.data));
-      console.log(firstName, language);
+      // console.log(firstName, language);
       // expect(response.data.data).toEqual({
       //   me: {
       //     id: user.id,

@@ -2,12 +2,13 @@ import React from "react";
 import { Field, Formik, FormikErrors } from "formik";
 import FieldInput from "../FiledInput/FieldInput.component";
 import CustomButton from "../button/button.component";
-// import { SignupSchema } from "../../common";
+import { SignInSchema } from "../../common";
 import { Form } from "antd";
+import { Link } from "react-router-dom";
 
 interface FormValues {
-  login: string;
-  password: string;
+  login?: string;
+  password?: string;
 }
 
 interface Props {
@@ -23,8 +24,8 @@ interface Props {
 export default (props: Props) => {
   return (
     <div className="sign-up">
-      <h2>I don't have an account</h2>
-      <span>Fill these fields to sign up</span>
+      <h2>I have an account</h2>
+      <span>Please enter your creditials</span>
       <Formik
         initialValues={{
           login: "",
@@ -36,7 +37,9 @@ export default (props: Props) => {
             actions.setErrors(errors);
           }
         }}
-        // validationSchema={SignupSchema}
+        validateOnChange={false}
+        validateOnBlur={false}
+        validationSchema={SignInSchema}
       >
         {({ handleSubmit, isSubmitting }) => (
           <Form style={{ display: "flex", flexDirection: "column" }}>
@@ -54,9 +57,13 @@ export default (props: Props) => {
             />
             <div>
               <CustomButton type="submit" onClick={handleSubmit}>
-                {isSubmitting ? "CA CHAAAAARGE" : "Sign In!"}
+                {isSubmitting ? "Loading..." : "Sign in."}
               </CustomButton>
             </div>
+            <span>
+              Or <Link to="/register">Register</Link> |{" "}
+              <Link to="/forgot-password">Forgot Password</Link>
+            </span>
           </Form>
         )}
       </Formik>

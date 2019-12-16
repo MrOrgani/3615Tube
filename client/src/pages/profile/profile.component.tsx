@@ -1,6 +1,6 @@
 import React from "react";
 // import { useAuth0 } from "../../react-auth0-spa";
-import UserProfile from "../../components/user-profile/UserProfile.component";
+import UserProfileConnector from "../../components/user-profile/UserProfileConnector";
 import UserActivy from "../../components/user-activity/user-activity.component";
 
 import "./profile.styles.scss";
@@ -24,7 +24,7 @@ const Profile = () => {
 
   return (
     <div className="profile-page">
-      <UserProfile />
+      <UserProfileConnector />
       <UserActivy />
     </div>
   );

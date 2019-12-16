@@ -24,13 +24,16 @@ const startServer = async () => {
       secret: process.env.SESSION_SECRET,
       resave: false,
       saveUninitialized: false,
-      cookie: {}
+      cookie: {
+        httpOnly: true,
+        secure: false
+      }
     })
   );
   await connectToDb(1);
   const cors = {
     credentials: true,
-    origin: "*"
+    origin: process.env.FRONT_HOST
   };
   await server.start(
     {

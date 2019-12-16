@@ -1,9 +1,7 @@
 import session from "express-session";
-// import * as pgSimple from "connect-pg-simple"
 
 export const createSession = () => {
   const pgSession = require("connect-pg-simple")(session);
-  // const pgSession = pgSimple(session)
   const conString = "postgres://postgres:postgres@db:5432/postgres";
   return session({
     store: new pgSession({ conString: conString }),

@@ -9,6 +9,9 @@ import CustomButton from "../button/button.component";
 import { SignupSchema } from "../../common";
 import { Form } from "antd";
 
+import "./register.scss"
+import { Link } from "react-router-dom";
+
 interface FormValues {
   firstName: string;
   lastName: string;
@@ -48,7 +51,9 @@ export default (props : Props) => {
     }
   }}
   validationSchema={SignupSchema}>
-  {({handleSubmit, isSubmitting}) => (
+  {(
+    {handleSubmit, isSubmitting}
+    ) => (
     <Form style={{ display: 'flex', flexDirection: "column"}
     }>
     <Field
@@ -84,11 +89,14 @@ export default (props : Props) => {
           <div>
               <CustomButton type="submit" onClick={handleSubmit}>
           {isSubmitting ? 
-              "CA CHAAAAARGE"
+             "Loading ..."
               :
               "Sign Up!"}
            </CustomButton>
             </div>
+            <span>
+            Or <Link to="/login">Login</Link>
+            </span>
             </Form>)}
     </Formik>
     </div>)
