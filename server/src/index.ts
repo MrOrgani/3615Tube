@@ -3,16 +3,20 @@ import { GraphQLServer } from "graphql-yoga";
 import connectToDb from "./utils/connecToDb";
 import { genSchema } from "./utils/genSchema";
 import session from "express-session";
+import bodyParser from "body-parser";
 
 const startServer = async () => {
+  if (process.env.debug)
+    console.log("debugging mod is active", process.env.debug);
   await require("dotenv").config();
   const server = new GraphQLServer({
     schema: (await genSchema()) as any,
-    context: ({ request }) => ({ session: request.session })
+    context: ({ request }) => ({ session: request.session, req: request })
   });
 
   const pgSession = require("connect-pg-simple")(session);
   const conString = "postgres://postgres:postgres@db:5432/postgres";
+  server.express.use(bodyParser.json());
   server.express.use(
     session({
       store: new pgSession({ conString: conString }),
@@ -31,7 +35,7 @@ const startServer = async () => {
   await connectToDb(1);
   const cors = {
     credentials: true,
-    origin: process.env.BACK_HOST
+    origin: "*"
   };
   await server.start(
     {

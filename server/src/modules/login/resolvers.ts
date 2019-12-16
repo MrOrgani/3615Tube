@@ -11,10 +11,10 @@ const resolvers: ResolverMap = {
     login: async (
       _: any,
       { login, password }: GQL.ILoginOnMutationArguments,
-      { session }
+      { session, req }
     ) => {
       // login: async (_: any, args: any) => {
-      console.log("in the login resolver", login, password);
+      // console.log("in the login resolver", login, password);
       // try {
       //   await SignupSchema.validate(args, { abortEarly: false });
       // } catch (error) {
@@ -29,7 +29,15 @@ const resolvers: ResolverMap = {
 
       // login successfull;
       session.userId = user.id;
-      console.log("in the login resolver session.userId = ", session);
+      // session.cookie.userId = user.id;
+      req.session.userId = user.id;
+      // req.session.save();
+      console.log(
+        "in the login resolver session.userId = ",
+        session,
+        "session id  = ",
+        req.session.id
+      );
       return null;
     }
   }

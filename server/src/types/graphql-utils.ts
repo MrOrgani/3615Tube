@@ -2,6 +2,7 @@
 
 export interface Session {
   userId?: string;
+  cookie: any;
 }
 
 export type Resolver = (
@@ -9,6 +10,7 @@ export type Resolver = (
   args: any,
   context: {
     session: Session;
+    req: any;
   },
   info: any
 ) => any;
@@ -19,6 +21,7 @@ export type middleware = (
   args: any,
   context: {
     session: Session;
+    req: any;
   },
   info: any
 ) => any;

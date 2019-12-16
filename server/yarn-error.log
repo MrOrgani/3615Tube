@@ -1,5 +1,5 @@
 Arguments: 
-  /Users/vlecoq-v/.brew/Cellar/node/12.4.0/bin/node /Users/vlecoq-v/.brew/Cellar/yarn/1.17.0/libexec/bin/yarn.js add @bluebird
+  /Users/vlecoq-v/.brew/Cellar/node/12.4.0/bin/node /Users/vlecoq-v/.brew/Cellar/yarn/1.17.0/libexec/bin/yarn.js add bodyparser
 
 PATH: 
   /Users/vlecoq-v/.brew/bin:/Users/vlecoq-v/.brew/bin:/sgoinfre/goinfre/Perso/vlecoq-v/miniconda3/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/usr/local/munki:/sgoinfre/goinfre/Perso/vlecoq-v/miniconda3/bin
@@ -14,8 +14,8 @@ Platform:
   darwin x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/@bluebird: Request "https://registry.yarnpkg.com/@bluebird" returned a 405
-      at Request.params.callback [as _callback] (/Users/vlecoq-v/.brew/Cellar/yarn/1.17.0/libexec/lib/cli.js:66832:18)
+  Error: https://registry.yarnpkg.com/bodyparser: Not found
+      at Request.params.callback [as _callback] (/Users/vlecoq-v/.brew/Cellar/yarn/1.17.0/libexec/lib/cli.js:66823:18)
       at Request.self.callback (/Users/vlecoq-v/.brew/Cellar/yarn/1.17.0/libexec/lib/cli.js:140439:22)
       at Request.emit (events.js:200:13)
       at Request.<anonymous> (/Users/vlecoq-v/.brew/Cellar/yarn/1.17.0/libexec/lib/cli.js:141411:10)
@@ -42,6 +42,7 @@ npm manifest:
     "dependencies": {
       "@gql2ts/from-schema": "^1.10.1",
       "@types/bcryptjs": "^2.4.2",
+      "@types/bluebird": "^3.5.29",
       "@types/connect-pg-simple": "^4.2.0",
       "@types/express-session": "^1.15.16",
       "@types/glob": "^7.1.1",
@@ -52,6 +53,7 @@ npm manifest:
       "@types/sendmail": "^1.4.2",
       "@types/uuid": "^3.4.6",
       "@types/yup": "^0.26.26",
+      "axios": "^0.19.0",
       "bcryptjs": "^2.4.3",
       "bluebird": "^3.7.2",
       "connect-pg-simple": "^6.0.1",
@@ -84,7 +86,7 @@ npm manifest:
     "scripts": {
       "start": "nodemon -L --exec ts-node --files src/index.ts",
       "typeorm": "ts-node ../node_modules/.bin/typeorm",
-      "test": "jest --detectOpenHandles",
+      "test": "jest --detectOpenHandles --runInBand",
       "gen-schema-types": "ts-node src/scripts/createTypes.ts"
     },
     "jest": {
@@ -506,6 +508,11 @@ Lockfile:
     version "2.4.2"
     resolved "https://registry.yarnpkg.com/@types/bcryptjs/-/bcryptjs-2.4.2.tgz#e3530eac9dd136bfdfb0e43df2c4c5ce1f77dfae"
     integrity sha512-LiMQ6EOPob/4yUL66SZzu6Yh77cbzJFYll+ZfaPiPPFswtIlA/Fs1MzdKYA7JApHU49zQTbJGX3PDmCpIdDBRQ==
+  
+  "@types/bluebird@^3.5.29":
+    version "3.5.29"
+    resolved "https://registry.yarnpkg.com/@types/bluebird/-/bluebird-3.5.29.tgz#7cd933c902c4fc83046517a1bef973886d00bdb6"
+    integrity sha512-kmVtnxTuUuhCET669irqQmPAez4KFnFVKvpleVRyfC3g+SHD1hIkFZcWLim9BVcwUBLO59o8VZE4yGCmTif8Yw==
   
   "@types/body-parser@*":
     version "1.17.1"
@@ -1044,6 +1051,14 @@ Lockfile:
     version "1.9.0"
     resolved "https://registry.yarnpkg.com/aws4/-/aws4-1.9.0.tgz#24390e6ad61386b0a747265754d2a17219de862c"
     integrity sha512-Uvq6hVe90D0B2WEnUqtdgY1bATGz3mw33nH9Y+dmA+w5DHvUmBgkr5rM/KCHpCsiFNRUfokW/szpPPgMK2hm4A==
+  
+  axios@^0.19.0:
+    version "0.19.0"
+    resolved "https://registry.yarnpkg.com/axios/-/axios-0.19.0.tgz#8e09bff3d9122e133f7b8101c8fbdd00ed3d2ab8"
+    integrity sha512-1uvKqKQta3KBxIz14F2v06AEHZ/dIoeKfbTRkK1E5oqjDnuEerLmYTgJB5AiQZHJcljpg1TuRzdjDR06qNk0DQ==
+    dependencies:
+      follow-redirects "1.5.10"
+      is-buffer "^2.0.2"
   
   babel-jest@^24.9.0:
     version "24.9.0"
@@ -1658,6 +1673,13 @@ Lockfile:
     dependencies:
       ms "2.0.0"
   
+  debug@=3.1.0:
+    version "3.1.0"
+    resolved "https://registry.yarnpkg.com/debug/-/debug-3.1.0.tgz#5bb5a0672628b64149566ba16819e61518c67261"
+    integrity sha512-OX8XqP7/1a9cqkxYw2yXss15f26NKWBpDXQd0/uK/KPqdQhxbPa994hnzjcE2VqQpDslf55723cKPUOGSmMY3g==
+    dependencies:
+      ms "2.0.0"
+  
   debug@^3.2.6:
     version "3.2.6"
     resolved "https://registry.yarnpkg.com/debug/-/debug-3.2.6.tgz#e83d17de16d8a7efb7717edbe5fb10135eee629b"
@@ -2182,6 +2204,13 @@ Lockfile:
     version "2.0.1"
     resolved "https://registry.yarnpkg.com/fn-name/-/fn-name-2.0.1.tgz#5214d7537a4d06a4a301c0cc262feb84188002e7"
     integrity sha1-UhTXU3pNBqSjAcDMJi/rhBiAAuc=
+  
+  follow-redirects@1.5.10:
+    version "1.5.10"
+    resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.5.10.tgz#7b7a9f9aea2fdff36786a94ff643ed07f4ff5e2a"
+    integrity sha512-0V5l4Cizzvqt5D44aTXbFZz+FtyXV1vrDN6qrelxtfYQKW0KO0W2T/hkE8xvGa/540LkZlkaUjO4ailYTFtHVQ==
+    dependencies:
+      debug "=3.1.0"
   
   for-in@^1.0.2:
     version "1.0.2"
@@ -2748,6 +2777,11 @@ Lockfile:
     version "1.1.6"
     resolved "https://registry.yarnpkg.com/is-buffer/-/is-buffer-1.1.6.tgz#efaa2ea9daa0d7ab2ea13a97b2b8ad51fefbe8be"
     integrity sha512-NcdALwpXkTm5Zvvbk7owOUSvVvBKDgKP5/ewfXEznmQFfs4ZRmanOeKBTjRVjka3QFoN6XJ+9F3USqfHqTaU5w==
+  
+  is-buffer@^2.0.2:
+    version "2.0.4"
+    resolved "https://registry.yarnpkg.com/is-buffer/-/is-buffer-2.0.4.tgz#3e572f23c8411a5cfd9557c849e3665e0b290623"
+    integrity sha512-Kq1rokWXOPXWuaMAqZiJW4XxsmD9zGx9q4aePabbn3qCRGedtH7Cm+zV8WETitMfu1wdh+Rvd6w5egwSngUX2A==
   
   is-callable@^1.1.4:
     version "1.1.4"
