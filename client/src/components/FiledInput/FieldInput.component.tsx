@@ -56,11 +56,13 @@ function CustomizedInputs(props: any) {
       InputProps={{
         className: classes.input
       }}
+      input={props.input}
       label={props.label}
       error={errorMsg ? true : false}
       helperText={errorMsg}
       {...props.field}
-      {...props}
+      // {...props}
+      placeholder={props.placeholder}
     />
   );
 }

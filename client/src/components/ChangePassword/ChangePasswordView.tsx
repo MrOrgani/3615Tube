@@ -12,11 +12,13 @@ import { Form } from "antd";
 
 
 interface FormValues {
-  newPassword: string;
+  newPassword?: string;
+  token?: string;
 }
 
 interface Props {
   submit: (values: FormValues) => Promise<FormikErrors<FormValues> | any>;
+  token: string;
   validationSchema?: (
     values: FormValues
   ) => Promise<FormikErrors<FormValues> | null>;
@@ -31,18 +33,17 @@ export default (props : Props) => {
   <Formik
   initialValues = {{
     newPassword: "",
+    token: props.token
   }}
-  onSubmit={async (values, {setErrors}) => {
-    const errors = await props.submit(values);
+  onSubmit={async ({newPassword, token}, {setErrors}) => {
+    const errors = await props.submit({ newPassword, token: token });
     if (errors) {
       setErrors(errors)
     }
   }}
   validationSchema={ChangePasswordSchema}
   >
-  {({
-    handleSubmit,
-   isSubmitting}) => (
+  {({ handleSubmit, isSubmitting}) => (
     <Form style={{ display: 'flex', flexDirection: "column"}}>
       <Field
         name="password"
@@ -53,9 +54,7 @@ export default (props : Props) => {
       <div>
         <CustomButton type="submit" onClick={handleSubmit}>
           {isSubmitting ? 
-              "Loading..."
-              :
-              "Enregister"}
+              "Loading..." : "Enregister"}
         </CustomButton>          
       </div>
     </Form>)}

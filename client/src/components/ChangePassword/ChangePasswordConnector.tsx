@@ -2,12 +2,15 @@ import React from "react";
 import ChangePasswordView from "./ChangePasswordView";
 import ChangePasswordController from "../../controller/ChangePasswordController";
 
-const SignInConnector: React.FC = () => {
+
+
+const ChangePasswordConnector = (props:any) => {
+  const {token} = props
   return (
       <ChangePasswordController>
-      {({ submit }) => <ChangePasswordView submit={submit} />}
+      {({ submit }) => <ChangePasswordView token={token} submit={submit} />}
       </ChangePasswordController>
   );
 };
 
-export default SignInConnector;
+export default ChangePasswordConnector;

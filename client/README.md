@@ -42,3 +42,14 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+
+## If errors on Database
+### like :
+`ERROR CONNECTING TO DB QueryFailedError: column "id" contains null values
+server_container |     at new QueryFailedError (/usr/app/src/error/QueryFailedError.ts:9:9) [...]`
+
+docker -it exec postgres_container bash
+docker exec -it postgres_container bash
+---> psql -U postgres
+---> DELETE FROM users;
