@@ -4,6 +4,7 @@ import connectToDb from "./utils/connecToDb";
 import { genSchema } from "./utils/genSchema";
 import session from "express-session";
 import bodyParser from "body-parser";
+// import cookieParser from "cookie-parser";
 
 const startServer = async () => {
   if (process.env.debug)
@@ -14,22 +15,16 @@ const startServer = async () => {
     context: ({ request }) => ({ session: request.session, req: request })
   });
 
-  const pgSession = require("connect-pg-simple")(session);
-  const conString = "postgres://postgres:postgres@db:5432/postgres";
+  const fileStore = require("session-file-store")(session);
   server.express.use(bodyParser.json());
   server.express.use(
     session({
-      store: new pgSession({ conString: conString }),
+      store: new fileStore({}),
       name: "sid",
       secret: process.env.SESSION_SECRET,
       resave: false,
       saveUninitialized: false,
-      cookie: {
-        path: "/",
-        httpOnly: false,
-        secure: false,
-        maxAge: 1000 * 60 * 60 * 24 * 7 //7 days
-      }
+      cookie: {}
     })
   );
   await connectToDb(1);

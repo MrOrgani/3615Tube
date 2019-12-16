@@ -23,7 +23,9 @@
   },
   "homepage": "https://github.com/MrOrgani/3615Tube#readme",
   "dependencies": {
+    "@types/cookie-parser": "^1.4.2",
     "concurrently": "^5.0.0",
+    "cookie-parser": "^1.4.4",
     "graphql": "^14.5.8"
   }
 }
