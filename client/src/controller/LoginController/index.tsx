@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useMutation } from "react-apollo";
+import { useMutation, useQuery } from "react-apollo";
 import gql from "graphql-tag";
 import { normalizeErrors } from "../../utils/normalizeErrors";
 
@@ -17,9 +17,25 @@ export const loginMutation = gql`
     }
   }
 `;
+export const queryMe = gql`
+  query meQuery {
+    me {
+      lastName
+      login
+      firstName
+      password
+      language
+    }
+  }
+`;
 
 const LoginController = (props: Props) => {
-  const [mutate, { error }] = useMutation(loginMutation);
+  const [
+    mutate
+    // { error }
+  ] = useMutation(loginMutation);
+  const { loading, error, data } = useQuery(queryMe);
+  console.log("GIVE ME THE DATA JOHN, ", loading, error, data);
 
   if (error) return <p>{JSON.stringify(error, null, 2)}</p>;
 
