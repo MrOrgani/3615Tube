@@ -22,19 +22,22 @@ const startServer = async () => {
       saveUninitialized: false,
       cookie: {
         path: "/",
-        httpOnly: true,
+        httpOnly: false,
         secure: false,
         maxAge: 1000 * 60 * 60 * 24 * 7 //7 days
       }
     })
   );
   await connectToDb(1);
-  // const cors = {
-  //   credentials: true,
-  //   origin: process.env.FRONT_HOST
-  // };
-  await server.start(() =>
-    console.log(`Server is running on ${process.env.BACK_HOST}`)
+  const cors = {
+    credentials: true,
+    origin: process.env.BACK_HOST
+  };
+  await server.start(
+    {
+      cors
+    },
+    () => console.log(`Server is running on ${process.env.BACK_HOST}`)
   );
 };
 
