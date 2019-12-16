@@ -10,7 +10,7 @@ interface Props {
   }) => JSX.Element | null;
 }
 
-const forgotPasswordMutation = gql`
+export const forgotPasswordMutation = gql`
   mutation ForgotPassword($email: String!) {
     forgotPassword(email: $email) {
         path

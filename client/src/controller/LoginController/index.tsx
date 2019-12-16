@@ -9,7 +9,7 @@ interface Props {
   }) => JSX.Element | null;
 }
 
-const loginMutation = gql`
+export const loginMutation = gql`
   mutation login($login: String!, $password: String!) {
     login(login: $login, password: $password) {
       path
