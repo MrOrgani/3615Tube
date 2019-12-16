@@ -2,7 +2,7 @@ import React from "react";
 import { Formik, Form, Field, FormikErrors } from "formik";
 // import FieldInput from "../FiledInput/FieldInput.component";
 import CustomButton from "../button/button.component";
-import { SignupSchema } from "../../common";
+ import { SignupSchema } from "../../common";
 
 import "./user-profile.styles.scss";
 import FieldInput from "../FiledInput/FieldInput.component";
@@ -51,36 +51,41 @@ const UserProfile = (props : Props) => {
     }}
   validateOnChange={false}
   validateOnBlur={false}
-  validationSchema={SignupSchema}>
+  validationSchema={SignupSchema}
+  >
   {({handleSubmit, isSubmitting}) => (
     <Form style={{ display: 'flex', flexDirection: "column"}}>
         <Field
             name="firstName"
-            label="firstName"
+            label="First name"
             type="text"
             component={FieldInput}
             placeholder="First Name"
         />
         <Field
             name="lastName"
+            label="Last name"
             type="text"
             placeholder="Last Name"
             component={FieldInput}
         />
         <Field
             name="login"
+            label="Login"
             type="text"
             placeholder="Login"
             component={FieldInput}
         />
         <Field
             name="email"
+            email="Email"
             type="text"
             placeholder="Email"
             component={FieldInput}
         />
         <Field
             name="password"
+            label="Password"
             type="password"
             placeholder="Password"
             component={FieldInput}
