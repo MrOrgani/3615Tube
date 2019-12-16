@@ -7,7 +7,7 @@ const login: string = "asdf";
 const password: string = "Asdf1*";
 const firstName: string = "asdf";
 const lastName: string = "asdf";
-const email: string = "asdf@gmail.com";
+const email: string = "raxije2580@tmail2.com";
 const language: string = "English";
 
 describe("sequentially run tests", () => {

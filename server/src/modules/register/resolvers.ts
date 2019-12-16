@@ -4,6 +4,7 @@ import { SignupSchema } from "../../common/yupSchemas/user";
 import { User } from "../../entity/User";
 import { formatYupError, formatError } from "../../utils/formatErrors";
 import { v4 } from "uuid";
+import { sendMail } from "../../subModules/confirmEmail";
 
 const resolvers: ResolverMap = {
   Query: {
@@ -39,6 +40,7 @@ const resolvers: ResolverMap = {
         password: hashedPwd,
         id
       });
+      console.log("sending a mail", await sendMail(email, id));
       await user.save();
       return null;
     }

@@ -8,7 +8,7 @@ export default async (
   info: any
 ) => {
   //middleware
-  console.log("in the midddleware for me.ts", context.session);
+  // console.log("in the midddleware for me.ts", context.session);
   const result = await resolver(parent, args, context, info);
   //afterware
 
