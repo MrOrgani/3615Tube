@@ -9,7 +9,8 @@ interface Props {
     submit: (values: any) => Promise<any>;
   }) => JSX.Element | null;
 }
-const signupMutation = gql`
+
+export const profileMutation = gql`
   mutation Profile(
     $firstName: String!
     $lastName: String!
@@ -34,7 +35,7 @@ const signupMutation = gql`
 `;
 
 const UserProfileController = (props: Props) => {
-  const [mutate, {error}] = useMutation(signupMutation);
+  const [mutate, {error}] = useMutation(profileMutation);
   
   if (error) return <p>{JSON.stringify(error, null, 2)}</p>;
 

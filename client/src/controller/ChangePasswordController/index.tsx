@@ -10,7 +10,7 @@ interface Props {
   }) => JSX.Element | null;
 }
   
-const changePasswordMutation = gql`
+export const changePasswordMutation = gql`
   mutation ChangePassword($email: String!) {
     changePassword(email: $email) {
         path
