@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { useMutation, 
+import { useMutation, useQuery 
 } from "react-apollo";
 import gql from "graphql-tag";
 import { normalizeErrors } from '../../utils/normalizeErrors';
@@ -7,10 +7,11 @@ import { normalizeErrors } from '../../utils/normalizeErrors';
 interface Props {
   children: (data: {
     submit: (values: any) => Promise<any>;
+    data: any;
   }) => JSX.Element | null;
 }
 
-export const profileMutation = gql`
+const profileMutation = gql`
   mutation Profile(
     $firstName: String!
     $lastName: String!
@@ -34,10 +35,25 @@ export const profileMutation = gql`
   }
 `;
 
+const GET_MY_INFO = gql`
+  query queryMe{
+    me {
+      firstName
+      lastName
+      login
+      email
+      avatar
+      language
+    }
+  }
+`;
+
 const UserProfileController = (props: Props) => {
-  const [mutate, {error}] = useMutation(profileMutation);
+  const [mutate, {error: errorMut}] = useMutation(profileMutation);
+  const {data, loading, error: errorQuery} = useQuery(GET_MY_INFO);
   
-  if (error) return <p>{JSON.stringify(error, null, 2)}</p>;
+  if (errorMut || errorQuery) return <p>{JSON.stringify(errorMut && errorQuery, null, 2)}</p>;
+  if (loading) return <p>Loading...</p>;
 
   const submit = async (values: any) => {
     const { data: {profile} } = await mutate({
@@ -55,7 +71,8 @@ const UserProfileController = (props: Props) => {
   // }
 
   return props.children({
-    submit
+    submit,
+    data
     //  onFinish
   });
 };

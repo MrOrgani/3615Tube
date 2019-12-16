@@ -2,10 +2,10 @@ import React from 'react'
 import UserProfileView from "./UserProfileView"
 import UserProfileController from "./../../controller/UserProfileController"
 
-const UserProfileConnector: React.FC = () => {
+const UserProfileConnector = () => {
   return (
     <UserProfileController>
-      {({ submit }) => <UserProfileView submit={submit} />}
+      {({ submit, data }) => <UserProfileView userInfo={data} submit={submit} />}
     </UserProfileController>
   );
 

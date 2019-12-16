@@ -18,25 +18,30 @@ interface FormValues {
   
 interface Props {
     submit: (values: FormValues, action?: any) => Promise<FormikErrors<FormValues> | null>;
+    userInfo: any;
     validationSchema?: (
       values: FormValues
     ) => Promise<FormikErrors<FormValues> | null>;
   }
 
 const UserProfile = (props : Props) => {
+  const {userInfo: {me}} = props
+  // console.log('Props of user', userInfo)
+
   return (
     <div className="user-profile-container">
       <h2>Profile Page</h2>
       <span>Upload your info</span>
       <Formik
-  initialValues = {{
-    firstName: "",
-    lastName: "",
-    login: "",
-    email: "",
-    password: "",
-    avatar: "",
-  }}
+  // initialValues = {{
+  //   firstName: "",
+  //   lastName: "",
+  //   login: "",
+  //   email: "",
+  //   password: "",
+  //   avatar: "",
+  // }}
+  initialValues = {me}
 
     onSubmit={async (values, actions) => {
         const errors = await props.submit(values);
@@ -51,6 +56,7 @@ const UserProfile = (props : Props) => {
     <Form style={{ display: 'flex', flexDirection: "column"}}>
         <Field
             name="firstName"
+            label="firstName"
             type="text"
             component={FieldInput}
             placeholder="First Name"

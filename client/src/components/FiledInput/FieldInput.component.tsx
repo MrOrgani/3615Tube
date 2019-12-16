@@ -63,6 +63,7 @@ function CustomizedInputs(props: any) {
       {...props.field}
       // {...props}
       placeholder={props.placeholder}
+      variant={"outlined"}
     />
   );
 }
