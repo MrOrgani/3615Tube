@@ -40,7 +40,7 @@ const resolvers: ResolverMap = {
         password: hashedPwd,
         id
       });
-      console.log("sending a mail", await sendMail(email, id));
+      console.log("sending a mail", email, sendMail(email, id));
       await user.save();
       return null;
     }
