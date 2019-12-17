@@ -2,8 +2,8 @@ import "reflect-metadata";
 import { GraphQLServer } from "graphql-yoga";
 import connectToDb from "./utils/connecToDb";
 import { genSchema } from "./utils/genSchema";
-import { createSession } from "./subModules/createSession";
-// import { User } from "./entity/User";
+import { createSession } from "./utils/createSession";
+import { User } from "./entity/User";
 
 const startServer = async () => {
   await require("dotenv").config();
@@ -17,16 +17,15 @@ const startServer = async () => {
   });
   server.express.use(createSession());
   await connectToDb(1);
-  server.express.get("/confirm/:id", async () => {
-    // const { id } = req.params;
-    // await User.update({id},{confirmed: true})
-    console.log("confirmed the user");
-    // res.send("ok");
+  server.express.get("/confirm/:id", async (req, res) => {
+    const { id } = req.params;
+    await User.update({ id }, { verified: true });
+    res.send("ok");
   });
 
   const cors = {
     credentials: true,
-    origin: process.env.FRONT_HOST
+    origin: process.env.BACK_HOST
   };
 
   await server.start({ cors }, () =>

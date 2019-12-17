@@ -11,7 +11,7 @@ export const createSession = () => {
     cookie: {
       httpOnly: true,
       secure: false,
-      maxAge: 1000 * 60 * 60 * 24 * 1 //7 days
+      maxAge: 1000 * 60 * 60 * 24 * 1 //1 day
     }
   });
 };

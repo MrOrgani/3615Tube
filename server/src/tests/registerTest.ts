@@ -1,7 +1,7 @@
 import { User } from "../entity/User";
 import { request } from "graphql-request";
 import { createConnection } from "typeorm";
-import { rmTestUser } from "../subModules/rmUser";
+import { rmTestUser } from "../modules/subModules/rmUser";
 
 export const registerTest = (
   login: string,

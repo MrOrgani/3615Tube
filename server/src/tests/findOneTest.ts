@@ -1,6 +1,6 @@
 import { request } from "graphql-request";
 import { User } from "../entity/User";
-import { rmTestUser } from "../subModules/rmUser";
+import { rmTestUser } from "../modules/subModules/rmUser";
 
 export const findOneTest = (
   login: string,
@@ -20,7 +20,7 @@ export const findOneTest = (
       expect(response).toEqual({
         findOne: { login, firstName, language }
       });
-      await rmTestUser(login);
+      // await rmTestUser(login);
     });
   });
 };

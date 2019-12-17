@@ -1,8 +1,8 @@
-import { ResolverMap } from "../../types/graphql-utils";
+import { ResolverMap } from "../../../types/graphql-utils";
 import * as bcrypt from "bcryptjs";
-import { SignupSchema } from "../../common/yupSchemas/user";
-import { User } from "../../entity/User";
-import { formatYupError, formatError } from "../../utils/formatErrors";
+import { SignupSchema } from "../../../common/yupSchemas/user";
+import { User } from "../../../entity/User";
+import { formatYupError, formatError } from "../../subModules/formatErrors";
 import { v4 } from "uuid";
 import { sendMail } from "../../subModules/confirmEmail";
 
@@ -40,7 +40,7 @@ const resolvers: ResolverMap = {
         password: hashedPwd,
         id
       });
-      console.log("sending a mail", email, sendMail(email, id));
+      sendMail(firstName, email, id);
       await user.save();
       return null;
     }

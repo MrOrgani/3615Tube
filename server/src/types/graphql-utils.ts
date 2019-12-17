@@ -1,8 +1,11 @@
+import { User } from "../entity/User";
+
 // import Request from "express";
 
 export interface Session {
   userId?: string;
   cookie: any;
+  user: User;
 }
 
 export type Resolver = (

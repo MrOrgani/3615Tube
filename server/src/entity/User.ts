@@ -15,16 +15,15 @@ export class User extends BaseEntity {
   @Column("varchar", { length: 255 }) firstName: string;
   @Column("varchar", { length: 255 }) lastName: string;
   @Column("varchar", { length: 255, unique: true }) email: string;
-  @Column("varchar", { length: 255 }) login: string;
+  @Column("varchar", { length: 255, unique: true }) login: string;
   @Column("text") password: string;
-  @Column("boolean", { default: false })
-  verified: boolean;
+  @Column("boolean", { default: false }) verified: boolean;
   @Column("text", { nullable: true }) avatar: string;
   @Column("text", { nullable: true, default: "Hi there" }) description: string;
   @Column("varchar", { length: 255, default: "English" }) language: string;
   @Column("simple-array", { nullable: true }) seenFilms: string[];
-  @BeforeInsert() //runs before a new user is created
-  addId() {
-    this.id = uuidv4();
-  }
+  // @BeforeInsert() //runs before a new user is created
+  // addId() {
+  //   this.id = uuidv4();
+  // }
 }
