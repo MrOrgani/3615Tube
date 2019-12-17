@@ -1,8 +1,6 @@
 import { User } from "../entity/User";
 
-// import Request from "express";
-
-export interface Session {
+export interface Session extends Express.Session {
   userId?: string;
   cookie: any;
   user: User;

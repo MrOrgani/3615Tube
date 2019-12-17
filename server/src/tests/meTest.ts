@@ -1,11 +1,20 @@
 import axios from "axios";
 import { loginMutation } from "./loginTest";
+import request from "graphql-request";
 
-const meQuery: string = `query{me{
-          login
-          firstName
-          language
-        }}`;
+const meQuery: string = `
+query{
+me{
+  login
+  firstName
+  language
+}}`;
+
+const logOutQuery: string = `
+mutation{
+  logout
+}
+`;
 
 export const meTest = (
   login: string,
@@ -24,22 +33,19 @@ export const meTest = (
       expect(res.data.data).toEqual({ me: null });
     });
 
-    test("get current user if logged in", async () => {
-      const transport = await axios.create({
-        withCredentials: true
-      });
+    test("login + me + logout + me", async () => {
+      const transport = await axios.create({ withCredentials: true });
 
-      //connect to get the cookies
-      const res = await transport.post(process.env.BACK_HOST, {
+      //LOG INconnect to get the cookies
+      let res = await transport.post(process.env.BACK_HOST, {
         query: loginMutation(login, password)
       });
-
       //set cookies we got from the login in the second request
-      const [cookie] = res.headers["set-cookie"];
+      let [cookie] = res.headers["set-cookie"];
       transport.defaults.headers.Cookie = cookie;
 
-      //verify we can login using the cookie we set
-      const response = await transport.post(process.env.BACK_HOST, {
+      //ME QUERY verify we can login using the cookie we set
+      let response = await transport.post(process.env.BACK_HOST, {
         query: meQuery
       });
       expect(response.data.data).toEqual({
@@ -49,6 +55,16 @@ export const meTest = (
           language
         }
       });
+
+      //LOG OUT
+      const response2 = await request(process.env.BACK_HOST, logOutQuery);
+      expect(response2).toEqual({ logout: true });
+
+      //RETRY ME
+      response = await axios.post(process.env.BACK_HOST, {
+        query: meQuery
+      });
+      expect(response.data.data).toEqual({ me: null });
     });
   });
 };

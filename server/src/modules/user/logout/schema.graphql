@@ -1,0 +1,10 @@
+# import Error from "../../shared.graphql"
+# import User from "../../shared.graphql"
+
+type Query {
+  dummy: String!
+}
+
+type Mutation {
+  logout: Boolean
+}

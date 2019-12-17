@@ -4,7 +4,7 @@ import { SignupSchema } from "../../../common/yupSchemas/user";
 import { User } from "../../../entity/User";
 import { formatYupError, formatError } from "../../subModules/formatErrors";
 import { v4 } from "uuid";
-import { sendMail } from "../../subModules/confirmEmail";
+import { sendMail } from "../../subModules/sendMail";
 
 const resolvers: ResolverMap = {
   Query: {

@@ -10,7 +10,10 @@ export default async (
 ) => {
   //middleware
   const { session } = context;
-  if (!session.userId) return null;
+  if (!session.userId) {
+    // console.log("no cookie, no login bitch");
+    return null;
+  }
   const user = await User.findOne({ where: { id: session.userId } });
   if (user) session.user = user;
   const result = await resolver(parent, args, context, info);
