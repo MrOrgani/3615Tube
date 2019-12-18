@@ -26,7 +26,12 @@ const startServer = async () => {
 
   const cors = {
     credentials: true,
-    origin: process.env.BACK_HOST
+    origin: [
+      process.env.FRONT_HOST,
+      process.env.BACK_HOST,
+      "http://localhost:4000/",
+      "http://localhost:3000/"
+    ]
   };
 
   await server.start({ cors }, () =>

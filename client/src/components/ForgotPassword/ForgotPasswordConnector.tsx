@@ -2,12 +2,12 @@ import React from "react";
 import ForgotPasswordView from "./ForgotPasswordView";
 import ForgotPasswordController from "../../controller/ForgotPasswordController";
 
-const SignInConnector: React.FC = () => {
+const ForgotPasswordConnector: React.FC = () => {
   return (
-      <ForgotPasswordController>
+    <ForgotPasswordController>
       {({ submit }) => <ForgotPasswordView submit={submit} />}
-      </ForgotPasswordController>
+    </ForgotPasswordController>
   );
 };
 
-export default SignInConnector;
+export default ForgotPasswordConnector;

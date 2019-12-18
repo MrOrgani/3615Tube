@@ -6,6 +6,7 @@ import LoginPage from "./login/LoginPage";
 import ProfilePage from "./profile/profile.component";
 import ForgotPasswordPage from "./forgot-password/ForgotPasswordPage";
 import ChangePasswordPage from "./change-password/ChangePasswordPage";
+import ConfirmAccountPage from "./confirm/ConfirmAccountPage";
 import "./index.scss";
 
 export const Pages = () => (
@@ -15,6 +16,7 @@ export const Pages = () => (
         <Route exact path="/" component={HomePage} />
         <Route path="/register" component={RegisterPage} />
         <Route path="/login" component={LoginPage} />
+        <Route path="/confirm/:token" component={ConfirmAccountPage} />
         <Route path="/forgot-password" component={ForgotPasswordPage} />
         <Route path="/change-password/:key" component={ChangePasswordPage} />
         <Route exact path="/profile" component={ProfilePage} />

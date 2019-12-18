@@ -1,37 +1,37 @@
-import * as React from 'react'
-import { useMutation, 
-} from "react-apollo";
+import * as React from "react";
+import { useMutation } from "react-apollo";
 import gql from "graphql-tag";
-import { normalizeErrors } from '../../utils/normalizeErrors';
+import { normalizeErrors } from "../../utils/normalizeErrors";
 
 interface Props {
   children: (data: {
     submit: (values: any) => Promise<any>;
   }) => JSX.Element | null;
 }
-  
+
 export const changePasswordMutation = gql`
-  mutation ChangePassword($email: String!) {
-    changePassword(email: $email) {
-        path
-        msg
+  mutation forgotPasswordChange($password: String!, $id: String!) {
+    forgotPasswordChange(password: $password, id: $id) {
+      path
+      msg
     }
   }
 `;
 
 const ChangePasswordController = (props: Props) => {
-  const [mutate, {error}] = useMutation(changePasswordMutation);
-  
+  const [mutate, { error }] = useMutation(changePasswordMutation);
 
   if (error) return <p>{JSON.stringify(error, null, 2)}</p>;
 
   const submit = async (values: any) => {
-    const { data: {changePassword} } = await mutate({
+    const {
+      data: { changePassword }
+    } = await mutate({
       variables: values
     });
-    
+
     if (changePassword) {
-    // if (errors) {
+      // if (errors) {
       // return normalizeErrors(errors);
       return normalizeErrors(changePassword);
     }

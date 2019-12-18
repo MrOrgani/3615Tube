@@ -25,8 +25,8 @@ export const sendMail = async (
         Subject: register ? "Welcome" : "Password forgotten",
         TextPart: register ? "Confirm your account" : "Change your password",
         HTMLPart: register
-          ? `Confirm your account : <a href=\"${process.env.BACK_HOST}/confirm/${id}\">here</a>`
-          : `Change your password : <a href=\"${process.env.BACK_HOST}/reset/${id}\">here</a>`
+          ? `Confirm your account : <a href=\"${process.env.FRONT_HOST}/confirm/${id}\">here</a>`
+          : `Change your password : <a href=\"${process.env.FRONT_HOST}/reset/${id}\">here</a>`
       }
     ]
   });
