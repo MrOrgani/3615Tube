@@ -1,17 +1,21 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import dotenv from "dotenv";
 import { ApolloProvider } from "react-apollo";
 import { client } from "./apollo";
+import Header from "./components/header/header.component";
+import Footer from "./components/footer/footer.component";
+import Pages from "./pages";
 
 dotenv.config();
 
 ReactDOM.render(
   <ApolloProvider client={client}>
-    <App />
+    <Header />
+    <Pages />
+    <Footer />
   </ApolloProvider>,
   document.getElementById("root") as HTMLElement
 );
