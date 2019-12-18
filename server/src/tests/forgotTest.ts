@@ -17,10 +17,13 @@ const changeForgotMutation = (password: string, id: string) => `mutation{
   }
 }`;
 
-export const forgotTest = async (password: string, email: string) => {
-  const user = (await User.findOne({ where: { email } })) as User;
-  console.log(user.id);
-  describe("forgot password", async () => {
+export const forgotTest = async (
+  password: string,
+  newPassword: string,
+  email: string,
+  id: string
+) => {
+  describe("forgot password", () => {
     test("send forgot password mail", async () => {
       const response = await request(
         process.env.BACK_HOST,
@@ -38,20 +41,18 @@ export const forgotTest = async (password: string, email: string) => {
     test("change password ", async () => {
       let response = await request(
         process.env.BACK_HOST,
-        changeForgotMutation(password, user.id)
+        changeForgotMutation(newPassword, id)
       );
       expect(response).toEqual({ forgotPasswordChange: null });
-      expect(user.password).not.toEqual(password);
+      expect(newPassword).not.toEqual(password);
     });
     test("change password wrong password format", async () => {
       let response = await request(
         process.env.BACK_HOST,
-        changeForgotMutation("asdf1*", user.id)
+        changeForgotMutation("asdf1*", id)
       );
-      expect(response.forgotPasswordChange.path).toEqual("password");
-      const user = (await User.findOne({ where: { id } })) as User;
-      expect(user).toHaveLength(1);
-      expect(user.password).not.toEqual("asdf1*");
+      expect(response.forgotPasswordChange[0].path).toEqual("password");
+      expect(password).not.toEqual("asdf1*");
     });
   });
 };

@@ -1,11 +1,10 @@
-# stage 1 building the code
 FROM node
-# RUN curl -o- -L https://yarnpkg.com/install.sh | \  bash -s -- --version 0.26.1
-# RUN yarn global add nodemon@1.11.0
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg |  apt-key add - \
+    echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 WORKDIR /usr/app
-# COPY ge*.json ./
-# RUN yarn install
-# COPY ../../node_modules ./
-# COPY ../common ./
+RUN apt-get update && apt-get install -y yarn zsh vim
+RUN yarn global add nodemon@1.11.0 ts-node typescript \
+    && sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 COPY . .
+RUN yarn install
 CMD ["yarn", "start"]

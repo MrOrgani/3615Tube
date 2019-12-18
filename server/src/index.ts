@@ -1,6 +1,7 @@
 import "reflect-metadata";
 import { GraphQLServer } from "graphql-yoga";
 import connectToDb from "./utils/connecToDb";
+import { Connection } from "typeorm";
 import { genSchema } from "./utils/genSchema";
 import { createSession } from "./utils/createSession";
 import { User } from "./entity/User";
@@ -16,7 +17,7 @@ const startServer = async () => {
     })
   });
   server.express.use(createSession());
-  await connectToDb(1);
+  await connectToDb();
   server.express.get("/confirm/:id", async (req, res) => {
     const { id } = req.params;
     await User.update({ id }, { verified: true });

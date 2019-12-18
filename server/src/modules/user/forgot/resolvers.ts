@@ -28,12 +28,6 @@ const resolvers: ResolverMap = {
       try {
         await PasswordSchema.validate(args, { abortEarly: false });
       } catch (err) {
-        console.log(err);
-        console.log(
-          "in the forgotpasswordchange resolver ERROR",
-          err.path,
-          err.msg
-        );
         return await formatYupError(err, "password");
       }
       const user = await User.findOne({
