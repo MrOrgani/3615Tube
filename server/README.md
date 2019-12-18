@@ -2,24 +2,26 @@
 
 https://www.youtube.com/watch?v=3P8cDjHsOCA&list=PLN3n1USn4xlky9uj6wOhfsPez7KZOqm2V&index=3&t=31s
 
-# Basic resume
-
 typeorm quick start
 npm-check-update
-tsconfig from ben awad
 
 # install on school computers
 
-sh free_space.sh
-sh docker_init.sh
+sh scripts/free_space.sh
+sh scripts/docker_init.sh
 brew install docker-compose
+yarn install
+cd server
+yarn install
 docker-compose build
+docker-compose up
 
 # connect to the database
 
 docker exec -it postgres_container bash --> attaches your terminal to the running container named postgres_container
 psql -U postgres --> open CLI for postgres with the rigt username
 \c postgres --> connect to the database
+You can now start the database
 
 # start the tests
 
