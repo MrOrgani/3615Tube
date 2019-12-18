@@ -4,6 +4,8 @@ import * as fs from "fs";
 import { makeExecutableSchema } from "graphql-tools";
 import * as glob from "glob";
 
+//genschema is called to generate schemas and typedefs which are the
+//foundation of a graphqlserver
 export const genSchema: any = () => {
   try {
     const pathToModules = path.join(__dirname, "../modules");

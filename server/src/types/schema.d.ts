@@ -22,27 +22,53 @@ column: number;
 
 interface IQuery {
 __typename: "Query";
-findOne: string;
-hello: string;
+findOne: IUser | null;
 dummy: string;
+hello: string;
+me: IUser | null;
 }
 
 interface IFindOneOnQueryArguments {
 id?: string | null;
 }
 
-interface IHelloOnQueryArguments {
-name?: string | null;
-}
-
 interface IDummyOnQueryArguments {
 name?: string | null;
 }
 
+interface IHelloOnQueryArguments {
+name?: string | null;
+}
+
+interface IUser {
+__typename: "User";
+id: string;
+firstName: string;
+lastName: string;
+login: string;
+email: string;
+password: string | null;
+avatar: string | null;
+description: string;
+language: string;
+}
+
 interface IMutation {
 __typename: "Mutation";
+sendForgotPasswordEmail: Array<IError> | null;
+forgotPasswordChange: Array<IError> | null;
 login: Array<IError> | null;
+logout: boolean | null;
 register: Array<IError> | null;
+}
+
+interface ISendForgotPasswordEmailOnMutationArguments {
+email: string;
+}
+
+interface IForgotPasswordChangeOnMutationArguments {
+password: string;
+id: string;
 }
 
 interface ILoginOnMutationArguments {

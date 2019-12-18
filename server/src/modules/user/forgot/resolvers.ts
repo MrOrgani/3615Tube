@@ -10,20 +10,25 @@ const resolvers: ResolverMap = {
     dummy: (_: any, { name }: any) => `${name || "You"} is a dummy`
   },
   Mutation: {
-    sendForgotPasswordEmail: async (_: any, args: any) => {
-      // register: async (_: any, args: any) => {
+    sendForgotPasswordEmail: async (
+      _: any,
+      args: GQL.ISendForgotPasswordEmailOnMutationArguments
+    ) => {
+      // sendForgotPasswordEmail: async (_: any, args: any) => {
       // console.log(args);
       const { email } = args;
       const user = await User.findOne({
         where: { email }
       });
-      // console.log("in sendForgotPassowrdEmail", user);
       if (user === undefined)
         return await formatError("email", "email does not exist");
       sendMail(user.firstName, email, user.id, false);
       return null;
     },
-    forgotPasswordChange: async (_: any, args: any) => {
+    forgotPasswordChange: async (
+      _: any,
+      args: GQL.IForgotPasswordChangeOnMutationArguments
+    ) => {
       const { password, id } = args;
       try {
         await PasswordSchema.validate(args, { abortEarly: false });
