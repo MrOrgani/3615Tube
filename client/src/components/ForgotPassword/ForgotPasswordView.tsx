@@ -7,7 +7,6 @@ import {
 import FieldInput from "../FiledInput/FieldInput.component";
 import CustomButton from "../button/button.component";
 // import { SignupSchema } from "../../common";
-import { Form } from "antd";
 import { Link } from "react-router-dom";
 
 
@@ -43,7 +42,7 @@ export default (props : Props) => {
   {({
     handleSubmit,
    isSubmitting}) => (
-    <Form style={{ display: 'flex', flexDirection: "column"}}>
+    <div style={{ display: 'flex', flexDirection: "column"}}>
       <Field
         name="email"
         type="text"
@@ -61,7 +60,7 @@ export default (props : Props) => {
       <span>
         Or <Link to="/login">Login</Link> | <Link to="/register">Register</Link>
         </span>  
-    </Form>)}
+    </div>)}
   </Formik>
 </div>)
 }

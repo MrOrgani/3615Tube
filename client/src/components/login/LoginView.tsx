@@ -3,7 +3,6 @@ import { Field, Formik, FormikErrors } from "formik";
 import FieldInput from "../FiledInput/FieldInput.component";
 import CustomButton from "../button/button.component";
 import { SignInSchema } from "../../common";
-import { Form } from "antd";
 import { Link } from "react-router-dom";
 
 interface FormValues {
@@ -42,7 +41,7 @@ export default (props: Props) => {
         validationSchema={SignInSchema}
       >
         {({ handleSubmit, isSubmitting }) => (
-          <Form style={{ display: "flex", flexDirection: "column" }}>
+          <div style={{ display: "flex", flexDirection: "column" }}>
             <Field
               name="login"
               type="text"
@@ -64,7 +63,7 @@ export default (props: Props) => {
               Or <Link to="/register">Register</Link> |{" "}
               <Link to="/forgot-password">Forgot Password</Link>
             </span>
-          </Form>
+          </div>
         )}
       </Formik>
     </div>
