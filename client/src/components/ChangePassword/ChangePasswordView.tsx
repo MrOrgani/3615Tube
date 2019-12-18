@@ -7,7 +7,6 @@ import {
 import FieldInput from "../FiledInput/FieldInput.component";
 import CustomButton from "../button/button.component";
 import { ChangePasswordSchema } from "../../common";
-import { Form } from "antd";
 // import { Link } from "react-router-dom";
 
 
@@ -44,7 +43,7 @@ export default (props : Props) => {
   validationSchema={ChangePasswordSchema}
   >
   {({ handleSubmit, isSubmitting}) => (
-    <Form style={{ display: 'flex', flexDirection: "column"}}>
+    <div style={{ display: 'flex', flexDirection: "column"}}>
       <Field
         name="password"
         type="password"
@@ -57,7 +56,7 @@ export default (props : Props) => {
               "Loading..." : "Enregister"}
         </CustomButton>          
       </div>
-    </Form>)}
+    </div>)}
   </Formik>
 </div>)
 }

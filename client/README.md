@@ -1,55 +1,64 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `yarn start`
-
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
-
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-
 ## If errors on Database
+
 ### like :
-`ERROR CONNECTING TO DB QueryFailedError: column "id" contains null values
-server_container |     at new QueryFailedError (/usr/app/src/error/QueryFailedError.ts:9:9) [...]`
+
+`ERROR CONNECTING TO DB QueryFailedError: column "id" contains null values server_container | at new QueryFailedError (/usr/app/src/error/QueryFailedError.ts:9:9) [...]`
 
 docker -it exec postgres_container bash
 docker exec -it postgres_container bash
 ---> psql -U postgres
 ---> DELETE FROM users;
+
+## How the Front-End Works
+
+src
+├── apollo.ts
+├── common -> ../../common/
+├── components
+│ ├── ChangePassword
+│ ├── FiledInput
+│ ├── ForgotPassword
+│ ├── avatar
+│ ├── button
+│ ├── footer
+│ ├── header
+│ ├── login
+│ ├── movie-item
+│ ├── movie-list
+│ ├── movie-list-skeleton
+│ ├── movie-skeleton
+│ ├── register
+│ │ ├── RegisterConnector `(3)`
+│ │ └── RegisterView
+│ ├── skeleton-item
+│ ├── user-activity
+│ └── user-profile
+├── controller
+│ ├── ChangePasswordController
+│ ├── ForgotPasswordController
+│ ├── LoginController
+│ ├── RegisterController `(4)`
+│ └── UserProfileController
+├── pages
+│ ├── change-password/
+│ ├── forgot-password/
+│ ├── homepage/
+│ ├── login/
+│ ├── profile/
+│ ├── register/
+│ └── index.tsx `(2)`
+├── utils
+│ └── normalizeErrors.ts
+└── index.tsx `(1)`
+
+index.tsx (1) is called :
+it will compile the Apollo Provider params (from src/apollo.ts)
+it will also call the Router from pages (so you navigate on the website) /src/pages/index.tsx (2)
+
+When you go on a page, for example Register (localhost:3000/register) :
+the Router (/src/pages/index.tsx) you call the Register Page (/src/pages/register) which calls the Register Connector from components (src/components/`Register`connector) (3)
+
+A Connector will link a Controller to a View, for example with `Register`:
+in the `RegisterConnector`, the `RegisterController` is called (4)
+A `Controller` will collect values from a `View` and send them to the Back, here through `GraphQL`, wich will respond with other data.
+These ones will be used the `View` depending on the device used (`React` for Desktop / `React-Native` for mobile (not implemented here))
