@@ -1,57 +1,70 @@
-// // import axios from "axios";
-// // import { request } from "graphql-request";
-// import { loginMutation } from "./loginTest";
+import axios from "axios";
+import { loginMutation } from "./loginTest";
+import request from "graphql-request";
 
-// export const meTest = (
-//   login: string,
-//   firstName: string,
-//   language: string,
-//   password: string
-// ) => {
-//   describe("me", () => {
-//     //     test("can't get user if not logged in", async () => {});
-//     test("get current user", async () => {
-//       //firstConnect to get the cookie we want (axios does it better than graphql-request)
-//       const meQuery: string = `query{me{
-//           id
-//           login
-//           firstName
-//           language
-//         }}`;
-//       // const transport = await axios.create({
-//       //   withCredentials: true,
-//       // });
-//       // const data = await transport.post(process.env.BACK_HOST, {
-//       //   query: loginMutation(login, password)
-//       // });
-//       await fetch(process.env.BACK_HOST, {
-//         method: "POST",
-//         credentials: "include",
-//         headers: { "Content-Type": "application/json" },
-//         body: JSON.stringify({ query: loginMutation(login, password) })
-//       })
-//         .then(res => res.json())
-//         .then(res => console.log(res.data));
-//       // console.log("in the me test received data from login: ", user);
-//       // const response = await transport.post(process.env.BACK_HOST, {
-//       //   query: meQuery
-//       // });
-//       await fetch(process.env.BACK_HOST, {
-//         method: "POST",
-//         credentials: "include",
-//         headers: { "Content-Type": "application/json" },
-//         body: JSON.stringify({ query: meQuery })
-//       })
-//         .then(res => res.json())
-//         .then(res => console.log(res.data));
-//       // console.log(firstName, language);
-//       // expect(response.data.data).toEqual({
-//       //   me: {
-//       //     id: user.id,
-//       //     login,
-//       //     firstName,
-//       //     language
-//       //   }
-//     });
-//   });
-// };
+const meQuery: string = `
+query{
+me{
+  login
+  firstName
+  language
+}}`;
+
+const logOutQuery: string = `
+mutation{
+  logout
+}
+`;
+
+export const meTest = (
+  login: string,
+  firstName: string,
+  language: string,
+  password: string
+) => {
+  describe("me", () => {
+    test("can't get user if not logged in", async () => {
+      const transport = await axios.create({
+        withCredentials: true
+      });
+      const res = await transport.post(process.env.BACK_HOST, {
+        query: meQuery
+      });
+      expect(res.data.data).toEqual({ me: null });
+    });
+
+    test("login + me + logout + me", async () => {
+      const transport = await axios.create({ withCredentials: true });
+
+      //LOG INconnect to get the cookies
+      let res = await transport.post(process.env.BACK_HOST, {
+        query: loginMutation(login, password)
+      });
+      //set cookies we got from the login in the second request
+      let [cookie] = res.headers["set-cookie"];
+      transport.defaults.headers.Cookie = cookie;
+
+      //ME QUERY verify we can login using the cookie we set
+      let response = await transport.post(process.env.BACK_HOST, {
+        query: meQuery
+      });
+      expect(response.data.data).toEqual({
+        me: {
+          login,
+          firstName,
+          language
+        }
+      });
+
+      //LOG OUT
+      const response2 = await request(process.env.BACK_HOST, logOutQuery);
+      expect(response2).toEqual({ logout: true });
+
+      //RETRY ME
+      response = await axios.post(process.env.BACK_HOST, {
+        query: meQuery
+      });
+      expect(response.data.data).toEqual({ me: null });
+    });
+  });
+};

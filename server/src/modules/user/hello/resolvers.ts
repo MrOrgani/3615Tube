@@ -1,4 +1,4 @@
-import { ResolverMap } from "../../types/graphql-utils";
+import { ResolverMap } from "../../../types/graphql-utils";
 
 const resolvers: ResolverMap = {
   Query: {

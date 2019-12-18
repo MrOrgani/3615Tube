@@ -1,10 +1,9 @@
 import session from "express-session";
 
 export const createSession = () => {
-  const pgSession = require("connect-pg-simple")(session);
-  const conString = "postgres://postgres:postgres@db:5432/postgres";
+  const fileStore = require("session-file-store")(session);
   return session({
-    store: new pgSession({ conString: conString }),
+    store: new fileStore({}),
     name: "HT_id",
     secret: process.env.SESSION_SECRET,
     resave: false,
@@ -12,7 +11,7 @@ export const createSession = () => {
     cookie: {
       httpOnly: true,
       secure: false,
-      maxAge: 1000 * 60 * 60 * 24 * 1 //7 days
+      maxAge: 1000 * 60 * 60 * 24 * 1 //1 day
     }
   });
 };

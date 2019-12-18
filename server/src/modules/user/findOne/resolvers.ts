@@ -1,5 +1,5 @@
-import { ResolverMap } from "../../types/graphql-utils";
-import { User } from "../../entity/User";
+import { ResolverMap } from "../../../types/graphql-utils";
+import { User } from "../../../entity/User";
 
 const resolvers: ResolverMap = {
   Query: {

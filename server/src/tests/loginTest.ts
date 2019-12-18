@@ -1,6 +1,6 @@
 import { request } from "graphql-request";
+import { User } from "../entity/User";
 // import { rmTestUser } from "../utils/rmUser";
-
 export const loginMutation = (login: string, password: string) => `mutation{
   login(login:"${login}",password:"${password}")
   {path, msg}
@@ -18,7 +18,19 @@ export const loginTest = (login: string, password: string) => {
 }`;
 
   describe("login User", () => {
-    test("login user", async () => {
+    // test("login unverified", async () => {
+    //   //should not be able to log without verifiying the email
+    //   const response = await request(process.env.BACK_HOST, mutation);
+    //   expect(response).toEqual({ login: null });
+    //   expect(response.login).toHaveLength(1);
+    //   expect(response.login[0].path).toEqual("verified");
+    //   await User.update({ login }, { verified: true });
+
+    //   const responseOK = await request(process.env.BACK_HOST, mutation);
+    //   expect(responseOK).toEqual({ login: null });
+    // });
+
+    test("login or password error", async () => {
       const response = await request(process.env.BACK_HOST, mutation);
       expect(response).toEqual({ login: null });
       const response2: any = await request(
