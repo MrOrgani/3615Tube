@@ -1,5 +1,6 @@
 import { Resolver, middleware } from "../types/graphql-utils";
 
+//good way to create middlewares in graphql
 export const createMiddleware = (
   middlewareFunc: middleware,
   resolverFunc: Resolver

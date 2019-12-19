@@ -1,5 +1,5 @@
 import { request } from "graphql-request";
-import { User } from "../entity/User";
+// import { User } from "../entity/User";
 // import { rmTestUser } from "../utils/rmUser";
 export const loginMutation = (login: string, password: string) => `mutation{
   login(login:"${login}",password:"${password}")

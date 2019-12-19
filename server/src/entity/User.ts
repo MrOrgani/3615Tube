@@ -1,17 +1,13 @@
-import {
-  Entity,
-  Column,
-  PrimaryColumn,
-  BeforeInsert,
-  BaseEntity
-} from "typeorm";
-import uuidv4 from "uuid/v4";
+import { Entity, Column, PrimaryColumn, BaseEntity } from "typeorm";
 
 @Entity("users")
-//extends BaseEntity allows to use User.Create({}) to create one
-export class User extends BaseEntity {
-  @PrimaryColumn() id: string;
 
+//every time the server starts Typeorm checks similarity of declared entities (like this one)
+//and if necessary updates the databse --> to add a previously unexisting nonnullable column
+//you need to connect to databse CLI (see READ ME) and either drop table DELETE FROM users or add a new column with default value manually
+export class User extends BaseEntity {
+  //extends BaseEntity allows to use User.Create({}) to create one
+  @PrimaryColumn() id: string;
   @Column("varchar", { length: 255 }) firstName: string;
   @Column("varchar", { length: 255 }) lastName: string;
   @Column("varchar", { length: 255, unique: true }) email: string;
@@ -22,8 +18,4 @@ export class User extends BaseEntity {
   @Column("text", { nullable: true, default: "Hi there" }) description: string;
   @Column("varchar", { length: 255, default: "English" }) language: string;
   @Column("simple-array", { nullable: true }) seenFilms: string[];
-  // @BeforeInsert() //runs before a new user is created
-  // addId() {
-  //   this.id = uuidv4();
-  // }
 }

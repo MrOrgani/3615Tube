@@ -1,5 +1,8 @@
 import { ValidationError } from "yup";
 
+//This is used to format Errors so as to send them back to the
+//requester in the awaited way : {path, msg}
+
 export const formatYupError = (
   err: ValidationError,
   missingpath: string = "unknown"

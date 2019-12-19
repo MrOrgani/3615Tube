@@ -12,7 +12,7 @@ services:
       POSTGRES_USER: postgres
       # POSTGRES_DB: stripe-example
       POSTGRES_DB: postgres
-      PGDATA: /var/lib/postgresql/pgdata #added for persal mac config
+      PGDATA: /var/lib/postgresql/pgdata #added for personal mac config not needed on school computers
     volumes:
       - ./pgdata:/var/lib/postgresql/data:delegated
     ports:
@@ -23,7 +23,6 @@ services:
     container_name: server_container
     volumes:
       - .:/usr/app:delegated
-      # - ../../node_modules:/usr/app/node_modules:delegated
       - ./src/common:/usr/app/src/common:delegated
     depends_on:
       - db
