@@ -1,6 +1,5 @@
 import { User } from "../entity/User";
 import { request } from "graphql-request";
-import Mail = require("nodemailer/lib/mailer");
 
 export const registerTest = (
   login: string,

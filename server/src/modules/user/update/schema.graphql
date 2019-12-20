@@ -1,0 +1,18 @@
+# import Error from "../../shared.graphql"
+
+type Query {
+  dummy(name: String): String!
+}
+
+type Mutation {
+  update(
+    firstName: String
+    lastName: String
+    login: String
+    email: String
+    password: String
+    avatar: String
+    description: String
+    language: String
+  ): [Error!]
+}
