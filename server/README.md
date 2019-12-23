@@ -28,6 +28,52 @@ You can now start the database
 docker exec -it server_container bash
 yarn test
 
+# How the server works
+
+src `(1)`
+├── index.ts `(2)`
+├── common -> ../../common/
+├── pgdata
+├── session
+├── entity
+│ ├── User.ts
+├── modules `(3)`
+│ ├── SubModules
+│ │ ├── formatErrors
+│ │ ├── rmUsers
+│ │ └── sendMails
+│ ├── middlware
+│ │ ├── verifyAndSetSession
+│ ├── Users
+│ │ ├── login
+│ │ ├── register
+│ │ └── etc ...
+├── scripts
+│ ├── createTypes
+├── types
+│ ├── graphqlUtils
+│ ├── schema.d.ts
+│ ├── loginTest.ts
+├── tests
+│ ├── testToRunSequentially
+│ ├── registerTest.ts
+│ ├── loginTest.ts
+├── utils
+│ ├── connectToDb
+│ ├── genSchema
+│ ├── createSession
+│ ├── etc...
+
+When Server is launched (1) is called :
+it checks the database columns are in check with entities declared (TypeOrm) and if not modifies the database directly
+
+index.ts (2) is called :
+it creates the graphql (graphqlYoga) server by aggregating all the schemas and the typedefs in modules. This aggregation is done by the src/utils/genSchema file
+it then listens to BACK_HOST (localhost:4000) for all schemas defined previously in modules
+
+modules (3) :
+modules are the equivalent of routes --> the login moduled is called when someone makes a graphql request to the BACK_HOST. Each module can call other functions (in submodules) for instance for session creation
+
 # vielle doc --> plus pertinente mais je la garde au cas ou
 
 docker run -p 5432:5432 -d \
