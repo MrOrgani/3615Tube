@@ -69,7 +69,8 @@ it checks the database columns are in check with entities declared (TypeOrm) and
 
 index.ts (2) is called :
 it creates the graphql (graphqlYoga) server by aggregating all the schemas and the typedefs in modules. This aggregation is done by the src/utils/genSchema file
-it then listens to BACK_HOST (localhost:4000) for all schemas defined previously in modules
+it then listens to BACK_HOST (localhost:4000) for all schemas defined previously in modules. All interactions with databse like
+insertino update or other is handled by the typeorm defined entity (ex User.update({id}, {verified:true}))
 
 modules (3) :
 modules are the equivalent of routes --> the login moduled is called when someone makes a graphql request to the BACK_HOST. Each module can call other functions (in submodules) for instance for session creation
