@@ -11,13 +11,8 @@ interface FormValues {
 }
 
 interface Props {
-  submit: (
-    values: FormValues,
-    action?: any
-  ) => Promise<FormikErrors<FormValues> | null>;
-  validationSchema?: (
-    values: FormValues
-  ) => Promise<FormikErrors<FormValues> | null>;
+  submit: (values: FormValues) => Promise<FormikErrors<FormValues> | null>;
+  onFinish: () => void;
 }
 
 export default (props: Props) => {
@@ -34,6 +29,8 @@ export default (props: Props) => {
           const errors = await props.submit(values);
           if (errors) {
             actions.setErrors(errors);
+          } else {
+            props.onFinish();
           }
         }}
         validateOnChange={false}
@@ -55,7 +52,11 @@ export default (props: Props) => {
               component={FieldInput}
             />
             <div>
-              <CustomButton type="submit" onClick={handleSubmit}>
+              <CustomButton
+                type="submit"
+                onClick={handleSubmit}
+                disabled={isSubmitting}
+              >
                 {isSubmitting ? "Loading..." : "Sign in."}
               </CustomButton>
             </div>

@@ -1,11 +1,11 @@
 import React from "react";
 // import { useAuth0 } from "../../react-auth0-spa";
 import UserProfileConnector from "../../components/user-profile/UserProfileConnector";
-import UserActivy from "../../components/user-activity/user-activity.component";
+// import UserActivy from "../../components/user-activity/user-activity.component";
 
 import "./profile.styles.scss";
 
-const Profile = () => {
+const ProfilePage = (props: any) => {
   // const { loading, user } = useAuth0();
 
   // if (loading || !user) {
@@ -21,13 +21,19 @@ const Profile = () => {
   //     <code>{JSON.stringify(user, null, 2)}</code>
   //   </Fragment>
   // );
+  const {
+    match: {
+      params: { key }
+    }
+  } = props;
 
+  console.log("profile page", props);
   return (
     <div className="profile-page">
-      <UserProfileConnector />
-      <UserActivy />
+      <UserProfileConnector userId={key} />
+      {/* <UserActivy /> */}
     </div>
   );
 };
 
-export default Profile;
+export default ProfilePage;

@@ -1,103 +1,82 @@
 import React from "react";
-import { Formik, Form, Field, FormikErrors } from "formik";
+// import {
+// Formik,
+// Form,
+// Field
+// , FormikErrors
+// } from "formik";
 // import FieldInput from "../FiledInput/FieldInput.component";
-import CustomButton from "../button/button.component";
- import { SignupSchema } from "../../common";
+// import CustomButton from "../button/button.component";
+// import { SignupSchema } from "../../common";
 
 import "./user-profile.styles.scss";
-import FieldInput from "../FiledInput/FieldInput.component";
+import TextField from "@material-ui/core/TextField";
+// import FieldInput from "../FiledInput/FieldInput.component";
+import Avatar from "../avatar/avatar.component";
 
-interface FormValues {
-    firstName: string;
-    lastName: string;
-    login: string;
-    email: string;
-    password: string;
-    avatar?: string;
-}
-  
+// interface FormValues {
+//   firstName: string;
+//   lastName: string;
+//   login: string;
+//   email: string;
+//   password: string;
+//   avatar?: string;
+// }
+
 interface Props {
-    submit: (values: FormValues, action?: any) => Promise<FormikErrors<FormValues> | null>;
-    userInfo: any;
-    validationSchema?: (
-      values: FormValues
-    ) => Promise<FormikErrors<FormValues> | null>;
-  }
+  // submit: (values: FormValues) => Promise<FormikErrors<FormValues> | null>;
+  userInfo: any;
+  // userId: string;
+}
 
-const UserProfile = (props : Props) => {
-  const {userInfo: {me}} = props
-  // console.log('Props of user', userInfo)
+const UserProfile = (props: Props) => {
+  const {
+    userInfo: { findOne }
+  } = props;
+  const { pathname } = window.location;
 
   return (
-    <div className="user-profile-container">
-      <h2>Profile Page</h2>
-      <span>Upload your info</span>
-      <Formik
-  // initialValues = {{
-  //   firstName: "",
-  //   lastName: "",
-  //   login: "",
-  //   email: "",
-  //   password: "",
-  //   avatar: "",
-  // }}
-  initialValues = {me}
-
-    onSubmit={async (values, actions) => {
-        const errors = await props.submit(values);
-        if (errors) {
-            actions.setErrors(errors)
-        }
-    }}
-  validateOnChange={false}
-  validateOnBlur={false}
-  validationSchema={SignupSchema}
-  >
-  {({handleSubmit, isSubmitting}) => (
-    <Form style={{ display: 'flex', flexDirection: "column"}}>
-        <Field
-            name="firstName"
-            label="First name"
-            type="text"
-            component={FieldInput}
-            placeholder="First Name"
+    <>
+      <div
+        className="user-profile-container"
+        style={{ display: "flex", flexDirection: "column" }}
+      >
+        <h2>Profile Page</h2>
+        <Avatar values={findOne} uploadImg={false} />
+        <TextField
+          value={findOne.firstName}
+          disabled={true}
+          label={"First Name"}
         />
-        <Field
-            name="lastName"
-            label="Last name"
-            type="text"
-            placeholder="Last Name"
-            component={FieldInput}
+        <TextField
+          value={findOne.lastName}
+          disabled={true}
+          label={"Last Name"}
         />
-        <Field
-            name="login"
-            label="Login"
-            type="text"
-            placeholder="Login"
-            component={FieldInput}
-        />
-        <Field
-            name="email"
-            email="Email"
-            type="text"
-            placeholder="Email"
-            component={FieldInput}
-        />
-        <Field
-            name="password"
-            label="Password"
-            type="password"
-            placeholder="Password"
-            component={FieldInput}
-        />
-        <div>
-            <CustomButton type="submit" onClick={handleSubmit}>
-                {isSubmitting ? "Loading ..." : "Sign Up!"}
-            </CustomButton>
+        <TextField value={findOne.login} disabled={true} label={"Login"} />
+        <TextField value={findOne.email} disabled={true} label={"Email"} />
+        {/* <span>Upload your info</span> */}
+        {/* <Form style={{ display: "flex", flexDirection: "column" }}> */}
+        {/* {JSON.stringify(props.userInfo, null, 2)} */}
+      </div>
+      <div className="user-activty">
+        <h2>
+          {pathname === "/profile" ? "Your" : `${findOne.login}'s`} activty
+        </h2>
+        <div className="movie-list">
+          Movies seen
+          {/* <MovieListSkeleton /> */}
         </div>
-    </Form>)}
-    </Formik>
-    </div>
+        <div className="movie-list">
+          To watch list
+          {/* <MovieListSkeleton /> */}
+        </div>
+        <div className="movie-list">
+          Rated movies
+          {/* <MovieListSkeleton /> */}
+        </div>
+      </div>
+    </>
   );
 };
 

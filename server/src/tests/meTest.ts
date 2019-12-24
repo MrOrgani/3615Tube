@@ -41,7 +41,7 @@ export const meTest = (
         query: loginMutation(login, password)
       });
       //set cookies we got from the login in the second request
-      let [cookie] = res.headers["set-cookie"];
+      let [] = res.headers["set-cookie"];
       transport.defaults.headers.Cookie = cookie;
 
       //ME QUERY verify we can login using the cookie we set

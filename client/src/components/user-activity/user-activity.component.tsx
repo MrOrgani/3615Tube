@@ -1,5 +1,5 @@
 import React from "react";
-import MovieListSkeleton from "../movie-list-skeleton/MoviesListSkeleton.component";
+// import MovieListSkeleton from "../movie-list-skeleton/MoviesListSkeleton.component";
 
 import "./user-activity.styles.scss";
 
@@ -10,15 +10,15 @@ const UserActivity = () => {
       <h2>{pathname === "/profile" ? "Your" : `${pathname}'s`} activty</h2>
       <div className="movie-list">
         Movies seen
-        <MovieListSkeleton />
+        {/* <MovieListSkeleton /> */}
       </div>
       <div className="movie-list">
         To watch list
-        <MovieListSkeleton />
+        {/* <MovieListSkeleton /> */}
       </div>
       <div className="movie-list">
         Rated movies
-        <MovieListSkeleton />
+        {/* <MovieListSkeleton /> */}
       </div>
     </div>
   );

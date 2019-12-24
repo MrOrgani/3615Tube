@@ -1,19 +1,20 @@
 .avatar-container {
-  // background-color: red;
+  display: flex;
   border: 3px solid;
   width: 150px;
   height: 150px;
-  background-size: cover;
+  /* background-size: cover; */
   background-position: center;
   border-radius: 50%;
   overflow: hidden;
+  justify-content: center;
 
   .image {
     // max-width: 100%;
     max-height: 100%;
-    width: 100%;
-    background-size: cover;
-    background-position: center;
+    // width: 100%;
+    // background-size: cover;
+    // background-position: center;
   }
 
   .form-control {

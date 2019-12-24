@@ -1,8 +1,5 @@
 import * as React from "react";
-import {
-  useMutation
-  // , useQuery
-} from "react-apollo";
+import { useMutation } from "react-apollo";
 import gql from "graphql-tag";
 import { normalizeErrors } from "../../utils/normalizeErrors";
 
@@ -20,21 +17,9 @@ export const loginMutation = gql`
     }
   }
 `;
-export const queryMe = gql`
-  query meQuery {
-    me {
-      lastName
-      login
-      firstName
-      password
-      language
-    }
-  }
-`;
 
 const LoginController = (props: Props) => {
-  const [mutate, { error }] = useMutation(loginMutation);
-  // const { loading, error, data } = useQuery(queryMe);
+  const [mutate, { error, client }] = useMutation(loginMutation);
 
   if (error) return <p>{JSON.stringify(error, null, 2)}</p>;
 
@@ -45,16 +30,14 @@ const LoginController = (props: Props) => {
       variables: values
     });
 
-    console.log(login);
     if (login) {
-      // if (errors) {
-      // return normalizeErrors(errors);
       return normalizeErrors(login);
     }
     // if (sessionId) {
     //   return sessionId;
     // }
 
+    await client!.resetStore();
     return null;
   };
 

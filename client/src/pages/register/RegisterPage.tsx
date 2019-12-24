@@ -3,10 +3,13 @@ import RegisterConnector from "../../components/register/RegisterConnnector";
 
 import "./sign-in-sign-up.styles.scss";
 
-const RegisterPage : React.FC = () => (
-  <div className="sign-in-sign-up">
-    <RegisterConnector />
-  </div>
-);
+const RegisterPage = (props: any) => {
+  const { history } = props;
+  return (
+    <div className="sign-in-sign-up">
+      <RegisterConnector history={history} />
+    </div>
+  );
+};
 
 export default RegisterPage;

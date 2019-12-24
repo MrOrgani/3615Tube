@@ -2,14 +2,19 @@ import React from "react";
 import ChangePasswordView from "./ChangePasswordView";
 import ChangePasswordController from "../../controller/ChangePasswordController";
 
+const ChangePasswordConnector = (props: any) => {
+  const { token, history } = props;
 
+  const onFinish = () => {
+    history.push("/login");
+  };
 
-const ChangePasswordConnector = (props:any) => {
-  const {token} = props
   return (
-      <ChangePasswordController>
-      {({ submit }) => <ChangePasswordView token={token} submit={submit} />}
-      </ChangePasswordController>
+    <ChangePasswordController>
+      {({ submit }) => (
+        <ChangePasswordView token={token} submit={submit} onFinish={onFinish} />
+      )}
+    </ChangePasswordController>
   );
 };
 

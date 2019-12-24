@@ -10,13 +10,8 @@ interface FormValues {
 }
 
 interface Props {
-  submit: (
-    values: FormValues,
-    action?: any
-  ) => Promise<FormikErrors<FormValues> | any>;
-  validationSchema?: (
-    values: FormValues
-  ) => Promise<FormikErrors<FormValues> | null>;
+  submit: (values: FormValues) => Promise<FormikErrors<FormValues> | any>;
+  onFinish: () => void;
 }
 
 export default (props: Props) => {
@@ -32,6 +27,8 @@ export default (props: Props) => {
           const errors = await props.submit(values);
           if (errors) {
             actions.setErrors(errors);
+          } else {
+            props.onFinish();
           }
         }}
         // validationSchema={SignupSchema}
@@ -45,7 +42,11 @@ export default (props: Props) => {
               component={FieldInput}
             />
             <div>
-              <CustomButton type="submit" onClick={handleSubmit}>
+              <CustomButton
+                type="submit"
+                onClick={handleSubmit}
+                disabled={isSubmitting}
+              >
                 {isSubmitting ? "Loading..." : "Reset my password"}
               </CustomButton>
             </div>

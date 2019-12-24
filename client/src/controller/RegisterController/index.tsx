@@ -1,8 +1,7 @@
-import * as React from 'react'
-import { useMutation, 
-} from "react-apollo";
+import * as React from "react";
+import { useMutation } from "react-apollo";
 import gql from "graphql-tag";
-import { normalizeErrors } from '../../utils/normalizeErrors';
+import { normalizeErrors } from "../../utils/normalizeErrors";
 
 interface Props {
   children: (data: {
@@ -24,8 +23,7 @@ export const registerMutation = gql`
       login: $login
       email: $email
       password: $password
-    )
-    {
+    ) {
       path
       msg
     }
@@ -33,15 +31,17 @@ export const registerMutation = gql`
 `;
 
 const SignUpController = (props: Props) => {
-  const [mutate, {error}] = useMutation(registerMutation);
-  
+  const [mutate, { error }] = useMutation(registerMutation);
+
   if (error) return <p>{JSON.stringify(error, null, 2)}</p>;
 
   const submit = async (values: any) => {
-    const { data: {register} } = await mutate({
+    const {
+      data: { register }
+    } = await mutate({
       variables: values
     });
-    
+
     if (register) {
       return normalizeErrors(register);
     }
