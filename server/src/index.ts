@@ -4,6 +4,7 @@ import connectToDb from "./utils/connecToDb";
 import { genSchema } from "./utils/genSchema";
 import { createSession } from "./utils/createSession";
 import { User } from "./entity/User";
+import bodyParser from "body-parser";
 
 const startServer = async () => {
   await require("dotenv").config();
@@ -23,6 +24,9 @@ const startServer = async () => {
   // EXTRA SET UP: connecting to the db and the sessions (cookie stored using filed store in the session dir)
   server.express.use(createSession());
   await connectToDb();
+
+  server.express.use(bodyParser.json({ limit: "10mb" }));
+  server.express.use(bodyParser.urlencoded({ limit: "10mb", extended: true }));
 
   //ROUTING
   //we still need a route for the confirmation email

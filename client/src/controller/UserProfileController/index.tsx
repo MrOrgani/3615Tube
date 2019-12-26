@@ -6,9 +6,10 @@ import { normalizeErrors } from "../../utils/normalizeErrors";
 interface Props {
   children: (data: {
     submit: (values: any) => Promise<any>;
-    data: any;
+    userInfo?: any;
+    data?: any;
   }) => JSX.Element | null;
-  userId: string;
+  userId?: string;
 }
 
 const profileMutation = gql`
@@ -65,8 +66,12 @@ const UserProfileController = (props: Props) => {
   const [mutate, { error: errorMut }] = useMutation(profileMutation);
   const { data, loading, error: errorQuery } = useQuery(
     props.userId ? GET_USER_INFO : GET_MY_INFO,
-    { variables: { id: props.userId } }
+    {
+      variables: { id: props.userId }
+    }
   );
+
+  console.log("data of user in controller, ", data);
 
   if (errorMut || errorQuery)
     return <p>{JSON.stringify(errorMut && errorQuery, null, 2)}</p>;
@@ -88,10 +93,10 @@ const UserProfileController = (props: Props) => {
   // function onFinish() {
   //   props.history.push("/");
   // }
-
+  const userInfo = data.findOne ? data.findOne : data.me;
   return props.children({
     submit,
-    data
+    userInfo
     //  onFinish
   });
 };

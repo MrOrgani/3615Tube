@@ -1,20 +1,31 @@
 import React from "react";
-import MyProfileView from "./MyProfileView";
+// import MyProfileView from "./MyProfileView";
 import UserProfileController from "./../../controller/UserProfileController";
 import UserProfileView from "./UserProfileView";
 
 const UserProfileConnector = (props: any) => {
+  // console.log("userProfileConnector, userId : ", props);
+  const { history } = props;
+
+  const onFinish = () => {
+    history.push(
+      "/profile"
+      // {
+      // message: "check your email to confirm your account"
+      // }
+    );
+  };
+
   const { userId } = props;
-  console.log("userProfileConnector, userId : ", userId);
   return (
     <UserProfileController userId={userId}>
-      {({ submit, data }) => {
-        return !userId ? (
-          <MyProfileView userInfo={data} submit={submit} />
-        ) : (
-          <UserProfileView userInfo={data} />
-        );
-      }}
+      {({ submit, userInfo }) => (
+        <UserProfileView
+          userInfo={userInfo}
+          submit={submit}
+          onFinish={onFinish}
+        />
+      )}
     </UserProfileController>
   );
 };

@@ -3,10 +3,25 @@ import React from "react";
 
 import "./avatar.styles.scss";
 import image from "../../assets/images/avatar.png";
+import { FieldProps } from "formik";
 
-function Avatar(props: any) {
-  const { values, setFieldValue, uploadImg } = props;
-  // console.log("values avatarm ", values);
+// interface FormValues {
+//   firstName: string;
+//   lastName: string;
+//   login: string;
+//   email: string;
+//   password: string;
+//   avatar?: string;
+// }
+
+const Avatar: React.FC<FieldProps<any>> = (props: any) => {
+  // const { values, setFieldValue, uploadImg } = props;
+  const {
+    field: { value },
+    form: { setFieldValue },
+    uploadImg
+  } = props;
+  console.log("values avatarm ", props);
 
   const handleChange = (e: any) => {
     const file = e.currentTarget.files[0];
@@ -34,21 +49,25 @@ function Avatar(props: any) {
             accept="image/*"
           />
           <label htmlFor="fileupload">
-            {!values.avatar && (
-              <img src={image} className="image" alt="avatar" />
-            )}
-            <img src={""} alt="" id={"myimage"} className="image" />
+            <img
+              src={value ? value : image}
+              id={"myimage"}
+              className="image"
+              alt="avatar"
+            />
+            {/* <img src={""} alt="" id={"myimage"} className="image" /> */}
           </label>
         </>
       ) : (
         <img
-          src={!values.avatar ? image : values.avatar}
+          src={value ? value : image}
+          id={"myimage"}
           className="image"
           alt="avatar"
         />
       )}
     </div>
   );
-}
+};
 
 export default Avatar;
