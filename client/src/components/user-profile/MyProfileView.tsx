@@ -8,6 +8,7 @@ import FieldInput from "../FiledInput/FieldInput.component";
 import Avatar from "../avatar/avatar.component";
 import CustomButton from "../button/button.component";
 import { ProfileSchema } from "../../common";
+import BuildOutlinedIcon from "@material-ui/icons/BuildOutlined";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -62,7 +63,7 @@ const Fade = React.forwardRef<HTMLDivElement, FadeProps>(function Fade(
 export default function SpringModal(props: any) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
-  console.log("props of sprin modal", props);
+  // console.log("props of sprin modal", props);
   const { userInfo } = props;
   const handleOpen = () => {
     setOpen(true);
@@ -73,10 +74,11 @@ export default function SpringModal(props: any) {
   };
 
   return (
-    <div>
-      <button type="button" onClick={handleOpen}>
-        react-spring
-      </button>
+    <div style={{ marginLeft: "20px" }}>
+      {/* <span onClick={handleOpen}> */}
+      {"                           "}
+      <BuildOutlinedIcon onClick={handleOpen} />
+      {/* </span> */}
       <Modal
         aria-labelledby="spring-modal-title"
         aria-describedby="spring-modal-description"

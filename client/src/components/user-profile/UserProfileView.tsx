@@ -3,7 +3,7 @@ import { FormikErrors } from "formik";
 
 import "./user-profile.styles.scss";
 import TextField from "@material-ui/core/TextField";
-import FutureModale from "./FutureModale";
+import MyProfileView from "./MyProfileView";
 import image from "../../assets/images/avatar.png";
 
 interface FormValues {
@@ -29,18 +29,17 @@ const UserProfile = (props: Props) => {
 
   return (
     <>
-      <div
-        className="user-profile-container"
-        style={{ display: "flex", flexDirection: "column" }}
-      >
-        <h2>Profile Page</h2>
-        {pathname === "/profile" && (
-          <FutureModale
-            userInfo={userInfo}
-            submit={submit}
-            onFinish={onFinish}
-          />
-        )}
+      <div className="user-profile-container">
+        <div className="profile-title">
+          <div>Profile Page</div>
+          {pathname === "/profile" && (
+            <MyProfileView
+              userInfo={userInfo}
+              submit={submit}
+              onFinish={onFinish}
+            />
+          )}
+        </div>
         <div className="avatar-container">
           <img
             src={!userInfo.avatar ? image : userInfo.avatar}

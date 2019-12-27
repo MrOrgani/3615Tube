@@ -5,17 +5,13 @@ import * as serviceWorker from "./serviceWorker";
 import dotenv from "dotenv";
 import { ApolloProvider } from "react-apollo";
 import { client } from "./apollo";
-import Header from "./components/header/header.component";
-import Footer from "./components/footer/footer.component";
-import Pages from "./pages";
+import App from "./App";
 
 dotenv.config();
 
 ReactDOM.render(
   <ApolloProvider client={client}>
-    <Header />
-    <Pages />
-    <Footer />
+    <App />
   </ApolloProvider>,
   document.getElementById("root") as HTMLElement
 );

@@ -1,3 +1,30 @@
 .cardGrid {
   display: flex;
 }
+
+.hover-info {
+  opacity: 0;
+}
+
+.movie-box {
+  display: flex;
+}
+.hover-info {
+  color: white;
+  position: fixed;
+}
+.movie-box:hover {
+  display: flex;
+  img {
+    opacity: 0.3;
+  }
+  .hover-info {
+    opacity: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    // position: fixed;
+    color: black;
+    // align-content: flex-start;
+  }
+}

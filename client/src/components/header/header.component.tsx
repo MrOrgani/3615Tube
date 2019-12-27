@@ -1,24 +1,37 @@
-import React from "react";
-
+import React, { useContext } from "react";
+import SettingsIcon from "@material-ui/icons/Settings";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import "./header.styles.scss";
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
+import UserContext from "../../pages/context";
+import SettingsPowerOutlinedIcon from "@material-ui/icons/SettingsPowerOutlined";
+// import Icon from "@material-ui/core/Icon";
 
 const Header = () => {
+  const user = useContext(UserContext);
+  // console.log("user", user);
+
+  const logInlogOut = !user ? (
+    <Link className="option" to="/login">
+      <AccountCircleIcon />
+    </Link>
+  ) : (
+    <Link className="option" to="/logout">
+      <SettingsPowerOutlinedIcon />
+    </Link>
+  );
+
   return (
     <div className="header">
-      {/* <Link className="logo-container" to="/"> */}
-      {/* <h1 className="neon-title" data-text="3615Tube"> */}
-      <h1 className="logo-container" data-text="3615Tube">
-        3615Tube
-      </h1>
-      {/* </Link> */}
+      <Link to="/">
+        {/* <h1 className="neon-title" data-text="3615Tube"> */}
+        <div className="logo-container">3615Tube</div>
+      </Link>
       <div className="options">
-        {/* <Link className="option" to="/profile"> */}
-        PROFILE
-        {/* </Link> */}
-        {/* <Link className="option" to="/signin"> */}
-        SIGN IN
-        {/* </Link> */}
+        <Link className="option" to="/profile">
+          <SettingsIcon />
+        </Link>
+        {logInlogOut}
       </div>
     </div>
   );

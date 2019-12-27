@@ -1,18 +1,21 @@
 @import url("https://fonts.googleapis.com/css?family=Alata&display=swap");
 .header {
   height: 70px;
-  width: 100%;
   display: flex;
   justify-content: space-between;
-  //   margin-bottom: 25px;
-  position: sticky;
+  position: -webkit-sticky;
+  position: fixed;
   background-color: black;
+  padding: 0px 100px;
+  align-items: center;
+  width: -webkit-fill-available;
 
   .logo-container {
-    height: 100%;
-    width: 70px;
+    font-size: 50px;
+    // height: 100%;
+    // width: 70px;
     // padding: 25px;
-    color: #fff;
+    color: #ff005b;
 
     .neon-title {
       font-family: "Alata", sans-serif;

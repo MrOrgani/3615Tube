@@ -11,10 +11,13 @@ import "./index.scss";
 import AuthRoute from "../controller/Auth/AuthRoute";
 import TextPage from "./textpage/textpage";
 import LogoutConnector from "../components/Logout/LogoutConnector";
+import Header from "../components/header/header.component";
+import Footer from "../components/footer/footer.component";
 
 export const Pages = () => (
-  <div className="App">
-    <BrowserRouter>
+  <BrowserRouter>
+    <Header />
+    <div className="App">
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route path="/register" component={RegisterPage} />
@@ -27,8 +30,9 @@ export const Pages = () => (
         <AuthRoute exact path="/profile/:key" component={ProfilePage} />
         <AuthRoute exact path="/profile" component={ProfilePage} />
       </Switch>
-    </BrowserRouter>
-  </div>
+    </div>
+    <Footer />
+  </BrowserRouter>
 );
 
 export default Pages;

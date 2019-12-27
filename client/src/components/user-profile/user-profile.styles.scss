@@ -1,3 +1,15 @@
 .user-profile-container {
   height: fit-content;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 500px;
+  max-width: 100%;
+
+  .profile-title {
+    display: flex;
+    font-size: 50px;
+  }
 }
