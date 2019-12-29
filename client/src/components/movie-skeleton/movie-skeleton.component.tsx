@@ -1,48 +1,31 @@
-import React from // , { useRef }
-"react";
-
-import {
-  //  Grid,
-  Paper
-} from "@material-ui/core";
-import SkeletonItem from "../skeleton-item/skeletom-item.component";
+import React from "react"; // , { useRef }
+import Skeleton from "@material-ui/lab/Skeleton";
+import Box from "@material-ui/core/Box";
 
 // import useStyles from "./styles";
 
-const MovieItemSkeleton = (props: any) => {
+const MovieItemSkeleton = () => {
   // const '= useStyles(');
   // const elementRef = useRef(null);
 
   return (
-    // <Grid item xs={12} sm={6} md={6} ref={elementRef}>
-    <Paper className={"card"}>
-      <SkeletonItem
-        className="cardMedia"
-        style={{
-          backgroundColor: "#8e8e8e",
-          minWidth: "185px",
-          minHeight: "300px"
-        }}
-        key={props.key}
+    // <Box key={index} width={185} mx={1}>
+    <>
+      <Skeleton
+        variant="rect"
+        width={185}
+        height={278}
+        style={{ backgroundColor: "rgba(222, 85, 257, 0.08)" }}
       />
-      {/* <div className={"cardContent"}>
-          <div className={"cardDetails"}>
-            <SkeletonItem
-              style={{ height: "20px", width: "150px" }}
-              className={""}
-            />
-            <SkeletonItem
-              className={""}
-              style={{ height: "18px", width: "100%", marginTop: "32px" }}
-            />
-            <SkeletonItem
-              className={""}
-              style={{ height: "18px", width: "50%", marginTop: "2px" }}
-            />
-          </div>
-        </div> */}
-    </Paper>
-    // </Grid>
+      <Box pt={0.5}>
+        <Skeleton style={{ backgroundColor: "rgba(222, 85, 257, 0.08)" }} />
+        <Skeleton
+          width="60%"
+          style={{ backgroundColor: "rgba(222, 85, 257, 0.08)" }}
+        />
+      </Box>
+      {/* </Box> */}
+    </>
   );
 };
 

@@ -2,10 +2,12 @@
   //   display: flex;
   padding: 0 94px;
   padding-top: 70px;
+  min-height: 112vh;
 }
 
 body {
-  background-color: black;
+  // background-color: black;
+  background: linear-gradient(296.1deg, #ff005b 7.1%, #00023d 76%);
 }
 a {
   text-decoration: none;

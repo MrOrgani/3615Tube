@@ -6,7 +6,7 @@ import UserProfileConnector from "../../components/user-profile/UserProfileConne
 import "./profile.styles.scss";
 
 const ProfilePage = (props: any) => {
-  console.log("profile page", props);
+  // console.log("profile page", props);
 
   const {
     history,
@@ -17,6 +17,7 @@ const ProfilePage = (props: any) => {
 
   return (
     <div className="profile-page">
+      <div className="page-title">Profile Page</div>
       <UserProfileConnector userId={key} history={history} />
     </div>
   );

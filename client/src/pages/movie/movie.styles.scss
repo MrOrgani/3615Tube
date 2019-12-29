@@ -1,0 +1,19 @@
+.movie-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .video-player {
+    // width: 400px;
+    height: auto;
+    width: -moz-available;
+  }
+  .player-info {
+    // width: 400px;
+    height: auto;
+    height: 300px;
+    width: -moz-available;
+    color: white;
+    background-color: #46464699;
+  }
+}

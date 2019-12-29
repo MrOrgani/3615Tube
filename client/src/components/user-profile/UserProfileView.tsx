@@ -2,9 +2,10 @@ import React from "react";
 import { FormikErrors } from "formik";
 
 import "./user-profile.styles.scss";
-import TextField from "@material-ui/core/TextField";
+// import TextField from "@material-ui/core/TextField";
 import MyProfileView from "./MyProfileView";
 import image from "../../assets/images/avatar.png";
+import UserActivity from "../user-activity/user-activity.component";
 
 interface FormValues {
   firstName: string;
@@ -24,22 +25,12 @@ interface Props {
 
 const UserProfile = (props: Props) => {
   const { userInfo, submit, onFinish } = props;
-  console.log("user view", props, userInfo);
+  // console.log("user view", props, userInfo);
   const { pathname } = window.location;
 
   return (
     <>
       <div className="user-profile-container">
-        <div className="profile-title">
-          <div>Profile Page</div>
-          {pathname === "/profile" && (
-            <MyProfileView
-              userInfo={userInfo}
-              submit={submit}
-              onFinish={onFinish}
-            />
-          )}
-        </div>
         <div className="avatar-container">
           <img
             src={!userInfo.avatar ? image : userInfo.avatar}
@@ -47,39 +38,17 @@ const UserProfile = (props: Props) => {
             alt="avatar"
           />
         </div>
-        <TextField
-          value={userInfo.firstName}
-          disabled={true}
-          label={"First Name"}
-        />
-        <TextField
-          value={userInfo.lastName}
-          disabled={true}
-          label={"Last Name"}
-        />
-        <TextField value={userInfo.login} disabled={true} label={"Login"} />
-        <TextField value={userInfo.email} disabled={true} label={"Email"} />
-        {/* <span>Upload your info</span> */}
-        {/* <Form style={{ display: "flex", flexDirection: "column" }}> */}
-        {/* {JSON.stringify(props.userInfo, null, 2)} */}
+        {userInfo.firstName} {userInfo.lastName} | 👤 {userInfo.login} | ✉️{" "}
+        {userInfo.email}
+        {pathname === "/profile" && (
+          <MyProfileView
+            userInfo={userInfo}
+            submit={submit}
+            onFinish={onFinish}
+          />
+        )}
       </div>
-      <div className="user-activty">
-        <h2>
-          {pathname === "/profile" ? "Your" : `${userInfo.login}'s`} activty
-        </h2>
-        <div className="movie-list">
-          Movies seen
-          {/* <MovieListSkeleton /> */}
-        </div>
-        <div className="movie-list">
-          To watch list
-          {/* <MovieListSkeleton /> */}
-        </div>
-        <div className="movie-list">
-          Rated movies
-          {/* <MovieListSkeleton /> */}
-        </div>
-      </div>
+      <UserActivity />
     </>
   );
 };

@@ -74,11 +74,11 @@ export default function SpringModal(props: any) {
   };
 
   return (
-    <div style={{ marginLeft: "20px" }}>
-      {/* <span onClick={handleOpen}> */}
-      {"                           "}
-      <BuildOutlinedIcon onClick={handleOpen} />
-      {/* </span> */}
+    <div>
+      <BuildOutlinedIcon
+        className="user-profile-container"
+        onClick={handleOpen}
+      />
       <Modal
         aria-labelledby="spring-modal-title"
         aria-describedby="spring-modal-description"
@@ -109,19 +109,15 @@ export default function SpringModal(props: any) {
               validateOnBlur={false}
               validationSchema={ProfileSchema}
             >
-              {({
-                // values,
-                handleSubmit,
-                isSubmitting
-
-                //  setFieldValue
-              }) => {
+              {({ handleSubmit, isSubmitting }) => {
                 return (
-                  <Form style={{ display: "flex", flexDirection: "column" }}>
-                    {/* <Avatar
-                    // values={values}
-                    // setFieldValue={setFieldValue}
-                  /> */}
+                  <Form
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center"
+                    }}
+                  >
                     <Field name="avatar" uploadImg={true} component={Avatar} />
                     <Field
                       name="firstName"

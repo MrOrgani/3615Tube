@@ -5,10 +5,13 @@
   justify-content: space-between;
   position: -webkit-sticky;
   position: fixed;
-  background-color: black;
+  // background-color: black;
   padding: 0px 100px;
   align-items: center;
   width: -webkit-fill-available;
+  width: -moz-available;
+  // background: linear-gradient(200.1deg, #ff005b -10.9%, #000000 66%);
+  background: transparent;
 
   .logo-container {
     font-size: 50px;
@@ -17,33 +20,33 @@
     // padding: 25px;
     color: #ff005b;
 
-    .neon-title {
-      font-family: "Alata", sans-serif;
-      color: #fff;
-      text-shadow: 0 0 20px #ff005b;
-      display: flex;
-    }
+    // .neon-title {
+    //   font-family: "Alata", sans-serif;
+    //   color: #fff;
+    //   text-shadow: 0 0 20px #ff005b;
+    //   display: flex;
+    // }
 
-    .neon-title:after {
-      content: attr(data-text);
-      position: fixed;
-      //   padding: 0 20px;
-      //   width: 100%;
-      //   height: 100%;
-      z-index: -1;
-      color: #ff005b;
-      filter: blur(15px);
-    }
-    .neon-title:before {
-      content: "";
-      position: fixed;
-      top: 0;
-      left: 0;
-      background-color: #fe3a80;
-      z-index: -2;
-      opacity: 0.5;
-      filter: blur(40px);
-    }
+    // .neon-title:after {
+    //   content: attr(data-text);
+    //   position: fixed;
+    //   //   padding: 0 20px;
+    //   //   width: 100%;
+    //   //   height: 100%;
+    //   z-index: -1;
+    //   color: #ff005b;
+    //   filter: blur(15px);
+    // }
+    // .neon-title:before {
+    //   content: "";
+    //   position: fixed;
+    //   top: 0;
+    //   left: 0;
+    //   background-color: #fe3a80;
+    //   z-index: -2;
+    //   opacity: 0.5;
+    //   filter: blur(40px);
+    // }
   }
 
   .options {

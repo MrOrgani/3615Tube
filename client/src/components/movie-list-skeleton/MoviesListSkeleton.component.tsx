@@ -1,100 +1,68 @@
 import React from "react";
 import { Grid, Box, Typography } from "@material-ui/core";
-import Skeleton from "@material-ui/lab/Skeleton";
+// import Skeleton from "@material-ui/lab/Skeleton";
 import StarOutlinedIcon from "@material-ui/icons/StarOutlined";
 
-import { movieList } from "../../test.js";
 import "./MoviesListSkeleton.styles.scss";
+import MovieItemSkeleton from "../../components/movie-skeleton/movie-skeleton.component";
 
 interface MediaProps {
   loading?: boolean;
+  data?: any;
+  nbOfItem?: number;
 }
 
 const Media = (props: MediaProps) => {
-  const { loading = false } = props;
-  const result = !loading ? Array.from(new Array(3)) : movieList;
+  const { loading = false, data, nbOfItem } = props;
+  const result = !loading && data ? data : Array.from(new Array(nbOfItem || 3));
 
-  // console.log("result", result);
   return (
-    <Grid
-      container
-      item
-      // zeroMinWidth
-      // spacing={2}
-      // justify={"center"}
-      lg={12}
-      md={5}
-    >
+    <Grid container item lg={12} md={5}>
       {Array.from(result).map((item: any, index: any) => (
         <Box key={index} width={185} mx={1}>
           {item ? (
-            <div className="movie-box">
-              <img
-                style={{ width: 185, height: 278 }}
-                alt={item.title}
-                src={`https://image.tmdb.org/t/p/w185_and_h278_bestv2${item.poster_path}`}
-                className="poster"
-              />
-              <div className="hover-info">
-                <StarOutlinedIcon
-                  fontSize={"large"}
-                  style={{
-                    color: "yellow",
-                    position: "absolute",
-                    zIndex: 5,
-                    fontSize: "60px"
-                  }}
+            <>
+              <div className="movie-box">
+                <img
+                  style={{ width: 185, height: 278 }}
+                  alt={item.title}
+                  src={`https://image.tmdb.org/t/p/w185_and_h278_bestv2${item.poster_path}`}
+                  className="poster"
                 />
-                <div
-                  style={{
-                    // position: "absolute",
-                    // color: "green",
-                    zIndex: 99999
-                  }}
-                >
-                  {item.vote_average}
+                <div className="hover-info">
+                  <div
+                    style={{
+                      zIndex: 99999
+                    }}
+                  >
+                    {item.vote_average}
+                    <StarOutlinedIcon
+                      fontSize={"large"}
+                      style={{
+                        color: "yellow",
+                        position: "absolute",
+                        zIndex: 5,
+                        fontSize: "60px"
+                      }}
+                    />
+                  </div>
+                  {/* <div>{item.overview}</div> */}
                 </div>
               </div>
-            </div>
+              <Box pr={2}>
+                <Typography
+                  // gutterBottom
+                  variant="body2"
+                  // color="white"
+                  style={{ color: "white" }}
+                  align="center"
+                >
+                  {item.title}
+                </Typography>
+              </Box>
+            </>
           ) : (
-            <Skeleton
-              variant="rect"
-              width={185}
-              height={278}
-              style={{ backgroundColor: "rgba(222, 85, 257, 0.08)" }}
-            />
-          )}
-          {item ? (
-            <Box pr={2}>
-              <Typography
-                // gutterBottom
-                variant="body2"
-                color="secondary"
-                align="center"
-              >
-                {item.title}
-              </Typography>
-              {/* <Typography
-                display="block"
-                variant="caption"
-                color="textSecondary"
-              >
-                {item.channel}
-              </Typography> */}
-              {/* <Typography variant="caption" color="textSecondary">
-                {`${item.views} • ${item.createdAt}`}
-              </Typography> */}
-            </Box>
-          ) : (
-            <Box pt={0.5}>
-              <Skeleton
-                style={{ backgroundColor: "rgba(222, 85, 257, 0.08)" }}
-              />
-              <Skeleton
-                width="60%"
-                style={{ backgroundColor: "rgba(222, 85, 257, 0.08)" }}
-              />
-            </Box>
+            <MovieItemSkeleton />
           )}
         </Box>
       ))}
@@ -102,11 +70,4 @@ const Media = (props: MediaProps) => {
   );
 };
 
-export default function YouTube() {
-  return (
-    <>
-      <Media loading />
-      <Media />
-    </>
-  );
-}
+export default Media;

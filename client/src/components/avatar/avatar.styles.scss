@@ -1,14 +1,13 @@
 .avatar-container {
-  display: flex;
   border: 3px solid;
-  width: 150px;
-  height: 150px;
+  width: 50px;
+  height: 50px;
   /* background-size: cover; */
-  background-position: center;
+  /* background-position: center; */
   border-radius: 50%;
   overflow: hidden;
   justify-content: center;
-
+  margin-right: 10px;
   .image {
     // max-width: 100%;
     max-height: 100%;

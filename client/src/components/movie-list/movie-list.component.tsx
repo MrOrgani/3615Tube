@@ -1,5 +1,7 @@
 import React from "react";
 
+import { movieList } from "../../test.js";
+
 // import MovieListBase from "../../components/Movie/List";
 import MovieListSkeleton from "../movie-list-skeleton/MoviesListSkeleton.component";
 // import * as movieList from "../../test.json";
@@ -13,7 +15,7 @@ const MovieList = () => {
   //       }
 
   //       if (loading) {
-  return <MovieListSkeleton />;
+  return <MovieListSkeleton data={movieList} />;
   //       }
 
   // return <MovieListBase movies={fromJS(movies.items)} limit={20} />;
