@@ -1,8 +1,8 @@
-import axios from "axios";
-import { loginMutation } from "./loginTest";
+import axios, { AxiosInstance } from "axios";
 import request from "graphql-request";
+import { loginAndTest } from "./loginAndTest";
 
-const meQuery: string = `
+export const meQuery: string = `
 query{
 me{
   login
@@ -10,7 +10,7 @@ me{
   language
 }}`;
 
-const logOutQuery: string = `
+export const logOutQuery: string = `
 mutation{
   logout
 }
@@ -34,37 +34,36 @@ export const meTest = (
     });
 
     test("login + me + logout + me", async () => {
-      const transport = await axios.create({ withCredentials: true });
-
       //LOG INconnect to get the cookies
-      let res = await transport.post(process.env.BACK_HOST, {
-        query: loginMutation(login, password)
-      });
-      //set cookies we got from the login in the second request
-      let [cookie] = res.headers["set-cookie"];
-      transport.defaults.headers.Cookie = cookie;
+      const testMeLogOutMe = async function(transport: AxiosInstance) {
+        //ARE YOU LOGGED IN PROPERLY
+        const response = await transport.post(process.env.BACK_HOST, {
+          query: meQuery
+        });
+        expect(response.data.data).toEqual({
+          me: {
+            login,
+            firstName,
+            language
+          }
+        });
 
-      //ME QUERY verify we can login using the cookie we set
-      let response = await transport.post(process.env.BACK_HOST, {
-        query: meQuery
-      });
-      expect(response.data.data).toEqual({
-        me: {
-          login,
-          firstName,
-          language
-        }
-      });
+        // LOG OUT
+        let [cookie] = response.headers["set-cookie"];
+        // console.log(cookie);
+        transport.defaults.headers.Cookie = cookie;
+        const response2 = await transport.post(process.env.BACK_HOST, {
+          query: logOutQuery
+        });
+        expect(response2.data.data).toEqual({ logout: true });
 
-      //LOG OUT
-      const response2 = await request(process.env.BACK_HOST, logOutQuery);
-      expect(response2).toEqual({ logout: true });
-
-      //RETRY ME
-      response = await axios.post(process.env.BACK_HOST, {
-        query: meQuery
-      });
-      expect(response.data.data).toEqual({ me: null });
+        //RETRY ME
+        const response3 = await transport.post(process.env.BACK_HOST, {
+          query: meQuery
+        });
+        expect(response3.data.data).toEqual({ me: null });
+      };
+      loginAndTest(login, password, testMeLogOutMe);
     });
   });
 };

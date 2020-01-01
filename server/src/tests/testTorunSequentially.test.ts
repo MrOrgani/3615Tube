@@ -35,9 +35,9 @@ describe("sequentially run tests", () => {
   meTest(login, firstName, language, password);
   forgotTest(password, newPassword, email, id);
   findOneTest(login, firstName, language);
-  updateTest(newLogin, email, newFirstName, newLanguage);
+  // updateTest(login, password, newLogin, newFirstName, newLanguage, email);
 });
 
-afterAll(async () => {
+afterAll(() => {
   rmTestUser(login);
 });

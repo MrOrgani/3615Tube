@@ -1,6 +1,5 @@
 import { request } from "graphql-request";
 import { User } from "../entity/User";
-import { rmTestUser } from "../modules/subModules/rmUser";
 
 export const findOneTest = (
   login: string,
@@ -17,10 +16,10 @@ export const findOneTest = (
         language
       }}`;
       const response = await request(process.env.BACK_HOST, mutation);
+      // console.log("response in findOnetest", response);
       expect(response).toEqual({
         findOne: { login, firstName, language }
       });
-      // await rmTestUser(login);
     });
   });
 };

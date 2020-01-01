@@ -13,7 +13,15 @@ export default async (
   const { session } = context;
   // console.log("context in the middleware", parent, args, info);
   // console.log(info.returnType.name);
+  // console.log(
+  //   "in verify and setSession of type",
+  //   info.fieldName,
+  //   "the session is : ",
+  //   session,
+  //   session.userId
+  // );
   if (!session.userId) {
+    console.log("we lack a cookie here", info.fieldName);
     if (info.returnType.name !== "Error") return null;
     else return formatError("cookie", "no session cookie was detected");
   }
