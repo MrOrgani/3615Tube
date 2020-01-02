@@ -1,6 +1,6 @@
 import { loginTest } from "./loginTest";
 import { registerTest } from "./registerTest";
-// import { findOneTest } from "./findOneTest";
+import { findOneTest } from "./findOneTest";
 import { meTest } from "./meTest";
 import { forgotTest } from "./forgotTest";
 import { updateTest } from "./updateTest";
@@ -32,8 +32,7 @@ describe("sequentially run tests", () => {
   registerTest(login, password, firstName, lastName, email, id);
   loginTest(login, password);
   meTest(login, firstName, language, password);
-  // findOneTest(login, password, firstName, language, id);
-  //suddently cannot make this test work "must provide document at invariant" seems like it is because of axios
+  findOneTest(login, password, firstName, language, id);
   updateTest(login, password, newFirstName, newLanguage, email);
   forgotTest(password, newPassword, email, id);
 });
