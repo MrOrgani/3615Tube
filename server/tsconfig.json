@@ -16,7 +16,7 @@
     // "strictPropertyInitialization": true,
     "noImplicitThis": true,
     // "noUnusedLocals": true,
-    "noUnusedParameters": true,
+    // "noUnusedParameters": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "esModuleInterop": true,
@@ -26,7 +26,8 @@
     "noUnusedLocals": false,
     "emitDecoratorMetadata": true,
     "strictPropertyInitialization": false,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "noUnusedParameters": false
   },
   "exclude": ["node_modules"],
   "include": ["./src/**/*.tsx", "./src/**/*.ts"]

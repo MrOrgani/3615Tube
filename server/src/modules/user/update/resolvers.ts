@@ -12,13 +12,13 @@ const resolvers: ResolverMap = {
     update: createMiddleware(
       verifyAndSetSession,
       async (_: any, args: any, { session }) => {
-        try {
-          // console.log("args", args);
-          // await SignupSchema.validate(args, { abortEarly: false });
-        } catch (error) {
-          // return await formatYupError(error);
-        }
-        if (session.user.password !== "undefined") {
+        // try {
+        // console.log("args", args);
+        // await SignupSchema.validate(args, { abortEarly: false });
+        // } catch (error) {
+        // return await formatYupError(error);
+        // }
+        if (args.password) {
           args.password = await bcrypt.hash(args.password, 10);
         } else args.password = session.user.password;
         User.update({ id: session.user.id }, args);

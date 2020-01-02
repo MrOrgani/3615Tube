@@ -53,7 +53,7 @@
   "scripts": {
     "start": "nodemon -L --exec ts-node --files src/index.ts",
     "typeorm": "ts-node ../node_modules/.bin/typeorm",
-    "test": "jest --detectOpenHandles --runInBand",
+    "test": "jest --detectOpenHandles",
     "gen-schema-types": "ts-node src/scripts/createTypes.ts"
   },
   "jest": {

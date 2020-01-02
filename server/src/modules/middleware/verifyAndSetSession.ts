@@ -20,8 +20,8 @@ export default async (
   //   session,
   //   session.userId
   // );
-  if (!session.userId) {
-    console.log("we lack a cookie here", info.fieldName);
+  if (!context.session.userId) {
+    // console.log("we lack a cookie here", info.fieldName, info.returnType.name);
     if (info.returnType.name !== "Error") return null;
     else return formatError("cookie", "no session cookie was detected");
   }

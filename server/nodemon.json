@@ -1,4 +1,4 @@
 {
   "verbose": false,
-  "ignore": ["*.test.ts", "sessions*/"]
+  "ignore": ["**/tests/*", "sessions*/"]
 }

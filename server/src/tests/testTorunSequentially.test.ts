@@ -9,7 +9,6 @@ import { rmTestUser } from "../modules/subModules/rmUser";
 // import { User } from "../entity/User";
 
 const login: string = "asdf";
-const newLogin: string = "vlecon";
 const password: string = "Asdf1*";
 const newPassword = "AAsdf1*";
 const firstName: string = "asdf";
@@ -33,9 +32,9 @@ describe("sequentially run tests", () => {
   registerTest(login, password, firstName, lastName, email, id);
   loginTest(login, password);
   meTest(login, firstName, language, password);
-  forgotTest(password, newPassword, email, id);
   findOneTest(login, firstName, language);
-  // updateTest(login, password, newLogin, newFirstName, newLanguage, email);
+  updateTest(login, password, newFirstName, newLanguage, email);
+  forgotTest(password, newPassword, email, id);
 });
 
 afterAll(() => {

@@ -10,7 +10,6 @@ export const resolvers: ResolverMap = {
     logout: createMiddleware(
       verifyAndSetSession,
       async (_: any, __: any, { session }) => {
-        // await console.log("in logout, session", session);
         return new Promise(res =>
           session.destroy(err => {
             if (err) {
