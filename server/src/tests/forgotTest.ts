@@ -46,13 +46,15 @@ export const forgotTest = async (
       expect(response).toEqual({ forgotPasswordChange: null });
       expect(newPassword).not.toEqual(password);
     });
-    test("change password wrong password format", async () => {
+
+    test("Yup validation", async () => {
+      const user: User = (await User.findOne({ where: { email } })) as User;
       let response = await request(
         process.env.BACK_HOST,
         changeForgotMutation("asdf1*", id)
       );
       expect(response.forgotPasswordChange[0].path).toEqual("password");
-      expect(password).not.toEqual("asdf1*");
+      expect(user.password).not.toEqual("asdf1*");
     });
   });
 };

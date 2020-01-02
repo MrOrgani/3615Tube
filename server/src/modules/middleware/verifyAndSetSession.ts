@@ -27,6 +27,7 @@ export default async (
   }
   const user = await User.findOne({ where: { id: session.userId } });
   if (user) session.user = user;
+  else return false;
   // console.log("session . user = ", session.user);
 
   const result = await resolver(parent, args, context, info);

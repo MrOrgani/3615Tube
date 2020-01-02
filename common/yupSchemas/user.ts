@@ -42,13 +42,7 @@ export const SignInSchema = Yup.object().shape({
     .max(30, invalidLogin)
     .matches(/^[a-zA-Z0-9-_]+$/, "Only letters & digits!")
     .required("Required"),
-  password: Yup.string()
-    .matches(/[0-9]/, invalidLogin)
-    .matches(/[a-z]/, invalidLogin)
-    .matches(/[A-Z]/, invalidLogin)
-    .matches(/[§!@#$%^&*()]/, invalidLogin)
-    .min(6, "Too Short! Min 6 chars")
-    .required("Required")
+  password: PasswordValidation
 });
 
 export const ChangePasswordSchema = Yup.object().shape({
