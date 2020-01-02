@@ -1,6 +1,5 @@
-import request from "graphql-request";
 import { User } from "../entity/User";
-import { AxiosInstance } from "axios";
+import axios, { AxiosInstance } from "axios";
 import { setSessionAndTest } from "./setSessionAndTest";
 
 const updateMutation: any = (firstName: string, language: string) => `mutation{
@@ -18,6 +17,12 @@ export const updateTest = (
   //   description: string
 ) => {
   describe("update Test", () => {
+    test("update not being connected", async () => {
+      const response = (await axios.post(process.env.BACK_HOST, {
+        query: updateMutation(newFirstName, newLanguage)
+      })) as any;
+      expect(response.data.data.path).toEqual("cookie");
+    });
     test("basic update", async () => {
       const basicUpdateTest = async function(transport: AxiosInstance) {
         const response = (await transport.post(process.env.BACK_HOST, {
