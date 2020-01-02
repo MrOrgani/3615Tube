@@ -22,10 +22,10 @@ export const meQuery = gql`
 
 const AuthRoute = (props: any) => {
   const { data, loading } = useQuery(meQuery);
-  // console.log(data);
+  console.log("data in Authroute, ", data);
   const renderRoute = (routeProps: any) => {
     const { component } = props;
-
+    console.log("data in Authroute, ", data);
     if (!data || loading) {
       // loading screen
       return null;

@@ -52,11 +52,9 @@ const GET_MY_INFO = gql`
 const GET_USER_INFO = gql`
   query findOne($id: String) {
     findOne(id: $id) {
-      id
       firstName
       lastName
       login
-      email
       avatar
     }
   }
