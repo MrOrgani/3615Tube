@@ -7,7 +7,7 @@ export const loginMutation = (login: string, password: string) => `mutation{
 }`;
 
 export const loginTest = (login: string, password: string) => {
-  const mutation: string = loginMutation(login, password);
+  // const mutation: string = loginMutation(login, password);
   const wrongMutationLogin: string = `mutation{
   login(login:"AsDf",password:"${password}")
   {path, msg}
@@ -31,8 +31,9 @@ export const loginTest = (login: string, password: string) => {
     // });
 
     test("login or password error", async () => {
-      const response = await request(process.env.BACK_HOST, mutation);
-      expect(response).toEqual({ login: null });
+      //THE FIRST TEST IS NOW TESTED DIRECTLY IN ME TEST
+      // const response = await request(process.env.BACK_HOST, mutation);
+      // expect(response).toEqual({ login: null });
       const response2: any = await request(
         process.env.BACK_HOST,
         wrongMutationLogin

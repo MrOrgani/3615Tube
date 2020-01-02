@@ -1,8 +1,8 @@
-import axios from "axios";
-import { loginMutation } from "./loginTest";
+import axios, { AxiosInstance } from "axios";
 import request from "graphql-request";
+import { setSessionAndTest } from "./setSessionAndTest";
 
-const meQuery: string = `
+export const meQuery: string = `
 query{
 me{
   login
@@ -10,7 +10,7 @@ me{
   language
 }}`;
 
-const logOutQuery: string = `
+export const logOutQuery: string = `
 mutation{
   logout
 }
@@ -34,9 +34,8 @@ export const meTest = (
     });
 
     test("login + me + logout + me", async () => {
-      const transport = await axios.create({ withCredentials: true });
-
       //LOG INconnect to get the cookies
+<<<<<<< HEAD
       let res = await transport.post(process.env.BACK_HOST, {
         query: loginMutation(login, password)
       });
@@ -55,16 +54,34 @@ export const meTest = (
           language
         }
       });
+=======
+      const testMeLogOutMe = async function(transport: AxiosInstance) {
+        //ARE YOU LOGGED IN PROPERLY
+        const response = await transport.post(process.env.BACK_HOST, {
+          query: meQuery
+        });
+        expect(response.data.data).toEqual({
+          me: {
+            login,
+            firstName,
+            language
+          }
+        });
+>>>>>>> master
 
-      //LOG OUT
-      const response2 = await request(process.env.BACK_HOST, logOutQuery);
-      expect(response2).toEqual({ logout: true });
+        // LOG OUT
+        const response2 = await transport.post(process.env.BACK_HOST, {
+          query: logOutQuery
+        });
+        expect(response2.data.data).toEqual({ logout: true });
 
-      //RETRY ME
-      response = await axios.post(process.env.BACK_HOST, {
-        query: meQuery
-      });
-      expect(response.data.data).toEqual({ me: null });
+        //RETRY ME
+        const response3 = await transport.post(process.env.BACK_HOST, {
+          query: meQuery
+        });
+        expect(response3.data.data).toEqual({ me: null });
+      };
+      await setSessionAndTest(login, password, testMeLogOutMe, false);
     });
   });
 };
