@@ -13,7 +13,7 @@ const resolvers: ResolverMap = {
       verifyAndSetSession,
       async (_: any, args: any, { session }) => {
         // try {
-        // console.log("args", args);
+        console.log("args", args);
         // await SignupSchema.validate(args, { abortEarly: false });
         // } catch (error) {
         // return await formatYupError(error);

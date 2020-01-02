@@ -7,7 +7,7 @@ import { Formik, Form, Field } from "formik";
 import FieldInput from "../FiledInput/FieldInput.component";
 import Avatar from "../avatar/avatar.component";
 import CustomButton from "../button/button.component";
-import { ProfileSchema } from "../../common";
+// import { ProfileSchema } from "../../common";
 import BuildOutlinedIcon from "@material-ui/icons/BuildOutlined";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -98,6 +98,7 @@ export default function SpringModal(props: any) {
               initialValues={{ ...userInfo, newPassowrd: "" }}
               onSubmit={async (values, actions) => {
                 const errors = await props.submit(values);
+                console.log("error, in Myprofile view ", errors);
                 if (errors) {
                   actions.setErrors(errors);
                 } else {
@@ -107,7 +108,7 @@ export default function SpringModal(props: any) {
               }}
               validateOnChange={false}
               validateOnBlur={false}
-              validationSchema={ProfileSchema}
+              // validationSchema={ProfileSchema}
             >
               {({ handleSubmit, isSubmitting }) => {
                 return (

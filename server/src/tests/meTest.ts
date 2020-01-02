@@ -35,26 +35,6 @@ export const meTest = (
 
     test("login + me + logout + me", async () => {
       //LOG INconnect to get the cookies
-<<<<<<< HEAD
-      let res = await transport.post(process.env.BACK_HOST, {
-        query: loginMutation(login, password)
-      });
-      //set cookies we got from the login in the second request
-      let [] = res.headers["set-cookie"];
-      transport.defaults.headers.Cookie = cookie;
-
-      //ME QUERY verify we can login using the cookie we set
-      let response = await transport.post(process.env.BACK_HOST, {
-        query: meQuery
-      });
-      expect(response.data.data).toEqual({
-        me: {
-          login,
-          firstName,
-          language
-        }
-      });
-=======
       const testMeLogOutMe = async function(transport: AxiosInstance) {
         //ARE YOU LOGGED IN PROPERLY
         const response = await transport.post(process.env.BACK_HOST, {
@@ -67,7 +47,6 @@ export const meTest = (
             language
           }
         });
->>>>>>> master
 
         // LOG OUT
         const response2 = await transport.post(process.env.BACK_HOST, {

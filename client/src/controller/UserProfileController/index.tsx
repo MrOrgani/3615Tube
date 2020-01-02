@@ -13,15 +13,15 @@ interface Props {
 }
 
 const profileMutation = gql`
-  mutation Profile(
+  mutation Update(
     $firstName: String!
     $lastName: String!
     $login: String!
     $email: String!
-    $password: String!
+    $password: String
     $avatar: String
   ) {
-    profile(
+    update(
       firstName: $firstName
       lastName: $lastName
       login: $login
@@ -71,7 +71,7 @@ const UserProfileController = (props: Props) => {
     }
   );
 
-  console.log("data of user in controller, ", data);
+  console.log("data of user in controller, ", data, "error", errorMut);
 
   if (errorMut || errorQuery)
     return <p>{JSON.stringify(errorMut && errorQuery, null, 2)}</p>;
@@ -83,7 +83,7 @@ const UserProfileController = (props: Props) => {
     } = await mutate({
       variables: values
     });
-
+    console.log("profile,", profile);
     if (profile) {
       return normalizeErrors(profile);
     }

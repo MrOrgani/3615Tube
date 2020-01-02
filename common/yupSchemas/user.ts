@@ -1,15 +1,12 @@
 import * as Yup from "yup";
 
 export const PasswordValidation = Yup.string()
-    .matches(/[0-9]/, "It must contain at least 1 digit")
-    .matches(/[a-z]/, "It must contain at least 1 letter")
-    .matches(/[A-Z]/, "It must contain at least 1 capital letter")
-    .matches(
-      /[§!@#$%^&*()]/,
-      "It must contain one of these chars: '§!@#$%^&*()"
-    )
-    .min(6, "Too Short! Min 6 chars");
-  // .required("Required")
+  .matches(/[0-9]/, "It must contain at least 1 digit")
+  .matches(/[a-z]/, "It must contain at least 1 letter")
+  .matches(/[A-Z]/, "It must contain at least 1 capital letter")
+  .matches(/[§!@#$%^&*()]/, "It must contain one of these chars: '§!@#$%^&*()")
+  .min(6, "Too Short! Min 6 chars");
+// .required("Required")
 
 export const PasswordSchema = Yup.object().shape({
   password: PasswordValidation
