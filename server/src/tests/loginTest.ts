@@ -1,11 +1,9 @@
 import { request } from "graphql-request";
-// import { User } from "../entity/User";
-// import { rmTestUser } from "../utils/rmUser";
+
 export const loginMutation = (login: string, password: string) => `mutation{
   login(login:"${login}",password:"${password}")
   {path, msg}
 }`;
-
 export const loginTest = (login: string, password: string) => {
   // const mutation: string = loginMutation(login, password);
   const wrongMutationLogin: string = `mutation{
@@ -32,8 +30,6 @@ export const loginTest = (login: string, password: string) => {
 
     test("login or password error", async () => {
       //THE FIRST TEST IS NOW TESTED DIRECTLY IN ME TEST
-      // const response = await request(process.env.BACK_HOST, mutation);
-      // expect(response).toEqual({ login: null });
       const response2: any = await request(
         process.env.BACK_HOST,
         wrongMutationLogin
@@ -48,13 +44,14 @@ export const loginTest = (login: string, password: string) => {
       expect(response3.login[0].path).toEqual("password");
     });
 
-    //   test("Information validation", async () => {
-    //     const users = await User.find({ where: { email } });
-    //     expect(users).toHaveLength(1);
-    //     const user = users[0];
-    //     expect(user.email).toEqual(email);
-    //     expect(user.password).not.toEqual(password);
-    //     expect(user.verified).toEqual(false);
-    //   });
+    test("Yup validation", async () => {
+      const res: any = await request(
+        process.env.BACK_HOST,
+        loginMutation("aasdfaA*", "asdfa1Sdf")
+      );
+      expect(res.login).toHaveLength(2);
+      expect(res.login[0].path).toEqual("login");
+      expect(res.login[1].path).toEqual("password");
+    });
   });
 };

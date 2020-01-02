@@ -3,6 +3,8 @@ import { createMiddleware } from "../../../utils/createMiddleware";
 import verifyAndSetSession from "../../middleware/verifyAndSetSession";
 import { User } from "../../../entity/User";
 import * as bcrypt from "bcryptjs";
+import { PasswordSchema } from "../../../common";
+import { formatYupError } from "../../subModules/formatErrors";
 
 const resolvers: ResolverMap = {
   Query: {
@@ -19,6 +21,11 @@ const resolvers: ResolverMap = {
         // return await formatYupError(error);
         // }
         if (args.password) {
+          try {
+            await PasswordSchema.validate(args, { abortEarly: false });
+          } catch (error) {
+            return await formatYupError(error);
+          }
           args.password = await bcrypt.hash(args.password, 10);
         } else args.password = session.user.password;
         User.update({ id: session.user.id }, args);
