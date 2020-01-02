@@ -13,9 +13,10 @@ const startServer = async () => {
   // query and mutaitons we also need it to get the request information like
   const server = new GraphQLServer({
     schema: (await genSchema()) as any,
-    context: ({ request }) => ({
+    context: ({ request, response }) => ({
       url: request.protocol + "://" + request.get("host"),
       session: request.session,
+      res: response,
       req: request
     })
   });

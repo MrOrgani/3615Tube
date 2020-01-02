@@ -1,4 +1,5 @@
 import { User } from "../entity/User";
+import * as express from "express";
 
 export interface Session extends Express.Session {
   userId?: string;
@@ -12,6 +13,7 @@ export type Resolver = (
   context: {
     session: Session;
     req: any;
+    res: express.Response;
   },
   info: any
 ) => any;
