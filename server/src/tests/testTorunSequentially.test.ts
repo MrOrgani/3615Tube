@@ -30,11 +30,11 @@ beforeAll(async () => {
 
 describe("sequentially run tests", () => {
   registerTest(login, password, firstName, lastName, email, id);
-  // loginTest(login, password);
+  loginTest(login, password);
   meTest(login, firstName, language, password);
-  // findOneTest(login, firstName, language);
-  // updateTest(login, password, newFirstName, newLanguage, email);
-  // forgotTest(password, newPassword, email, id);
+  findOneTest(login, firstName, language);
+  updateTest(login, password, newFirstName, newLanguage, email);
+  forgotTest(password, newPassword, email, id);
 });
 
 afterAll(() => {

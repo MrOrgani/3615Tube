@@ -23,15 +23,15 @@ export const meTest = (
   password: string
 ) => {
   describe("me", () => {
-    // test("can't get user if not logged in", async () => {
-    //   const transport = await axios.create({
-    //     withCredentials: true
-    //   });
-    //   const res = await transport.post(process.env.BACK_HOST, {
-    //     query: meQuery
-    //   });
-    //   expect(res.data.data).toEqual({ me: null });
-    // });
+    test("can't get user if not logged in", async () => {
+      // const transport = await axios.create({
+      // withCredentials: true
+      // });
+      const res = await axios.post(process.env.BACK_HOST, {
+        query: meQuery
+      });
+      expect(res.data.data).toEqual({ me: null });
+    });
 
     test("login + me + logout + me", async () => {
       //LOG INconnect to get the cookies
@@ -53,6 +53,8 @@ export const meTest = (
           query: logOutQuery
         });
         expect(response2.data.data).toEqual({ logout: true });
+        transport.defaults.headers.Cookie = "";
+        //this is necessary as normal way does not work with axios --> recreate it
 
         //RETRY ME
         const response3 = await transport.post(process.env.BACK_HOST, {
