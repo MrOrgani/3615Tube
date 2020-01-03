@@ -38,5 +38,5 @@ describe("sequentially run tests", () => {
 });
 
 afterAll(() => {
-  // rmTestUser(login);
+  rmTestUser(login);
 });

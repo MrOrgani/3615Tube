@@ -44,7 +44,7 @@ export const findOneTest = (
   id: string
 ) => {
   describe("findOne", () => {
-    test("finding One user by Id", () => {
+    test("can't find a user if not logged in", () => {
       const findOneTest = async () => {
         let response = await request(
           process.env.BACK_HOST,

@@ -20,9 +20,6 @@ const resolvers: ResolverMap = {
       } catch (error) {
         return await formatYupError(error);
       }
-      if (session.userId) {
-        console.log("user is already connected");
-      }
       const user = await User.findOne({ where: { login } });
       if (!user)
         return await formatError("login", "no such login in the database");
