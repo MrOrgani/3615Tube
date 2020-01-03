@@ -1,25 +1,30 @@
 Arguments: 
-  /usr/local/bin/node /opt/yarn-v1.21.1/bin/yarn.js test
+  /Users/vlecoq-v/.brew/Cellar/node/12.4.0/bin/node /Users/vlecoq-v/.brew/Cellar/yarn/1.17.0/libexec/bin/yarn.js add @types/FileReader
 
 PATH: 
-  /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+  /Users/vlecoq-v/.brew/bin:/Users/vlecoq-v/.brew/bin:/sgoinfre/goinfre/Perso/vlecoq-v/miniconda3/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/usr/local/munki:/sgoinfre/goinfre/Perso/vlecoq-v/miniconda3/bin
 
 Yarn version: 
-  1.21.1
+  1.17.0
 
 Node version: 
-  13.5.0
+  12.4.0
 
 Platform: 
-  linux x64
+  darwin x64
 
 Trace: 
-  SyntaxError: /usr/app/package.json: Unexpected end of JSON input
-      at JSON.parse (<anonymous>)
-      at /opt/yarn-v1.21.1/lib/cli.js:1625:59
-      at Generator.next (<anonymous>)
-      at step (/opt/yarn-v1.21.1/lib/cli.js:310:30)
-      at /opt/yarn-v1.21.1/lib/cli.js:321:13
+  Error: https://registry.yarnpkg.com/@types%2fFileReader: Not found
+      at Request.params.callback [as _callback] (/Users/vlecoq-v/.brew/Cellar/yarn/1.17.0/libexec/lib/cli.js:66823:18)
+      at Request.self.callback (/Users/vlecoq-v/.brew/Cellar/yarn/1.17.0/libexec/lib/cli.js:140439:22)
+      at Request.emit (events.js:200:13)
+      at Request.<anonymous> (/Users/vlecoq-v/.brew/Cellar/yarn/1.17.0/libexec/lib/cli.js:141411:10)
+      at Request.emit (events.js:200:13)
+      at IncomingMessage.<anonymous> (/Users/vlecoq-v/.brew/Cellar/yarn/1.17.0/libexec/lib/cli.js:141333:12)
+      at Object.onceWrapper (events.js:288:20)
+      at IncomingMessage.emit (events.js:205:15)
+      at endReadableNT (_stream_readable.js:1154:12)
+      at processTicksAndRejections (internal/process/task_queues.js:84:9)
 
 npm manifest: 
   {
@@ -42,6 +47,7 @@ npm manifest:
       "@types/jest": "^24.0.23",
       "@types/node": "^12.12.14",
       "@types/nodemailer": "^6.2.2",
+      "@types/passport": "^1.0.2",
       "@types/sendmail": "^1.4.2",
       "@types/uuid": "^3.4.6",
       "@types/yup": "^0.26.26",
@@ -50,6 +56,7 @@ npm manifest:
       "body-parser": "^1.19.0",
       "dotenv": "^8.2.0",
       "express-session": "^1.17.0",
+      "filereader": "^0.10.3",
       "glob": "^7.1.6",
       "graphql": "0.13",
       "graphql-import": "^0.7.1",
@@ -63,6 +70,7 @@ npm manifest:
       "nodemon": "^2.0.1",
       "passport": "^0.4.1",
       "passport-42": "^1.2.6",
+      "passport-google-oauth": "^2.0.0",
       "pg": "^7.14.0",
       "pg-promise": "^10.3.1",
       "reflect-metadata": "^0.1.13",
@@ -628,6 +636,13 @@ Lockfile:
     integrity sha512-vDbSSe3+bBXYgibKs8duOrH7bhAv1hMHl3Vtdr3KmXZWLfi5WtIg3X6D/+K4SMK1RbNlm5QZBQCOldST/sVjjg==
     dependencies:
       "@types/node" "*"
+  
+  "@types/passport@^1.0.2":
+    version "1.0.2"
+    resolved "https://registry.yarnpkg.com/@types/passport/-/passport-1.0.2.tgz#f085033e2b301b1f97d4b57bfa73d8e934650c63"
+    integrity sha512-Pf39AYKf8q+YoONym3150cEwfUD66dtwHJWvbeOzKxnA0GZZ/vAXhNWv9vMhKyRQBQZiQyWQnhYBEBlKW6G8wg==
+    dependencies:
+      "@types/express" "*"
   
   "@types/range-parser@*":
     version "1.2.3"
@@ -2145,6 +2160,11 @@ Lockfile:
     version "1.0.0"
     resolved "https://registry.yarnpkg.com/file-uri-to-path/-/file-uri-to-path-1.0.0.tgz#553a7b8446ff6f684359c445f1e37a05dacc33dd"
     integrity sha512-0Zt+s3L7Vf1biwWZ29aARiVYLx7iMGnEUl9x33fbB/j3jR81u/O2LbqK+Bm1CDSNDKVtJ/YjwY7TUd5SkeLQLw==
+  
+  filereader@^0.10.3:
+    version "0.10.3"
+    resolved "https://registry.yarnpkg.com/filereader/-/filereader-0.10.3.tgz#c747d4a2cd8f61e5418a7c07fe1257a43f0acdb1"
+    integrity sha1-x0fUos2PYeVBinwH/hJXpD8KzbE=
   
   fill-range@^4.0.0:
     version "4.0.0"
@@ -4321,7 +4341,38 @@ Lockfile:
     dependencies:
       passport-oauth2 "^1.4.0"
   
-  passport-oauth2@^1.4.0:
+  passport-google-oauth1@1.x.x:
+    version "1.0.0"
+    resolved "https://registry.yarnpkg.com/passport-google-oauth1/-/passport-google-oauth1-1.0.0.tgz#af74a803df51ec646f66a44d82282be6f108e0cc"
+    integrity sha1-r3SoA99R7GRvZqRNgigr5vEI4Mw=
+    dependencies:
+      passport-oauth1 "1.x.x"
+  
+  passport-google-oauth20@2.x.x:
+    version "2.0.0"
+    resolved "https://registry.yarnpkg.com/passport-google-oauth20/-/passport-google-oauth20-2.0.0.tgz#0d241b2d21ebd3dc7f2b60669ec4d587e3a674ef"
+    integrity sha512-KSk6IJ15RoxuGq7D1UKK/8qKhNfzbLeLrG3gkLZ7p4A6DBCcv7xpyQwuXtWdpyR0+E0mwkpjY1VfPOhxQrKzdQ==
+    dependencies:
+      passport-oauth2 "1.x.x"
+  
+  passport-google-oauth@^2.0.0:
+    version "2.0.0"
+    resolved "https://registry.yarnpkg.com/passport-google-oauth/-/passport-google-oauth-2.0.0.tgz#f6eb4bc96dd6c16ec0ecfdf4e05ec48ca54d4dae"
+    integrity sha512-JKxZpBx6wBQXX1/a1s7VmdBgwOugohH+IxCy84aPTZNq/iIPX6u7Mqov1zY7MKRz3niFPol0KJz8zPLBoHKtYA==
+    dependencies:
+      passport-google-oauth1 "1.x.x"
+      passport-google-oauth20 "2.x.x"
+  
+  passport-oauth1@1.x.x:
+    version "1.1.0"
+    resolved "https://registry.yarnpkg.com/passport-oauth1/-/passport-oauth1-1.1.0.tgz#a7de988a211f9cf4687377130ea74df32730c918"
+    integrity sha1-p96YiiEfnPRoc3cTDqdN8ycwyRg=
+    dependencies:
+      oauth "0.9.x"
+      passport-strategy "1.x.x"
+      utils-merge "1.x.x"
+  
+  passport-oauth2@1.x.x, passport-oauth2@^1.4.0:
     version "1.5.0"
     resolved "https://registry.yarnpkg.com/passport-oauth2/-/passport-oauth2-1.5.0.tgz#64babbb54ac46a4dcab35e7f266ed5294e3c4108"
     integrity sha512-kqBt6vR/5VlCK8iCx1/KpY42kQ+NEHZwsSyt4Y6STiNjU+wWICG1i8ucc1FapXDGO15C5O5VZz7+7vRzrDPXXQ==
@@ -6070,3 +6121,60 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/yargs/-/yargs-13.3.0.tgz#4c657a55e07e5f2cf947f8a366567c04a0dedc83"
     integrity sha512-2eehun/8ALW8TLoIl7MVaRUrg+yCnenu8B4kBlRxj3GJGDKU1Og7sMXPNm1BYyM1DOJmTZ4YeN/Nwxv+8XJsUA==
     dependencies:
+      cliui "^5.0.0"
+      find-up "^3.0.0"
+      get-caller-file "^2.0.1"
+      require-directory "^2.1.1"
+      require-main-filename "^2.0.0"
+      set-blocking "^2.0.0"
+      string-width "^3.0.0"
+      which-module "^2.0.0"
+      y18n "^4.0.0"
+      yargs-parser "^13.1.1"
+  
+  yargs@^15.0.0:
+    version "15.0.2"
+    resolved "https://registry.yarnpkg.com/yargs/-/yargs-15.0.2.tgz#4248bf218ef050385c4f7e14ebdf425653d13bd3"
+    integrity sha512-GH/X/hYt+x5hOat4LMnCqMd8r5Cv78heOMIJn1hr7QPPBqfeC6p89Y78+WB9yGDvfpCvgasfmWLzNzEioOUD9Q==
+    dependencies:
+      cliui "^6.0.0"
+      decamelize "^1.2.0"
+      find-up "^4.1.0"
+      get-caller-file "^2.0.1"
+      require-directory "^2.1.1"
+      require-main-filename "^2.0.0"
+      set-blocking "^2.0.0"
+      string-width "^4.2.0"
+      which-module "^2.0.0"
+      y18n "^4.0.0"
+      yargs-parser "^16.1.0"
+  
+  yn@^3.0.0:
+    version "3.1.1"
+    resolved "https://registry.yarnpkg.com/yn/-/yn-3.1.1.tgz#1e87401a09d767c1d5eab26a6e4c185182d2eb50"
+    integrity sha512-Ux4ygGWsu2c7isFWe8Yu1YluJmqVhxqK2cLXNQA5AcC3QfbGNpM7fu0Y8b/z16pXLnFxZYvWhd3fhBY9DLmC6Q==
+  
+  yup@^0.27.0:
+    version "0.27.0"
+    resolved "https://registry.yarnpkg.com/yup/-/yup-0.27.0.tgz#f8cb198c8e7dd2124beddc2457571329096b06e7"
+    integrity sha512-v1yFnE4+u9za42gG/b/081E7uNW9mUj3qtkmelLbW5YPROZzSH/KUUyJu9Wt8vxFJcT9otL/eZopS0YK1L5yPQ==
+    dependencies:
+      "@babel/runtime" "^7.0.0"
+      fn-name "~2.0.1"
+      lodash "^4.17.11"
+      property-expr "^1.5.0"
+      synchronous-promise "^2.0.6"
+      toposort "^2.0.2"
+  
+  zen-observable-ts@^0.8.20:
+    version "0.8.20"
+    resolved "https://registry.yarnpkg.com/zen-observable-ts/-/zen-observable-ts-0.8.20.tgz#44091e335d3fcbc97f6497e63e7f57d5b516b163"
+    integrity sha512-2rkjiPALhOtRaDX6pWyNqK1fnP5KkJJybYebopNSn6wDG1lxBoFs2+nwwXKoA6glHIrtwrfBBy6da0stkKtTAA==
+    dependencies:
+      tslib "^1.9.3"
+      zen-observable "^0.8.0"
+  
+  zen-observable@^0.8.0:
+    version "0.8.15"
+    resolved "https://registry.yarnpkg.com/zen-observable/-/zen-observable-0.8.15.tgz#96415c512d8e3ffd920afd3889604e30b9eaac15"
+    integrity sha512-PQ2PC7R9rslx84ndNBZB/Dkv8V8fZEpk83RLgXtYd0fwUgEjseMn1Dgajh2x6S8QbZAFa9p2qVCEuYZNgve0dQ==
