@@ -10,6 +10,7 @@ const resolvers: ResolverMap = {
       async (_: any, { id }: GQL.IFindOneOnQueryArguments) => {
         // findOne: async (_: any, { id }: any) => {
         const user = (await User.findOne({ where: { id: id } })) as User;
+        if (!user) return null;
         delete user.password && delete user.email;
         return user;
       }
