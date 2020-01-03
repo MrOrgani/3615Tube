@@ -3,6 +3,8 @@ import { User } from "../entity/User";
 
 const router = express.Router();
 
+//we still need a route for the confirmation email
+//at the moment it does not redirect to the front
 router.get("/", async (req: express.Request, res: express.Response) => {
   const { id } = req.params;
   const user = (await User.findOne({ id })) as User;
