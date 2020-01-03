@@ -10,10 +10,11 @@ interface MediaProps {
   loading?: boolean;
   data?: any;
   nbOfItem?: number;
+  history?: any;
 }
 
 const Media = (props: MediaProps) => {
-  const { loading = false, data, nbOfItem } = props;
+  const { loading = false, data, nbOfItem, history } = props;
   const result = !loading && data ? data : Array.from(new Array(nbOfItem || 3));
 
   return (
@@ -22,7 +23,10 @@ const Media = (props: MediaProps) => {
         <Box key={index} width={185} mx={1}>
           {item ? (
             <>
-              <div className="movie-box">
+              <div
+                className="movie-box"
+                onClick={() => history.push(`/movie/${item.id}`)}
+              >
                 <img
                   style={{ width: 185, height: 278 }}
                   alt={item.title}
@@ -53,7 +57,6 @@ const Media = (props: MediaProps) => {
                 <Typography
                   // gutterBottom
                   variant="body2"
-                  // color="white"
                   style={{ color: "white" }}
                   align="center"
                 >
@@ -62,7 +65,7 @@ const Media = (props: MediaProps) => {
               </Box>
             </>
           ) : (
-            <MovieItemSkeleton />
+            <MovieItemSkeleton typeOfSkel="movie" />
           )}
         </Box>
       ))}

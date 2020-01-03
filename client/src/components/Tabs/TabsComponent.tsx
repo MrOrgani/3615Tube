@@ -55,12 +55,14 @@ const TabsComponent = (props: any) => {
         }}
       >
         {tabsNames.map((tab: string, index: number) => {
-          return <Tab label={tab} {...a11yProps(index)} />;
+          return (
+            <Tab key={`${tab + index}`} label={tab} {...a11yProps(index)} />
+          );
         })}
       </Tabs>
       {tabsToRender.map((component: any, index: number) => {
         return (
-          <TabPanel value={value} index={index}>
+          <TabPanel key={`${component + index}`} value={value} index={index}>
             {component}
           </TabPanel>
         );

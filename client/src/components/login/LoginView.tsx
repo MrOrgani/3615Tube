@@ -5,6 +5,9 @@ import CustomButton from "../button/button.component";
 import { SignInSchema } from "../../common";
 import { Link } from "react-router-dom";
 
+// import dotenv from "dotenv";
+// dotenv.config();
+
 interface FormValues {
   login?: string;
   password?: string;
@@ -51,22 +54,27 @@ export default (props: Props) => {
               placeholder="Password"
               component={FieldInput}
             />
-            <div>
-              <CustomButton
-                type="submit"
-                onClick={handleSubmit}
-                disabled={isSubmitting}
-              >
-                {isSubmitting ? "Loading..." : "Sign in."}
-              </CustomButton>
-            </div>
-            <span>
-              Or <Link to="/register">Register</Link> |{" "}
-              <Link to="/forgot-password">Forgot Password</Link>
-            </span>
+            {/* <div> */}
+            <CustomButton
+              type="submit"
+              onClick={handleSubmit}
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Loading..." : "Sign in."}
+            </CustomButton>
+            {/* </div> */}
           </div>
         )}
       </Formik>
+      <div>
+        <div>
+          <a href={`http://localhost:4000/42`}>42</a>
+        </div>
+      </div>
+      <span>
+        Or <Link to="/register">Register</Link> |{" "}
+        <Link to="/forgot-password">Forgot Password</Link>
+      </span>
     </div>
   );
 };
