@@ -69,7 +69,7 @@ const UserProfileController = (props: Props) => {
     }
   );
 
-  console.log("data of user in controller, ", data, "error", errorMut);
+  // console.log("data of user in controller, ", data, "error", errorMut);
 
   if (errorMut || errorQuery)
     return <p>{JSON.stringify(errorMut && errorQuery, null, 2)}</p>;
@@ -81,7 +81,7 @@ const UserProfileController = (props: Props) => {
     } = await mutate({
       variables: values
     });
-    console.log("profile,", profile);
+    // console.log("profile,", profile);
     if (profile) {
       return normalizeErrors(profile);
     }

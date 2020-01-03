@@ -3,7 +3,7 @@ import React from "react";
 import MovieView from "./MovieView";
 
 const MovieConnector = (props: any) => {
-  console.log("Movie Connector, ", props);
+  // console.log("Movie Connector, ", props);
   return (
     // <MovieController movieId={movieId}>
     //   {({ movieInfo }) => (
