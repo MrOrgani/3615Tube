@@ -1,13 +1,12 @@
 import "reflect-metadata";
-import connectToDb from "./utils/connecToDb";
-import { genSchema } from "./utils/genSchema";
-import { createSession } from "./utils/createSession";
-// import { User } from "./entity/User";
-// import { passportSuccess } from "./utils/passportSuccess";
 import bodyParser from "body-parser";
 // import { Request, Response } from "express";
 import { GraphQLServer } from "graphql-yoga";
 import passport from "passport";
+import connectToDb from "./utils/connecToDb";
+import { genSchema } from "./utils/genSchema";
+import { createSession } from "./utils/createSession";
+import { passportSetUp } from "./utils/passportOauth/passportSetUp";
 
 const startServer = async () => {
   await require("dotenv").config();
@@ -28,31 +27,12 @@ const startServer = async () => {
   // EXTRA SET UP: connecting to the db and the sessions (cookie stored using filed store in the session dir)
   server.express.use(createSession());
   await connectToDb();
+  await passportSetUp();
+  server.express.use(passport.initialize());
 
   // NECESSARY TO BE ABLE TO SEND IMAGES TO THE BACK
   server.express.use(bodyParser.json({ limit: "10mb" }));
   server.express.use(bodyParser.urlencoded({ limit: "10mb", extended: true }));
-
-  //OAUTH & PASSPORT SETUP
-  const FortyTwoStrategy = require("passport-42").Strategy;
-  //PASSPORT SETUP MUST BE BEFORE THE CENTRAL ROUTER TO BE
-  passport.use(
-    new FortyTwoStrategy(
-      {
-        clientID:
-          "5d0610399d93dc381272699d913e30df53e710ee0451e67ea86c56955026cb0a",
-        clientSecret:
-          "f05c930209f878c84651a1849511887e60fa700888e119f80179002a11c9f0f4",
-        callbackURL: "http://localhost:4000/Oauth/42/redirect"
-      },
-      (accessToken: any, refreshToken: any, profile: any, cb: any) =>
-        cb(null, profile)
-    )
-  );
-  passport.serializeUser((user: any, cb: any) => cb(null, user));
-  passport.deserializeUser((obj: any, cb: any) => cb(null, obj));
-  // server.express.use(passport.initialize(), passport.session());
-  server.express.use(passport.initialize());
 
   //ROUTING
   const router = require("./router");
