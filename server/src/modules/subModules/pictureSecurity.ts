@@ -1,4 +1,4 @@
-import FileReader from "FileReader";
+// import FileReader from "FileReader";
 
 const getMimetype = (signature: string) => {
   console.log(signature);
