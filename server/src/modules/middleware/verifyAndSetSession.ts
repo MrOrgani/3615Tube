@@ -13,13 +13,13 @@ export default async (
   const { session } = context;
   // console.log("context in the middleware", parent, args, info);
   // console.log(info.returnType.name);
-  console.log(
-    "in verify and setSession of type",
-    info.fieldName,
-    "the session is : ",
-    session,
-    session.userId
-  );
+  // console.log(
+  //   "in verify and setSession of type",
+  //   info.fieldName,
+  //   "the session is : ",
+  //   session,
+  //   session.userId
+  // );
   if (!context.session.userId) {
     // console.log("we lack a cookie here", info.fieldName, info.returnType.name);
     if (info.returnType.name) return null;

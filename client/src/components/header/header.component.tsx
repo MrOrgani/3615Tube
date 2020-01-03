@@ -5,6 +5,8 @@ import "./header.styles.scss";
 import { Link } from "react-router-dom";
 import UserContext from "../../pages/context";
 import SettingsPowerOutlinedIcon from "@material-ui/icons/SettingsPowerOutlined";
+import VideocamOutlinedIcon from "@material-ui/icons/VideocamOutlined";
+
 // import Icon from "@material-ui/core/Icon";
 
 const Header = () => {
@@ -24,10 +26,12 @@ const Header = () => {
   return (
     <div className="header">
       <Link to="/">
-        {/* <h1 className="neon-title" data-text="3615Tube"> */}
         <div className="logo-container">3615Tube</div>
       </Link>
       <div className="options">
+        <Link className="option" to="/movies">
+          <VideocamOutlinedIcon />
+        </Link>
         <Link className="option" to="/profile">
           <SettingsIcon />
         </Link>

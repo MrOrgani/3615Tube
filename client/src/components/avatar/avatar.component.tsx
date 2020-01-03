@@ -21,7 +21,7 @@ const Avatar: React.FC<FieldProps<any>> = (props: any) => {
     form: { setFieldValue },
     uploadImg
   } = props;
-  console.log("values avatarm ", props);
+  // console.log("values avatarm ", props);
 
   const handleChange = (e: any) => {
     const file = e.currentTarget.files[0];

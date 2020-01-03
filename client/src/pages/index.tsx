@@ -14,6 +14,7 @@ import LogoutConnector from "../components/Logout/LogoutConnector";
 import Header from "../components/header/header.component";
 import Footer from "../components/footer/footer.component";
 import MoviePage from "./movie/MoviePage";
+import MoviesPage from "./movies/MoviesPage";
 
 export const Pages = () => (
   <BrowserRouter>
@@ -30,6 +31,7 @@ export const Pages = () => (
         <Route path="/change-password/:key" component={ChangePasswordPage} />
         <AuthRoute exact path="/profile/:key" component={ProfilePage} />
         <AuthRoute exact path="/profile" component={ProfilePage} />
+        <Route exact path="/movies" component={MoviesPage} />
         <AuthRoute exact path="/movie/:key" component={MoviePage} />
       </Switch>
     </div>
