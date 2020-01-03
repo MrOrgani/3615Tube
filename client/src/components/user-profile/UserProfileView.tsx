@@ -1,11 +1,10 @@
 import React from "react";
 import { FormikErrors } from "formik";
-
-import "./user-profile.styles.scss";
-// import TextField from "@material-ui/core/TextField";
 import MyProfileView from "./MyProfileView";
 import image from "../../assets/images/avatar.png";
 import UserActivity from "../user-activity/user-activity.component";
+
+import "./user-profile.styles.scss";
 
 interface FormValues {
   firstName: string;
@@ -20,12 +19,9 @@ interface Props {
   submit: (values: FormValues) => Promise<FormikErrors<FormValues> | null>;
   onFinish: () => void;
   userInfo: any;
-  // userId: string;
 }
 
-const UserProfile = (props: Props) => {
-  const { userInfo, submit, onFinish } = props;
-  // console.log("user view", props, userInfo);
+const UserProfile = ({ userInfo, submit, onFinish }: Props) => {
   const { pathname } = window.location;
 
   return (

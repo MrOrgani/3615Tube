@@ -26,19 +26,26 @@ const MovieComments = (props: MediaProps) => {
       justify="flex-start"
       container
       item
-      lg={2}
+      lg={9}
       md={5}
     >
-      {Array.from(new Array(3)).map((index: number) => (
-        <Box key={index} width={185} mx={1}>
-          <>
-            <div className="movie-box">
-              <div>Avatar de l'auteur du comment</div>
-              <div> Login </div>
-              <div> Text </div>
-            </div>
-          </>
-        </Box>
+      {Array.from(new Array(3)).map(() => (
+        // index: number
+        // <Box key={index} width={300} mx={5}>
+        <Grid
+          direction="row"
+          alignItems="stretch"
+          // justify="center"
+          container
+          // lg={9}
+        >
+          {/* <div> */}
+          <div>Avatar</div>
+          <div> Login </div>
+          <div> Text </div>
+          {/* </div> */}
+        </Grid>
+        // </Box>
       ))}
       {Array.from(result).map((item: any, index: any) => (
         <Box key={index} width={185} mx={1}>
@@ -64,6 +71,7 @@ const MovieComments = (props: MediaProps) => {
           )}
         </Box>
       ))}
+      {/* // </div> */}
     </Grid>
   );
 };

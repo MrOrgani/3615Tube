@@ -1,5 +1,10 @@
 import React from "react";
-import { Tabs, Typography, Box, Tab } from "@material-ui/core";
+import {
+  Tabs,
+  Typography,
+  // Box,
+  Tab
+} from "@material-ui/core";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -19,7 +24,8 @@ function TabPanel(props: TabPanelProps) {
       aria-labelledby={`simple-tab-${index}`}
       {...other}
     >
-      {value === index && <Box p={3}>{children}</Box>}
+      {value === index && <div>{children}</div>}
+      {/* {value === index && <Box p={3}>{children}</Box>} */}
     </Typography>
   );
 }
