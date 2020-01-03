@@ -53,25 +53,8 @@ const startServer = async () => {
   server.express.use(passport.initialize(), passport.session());
 
   //ROUTING
-  const router = require("./router/index.ts");
+  const router = require("./router");
   server.express.use("/", router);
-  //we still need a route for the confirmation email
-  //at the moment it does not redirect to the front
-  // server.express.get("/confirm/:id", async (req, res) => {
-  //   const { id } = req.params;
-  //   await User.update({ id }, { verified: true });
-  //   res.send("ok");
-  // });
-  // server.express.route("/42").get(passport.authenticate("42"));
-  // server.express
-  //   .route("/42/redirect")
-  //   .get(
-  //     passport.authenticate("42", { failureRedirect: "failure" }),
-  //     (req: any, res: Response) => passportSuccess(req, res)
-  //   );
-  // server.express
-  //   .route("/42/failure")
-  //   .get((req, res: Response) => res.redirect("http://localhost:3000"));
 
   //SERVER START
   //server parameters and actual start
