@@ -97,8 +97,8 @@ export default function SpringModal(props: any) {
             <Formik
               initialValues={{ ...userInfo, newPassowrd: "" }}
               onSubmit={async (values, actions) => {
+                console.log("values, in Myprofile view ", values);
                 const errors = await props.submit(values);
-                console.log("error, in Myprofile view ", errors);
                 if (errors) {
                   actions.setErrors(errors);
                 } else {
