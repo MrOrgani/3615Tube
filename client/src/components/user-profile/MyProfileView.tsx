@@ -74,7 +74,7 @@ export default function SpringModal(props: any) {
   };
 
   return (
-    <div>
+    <div className="icon-modify">
       <BuildOutlinedIcon
         className="user-profile-container"
         onClick={handleOpen}

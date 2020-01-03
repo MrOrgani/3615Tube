@@ -1,20 +1,20 @@
 .user-profile-container {
-  /* height: fit-content; */
-  /* justify-content: center; */
   display: flex;
-  /* flex-direction: column; */
-  /* justify-content: center; */
   align-items: center;
   background: #ffffff4d;
-  /* background: linear-gradient(160.1deg, #ff005b 0.1%, #5555ff 100%); */
   border-radius: 20px;
-  margin: 20px;
+  // margin: 20px;
   padding: 10px;
   width: fit-content;
   font-size: 20px;
+  width: max-content;
 
   .profile-title {
     display: flex;
     font-size: 50px;
+  }
+
+  .icon-modify {
+    margin: 0 10px;
   }
 }

@@ -4,21 +4,14 @@ import UserProfileController from "./../../controller/UserProfileController";
 import UserProfileView from "./UserProfileView";
 
 const UserProfileConnector = (props: any) => {
-  // console.log("userProfileConnector, userId : ", props);
-  const { history } = props;
+  const { history, userLogin } = props;
 
   const onFinish = () => {
-    history.push(
-      "/profile"
-      // {
-      // message: "check your email to confirm your account"
-      // }
-    );
+    history.push("/profile");
   };
 
-  const { userId } = props;
   return (
-    <UserProfileController userId={userId}>
+    <UserProfileController userLogin={userLogin}>
       {({ submit, userInfo }) => (
         <UserProfileView
           userInfo={userInfo}

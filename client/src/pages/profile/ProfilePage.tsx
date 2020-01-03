@@ -6,19 +6,18 @@ import UserProfileConnector from "../../components/user-profile/UserProfileConne
 import "./profile.styles.scss";
 
 const ProfilePage = (props: any) => {
-  // console.log("profile page", props);
-
   const {
     history,
     match: {
-      params: { key }
+      params: { login }
     }
   } = props;
 
+  // console.log("profile page", login);
   return (
     <div className="profile-page">
       <div className="page-title">Profile Page</div>
-      <UserProfileConnector userId={key} history={history} />
+      <UserProfileConnector userLogin={login} history={history} />
     </div>
   );
 };
