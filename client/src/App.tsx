@@ -20,6 +20,8 @@ export const meQuery = gql`
     }
   }
 `;
+
+//VAL UN VIEUX TEST QUI PEUT SERVIR A SUPPRIMER SI IL GENE TROP
 export const findOneQuery = gql`
   query findOneQuery {
     findOne(id: "71c14b08-2d11-4f8c-ba0c-5a2739bdf762") {
@@ -33,7 +35,7 @@ export const findOneQuery = gql`
 
 const App = () => {
   const { data } = useQuery(meQuery);
-  console.log(useQuery(findOneQuery));
+  // console.log(useQuery(findOneQuery));
   return (
     <UserProvider value={data ? data.me : null}>
       <Pages />
