@@ -70,6 +70,9 @@ export default (props: Props) => {
         <div>
           <a href={`http://localhost:4000/Oauth/42`}>42</a>
         </div>
+        <div>
+          <a href={`http://localhost:4000/Oauth/google`}>Google</a>
+        </div>
       </div>
       <span>
         Or <Link to="/register">Register</Link> |{" "}
