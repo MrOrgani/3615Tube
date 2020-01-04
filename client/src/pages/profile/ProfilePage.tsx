@@ -9,7 +9,7 @@ const ProfilePage = (props: any) => {
   const {
     history,
     match: {
-      params: { login }
+      params: { id }
     }
   } = props;
 
@@ -17,7 +17,7 @@ const ProfilePage = (props: any) => {
   return (
     <div className="profile-page">
       <div className="page-title">Profile Page</div>
-      <UserProfileConnector userLogin={login} history={history} />
+      <UserProfileConnector userId={id} history={history} />
     </div>
   );
 };

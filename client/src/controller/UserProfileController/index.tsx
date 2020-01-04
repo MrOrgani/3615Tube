@@ -9,7 +9,7 @@ interface Props {
     userInfo?: any;
     data?: any;
   }) => JSX.Element | null;
-  userLogin?: string;
+  userId?: string;
 }
 
 const profileMutation = gql`
@@ -52,6 +52,7 @@ const GET_MY_INFO = gql`
 const GET_USER_INFO = gql`
   query findOne($login: String) {
     findOne(id: $login) {
+      id
       firstName
       lastName
       login
@@ -63,9 +64,9 @@ const GET_USER_INFO = gql`
 const UserProfileController = (props: Props) => {
   const [mutate, { error: errorMut }] = useMutation(profileMutation);
   const { data, loading, error: errorQuery } = useQuery(
-    props.userLogin ? GET_USER_INFO : GET_MY_INFO,
+    props.userId ? GET_USER_INFO : GET_MY_INFO,
     {
-      variables: { id: props.userLogin }
+      variables: { id: props.userId }
     }
   );
 
@@ -86,6 +87,7 @@ const UserProfileController = (props: Props) => {
   };
 
   const userInfo = data.findOne ? data.findOne : data.me;
+
   return props.children({
     submit,
     userInfo
