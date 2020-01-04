@@ -7,11 +7,12 @@ import TabsComponent from "../Tabs/TabsComponent";
 const UserActivity = (props: any) => {
   const { pathname } = window.location;
   const { userInfo } = props;
-
   return (
     <div className="user-activty">
       <h2 style={{ color: "white", fontSize: "30px" }}>
-        {pathname === "/profile" ? "Your" : `${userInfo.login}'s`} activity
+        {pathname === "/profile"
+          ? "Your activity"
+          : `${userInfo ? `${userInfo.login}'s activity` : "Loading..."} `}
       </h2>
       <TabsComponent
         tabsNames={["Movies seen", "To watch list", "Rated movies"]}

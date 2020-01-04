@@ -1,27 +1,15 @@
 import React from "react";
-// import { any } from "prop-types";
+import { FieldProps } from "formik";
+import image from "../../assets/images/avatar.png";
 
 import "./avatar.styles.scss";
-import image from "../../assets/images/avatar.png";
-import { FieldProps } from "formik";
-
-// interface FormValues {
-//   firstName: string;
-//   lastName: string;
-//   login: string;
-//   email: string;
-//   password: string;
-//   avatar?: string;
-// }
 
 const Avatar: React.FC<FieldProps<any>> = (props: any) => {
-  // const { values, setFieldValue, uploadImg } = props;
   const {
     field: { value },
     form: { setFieldValue },
     uploadImg
   } = props;
-  // console.log("values avatarm ", props);
 
   const handleChange = (e: any) => {
     const file = e.currentTarget.files[0];
@@ -55,7 +43,6 @@ const Avatar: React.FC<FieldProps<any>> = (props: any) => {
               className="image"
               alt="avatar"
             />
-            {/* <img src={""} alt="" id={"myimage"} className="image" /> */}
           </label>
         </>
       ) : (
