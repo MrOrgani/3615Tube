@@ -29,7 +29,7 @@ export const loginTest = (login: string, password: string) => {
     // });
 
     test("login or password error", async () => {
-      //THE FIRST TEST IS NOW TESTED DIRECTLY IN ME TEST
+      //THE BASIC LOGIN TEST IS NOW TESTED DIRECTLY IN ME TEST
       const response2: any = await request(
         process.env.BACK_HOST,
         wrongMutationLogin

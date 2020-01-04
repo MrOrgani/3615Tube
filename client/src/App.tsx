@@ -35,7 +35,7 @@ export const findOneQuery = gql`
 
 const App = () => {
   const { data } = useQuery(meQuery);
-  // console.log(useQuery(findOneQuery));
+  // console.log("this is a test to see if the find One query works", useQuery(findOneQuery));
   return (
     <UserProvider value={data ? data.me : null}>
       <Pages />

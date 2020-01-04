@@ -1,6 +1,5 @@
 import axios, { AxiosInstance } from "axios";
-import request from "graphql-request";
-import { setSessionAndTest } from "./setSessionAndTest";
+import { setSessionAndTest } from "../setSessionAndTest";
 
 export const meQuery: string = `
 query{
@@ -24,9 +23,6 @@ export const meTest = (
 ) => {
   describe("me", () => {
     test("can't get user if not logged in", async () => {
-      // const transport = await axios.create({
-      // withCredentials: true
-      // });
       const res = await axios.post(process.env.BACK_HOST, {
         query: meQuery
       });

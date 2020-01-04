@@ -25,7 +25,7 @@
 // };
 
 import { request } from "graphql-request";
-import { setSessionAndTest } from "./setSessionAndTest";
+import { setSessionAndTest } from "../setSessionAndTest";
 import { AxiosInstance } from "axios";
 
 const findOneMutation = (id: string, parameter: string) => `

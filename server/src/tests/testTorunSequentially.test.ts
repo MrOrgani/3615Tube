@@ -1,11 +1,12 @@
-import { loginTest } from "./loginTest";
-import { registerTest } from "./registerTest";
-import { findOneTest } from "./findOneTest";
-import { meTest } from "./meTest";
-import { forgotTest } from "./forgotTest";
-import { updateTest } from "./updateTest";
+import { loginTest } from "./UserTests/loginTest";
+import { registerTest } from "./UserTests/registerTest";
+import { findOneTest } from "./UserTests/findOneTest";
+import { meTest } from "./UserTests/meTest";
+import { forgotTest } from "./UserTests/forgotTest";
+import { updateTest } from "./UserTests/updateTest";
 import { createConnection } from "typeorm";
 import { rmTestUser } from "../modules/subModules/rmUser";
+import { findOneFilmTest } from "./FilmTests/findOneFilmTest";
 // import { User } from "../entity/User";
 
 const login: string = "asdf";
@@ -15,9 +16,11 @@ const firstName: string = "asdf";
 const newFirstName: string = "sdfg";
 const lastName: string = "asdf";
 const email: string = "jonex43795@mail3.top";
-const language: string = "English";
-const newLanguage: string = "Spanish";
+const language: string = "en";
+const newLanguage: string = "spa";
 const id: string = "71c14b08-2d11-4f8c-ba0c-5a2739bdf762";
+
+const imdbId: string = "tt0133093";
 
 beforeAll(async () => {
   try {
@@ -28,13 +31,14 @@ beforeAll(async () => {
   }
 });
 
-describe("sequentially run tests", () => {
+describe("user Creation, modification and query", () => {
   registerTest(login, password, firstName, lastName, email, id);
   loginTest(login, password);
   meTest(login, firstName, language, password);
   findOneTest(login, password, firstName, language, id);
   updateTest(login, password, newFirstName, newLanguage, email);
   forgotTest(password, newPassword, email, id);
+  findOneFilmTest(login, password, imdbId);
 });
 
 afterAll(() => {

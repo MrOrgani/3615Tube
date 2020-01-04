@@ -1,6 +1,6 @@
 import axios from "axios";
-import { loginMutation } from "./loginTest";
-import { logOutQuery } from "./meTest";
+import { loginMutation } from "./UserTests/loginTest";
+import { logOutQuery } from "./UserTests/meTest";
 
 export const setSessionAndTest = async function name(
   login: string,

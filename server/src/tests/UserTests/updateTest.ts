@@ -1,6 +1,6 @@
-import { User } from "../entity/User";
+import { User } from "../../entity/User";
 import axios, { AxiosInstance } from "axios";
-import { setSessionAndTest } from "./setSessionAndTest";
+import { setSessionAndTest } from "../setSessionAndTest";
 
 const updateMutation: any = (firstName: string, language: string) => `mutation{
     update(firstName:"${firstName}", language:"${language}")
