@@ -1,27 +1,17 @@
-<<<<<<< HEAD
-import React from "react";
-=======
 import React, { useState } from "react";
->>>>>>> origin/M-OtherProfile
 import { Grid, Box, Card, CardHeader } from "@material-ui/core";
 import Skeleton from "@material-ui/lab/Skeleton";
 
 import "./MoviesListSkeleton.styles.scss";
-<<<<<<< HEAD
-=======
 import { Form, Formik, Field } from "formik";
 // import CustomButton from "../button/button.component";
->>>>>>> origin/M-OtherProfile
 
 interface MediaProps {
   loading?: boolean;
   data?: any;
   nbOfItem?: number;
   history?: any;
-<<<<<<< HEAD
-=======
   submit?: any;
->>>>>>> origin/M-OtherProfile
 }
 
 const CommentListSkeleton = (props: MediaProps) => {
@@ -32,11 +22,6 @@ const CommentListSkeleton = (props: MediaProps) => {
     // history
   } = props;
   const result = !loading && data ? data : Array.from(new Array(nbOfItem || 5));
-<<<<<<< HEAD
-
-  return (
-    <Grid container item lg={12} md={5} direction="column">
-=======
   const [canComment, setCanComment] = useState(true);
   return (
     <Grid container item lg={12} md={5} direction="column">
@@ -113,7 +98,6 @@ const CommentListSkeleton = (props: MediaProps) => {
           />
         </Card>
       </Box>
->>>>>>> origin/M-OtherProfile
       {Array.from(result).map((item: any, index: any) => (
         <Box key={index} my={0.5}>
           <Card style={{ backgroundColor: "rgba(177, 177, 177, 0.2)" }}>
