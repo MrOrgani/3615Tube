@@ -23,6 +23,7 @@ export const meQuery = gql`
 
 const App = () => {
   const { data } = useQuery(meQuery);
+
   return (
     <UserProvider value={data ? data.me : null}>
       <Pages />

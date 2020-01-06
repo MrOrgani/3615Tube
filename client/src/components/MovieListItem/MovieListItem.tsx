@@ -4,7 +4,7 @@ import { Grid, Box, Typography } from "@material-ui/core";
 import StarOutlinedIcon from "@material-ui/icons/StarOutlined";
 
 import "./MoviesListSkeleton.styles.scss";
-import MovieItemSkeleton from "../../components/movie-skeleton/movie-skeleton.component";
+import Skeleton from "@material-ui/lab/Skeleton";
 
 interface MediaProps {
   loading?: boolean;
@@ -13,15 +13,32 @@ interface MediaProps {
   history?: any;
 }
 
+const MovieSkeletonItem = (
+  <>
+    <Skeleton
+      variant="rect"
+      width={185}
+      height={278}
+      style={{ backgroundColor: "rgba(222, 85, 257, 0.08)" }}
+    />
+    <Box pt={0.5}>
+      <Skeleton style={{ backgroundColor: "rgba(222, 85, 257, 0.08)" }} />
+      <Skeleton
+        width="60%"
+        style={{ backgroundColor: "rgba(222, 85, 257, 0.08)" }}
+      />
+    </Box>
+  </>
+);
+
 const Media = (props: MediaProps) => {
-  const { loading = false, data, nbOfItem, history } = props;
-  const result = !loading && data ? data : Array.from(new Array(nbOfItem || 3));
+  const { data, history, loading = false } = props;
 
   return (
     <Grid container item lg={12} md={5}>
-      {Array.from(result).map((item: any, index: any) => (
+      {Array.from(data).map((item: any, index: any) => (
         <Box key={index} width={185} mx={1}>
-          {item ? (
+          {data && !loading ? (
             <>
               <div
                 className="movie-box"
@@ -65,7 +82,7 @@ const Media = (props: MediaProps) => {
               </Box>
             </>
           ) : (
-            <MovieItemSkeleton typeOfSkel="movie" />
+            MovieSkeletonItem
           )}
         </Box>
       ))}

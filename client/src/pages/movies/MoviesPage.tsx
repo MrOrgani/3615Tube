@@ -1,5 +1,5 @@
 import React from "react";
-import MovieList from "../../components/movie-list/movie-list.component";
+import MovieList from "../../components/MovieList/movie-list.component";
 
 // import "./homepage.styles.scss";
 

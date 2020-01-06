@@ -1,9 +1,10 @@
-import React, { useState } from "react";
-import { Grid, Box, Card, CardHeader } from "@material-ui/core";
+import React, { useState, useContext } from "react";
+import { Grid, Box, Card, CardHeader, Avatar } from "@material-ui/core";
 import Skeleton from "@material-ui/lab/Skeleton";
 
 import "./MoviesListSkeleton.styles.scss";
 import { Form, Formik, Field } from "formik";
+import UserContext from "../../pages/context";
 // import CustomButton from "../button/button.component";
 
 interface MediaProps {
@@ -21,25 +22,30 @@ const CommentListSkeleton = (props: MediaProps) => {
     nbOfItem
     // history
   } = props;
+
   const result = !loading && data ? data : Array.from(new Array(nbOfItem || 5));
+
   const [canComment, setCanComment] = useState(true);
+  const { avatar, login } = useContext(UserContext) as any;
+  // console.log("user in Comment, ", user);
+
   return (
     <Grid container item lg={12} md={5} direction="column">
       <Box my={0.5}>
         <Card style={{ backgroundColor: "rgb(225, 225, 225)" }}>
           <CardHeader
             avatar={
-              loading || !data ? (
+              !avatar ? (
                 <Skeleton variant="circle" width={40} height={40} />
               ) : (
-                data.avatar
+                <Avatar alt="MyAvatar" src={avatar} />
               )
             }
             title={
-              loading || !data ? (
+              !login ? (
                 <Skeleton height={10} width="80%" style={{ marginBottom: 6 }} />
               ) : (
-                data.login
+                login
               )
             }
             subheader={

@@ -1,5 +1,5 @@
 import React from "react";
-import MovieListSkeleton from "../movie-list-skeleton/MoviesListSkeleton.component";
+import MovieListSkeleton from "../MovieListSkeleton/MoviesListSkeleton.component";
 
 import "./user-activity.styles.scss";
 import TabsComponent from "../Tabs/TabsComponent";

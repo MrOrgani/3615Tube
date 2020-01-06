@@ -2,8 +2,8 @@ import React from "react";
 
 import { movieList } from "../../test.js";
 
-// import MovieListBase from "../../components/Movie/List";
-import MovieListSkeleton from "../movie-list-skeleton/MoviesListSkeleton.component";
+import MovieListItem from "../MovieListItem/MovieListItem";
+// import MovieListSkeleton from "../movie-list-skeleton/MoviesListSkeleton.component";
 // import * as movieList from "../../test.json";
 
 const MovieList = (props: any) => {
@@ -16,13 +16,15 @@ const MovieList = (props: any) => {
   //         return <p>Error :(</p>;
   //       }
 
-  //       if (loading) {
-  return <MovieListSkeleton history={history} data={movieList} />;
-  //       }
+  const data = movieList;
 
-  // return <MovieListBase movies={fromJS(movies.items)} limit={20} />;
-  //     }}
-  //   </Query>
+  if (
+    //   // loading ||
+    !data
+  )
+    return <MovieListItem loading />;
+
+  return <MovieListItem history={history} data={movieList} />;
 };
 
 export default MovieList;
