@@ -6,6 +6,27 @@ import { formatYupError, formatError } from "../../subModules/formatErrors";
 import { v4 } from "uuid";
 import { sendMail } from "../../subModules/sendMail";
 
+export const saveUserInDb = async (
+  password: string,
+  login: string,
+  email: string,
+  firstName: string,
+  lastName: string
+) => {
+  const hashedPwd = await bcrypt.hash(password, 10);
+  const id: string = v4();
+  const user = User.create({
+    firstName,
+    lastName,
+    login,
+    email,
+    password: hashedPwd,
+    id
+  });
+  await user.save();
+  return user;
+};
+
 const resolvers: ResolverMap = {
   Query: {
     dummy: (_: any, { name }: any) => `${name || "You"} is a dummy`
@@ -30,18 +51,14 @@ const resolvers: ResolverMap = {
         // console.log("not creating the user");
         return await formatError("email", "email is already taken");
       }
-      const hashedPwd = await bcrypt.hash(password, 10);
-      const id = v4();
-      const user = User.create({
-        firstName,
-        lastName,
+      const user = (await saveUserInDb(
+        password,
         login,
         email,
-        password: hashedPwd,
-        id
-      });
-      sendMail(firstName, email, id);
-      await user.save();
+        firstName,
+        lastName
+      )) as User;
+      sendMail(firstName, email, user.id);
       return null;
     }
   }

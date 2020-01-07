@@ -1,4 +1,4 @@
-import { User } from "../entity/User";
+import { User } from "../../entity/User";
 import { request } from "graphql-request";
 
 const sendForgotMutation = (email: string) => `mutation{

@@ -10,6 +10,7 @@ export const resolvers: ResolverMap = {
     logout: createMiddleware(
       verifyAndSetSession,
       async (_: any, __: any, { res, session }) => {
+        res.clearCookie("HT_id");
         if (session.user) {
           session.destroy(err => {
             if (err) console.log(err);
@@ -17,19 +18,6 @@ export const resolvers: ResolverMap = {
           return true;
         }
         return false;
-
-        // res.clearCookie("HT_id");
-        // return new Promise(response =>
-        //   session.destroy(err => {
-        //     if (err) {
-        //       console.log("logout error: ", err);
-        //       response(false);
-        //     }
-        //     response(true);
-        //   })
-        // );
-        // if (session) return true;
-        // return true;
       }
     )
   }

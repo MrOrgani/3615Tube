@@ -14,3 +14,32 @@ type User {
   description: String!
   language: String!
 }
+
+type Commentary{
+  id: String!
+  film_id: String!
+  authorId: User!
+  createdAt: String!
+  text: String!
+}
+
+type Film {
+  imdb_id: String!
+  title: String!
+  released: Int!
+  synopsis: String!
+  rating: Int!
+  image: String!
+  torrents: [Torrent!]
+  genres: [String!]
+}
+
+type Torrent {
+  fileSize: String!
+  quality: String!
+  language: String!
+  peer: Int!
+  seed: Int!
+  url: String!
+  provider: String!
+}

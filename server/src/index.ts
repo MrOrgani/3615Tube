@@ -1,10 +1,12 @@
 import "reflect-metadata";
+import bodyParser from "body-parser";
+// import { Request, Response } from "express";
 import { GraphQLServer } from "graphql-yoga";
+import passport from "passport";
 import connectToDb from "./utils/connecToDb";
 import { genSchema } from "./utils/genSchema";
 import { createSession } from "./utils/createSession";
-import { User } from "./entity/User";
-import bodyParser from "body-parser";
+import { passportSetUp } from "./utils/passportOauth/passportSetUp";
 
 const startServer = async () => {
   await require("dotenv").config();
@@ -25,18 +27,16 @@ const startServer = async () => {
   // EXTRA SET UP: connecting to the db and the sessions (cookie stored using filed store in the session dir)
   server.express.use(createSession());
   await connectToDb();
+  await passportSetUp();
+  server.express.use(passport.initialize());
 
+  // NECESSARY TO BE ABLE TO SEND IMAGES TO THE BACK
   server.express.use(bodyParser.json({ limit: "10mb" }));
   server.express.use(bodyParser.urlencoded({ limit: "10mb", extended: true }));
 
   //ROUTING
-  //we still need a route for the confirmation email
-  //at the moment it does not redirect to the front
-  server.express.get("/confirm/:id", async (req, res) => {
-    const { id } = req.params;
-    await User.update({ id }, { verified: true });
-    res.send("ok");
-  });
+  const router = require("./router");
+  server.express.use("/", router);
 
   //SERVER START
   //server parameters and actual start

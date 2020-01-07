@@ -4,7 +4,8 @@ import verifyAndSetSession from "../../middleware/verifyAndSetSession";
 import { User } from "../../../entity/User";
 import * as bcrypt from "bcryptjs";
 import { PasswordSchema } from "../../../common";
-import { formatYupError } from "../../subModules/formatErrors";
+import { formatYupError, formatError } from "../../subModules/formatErrors";
+import { pictureSecurtiy } from "../../subModules/pictureSecurity";
 
 const resolvers: ResolverMap = {
   Query: {
@@ -27,7 +28,12 @@ const resolvers: ResolverMap = {
             return await formatYupError(error);
           }
           args.password = await bcrypt.hash(args.password, 10);
-        } else args.password = session.user.password;
+        }
+        // if (args.avatar && !(await pictureSecurtiy(args.avatar)))
+        //   return await formatError(
+        //     "picture",
+        //     "image must be of type png or jpeg for real"
+        //   );
         User.update({ id: session.user.id }, args);
         session.user = args;
         return null;

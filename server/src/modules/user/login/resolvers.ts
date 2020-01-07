@@ -4,7 +4,7 @@ import { formatError } from "../../subModules/formatErrors";
 import { SignInSchema } from "../../../common/yupSchemas/user";
 import { formatYupError } from "../../subModules/formatErrors";
 import * as bcrypt from "bcryptjs";
-import { loginMutation } from "../../../tests/loginTest";
+import { loginMutation } from "../../../tests/UserTests/loginTest";
 
 const resolvers: ResolverMap = {
   Query: {
@@ -19,9 +19,6 @@ const resolvers: ResolverMap = {
         await SignInSchema.validate(args, { abortEarly: false });
       } catch (error) {
         return await formatYupError(error);
-      }
-      if (session.userId) {
-        console.log("user is already connected");
       }
       const user = await User.findOne({ where: { login } });
       if (!user)
