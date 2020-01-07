@@ -21,18 +21,9 @@ const GET_ONE_MOVIE_INFO = gql`
   query findOneFilm($imdbId: String) {
     findOneFilm(imdbId: $imdbId) {
       title
-      released
+      year
       synopsis
       rating
-      torrents {
-        fileSize
-        quality
-        language
-        peer
-        seed
-        url
-        provider
-      }
       genres
     }
   }
