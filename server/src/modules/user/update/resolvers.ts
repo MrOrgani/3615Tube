@@ -3,7 +3,7 @@ import { createMiddleware } from "../../../utils/createMiddleware";
 import verifyAndSetSession from "../../middleware/verifyAndSetSession";
 import { User } from "../../../entity/User";
 import * as bcrypt from "bcryptjs";
-import { PasswordSchema } from "../../../common";
+import { PasswordSchema, ProfileSchema } from "../../../common";
 import { formatYupError, formatError } from "../subModules/formatErrors";
 import { pictureSecurtiy } from "../subModules/pictureSecurity";
 
@@ -15,18 +15,18 @@ const resolvers: ResolverMap = {
     update: createMiddleware(
       verifyAndSetSession,
       async (_: any, args: any, { session }) => {
-        // try {
-        // console.log("args", args);
-        // await SignupSchema.validate(args, { abortEarly: false });
-        // } catch (error) {
-        // return await formatYupError(error);
-        // }
+        try {
+          // console.log("args", args);
+          await ProfileSchema.validate(args, { abortEarly: false });
+        } catch (error) {
+          return await formatYupError(error);
+        }
         if (args.password) {
-          try {
-            await PasswordSchema.validate(args, { abortEarly: false });
-          } catch (error) {
-            return await formatYupError(error);
-          }
+          // try {
+          //   await PasswordSchema.validate(args, { abortEarly: false });
+          // } catch (error) {
+          //   return await formatYupError(error);
+          // }
           args.password = await bcrypt.hash(args.password, 10);
         }
         // if (args.avatar && !(await pictureSecurtiy(args.avatar)))

@@ -21,10 +21,11 @@ export default async (
   //   session.userId
   // );
   if (!context.session.userId) {
-    // console.log("we lack a cookie here", info.fieldName, info.returnType.name);
+    // console.log("we lack a cookie here", info.returnType);
     if (info.returnType.name) return null;
-    else if (info.returnType.constructor.name === "GraphQLList") return []
-    else return formatError("cookie", "no session cookie was detected");
+    else if (info.returnType.ofType.ofType.name === "Error")
+      return formatError("cookie", "no session cookie was detected");
+    else if (info.returnType.constructor.name === "GraphQLList") return [];
   }
   const user = await User.findOne({ where: { id: session.userId } });
   if (user) session.user = user;

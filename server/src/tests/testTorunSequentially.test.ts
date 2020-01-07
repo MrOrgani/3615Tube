@@ -19,7 +19,7 @@ const email: string = "jonex43795@mail3.top";
 const language: string = "en";
 const newLanguage: string = "spa";
 const id: string = "71c14b08-2d11-4f8c-ba0c-5a2739bdf762";
-
+const avatar: string = "asdf";
 const imdbId: string = "tt0133093";
 
 beforeAll(async () => {
@@ -27,7 +27,7 @@ beforeAll(async () => {
     await createConnection();
     rmTestUser(login);
   } catch (err) {
-    console.log("initializing db ERROR --> ", err);
+    console.log("linking to db ERROR --> ", err);
   }
 });
 
@@ -36,7 +36,15 @@ describe("user Creation, modification and query", () => {
   loginTest(login, password);
   meTest(login, firstName, language, password);
   findOneTest(login, password, firstName, language, id);
-  updateTest(login, password, newFirstName, newLanguage, email);
+  updateTest(
+    login,
+    password,
+    newFirstName,
+    newLanguage,
+    email,
+    avatar,
+    lastName
+  );
   forgotTest(password, newPassword, email, id);
   findOneFilmTest(login, password, imdbId);
 });
