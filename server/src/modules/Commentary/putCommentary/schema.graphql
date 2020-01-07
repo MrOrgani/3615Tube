@@ -1,0 +1,6 @@
+# import Error from "../../shared.graphql"
+# import Commentary from "../../shared.graphql"
+
+type Mutation{
+    putCommentary(text: String!, imdbId: String!): Commentary
+}

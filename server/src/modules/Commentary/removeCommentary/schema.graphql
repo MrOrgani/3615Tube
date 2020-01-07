@@ -1,0 +1,3 @@
+type Mutation{
+    removeCommentary(id: Int!, imdbId: String!): Commentary
+}

@@ -22,10 +22,20 @@ column: number;
 
 interface IQuery {
 __typename: "Query";
+allCommentary: Array<ICommentary> | null;
+findOneFilm: IFilm | null;
 findOne: IUser | null;
 dummy: string;
 hello: string;
 me: IUser | null;
+}
+
+interface IAllCommentaryOnQueryArguments {
+imdbId?: string | null;
+}
+
+interface IFindOneFilmOnQueryArguments {
+imdbId?: string | null;
 }
 
 interface IFindOneOnQueryArguments {
@@ -38,6 +48,15 @@ name?: string | null;
 
 interface IHelloOnQueryArguments {
 name?: string | null;
+}
+
+interface ICommentary {
+__typename: "Commentary";
+id: string;
+film_id: string;
+authorId: IUser;
+createdAt: string;
+text: string;
 }
 
 interface IUser {
@@ -53,13 +72,49 @@ description: string;
 language: string;
 }
 
+interface IFilm {
+__typename: "Film";
+imdb_id: string;
+title: string;
+released: number;
+synopsis: string;
+rating: number;
+image: string;
+torrents: Array<ITorrent> | null;
+genres: Array<string> | null;
+}
+
+interface ITorrent {
+__typename: "Torrent";
+fileSize: string;
+quality: string;
+language: string;
+peer: number;
+seed: number;
+url: string;
+provider: string;
+}
+
 interface IMutation {
 __typename: "Mutation";
+putCommentary: ICommentary | null;
+removeCommentary: ICommentary | null;
 sendForgotPasswordEmail: Array<IError> | null;
 forgotPasswordChange: Array<IError> | null;
 login: Array<IError> | null;
 logout: boolean | null;
 register: Array<IError> | null;
+update: Array<IError> | null;
+}
+
+interface IPutCommentaryOnMutationArguments {
+text: string;
+imdbId: string;
+}
+
+interface IRemoveCommentaryOnMutationArguments {
+id: number;
+imdbId: string;
 }
 
 interface ISendForgotPasswordEmailOnMutationArguments {
@@ -82,6 +137,17 @@ lastName: string;
 login: string;
 email: string;
 password: string;
+}
+
+interface IUpdateOnMutationArguments {
+firstName?: string | null;
+lastName?: string | null;
+login?: string | null;
+email?: string | null;
+password?: string | null;
+avatar?: string | null;
+description?: string | null;
+language?: string | null;
 }
 
 interface IError {

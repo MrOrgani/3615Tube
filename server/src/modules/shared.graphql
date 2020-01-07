@@ -15,6 +15,14 @@ type User {
   language: String!
 }
 
+type Commentary{
+  id: String!
+  film_id: String!
+  authorId: User!
+  createdAt: String!
+  text: String!
+}
+
 type Film {
   imdb_id: String!
   title: String!
