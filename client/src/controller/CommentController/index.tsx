@@ -4,6 +4,8 @@ import {
   useQuery
 } from "react-apollo";
 import gql from "graphql-tag";
+import { useContext } from "react";
+import { MovieContext } from "../../pages/context";
 // import { normalizeErrors } from "../../utils/normalizeErrors";
 
 interface Props {
@@ -28,8 +30,13 @@ const GET_MOVIE_INFO = gql`
   }
 `;
 
-const MovieController = (props: Props) => {
-  const { data: movieInfo, loading, error } = useQuery(GET_MOVIE_INFO, {
+const CommentController = (props: Props) => {
+  const [key] = useContext(MovieContext) as any;
+  console.log(
+    "CommentController, data from MovieContext waiting for a :key, ",
+    key
+  );
+  const { data, loading, error } = useQuery(GET_MOVIE_INFO, {
     variables: { id: props.movieId }
   });
 
@@ -53,7 +60,6 @@ const MovieController = (props: Props) => {
   // function onFinish() {
   //   props.history.push("/");
   // }
-  //   const userInfo = data.findOne ? data.findOne : data.me;
   return props.children({
     // submit,
     movieInfo
@@ -61,4 +67,4 @@ const MovieController = (props: Props) => {
   });
 };
 
-export default MovieController;
+export default CommentController;

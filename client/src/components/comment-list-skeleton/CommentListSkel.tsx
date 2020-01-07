@@ -4,7 +4,7 @@ import Skeleton from "@material-ui/lab/Skeleton";
 
 import "./MoviesListSkeleton.styles.scss";
 import { Form, Formik, Field } from "formik";
-import UserContext from "../../pages/context";
+import { UserContext } from "../../pages/context";
 // import CustomButton from "../button/button.component";
 
 interface MediaProps {

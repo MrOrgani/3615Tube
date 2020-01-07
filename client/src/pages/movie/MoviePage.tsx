@@ -2,6 +2,7 @@ import React from "react";
 import MovieConnector from "../../components/Movie/MovieConnector";
 
 import "./movie.styles.scss";
+import { MovieProvider } from "../context";
 
 const MoviePage = (props: any) => {
   const {
@@ -13,10 +14,12 @@ const MoviePage = (props: any) => {
 
   return (
     <div className="movie-page">
-      <MovieConnector
-        movieId={key}
+      <MovieProvider value={key ? key : null}>
+        <MovieConnector
+        // movieId={key}
         //   history={history}
-      />
+        />
+      </MovieProvider>
     </div>
   );
 };

@@ -1,39 +1,41 @@
 import React from "react";
-import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
+// import PropTypes from "prop-types";
+// import { withStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
+import { Grid } from "@material-ui/core";
 
-const styles = {
-  root: {
-    background: "none"
-  },
-  input: {
-    color: "white"
-  }
-};
+// const styles = {
+//   // root: {
+//   //   background: "none"
+//   // },
+//   input: {
+//     color: "white"
+//   }
+// };
 
-function CustomizedInputs(props: any) {
-  const { classes } = props;
-  const errorMsg = props.form.touched[props.field.name] && props.form.errors[props.field.name];
+function FieldInput(props: any) {
+  const { grid } = props;
+  const errorMsg =
+    props.form.touched[props.field.name] && props.form.errors[props.field.name];
   return (
-    <TextField
-      className={classes.root}
-      InputProps={{
-        className: classes.input
-      }}
-      input={props.input}
-      label={props.placeholder}
-      error={errorMsg ? true : false}
-      helperText={errorMsg}
-      {...props.field}
-      // {...props}
-      // placeholder={props.placeholder}
-    />
+    <Grid item xs={12} sm={grid ? grid.sm : 12}>
+      <TextField
+        variant="outlined"
+        input={props.input}
+        fullWidth
+        label={props.label}
+        error={errorMsg ? true : false}
+        helperText={errorMsg}
+        name={props.name}
+        {...props.field}
+        {...props}
+      />
+    </Grid>
   );
 }
 
-CustomizedInputs.propTypes = {
-  classes: PropTypes.object.isRequired
-};
+// FieldInput.propTypes = {
+//   classes: PropTypes.object.isRequired
+// };
 
-export default withStyles(styles)(CustomizedInputs);
+export default FieldInput;

@@ -1,18 +1,9 @@
 import React from "react";
-import {
-  // Field,
-  Formik,
-  FormikErrors,
-  Form
-} from "formik";
-// import FieldInput from "../FiledInput/FieldInput.component";
-// import CustomButton from "../button/button.component";
+import { Formik, FormikErrors, Form, Field } from "formik";
 import { SignInSchema } from "../../common";
 import { Link } from "react-router-dom";
-import { Grid, TextField, Button } from "@material-ui/core";
-
-// import dotenv from "dotenv";
-// dotenv.config();
+import { Grid, Button } from "@material-ui/core";
+import FieldInput from "../FiledInput/FieldInput.component";
 
 interface FormValues {
   login?: string;
@@ -44,11 +35,7 @@ export default (props: Props) => {
         validateOnBlur={false}
         validationSchema={SignInSchema}
       >
-        {({
-          // handleSubmit,
-          isSubmitting,
-          handleChange
-        }) => (
+        {({ isSubmitting }) => (
           <Form
             style={{
               display: "flex",
@@ -59,50 +46,30 @@ export default (props: Props) => {
             <h2>I have an account</h2>
             <span>Please enter your creditials</span>
             <Grid container spacing={2} justify="center">
-              <Grid item xs={12}>
-                <TextField
-                  variant="outlined"
-                  required
-                  fullWidth
-                  id="login"
-                  label="Login"
-                  name="login"
-                  onChange={handleChange}
-                  style={{ color: "white" }}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  variant="outlined"
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  autoComplete="current-password"
-                  onChange={handleChange}
-                />
-              </Grid>
+              <Field
+                required
+                label="Login"
+                name="login"
+                component={FieldInput}
+              />
+              <Field
+                required
+                type="password"
+                label="Password"
+                name="password"
+                component={FieldInput}
+              />
               <Grid item xs={12} sm={4}>
                 <Button
                   type="submit"
                   fullWidth
                   variant="contained"
                   color="primary"
-                  // className={classes.submit}
                   disabled={isSubmitting}
                 >
                   Log in
                 </Button>
               </Grid>
-              {/* <CustomButton
-                type="submit"
-                onClick={handleSubmit}
-                disabled={isSubmitting}
-              >
-                {isSubmitting ? "Loading..." : "Sign in."}
-              </CustomButton> */}
-              {/* </div> */}
             </Grid>
           </Form>
         )}
