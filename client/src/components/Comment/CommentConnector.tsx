@@ -1,27 +1,16 @@
 import React from "react";
 import CommentController from "../../controller/CommentController";
+import CommentListItem from "../CommentListItem/CommentListItem";
 // import LoginView from "./LoginView";
 // import LoginController from "../../controller/LoginController";
 
-const CommentConnector = (props: any) => {
-  //   const onFinish = () => {
-  //     const {
-  //       history,
-  //       location: { state }
-  //     } = props;
-  //     if (state && state.next) {
-  //       return history.push(state.next);
-  //     }
-
-  // history.push("/");
-  //   };
-  console.log("Comment connector props", props);
-
+const CommentConnector = () => {
   return (
     <CommentController>
-      {({ submit }) => (
-        <CommentListSkeleton
+      {({ allCommentary, submit }) => (
+        <CommentListItem
           submit={submit}
+          data={allCommentary}
           //   onFinish={onFinish}
         />
       )}

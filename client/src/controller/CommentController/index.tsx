@@ -1,68 +1,91 @@
 import * as React from "react";
 import {
   // useMutation,
-  useQuery
+  useQuery,
+  useMutation
 } from "react-apollo";
 import gql from "graphql-tag";
 import { useContext } from "react";
 import { MovieContext } from "../../pages/context";
+import { normalizeErrors } from "../../utils/normalizeErrors";
+import CommentListItem from "../../components/CommentListItem/CommentListItem";
 // import { normalizeErrors } from "../../utils/normalizeErrors";
 
 interface Props {
   children: (data: {
-    // submit: (values: any) => Promise<any>;
-    // data?: any;
+    submit: (values: any) => Promise<any>;
+    data?: any;
     movieInfo?: any;
+    allCommentary?: any;
   }) => JSX.Element | null;
+  allCommentary?: any;
   movieId?: string;
 }
 
-const GET_MOVIE_INFO = gql`
-  query findMovie($id: String) {
-    findMovie(id: $id) {
-      id
-      firstName
-      lastName
-      login
-      email
-      avatar
+const GET_MOVIE_COMMENTS = gql`
+  query allCommentary($imdbId: String) {
+    allCommentary(imdbId: $imdbId) {
+      authorId {
+        login
+        avatar
+      }
+      text
+      createdAt
+    }
+  }
+`;
+
+const POST_MOVIE_COMMENT = gql`
+  mutation putCommentary($text: String!, $imdbId: String!) {
+    putCommentary(text: $text, imdbId: $imdbId) {
+      authorId {
+        login
+        avatar
+      }
+      text
+      createdAt
     }
   }
 `;
 
 const CommentController = (props: Props) => {
-  const [key] = useContext(MovieContext) as any;
-  console.log(
-    "CommentController, data from MovieContext waiting for a :key, ",
-    key
-  );
-  const { data, loading, error } = useQuery(GET_MOVIE_INFO, {
-    variables: { id: props.movieId }
+  const key = useContext(MovieContext) as any;
+  // console.log("CommentController, key MovieContext waiting for a :key, ", key);
+
+  // GET ALL COMMENTAIRE FROM A MOVIE
+  const { data, loading, error } = useQuery(GET_MOVIE_COMMENTS, {
+    variables: { imdbId: key }
   });
+  //-----------> SI DES COMS, LES REDESIGNER
+  const allCommentary = data ? data.allCommentary : 0;
+  console.log("CommentController, allCommentary, ", allCommentary);
 
-  if (error) return <p>{JSON.stringify(error, null, 2)}</p>;
+  // ECRIRE UN COMMENTAIRE
+  const [mutate, { error: errorMut }] = useMutation(POST_MOVIE_COMMENT);
 
-  if (loading) return <p>Loading...</p>;
+  //SI ERREUR DE GRAPHQL RETURN THIS
+  if (error || errorMut) return <p>{JSON.stringify(error, null, 2)}</p>;
 
-  //   const submit = async (values: any) => {
-  //     const {
-  //       data: { profile }
-  //     } = await mutate({
-  //       variables: values
-  //     });
+  //SI LOADING JE RENVOIE UN -------SKELETON------- DES COMS
+  if (loading) return <CommentListItem loading />;
 
-  //     if (profile) {
-  //       return normalizeErrors(profile);
-  //     }
-  //     return null;
-  //   };
+  const submit = async (values: any) => {
+    const {
+      data: { putCommentary }
+    } = await mutate({
+      variables: values
+    });
+    console.log("error in putcomment, ", putCommentary);
 
-  // function onFinish() {
-  //   props.history.push("/");
-  // }
+    // if (putCommentary) {
+    return putCommentary;
+    // }
+    // return null;
+  };
+
   return props.children({
-    // submit,
-    movieInfo
+    submit,
+    allCommentary
     //  onFinish
   });
 };

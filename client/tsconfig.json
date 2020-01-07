@@ -23,7 +23,7 @@
     "strictFunctionTypes": true,
     // "strictPropertyInitialization": true,
     "noImplicitThis": true,
-    "noUnusedLocals": true,
+    "noUnusedLocals": false,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     // "allowSyntheticDefaultImports": false,

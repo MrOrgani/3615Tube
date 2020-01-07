@@ -1,5 +1,6 @@
 import React from "react";
-import MovieListSkeleton from "../MovieListSkeleton/MoviesListSkeleton.component";
+// import MovieListSkeleton from "../MovieListSkeleton/MoviesListSkeleton.component";
+import MovieListItem from "../MovieListItem/MovieListItem";
 
 import "./user-activity.styles.scss";
 import TabsComponent from "../Tabs/TabsComponent";
@@ -17,9 +18,10 @@ const UserActivity = (props: any) => {
       <TabsComponent
         tabsNames={["Movies seen", "To watch list", "Rated movies"]}
         tabsToRender={[
-          <MovieListSkeleton nbOfItem={10} />,
-          <MovieListSkeleton />,
-          <MovieListSkeleton />
+          // ADD LOADING TO RENDER SKELETON
+          <MovieListItem loading />,
+          <MovieListItem loading />,
+          <MovieListItem loading />
         ]}
       />
     </div>

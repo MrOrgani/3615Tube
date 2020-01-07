@@ -31,23 +31,26 @@ const MovieSkeletonItem = (
   </>
 );
 
-const Media = (props: MediaProps) => {
-  const { data, history, loading = false } = props;
+const MovieListItem = (props: MediaProps) => {
+  const { data, history, loading = false, nbOfItem = 40 } = props;
 
+  const result = !data && loading ? new Array(nbOfItem) : data;
+
+  // console.log("result", result);
   return (
-    <Grid container item lg={12} md={5}>
-      {Array.from(data).map((item: any, index: any) => (
+    <Grid item container lg={12} md={5}>
+      {Array.from(result).map((item: any, index: any) => (
         <Box key={index} width={185} mx={1}>
-          {data && !loading ? (
+          {result ? (
             <>
               <div
                 className="movie-box"
-                onClick={() => history.push(`/movie/${item.id}`)}
+                onClick={() => history.push(`/movie/${item.imdb_id}`)}
               >
                 <img
                   style={{ width: 185, height: 278 }}
                   alt={item.title}
-                  src={`https://image.tmdb.org/t/p/w185_and_h278_bestv2${item.poster_path}`}
+                  src={item.images ? item.images.poster : null}
                   className="poster"
                 />
                 <div className="hover-info">
@@ -67,12 +70,10 @@ const Media = (props: MediaProps) => {
                       }}
                     />
                   </div>
-                  {/* <div>{item.overview}</div> */}
                 </div>
               </div>
               <Box pr={2}>
                 <Typography
-                  // gutterBottom
                   variant="body2"
                   style={{ color: "white" }}
                   align="center"
@@ -90,4 +91,4 @@ const Media = (props: MediaProps) => {
   );
 };
 
-export default Media;
+export default MovieListItem;
