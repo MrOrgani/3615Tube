@@ -50,8 +50,9 @@ const GET_MY_INFO = gql`
 `;
 
 const GET_USER_INFO = gql`
-  query findOne($id: String) {
-    findOne(id: $id) {
+  query findOne($login: String) {
+    findOne(id: $login) {
+      id
       firstName
       lastName
       login
@@ -69,8 +70,6 @@ const UserProfileController = (props: Props) => {
     }
   );
 
-  console.log("data of user in controller, ", data, "error", errorMut);
-
   if (errorMut || errorQuery)
     return <p>{JSON.stringify(errorMut && errorQuery, null, 2)}</p>;
   if (loading) return <p>Loading...</p>;
@@ -81,21 +80,17 @@ const UserProfileController = (props: Props) => {
     } = await mutate({
       variables: values
     });
-    console.log("profile,", profile);
     if (profile) {
       return normalizeErrors(profile);
     }
     return null;
   };
 
-  // function onFinish() {
-  //   props.history.push("/");
-  // }
   const userInfo = data.findOne ? data.findOne : data.me;
+
   return props.children({
     submit,
     userInfo
-    //  onFinish
   });
 };
 

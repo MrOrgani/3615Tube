@@ -29,7 +29,7 @@ export const Pages = () => (
         <Route path="/confirm/:token" component={ConfirmAccountPage} />
         <Route path="/forgot-password" component={ForgotPasswordPage} />
         <Route path="/change-password/:key" component={ChangePasswordPage} />
-        <AuthRoute exact path="/profile/:key" component={ProfilePage} />
+        <AuthRoute exact path="/profile/:id" component={ProfilePage} />
         <AuthRoute exact path="/profile" component={ProfilePage} />
         <Route exact path="/movies" component={MoviesPage} />
         <AuthRoute exact path="/movie/:key" component={MoviePage} />
