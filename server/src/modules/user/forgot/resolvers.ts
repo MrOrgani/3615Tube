@@ -2,8 +2,8 @@ import { ResolverMap } from "../../../types/graphql-utils";
 import * as bcrypt from "bcryptjs";
 import { PasswordSchema } from "../../../common/yupSchemas/user";
 import { User } from "../../../entity/User";
-import { formatYupError, formatError } from "../../subModules/formatErrors";
-import { sendMail } from "../../subModules/sendMail";
+import { formatYupError, formatError } from "../subModules/formatErrors";
+import { sendMail } from "../subModules/sendMail";
 
 const resolvers: ResolverMap = {
   Query: {

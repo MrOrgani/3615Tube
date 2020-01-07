@@ -5,7 +5,7 @@ import { meTest } from "./UserTests/meTest";
 import { forgotTest } from "./UserTests/forgotTest";
 import { updateTest } from "./UserTests/updateTest";
 import { createConnection } from "typeorm";
-import { rmTestUser } from "../modules/subModules/rmUser";
+import { rmTestUser } from "../modules/user/subModules/rmUser";
 import { findOneFilmTest } from "./FilmTests/findOneFilmTest";
 // import { User } from "../entity/User";
 

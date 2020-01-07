@@ -1,8 +1,8 @@
 import { ResolverMap } from "../../../types/graphql-utils";
 import { User } from "../../../entity/User";
-import { formatError } from "../../subModules/formatErrors";
+import { formatError } from "../subModules/formatErrors";
 import { SignInSchema } from "../../../common/yupSchemas/user";
-import { formatYupError } from "../../subModules/formatErrors";
+import { formatYupError } from "../subModules/formatErrors";
 import * as bcrypt from "bcryptjs";
 import { loginMutation } from "../../../tests/UserTests/loginTest";
 

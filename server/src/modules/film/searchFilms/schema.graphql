@@ -1,0 +1,10 @@
+# import Film from "../../shared.graphql"
+
+type Query {
+  searchFilms(
+    rating: [Int]
+    prodYear: [Int]
+    genders: [String]
+    queryTerms: String
+  ): [Film]
+}

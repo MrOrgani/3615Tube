@@ -1,6 +1,6 @@
 import { Resolver } from "../../types/graphql-utils";
 import { User } from "../../entity/User";
-import { formatError } from "../subModules/formatErrors";
+import { formatError } from "../user/subModules/formatErrors";
 
 export default async (
   resolver: Resolver,

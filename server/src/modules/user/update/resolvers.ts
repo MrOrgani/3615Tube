@@ -4,8 +4,8 @@ import verifyAndSetSession from "../../middleware/verifyAndSetSession";
 import { User } from "../../../entity/User";
 import * as bcrypt from "bcryptjs";
 import { PasswordSchema } from "../../../common";
-import { formatYupError, formatError } from "../../subModules/formatErrors";
-import { pictureSecurtiy } from "../../subModules/pictureSecurity";
+import { formatYupError, formatError } from "../subModules/formatErrors";
+import { pictureSecurtiy } from "../subModules/pictureSecurity";
 
 const resolvers: ResolverMap = {
   Query: {

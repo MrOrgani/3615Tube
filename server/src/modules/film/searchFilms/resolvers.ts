@@ -7,8 +7,8 @@ import { formatFilmResult } from "../subModules/formatFilmResult";
 
 const resolvers: ResolverMap = {
   Query: {
-    findOneFilm:
-      // findOneMoive: createMiddleware(
+    searchFilms:
+      // searchFilms: createMiddleware(
       //   verifyAndSetSession,
       async (_: any, { imdbId }: any) => {
         const url = `${pctAdd}/movie/${imdbId}`;
