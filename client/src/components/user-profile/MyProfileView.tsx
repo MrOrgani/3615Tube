@@ -7,7 +7,7 @@ import { Formik, Form, Field } from "formik";
 import FieldInput from "../FiledInput/FieldInput.component";
 import Avatar from "../avatar/avatar.component";
 import CustomButton from "../button/button.component";
-// import { ProfileSchema } from "../../common";
+import { ProfileSchema } from "../../common";
 import BuildOutlinedIcon from "@material-ui/icons/BuildOutlined";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -74,7 +74,7 @@ export default function SpringModal(props: any) {
   };
 
   return (
-    <div>
+    <div className="icon-modify">
       <BuildOutlinedIcon
         className="user-profile-container"
         onClick={handleOpen}
@@ -102,15 +102,15 @@ export default function SpringModal(props: any) {
                 if (errors) {
                   actions.setErrors(errors);
                 } else {
+                  setOpen(false);
                   props.onFinish();
                 }
-                console.log("values of formik", values, actions);
               }}
               validateOnChange={false}
               validateOnBlur={false}
-              // validationSchema={ProfileSchema}
+              validationSchema={ProfileSchema}
             >
-              {({ handleSubmit, isSubmitting }) => {
+              {({ handleSubmit, isSubmitting, errors }) => {
                 return (
                   <Form
                     style={{
@@ -120,6 +120,11 @@ export default function SpringModal(props: any) {
                     }}
                   >
                     <Field name="avatar" uploadImg={true} component={Avatar} />
+                    {errors.avatar ? (
+                      <label style={{ fontSize: "10px", color: "red" }}>
+                        You must change your avatar
+                      </label>
+                    ) : null}
                     <Field
                       name="firstName"
                       label="First name"
@@ -151,13 +156,6 @@ export default function SpringModal(props: any) {
                     <Field
                       name="password"
                       label="Password"
-                      type="password"
-                      placeholder="Password"
-                      component={FieldInput}
-                    />
-                    <Field
-                      name="newPassword"
-                      label="New Password"
                       type="password"
                       placeholder="New Password"
                       component={FieldInput}

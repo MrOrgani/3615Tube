@@ -69,6 +69,5 @@ export const ProfileSchema = Yup.object().shape({
   email: Yup.string()
     .email("Invalid email")
     .required("Required"),
-  password: PasswordValidation,
-  newPassword: PasswordValidation
+  password: PasswordValidation
 });

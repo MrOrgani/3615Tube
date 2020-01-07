@@ -4,7 +4,7 @@ import MovieList from "../../components/movie-list/movie-list.component";
 // import "./homepage.styles.scss";
 
 const MoviesPage = (props: any) => {
-  console.log("Movies Page Props, ", props);
+  // console.log("Movies Page Props, ", props);
   const { history } = props;
   return (
     <div className="homepage">
