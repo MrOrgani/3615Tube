@@ -1,7 +1,5 @@
 import React from "react";
-import MovieList from "../../components/movie-list/movie-list.component";
-
-// import "./homepage.styles.scss";
+import MovieListConnector from "../../components/MovieList/MovieListConnector";
 
 const MoviesPage = (props: any) => {
   // console.log("Movies Page Props, ", props);
@@ -9,7 +7,7 @@ const MoviesPage = (props: any) => {
   return (
     <div className="homepage">
       {/* This is the Homepage */}
-      <MovieList history={history} />
+      <MovieListConnector history={history} />
     </div>
   );
 };

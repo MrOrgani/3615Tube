@@ -1,12 +1,9 @@
 import React from "react";
-import { Field, Formik, FormikErrors } from "formik";
-import FieldInput from "../FiledInput/FieldInput.component";
-import CustomButton from "../button/button.component";
+import { Formik, FormikErrors, Form, Field } from "formik";
 import { SignInSchema } from "../../common";
 import { Link } from "react-router-dom";
-
-// import dotenv from "dotenv";
-// dotenv.config();
+import { Grid, Button } from "@material-ui/core";
+import FieldInput from "../FiledInput/FieldInput.component";
 
 interface FormValues {
   login?: string;
@@ -21,8 +18,6 @@ interface Props {
 export default (props: Props) => {
   return (
     <div className="sign-up">
-      <h2>I have an account</h2>
-      <span>Please enter your creditials</span>
       <Formik
         initialValues={{
           login: "",
@@ -40,30 +35,43 @@ export default (props: Props) => {
         validateOnBlur={false}
         validationSchema={SignInSchema}
       >
-        {({ handleSubmit, isSubmitting }) => (
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <Field
-              name="login"
-              type="text"
-              placeholder="Login"
-              component={FieldInput}
-            />
-            <Field
-              name="password"
-              type="password"
-              placeholder="Password"
-              component={FieldInput}
-            />
-            {/* <div> */}
-            <CustomButton
-              type="submit"
-              onClick={handleSubmit}
-              disabled={isSubmitting}
-            >
-              {isSubmitting ? "Loading..." : "Sign in."}
-            </CustomButton>
-            {/* </div> */}
-          </div>
+        {({ isSubmitting }) => (
+          <Form
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center"
+            }}
+          >
+            <h2>I have an account</h2>
+            <span>Please enter your creditials</span>
+            <Grid container spacing={2} justify="center">
+              <Field
+                required
+                label="Login"
+                name="login"
+                component={FieldInput}
+              />
+              <Field
+                required
+                type="password"
+                label="Password"
+                name="password"
+                component={FieldInput}
+              />
+              <Grid item xs={12} sm={4}>
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  disabled={isSubmitting}
+                >
+                  Log in
+                </Button>
+              </Grid>
+            </Grid>
+          </Form>
         )}
       </Formik>
       <div>

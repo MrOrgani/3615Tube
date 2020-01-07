@@ -4,4 +4,11 @@ const UserContext = React.createContext({});
 
 export const UserProvider = UserContext.Provider;
 export const UserConsumer = UserContext.Consumer;
-export default UserContext;
+// export UserContext;
+
+const MovieContext = React.createContext({});
+
+export const MovieProvider = MovieContext.Provider;
+export const MovieConsumer = MovieContext.Consumer;
+
+export { MovieContext, UserContext };

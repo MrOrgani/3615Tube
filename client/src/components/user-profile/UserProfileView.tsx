@@ -6,6 +6,7 @@ import UserActivity from "../user-activity/user-activity.component";
 
 import "./user-profile.styles.scss";
 import Skeleton from "@material-ui/lab/Skeleton";
+import { Avatar } from "@material-ui/core";
 
 interface FormValues {
   firstName: string;
@@ -67,10 +68,10 @@ const UserProfile = ({ userInfo, submit, onFinish }: Props) => {
       ) : (
         <div className="user-profile-container">
           <div className="avatar-container">
-            <img
+            <Avatar
+              alt="MyAvatar"
               src={!userInfo.avatar ? image : userInfo.avatar}
-              className="image"
-              alt="avatar"
+              sizes="large"
             />
           </div>
           {userInfo.firstName} {userInfo.lastName} | 👤 {userInfo.login} | ✉️{" "}

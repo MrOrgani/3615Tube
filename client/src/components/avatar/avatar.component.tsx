@@ -26,7 +26,7 @@ const Avatar: React.FC<FieldProps<any>> = (props: any) => {
   };
 
   return (
-    <div className="avatar-container">
+    <div className="avatar-container" style={{ width: 50, height: 50 }}>
       {uploadImg ? (
         <>
           <input

@@ -32,7 +32,7 @@ export const Pages = () => (
         <AuthRoute exact path="/profile/:id" component={ProfilePage} />
         <AuthRoute exact path="/profile" component={ProfilePage} />
         <Route exact path="/movies" component={MoviesPage} />
-        <AuthRoute exact path="/movie/:key" component={MoviePage} />
+        <AuthRoute exact path="/movie/:imdbId" component={MoviePage} />
       </Switch>
     </div>
     <Footer />
