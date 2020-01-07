@@ -7,7 +7,7 @@ import {
 import gql from "graphql-tag";
 import { useContext } from "react";
 import { MovieContext } from "../../pages/context";
-import { normalizeErrors } from "../../utils/normalizeErrors";
+// import { normalizeErrors } from "../../utils/normalizeErrors";
 import CommentListItem from "../../components/CommentListItem/CommentListItem";
 // import { normalizeErrors } from "../../utils/normalizeErrors";
 
