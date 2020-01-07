@@ -16,9 +16,10 @@ type User {
 }
 
 type Film {
-  imdb_id: String!
+  imdbId: String
+  ytsId: String
   title: String!
-  released: Int!
+  year: Int!
   synopsis: String!
   rating: Int!
   image: String!

@@ -2,9 +2,12 @@
 
 type Query {
   searchFilms(
+    page: Int!
+    sort: String
+    order: String
     rating: [Int]
     prodYear: [Int]
-    genders: [String]
-    queryTerms: String
+    genres: [String]
+    keywords: String
   ): [Film]
 }
