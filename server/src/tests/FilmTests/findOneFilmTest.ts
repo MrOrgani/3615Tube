@@ -31,7 +31,7 @@ export const findOneFilmTest = (
           query: findOneFilmMutation(imdbId)
         })) as any;
         expect(response.data.data.findOneFilm).toEqual({
-          title: "The Matrix"
+          title: "the matrix"
         });
       };
       await findOneFilmTest();

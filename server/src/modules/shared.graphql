@@ -15,7 +15,7 @@ type User {
   language: String!
 }
 
-type Commentary{
+type Commentary {
   id: String!
   film_id: String!
   authorId: User!
@@ -31,7 +31,7 @@ type Film {
   synopsis: String!
   rating: Int!
   image: String!
-  torrents: [Torrent!]
+  torrents: [String!]
   genres: [String!]
 }
 

@@ -20,7 +20,7 @@ const language: string = "en";
 const newLanguage: string = "spa";
 const id: string = "71c14b08-2d11-4f8c-ba0c-5a2739bdf762";
 const avatar: string = "asdf";
-const imdbId: string = "tt0133093";
+const imdbId: string = "tt0004972";
 
 beforeAll(async () => {
   try {

@@ -3,7 +3,11 @@ import { createMiddleware } from "../../../utils/createMiddleware";
 import verifyAndSetSession from "../../middleware/verifyAndSetSession";
 import { pctAdd } from "../../../utils/apiGlobals";
 import Axios from "axios";
-import { pctFormatFilmResult } from "../subModules/pctformat";
+import {
+  pctFormatFilmResult,
+  pctFormatTorrentsResult
+} from "../../../scripts/seedFilmDb/formats";
+import { Film } from "../../../entity/Films";
 
 const resolvers: ResolverMap = {
   Query: {
@@ -14,11 +18,17 @@ const resolvers: ResolverMap = {
         const url = `${pctAdd}/movie/${imdbId}`;
         // console.log("in the findOneFilm Resolver", url);
         try {
-          const pctFilm = await Axios.get(url);
-          // console.log(pctFilm);
-          if (!pctFilm.data) return null;
-          const result = await pctFormatFilmResult(pctFilm.data);
-          // console.log(result);
+          const result = (await Film.findOne({
+            where: { imdbId: imdbId }
+          })) as any;
+          console.log(result.torrents);
+          console.log(result.torrents[0]);
+          // const pctFilm = await Axios.get(url);
+          // // console.log(pctFilm);
+          // if (!pctFilm.data) return null;
+          // const torrents = await pctFormatTorrentsResult(pctFilm.data);
+          // const result = await pctFormatFilmResult(pctFilm.data, torrents);
+          // // console.log(result);
           return result;
         } catch (err) {
           console.log("error in the film fetching", err);
