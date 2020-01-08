@@ -47,12 +47,13 @@ const resolvers: ResolverMap = {
             pctRawResult
           );
           console.log(
-            " ---- CLEAN FILM LIST FROM YYYYYTTTTTSSSS ---- ",
-            ytsCleanList.length
+            " ---- CLEAN FILM LIST FROM BOTH YTS--  PCT-- ",
+            ytsCleanList.length,
+            pctCleanList.length
             // ytsCleanList[0]
           );
           const finalList = pctCleanList.concat(ytsCleanList);
-          console.log(finalList.length);
+          console.log("final List from BOTH", finalList.length);
           return finalList;
         } catch (err) {
           console.log("error in the film fetching", err);
