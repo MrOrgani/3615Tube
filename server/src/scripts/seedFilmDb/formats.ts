@@ -13,13 +13,14 @@ export const pctFormatTorrentsResult = (movie: any) => {
         fileSize: movie.torrents[language][quality].filesize,
         source: "Popcorn Time"
       };
-      torrents.push(torrent);
+      torrents.push(JSON.stringify(torrent));
     }
   }
   return torrents;
 };
 
 export const pctFormatFilmResult = (movie: any, torrents: Array<any>) => {
+  if (!movie.images || !movie.images.poster) return null;
   return {
     imdbId: movie.imdb_id,
     title: movie.title.toLowerCase(),
@@ -50,6 +51,7 @@ export const ytsFormatTorrentsResult = (movie: any) => {
       fileSize: movie.torrents[item].size,
       source: "YTS"
     };
+
     torrents.push(torrent);
   }
   return torrents;

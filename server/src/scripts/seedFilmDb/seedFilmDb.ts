@@ -1,4 +1,3 @@
-import { pctAdd, ytsAdd } from "../../utils/apiGlobals";
 import axios from "axios";
 import {
   ytsFormatFilmResult,
@@ -6,6 +5,8 @@ import {
   pctFormatTorrentsResult,
   pctFormatFilmResult
 } from "./formats";
+import { getConnection, createConnection } from "typeorm";
+import { Film } from "../../entity/Films";
 
 ////////////////////////// YTES YTS YTS /////////////////////
 const getYtsPage: any = async (i: number) => {
@@ -30,9 +31,9 @@ const seedYts = async () => {
     page.forEach((film: any) => rawFilmsResults.push(film))
   );
   console.log("rawFilmsResults size:", rawFilmsResults.length);
-  const cleanResults: any = await rawFilmsResults.map(async (movie: any) => {
-    const torrents: Array<any> = await ytsFormatTorrentsResult(movie);
-    return await ytsFormatFilmResult(movie, torrents);
+  const cleanResults: any = await rawFilmsResults.map((movie: any) => {
+    const torrents: Array<any> = ytsFormatTorrentsResult(movie);
+    return ytsFormatFilmResult(movie, torrents);
   });
   return cleanResults;
 };
@@ -57,27 +58,37 @@ const seedPct = async () => {
   rawPagesResults.forEach((page: any) =>
     page.forEach((film: any) => rawFilmsResults.push(film))
   );
-  const cleanResults: any = await rawFilmsResults.map(async (movie: any) => {
-    const torrents: Array<any> = await pctFormatTorrentsResult(movie);
-    return await pctFormatFilmResult(movie, torrents);
-  });
+  const cleanResults: any = await rawFilmsResults
+    .map((movie: any) => {
+      const torrents: Array<any> = pctFormatTorrentsResult(movie);
+      return pctFormatFilmResult(movie, torrents);
+    })
+    .filter(e => e !== null);
   return cleanResults;
 };
 
 const seedFilmDatabase = async () => {
-  const ytsCleanResult = await seedYts();
-  console.log(
-    " ---- RESULT FROM YTS ---- ",
-    ytsCleanResult.length,
-    typeof ytsCleanResult[0],
-    ytsCleanResult[0]
-  );
+  const ytsCleanResult: any[] = [];
+  // const ytsCleanResult = await seedYts();
+  // console.log(
+  //   " ---- RESULT FROM YTS ---- ",
+  //   ytsCleanResult.length,
+  //   typeof ytsCleanResult[0],
+  //   ytsCleanResult[0]
+  // );
   const pctCleanResult = await seedPct();
   console.log(
-    " ---- RESULT FROM YTS ---- ",
+    " ---- RESULT FROM POPCORN TIME ---- ",
     pctCleanResult.length,
-    typeof pctCleanResult[0],
-    pctCleanResult[0]
+    pctCleanResult[0].title
   );
+  const finalResult = ytsCleanResult.concat(pctCleanResult);
+  await createConnection();
+  await getConnection()
+    .createQueryBuilder()
+    .insert()
+    .into(Film)
+    .values(finalResult)
+    .execute();
 };
 seedFilmDatabase();
