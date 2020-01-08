@@ -33,10 +33,7 @@ const CommentSkeletonItem = (
   </Card>
 );
 
-const CommentsView = (props: MediaProps) => {
-  const { data, loading } = props;
-  console.log("props, ", props);
-
+const CommentsView = ({ data, loading, submit }: MediaProps) => {
   const [canComment, setCanComment] = useState(true);
   const { avatar, login } = useContext(UserContext) as any;
   const imdbId = useContext(MovieContext) as any;
@@ -55,14 +52,14 @@ const CommentsView = (props: MediaProps) => {
                   text: "",
                   imdbId: imdbId
                 }}
-                onSubmit={async (values, actions) => {
-                  console.log("values ", values);
-                  const errors = await props.submit(values);
-                  if (errors) {
-                    actions.setErrors(errors);
-                  } else {
-                    setCanComment(false);
-                  }
+                onSubmit={async values => {
+                  const myComment = await submit(values);
+                  data.push(myComment);
+                  // if (errors) {
+                  //   actions.setErrors(errors);
+                  // } else {
+                  setCanComment(false);
+                  // }
                 }}
                 validateOnChange={false}
                 validateOnBlur={false}

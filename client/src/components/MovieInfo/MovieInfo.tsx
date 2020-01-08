@@ -11,7 +11,6 @@ const MovieInfo = ({
     image
   }
 }: any) => {
-  console.log(genres);
   return (
     <Grid
       container

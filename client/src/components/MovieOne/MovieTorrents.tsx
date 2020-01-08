@@ -607,20 +607,17 @@ const MovieTorrents = (_: any) => {
       <Grid
         container
         style={{
-          //   //   minHeight: "-webkit-fill-available",
-          //   backgroundImage:
-          //     "radial-gradient(circle at 10% 20%, rgba(90, 92, 106, 0.24) 0%, rgba(32, 45, 58, 0.2) 81.3%)",
-          //   borderRadius: "10px",
-          //   flexGrow: 1
           maxHeight: "20vh",
-          overflow: "scroll"
+          overflow: "auto"
         }}
       >
         {torrents.map((torrent: any, index: number) => {
           return (
-            <ButtonBase style={{ minWidth: "-moz-available", height: "50px" }}>
+            <ButtonBase
+              key={`torrent-index${index}`}
+              style={{ minWidth: "-moz-available", height: "50px" }}
+            >
               <Paper
-                key={`torrent-index${index}`}
                 style={{
                   minWidth: "-moz-available",
                   height: "50px",
@@ -630,7 +627,15 @@ const MovieTorrents = (_: any) => {
                 }}
               >
                 audio:{" "}
-                {torrent.language === "fr" ? <span>🇫🇷</span> : <span>🇬🇧</span>}{" "}
+                {torrent.language === "fr" ? (
+                  <span role="img" aria-label="france">
+                    🇫🇷
+                  </span>
+                ) : (
+                  <span role="img" aria-label="UK">
+                    🇬🇧
+                  </span>
+                )}{" "}
                 | {torrent.quality} | {torrent.seed} seeds | {torrent.peer} peer
               </Paper>
             </ButtonBase>

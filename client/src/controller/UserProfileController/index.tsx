@@ -65,7 +65,6 @@ const GET_USER_INFO = gql`
 
 const UserProfileController = ({ userId, children }: Props) => {
   const myInfo = useContext(UserContext) as any;
-  const { pathname } = window.location;
 
   const [mutate, { error: errorMut }] = useMutation(profileMutation);
   const { data, loading, error: errorQuery } = useQuery(GET_USER_INFO, {

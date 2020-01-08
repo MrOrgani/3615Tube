@@ -50,7 +50,6 @@ const POST_MOVIE_COMMENT = gql`
 
 const CommentController = (props: Props) => {
   const key = useContext(MovieContext) as any;
-  // console.log("CommentController, key MovieContext waiting for a :key, ", key);
 
   // GET ALL COMMENTAIRE FROM A MOVIE
   const { data, loading, error } = useQuery(GET_MOVIE_COMMENTS, {
@@ -58,7 +57,6 @@ const CommentController = (props: Props) => {
   });
   //-----------> SI DES COMS, LES REDESIGNER
   const allCommentary = data ? data.allCommentary : 0;
-  console.log("CommentController, allCommentary, ", allCommentary);
 
   // ECRIRE UN COMMENTAIRE
   const [mutate, { error: errorMut }] = useMutation(POST_MOVIE_COMMENT);
@@ -75,12 +73,8 @@ const CommentController = (props: Props) => {
     } = await mutate({
       variables: values
     });
-    console.log("error in putcomment, ", putCommentary);
 
-    // if (putCommentary) {
     return putCommentary;
-    // }
-    // return null;
   };
 
   return props.children({
