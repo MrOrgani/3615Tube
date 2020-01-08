@@ -3,7 +3,7 @@ import { createMiddleware } from "../../../utils/createMiddleware";
 import verifyAndSetSession from "../../middleware/verifyAndSetSession";
 import { pctAdd } from "../../../utils/apiGlobals";
 import Axios from "axios";
-import { pctFormatFilmResult } from "../subModules/pctformat";
+import { pctFormatFilmResult } from "../../../scripts/seedFilmDb/formats";
 
 const resolvers: ResolverMap = {
   Query: {
