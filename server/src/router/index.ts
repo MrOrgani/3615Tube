@@ -3,7 +3,10 @@ import * as express from "express";
 
 //https://stackoverflow.com/questions/27465850/typeerror-router-use-requires-middleware-function-but-got-a-object
 const router = express.Router();
-router.use("/Oauth", require("./Oauth")).use("/confirm", require("./confirm"));
+router.use("/Oauth", require("./Oauth"))
+.use("/confirm", require("./confirm"))
+.use('/streaming', require('./streaming'))
+
 //   .use("/test", (req: any, res: any) => {
 //     console.log("ok");
 //     res.send("ok");
