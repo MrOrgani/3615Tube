@@ -31,17 +31,20 @@ const MovieSkeletonItem = (
   </>
 );
 
-const MovieListItem = (props: MediaProps) => {
-  const { data, history, loading = false, nbOfItem = 40 } = props;
-
-  const result = !data && loading ? new Array(nbOfItem) : data;
-
-  // console.log("result", result);
+const MovieListView = ({ data, history, loading }: MediaProps) => {
   return (
     <Grid item container lg={12} md={5}>
-      {Array.from(result).map((item: any, index: any) => (
-        <Box key={index} width={185} mx={1}>
-          {result ? (
+      {// IF LOADING ---> SKELETON
+      loading &&
+        Array.from(new Array(20)).map((_, index: any) => (
+          <Box key={index} width={185} mx={1}>
+            {MovieSkeletonItem}
+          </Box>
+        ))}
+      {// IF !LOADING ---> RENDER DATA
+      data &&
+        Array.from(data).map((item: any, index: any) => (
+          <Box key={index} width={185} mx={1}>
             <>
               <div
                 className="movie-box"
@@ -82,13 +85,10 @@ const MovieListItem = (props: MediaProps) => {
                 </Typography>
               </Box>
             </>
-          ) : (
-            MovieSkeletonItem
-          )}
-        </Box>
-      ))}
+          </Box>
+        ))}
     </Grid>
   );
 };
 
-export default MovieListItem;
+export default MovieListView;

@@ -6,7 +6,7 @@ import {
 import gql from "graphql-tag";
 // import { normalizeErrors } from "../../utils/normalizeErrors";
 import { movieList } from "../../test.js";
-import MovieListItem from "../../components/MovieListItem/MovieListItem";
+import MovieListItem from "../../components/MovieList/MovieListView";
 // import { normalizeErrors } from "../../utils/normalizeErrors.js";
 
 interface Props {

@@ -64,7 +64,7 @@ const Fade = React.forwardRef<HTMLDivElement, FadeProps>(function Fade(
 
 export default function SpringModal(props: any) {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(true);
   const { userInfo } = props;
   const handleOpen = () => {
     setOpen(true);
@@ -112,105 +112,109 @@ export default function SpringModal(props: any) {
             >
               {({ isSubmitting, errors, values, handleChange }) => {
                 return (
-                  <Container component="main" maxWidth="xs">
-                    <Form
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center"
-                      }}
-                    >
-                      <span>Upload your info</span>
+                  <Container component="main" maxWidth="md">
+                    <Grid container spacing={1} justify="center">
+                      <Form
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          alignItems: "center"
+                        }}
+                      >
+                        <span>Upload your info</span>
 
-                      <Field
-                        name="avatar"
-                        uploadImg={true}
-                        component={Avatar}
-                      />
-                      {errors.avatar ? (
-                        <label style={{ fontSize: "10px", color: "red" }}>
-                          You must change your avatar
-                        </label>
-                      ) : null}
+                        <Field
+                          name="avatar"
+                          uploadImg={true}
+                          component={Avatar}
+                        />
+                        <span>Click on the image to change your avatar</span>
 
-                      <Grid container spacing={2} justify="center">
-                        <Grid item xs={12} sm={6}>
-                          <TextField
-                            autoComplete="fname"
-                            name="firstName"
-                            variant="outlined"
-                            required
-                            fullWidth
-                            id="firstName"
-                            label="First Name"
-                            autoFocus
-                            value={values.firstName}
-                            onChange={handleChange}
-                          />
+                        {errors.avatar ? (
+                          <label style={{ fontSize: "10px", color: "red" }}>
+                            You must change your avatar
+                          </label>
+                        ) : null}
+
+                        <Grid item container spacing={2} justify="center">
+                          <Grid item xs={12} sm={6}>
+                            <TextField
+                              autoComplete="fname"
+                              name="firstName"
+                              variant="outlined"
+                              required
+                              fullWidth
+                              id="firstName"
+                              label="First Name"
+                              autoFocus
+                              value={values.firstName}
+                              onChange={handleChange}
+                            />
+                          </Grid>
+                          <Grid item xs={12} sm={6}>
+                            <TextField
+                              variant="outlined"
+                              required
+                              fullWidth
+                              id="lastName"
+                              label="Last Name"
+                              name="lastName"
+                              autoComplete="lname"
+                              value={values.lastName}
+                              onChange={handleChange}
+                            />
+                          </Grid>
+                          <Grid item xs={12}>
+                            <TextField
+                              variant="outlined"
+                              required
+                              fullWidth
+                              id="login"
+                              label="Login"
+                              name="login"
+                              value={values.login}
+                              onChange={handleChange}
+                            />
+                          </Grid>
+                          <Grid item xs={12}>
+                            <TextField
+                              variant="outlined"
+                              required
+                              fullWidth
+                              id="email"
+                              label="Email Address"
+                              name="email"
+                              autoComplete="email"
+                              value={values.email}
+                              onChange={handleChange}
+                            />
+                          </Grid>
+                          <Grid item xs={12}>
+                            <TextField
+                              variant="outlined"
+                              fullWidth
+                              name="password"
+                              label="New Password"
+                              type="password"
+                              id="password"
+                              onChange={handleChange}
+                            />
+                          </Grid>
+                          <Grid item xs={12} sm={4}>
+                            <Button
+                              type="submit"
+                              fullWidth
+                              variant="contained"
+                              color="primary"
+                              // className={classes.submit}
+                              disabled={isSubmitting}
+                            >
+                              Modify
+                            </Button>
+                          </Grid>
                         </Grid>
-                        <Grid item xs={12} sm={6}>
-                          <TextField
-                            variant="outlined"
-                            required
-                            fullWidth
-                            id="lastName"
-                            label="Last Name"
-                            name="lastName"
-                            autoComplete="lname"
-                            value={values.lastName}
-                            onChange={handleChange}
-                          />
-                        </Grid>
-                        <Grid item xs={12}>
-                          <TextField
-                            variant="outlined"
-                            required
-                            fullWidth
-                            id="login"
-                            label="Login"
-                            name="login"
-                            value={values.login}
-                            onChange={handleChange}
-                          />
-                        </Grid>
-                        <Grid item xs={12}>
-                          <TextField
-                            variant="outlined"
-                            required
-                            fullWidth
-                            id="email"
-                            label="Email Address"
-                            name="email"
-                            autoComplete="email"
-                            value={values.email}
-                            onChange={handleChange}
-                          />
-                        </Grid>
-                        <Grid item xs={12}>
-                          <TextField
-                            variant="outlined"
-                            fullWidth
-                            name="password"
-                            label="New Password"
-                            type="password"
-                            id="password"
-                            onChange={handleChange}
-                          />
-                        </Grid>
-                        <Grid item xs={12} sm={4}>
-                          <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            color="primary"
-                            // className={classes.submit}
-                            disabled={isSubmitting}
-                          >
-                            Modify
-                          </Button>
-                        </Grid>
-                      </Grid>
-                    </Form>
+                      </Form>
+                    </Grid>
                   </Container>
                 );
               }}

@@ -17,6 +17,7 @@ export const meQuery = gql`
       password
       language
       avatar
+      email
     }
   }
 `;

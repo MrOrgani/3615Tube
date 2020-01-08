@@ -2,6 +2,8 @@ import * as React from "react";
 import { useMutation, useQuery } from "react-apollo";
 import gql from "graphql-tag";
 import { normalizeErrors } from "../../utils/normalizeErrors";
+import { useContext } from "react";
+import { UserContext } from "../../pages/context";
 
 interface Props {
   children: (data: {
@@ -35,19 +37,19 @@ const profileMutation = gql`
   }
 `;
 
-const GET_MY_INFO = gql`
-  query queryMe {
-    me {
-      id
-      firstName
-      lastName
-      login
-      email
-      avatar
-      language
-    }
-  }
-`;
+// const GET_MY_INFO = gql`
+//   query queryMe {
+//     me {
+//       id
+//       firstName
+//       lastName
+//       login
+//       email
+//       avatar
+//       language
+//     }
+//   }
+// `;
 
 const GET_USER_INFO = gql`
   query findOne($login: String) {
@@ -61,17 +63,18 @@ const GET_USER_INFO = gql`
   }
 `;
 
-const UserProfileController = (props: Props) => {
+const UserProfileController = ({ userId, children }: Props) => {
+  const myInfo = useContext(UserContext) as any;
+  const { pathname } = window.location;
+
   const [mutate, { error: errorMut }] = useMutation(profileMutation);
-  const { data, loading, error: errorQuery } = useQuery(
-    props.userId ? GET_USER_INFO : GET_MY_INFO,
-    {
-      variables: { id: props.userId }
-    }
-  );
+  const { data, loading, error: errorQuery } = useQuery(GET_USER_INFO, {
+    variables: { id: userId }
+  });
 
   if (errorMut || errorQuery)
     return <p>{JSON.stringify(errorMut && errorQuery, null, 2)}</p>;
+
   if (loading) return <p>Loading...</p>;
 
   const submit = async (values: any) => {
@@ -86,9 +89,9 @@ const UserProfileController = (props: Props) => {
     return null;
   };
 
-  const userInfo = data.findOne ? data.findOne : data.me;
+  const userInfo = data.findOne ? data.findOne : myInfo;
 
-  return props.children({
+  return children({
     submit,
     userInfo
   });

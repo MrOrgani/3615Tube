@@ -25,6 +25,7 @@ const GET_ONE_MOVIE_INFO = gql`
       synopsis
       rating
       genres
+      image
     }
   }
 `;

@@ -1,13 +1,33 @@
+// A SUPPRIMER ????
+// A SUPPRIMER ????
+// A SUPPRIMER ????
+// A SUPPRIMER ????
+// A SUPPRIMER ????
+// A SUPPRIMER ????
+// A SUPPRIMER ????
+// A SUPPRIMER ????
+// A SUPPRIMER ????
+// A SUPPRIMER ????
+// A SUPPRIMER ????
+// A SUPPRIMER ????
+// A SUPPRIMER ????
+// A SUPPRIMER ????
+// A SUPPRIMER ????
+// A SUPPRIMER ????
+// A SUPPRIMER ????
+// A SUPPRIMER ????
+
 import React from "react";
 import {
   Grid,
   Box
   // Typography
 } from "@material-ui/core";
+import CommentList from "../comment-list-skeleton/CommentListSkel";
 // import StarOutlinedIcon from "@material-ui/icons/StarOutlined";
 
 // import "./MoviesListSkeleton.styles.scss";
-import MovieItemSkeleton from "../../components/movie-skeleton/movie-skeleton.component";
+// import MovieItemSkeleton from "../../components/movie-skeleton/movie-skeleton.component";
 
 interface MediaProps {
   loading?: boolean;
@@ -67,7 +87,7 @@ const MovieComments = (props: MediaProps) => {
               </Box> */}
             </>
           ) : (
-            <MovieItemSkeleton typeOfSkel="comment" />
+            <CommentList loading nbOfItem={5} />
           )}
         </Box>
       ))}

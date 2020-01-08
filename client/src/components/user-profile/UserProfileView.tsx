@@ -18,19 +18,20 @@ interface FormValues {
 }
 
 interface Props {
-  submit: (values: FormValues) => Promise<FormikErrors<FormValues> | null>;
-  onFinish: () => void;
+  submit?: (values: FormValues) => Promise<FormikErrors<FormValues> | null>;
+  onFinish?: () => void;
   userInfo?: any;
   userLogin?: any;
+  loading?: boolean;
 }
 
-const UserProfile = ({ userInfo, submit, onFinish }: Props) => {
+const UserProfile = ({ userInfo, submit, onFinish, loading }: Props) => {
+  // console.log("userinfo UserProfile, ", userInfo);
   const { pathname } = window.location;
-  console.log("userInfo: ", userInfo);
 
   return (
     <>
-      {!userInfo ? (
+      {loading ? (
         <div className="user-profile-container">
           <Skeleton
             variant="circle"

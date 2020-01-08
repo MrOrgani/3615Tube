@@ -1,8 +1,8 @@
 import React from "react";
-import MovieController from "./../../controller/MovieController";
-import MovieView from "./MovieView";
+import MovieController from "../../controller/MovieOneController";
+import MovieView from "./MovieOneView";
 
-const MovieConnector = () => {
+const MovieOneConnector = () => {
   // console.log("Movie Connector, ", props);
 
   return (
@@ -12,4 +12,4 @@ const MovieConnector = () => {
   );
 };
 
-export default MovieConnector;
+export default MovieOneConnector;

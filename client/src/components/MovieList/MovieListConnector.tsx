@@ -1,7 +1,7 @@
 import React from "react";
 
 // import { movieList } from "../../test.js";
-import MovieListItem from "../MovieListItem/MovieListItem";
+import MovieListView from "./MovieListView";
 import MovieListController from "../../controller/MovieListController";
 
 const MovieListConnector = (props: any) => {
@@ -13,7 +13,7 @@ const MovieListConnector = (props: any) => {
       {({
         allMovies
         // submit
-      }) => <MovieListItem history={history} data={allMovies} />}
+      }) => <MovieListView history={history} data={allMovies} />}
     </MovieListController>
   );
 };

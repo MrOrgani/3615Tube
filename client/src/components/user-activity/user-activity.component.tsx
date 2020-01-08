@@ -1,13 +1,13 @@
 import React from "react";
 // import MovieListSkeleton from "../MovieListSkeleton/MoviesListSkeleton.component";
-import MovieListItem from "../MovieListItem/MovieListItem";
+import MovieListView from "../MovieList/MovieListView";
 
 import "./user-activity.styles.scss";
 import TabsComponent from "../Tabs/TabsComponent";
 
-const UserActivity = (props: any) => {
+const UserActivity = ({ userInfo }: any) => {
   const { pathname } = window.location;
-  const { userInfo } = props;
+
   return (
     <div className="user-activty">
       <h2 style={{ color: "white", fontSize: "30px" }}>
@@ -19,9 +19,9 @@ const UserActivity = (props: any) => {
         tabsNames={["Movies seen", "To watch list", "Rated movies"]}
         tabsToRender={[
           // ADD LOADING TO RENDER SKELETON
-          <MovieListItem loading />,
-          <MovieListItem loading />,
-          <MovieListItem loading />
+          <MovieListView loading />,
+          <MovieListView loading />,
+          <MovieListView loading />
         ]}
       />
     </div>

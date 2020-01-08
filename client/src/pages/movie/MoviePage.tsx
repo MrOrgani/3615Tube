@@ -1,5 +1,5 @@
 import React from "react";
-import MovieConnector from "../../components/Movie/MovieConnector";
+import MovieOneConnector from "../../components/MovieOne/MovieOneConnector";
 
 import "./movie.styles.scss";
 import { MovieProvider } from "../context";
@@ -17,7 +17,7 @@ const MoviePage = (props: any) => {
   return (
     <div className="movie-page">
       <MovieProvider value={imdbId}>
-        <MovieConnector />
+        <MovieOneConnector />
       </MovieProvider>
     </div>
   );

@@ -8,7 +8,7 @@ import gql from "graphql-tag";
 import { useContext } from "react";
 import { MovieContext } from "../../pages/context";
 // import { normalizeErrors } from "../../utils/normalizeErrors";
-import CommentListItem from "../../components/CommentListItem/CommentListItem";
+import CommentsView from "../../components/Comments/CommentsView";
 // import { normalizeErrors } from "../../utils/normalizeErrors";
 
 interface Props {
@@ -67,7 +67,7 @@ const CommentController = (props: Props) => {
   if (error || errorMut) return <p>{JSON.stringify(error, null, 2)}</p>;
 
   //SI LOADING JE RENVOIE UN -------SKELETON------- DES COMS
-  if (loading) return <CommentListItem loading />;
+  if (loading) return <CommentsView loading />;
 
   const submit = async (values: any) => {
     const {

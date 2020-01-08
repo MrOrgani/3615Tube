@@ -5,7 +5,8 @@ import {
   Card,
   CardHeader,
   Avatar,
-  Typography
+  Typography,
+  Paper
 } from "@material-ui/core";
 import Skeleton from "@material-ui/lab/Skeleton";
 
@@ -32,7 +33,7 @@ const CommentSkeletonItem = (
   </Card>
 );
 
-const CommentListItem = (props: MediaProps) => {
+const CommentsView = (props: MediaProps) => {
   const { data, loading } = props;
   console.log("props, ", props);
 
@@ -108,22 +109,30 @@ const CommentListItem = (props: MediaProps) => {
         ))}
       {data &&
         Array.from(data).map((item: any, index: any) => (
-          <Grid container item key={`Com-${index}`} spacing={0}>
-            <Grid style={{ backgroundColor: "rgba(177, 177, 177, 0.2)" }}>
-              <Grid item>
-                <Avatar alt="Author Avatar" src={item.authorId.avatar} />
+          <Grid container item key={`Com-${index}`} spacing={0} direction="row">
+            <Paper
+              style={{
+                width: "inherit"
+                // margin: `20px auto`
+                // padding: 5
+              }}
+            >
+              <Grid container>
+                <Grid item>
+                  <Avatar alt="Author Avatar" src={item.authorId.avatar} />
+                </Grid>
+                <Grid item xs>
+                  <Typography>{item.authorId.login}</Typography>
+                </Grid>
+                <Grid item xl>
+                  <Typography variant="subtitle1">{item.text}</Typography>
+                </Grid>
               </Grid>
-              <Grid item>
-                <Typography>{item.authorId.login}</Typography>
-              </Grid>
-              <Grid item>
-                <Typography>{item.text}</Typography>
-              </Grid>
-            </Grid>
+            </Paper>
           </Grid>
         ))}
     </Grid>
   );
 };
 
-export default CommentListItem;
+export default CommentsView;
