@@ -17,9 +17,9 @@ const MovieOneView = ({ movieInfo }: any) => {
             alt="video-player"
           />
         </Grid>
-        <Grid item container xl={2}>
-          <MovieInfo data={movieInfo} />
-        </Grid>
+        {/* <Grid item container xl={2}> */}
+        <MovieInfo data={movieInfo} />
+        {/* </Grid> */}
         <CommentConnector />
         {/* <TabsComponent
         tabsNames={["Information", "Comments"]}
