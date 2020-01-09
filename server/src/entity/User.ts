@@ -15,7 +15,6 @@ export class User extends BaseEntity {
   @Column("text") password: string;
   @Column("boolean", { default: false }) verified: boolean;
   @Column("text", { nullable: true }) avatar: string;
-  // @Column("text", { nullable: true, default: "Hi there" }) description: string; // A VIRER
   @Column("varchar", { length: 255, default: "en" }) language: string;
   @Column("simple-array", { nullable: true }) seenFilms: string[];
   // @Column("simple-array", { nullable: true }) toWatchFilms: string[];
