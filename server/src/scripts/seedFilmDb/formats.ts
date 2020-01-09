@@ -51,8 +51,7 @@ export const ytsFormatTorrentsResult = (movie: any) => {
       fileSize: movie.torrents[item].size,
       source: "YTS"
     };
-
-    torrents.push(torrent);
+    torrents.push(JSON.stringify(torrent));
   }
   return torrents;
 };

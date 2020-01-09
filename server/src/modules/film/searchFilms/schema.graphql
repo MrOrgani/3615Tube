@@ -3,7 +3,6 @@
 type Query {
   searchFilms(
     page: Int!
-    sort: String
     order: String
     rating: [Int]
     prodYear: [Int]

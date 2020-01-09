@@ -30,7 +30,7 @@ type Film {
   year: Int!
   synopsis: String!
   rating: Int!
-  image: String!
+  poster: String!
   torrents: [String!]
   genres: [String!]
 }

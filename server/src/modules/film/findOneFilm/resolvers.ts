@@ -21,8 +21,6 @@ const resolvers: ResolverMap = {
           const result = (await Film.findOne({
             where: { imdbId: imdbId }
           })) as any;
-          console.log(result.torrents);
-          console.log(result.torrents[0]);
           // const pctFilm = await Axios.get(url);
           // // console.log(pctFilm);
           // if (!pctFilm.data) return null;
