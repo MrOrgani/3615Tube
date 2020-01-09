@@ -28,13 +28,11 @@ const MovieOneView = ({ movieInfo }: any) => {
         </Grid>
         {/**********************  TORRENTS **********************************/}
         <Grid item xl={6} md={12} container>
-          {/* MOVIE MovieTorrents */}
           <MovieTorrents data={movieInfo} />
         </Grid>
         {/**********************  COMMENTS **********************************/}
         <Grid item xl={6} md={12} container>
           <CommentConnector />
-          {/* Commentaires */}
         </Grid>
       </Grid>
     </>
