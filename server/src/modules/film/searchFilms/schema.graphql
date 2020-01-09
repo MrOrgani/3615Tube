@@ -1,12 +1,18 @@
 # import Film from "../../shared.graphql"
 
+input OrderInput {
+  rating: String
+  year: String
+  title: String
+}
+
 type Query {
   searchFilms(
     page: Int!
-    order: String
+    order: OrderInput
     rating: [Int]
     prodYear: [Int]
-    genres: [String]
+    genres: String
     keywords: String
   ): [Film]
 }

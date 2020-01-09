@@ -13,7 +13,7 @@ export class Film extends BaseEntity {
   @Column("text", { nullable: true }) synopsis: string;
   @Column("int") runtime: number;
   @Column("text", { nullable: true }) trailer: string;
-  @Column("simple-array", { nullable: true }) genres: string[];
+  @Column("varchar", { nullable: true, array: true }) genres: string[];
   @Column("text") poster: string;
   @Column("int") rating: number;
   @Column("simple-array", { nullable: true }) torrents: any[];

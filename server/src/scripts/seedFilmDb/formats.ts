@@ -1,3 +1,5 @@
+import { generateKeyPairSync } from "crypto";
+
 //||||||||||||POPCORN TIME||||||||||||||
 export const pctFormatTorrentsResult = (movie: any) => {
   const torrents: Array<any> = [];
@@ -21,6 +23,7 @@ export const pctFormatTorrentsResult = (movie: any) => {
 
 export const pctFormatFilmResult = (movie: any, torrents: Array<any>) => {
   if (!movie.images || !movie.images.poster) return null;
+  movie.genres.push("all");
   return {
     imdbId: movie.imdb_id,
     title: movie.title.toLowerCase(),
@@ -28,9 +31,7 @@ export const pctFormatFilmResult = (movie: any, torrents: Array<any>) => {
     synopsis: movie.synopsis,
     runtime: parseInt(movie.runtime),
     trailer: movie.trailer,
-    genres: movie.genres
-      ? movie.genres.map((genre: any) => genre.toLowerCase())
-      : null,
+    genres: movie.genres.map((genre: any) => genre.toLowerCase()),
     poster: movie.images.poster,
     rating: movie.rating.percentage,
     torrents: torrents
@@ -57,15 +58,14 @@ export const ytsFormatTorrentsResult = (movie: any) => {
 };
 
 export const ytsFormatFilmResult = (movie: any, torrents: Array<any>) => {
+  movie.genres.push("all");
   return {
     imdbId: movie.imdb_code,
     title: movie.title.toLowerCase(),
     year: movie.year,
     synopsis: movie.synopsis,
     runtime: movie.runtime,
-    genres: movie.genres
-      ? movie.genres.map((genre: any) => genre.toLowerCase())
-      : null,
+    genres: movie.genres.map((genre: any) => genre.toLowerCase()),
     trailer: movie.yt_trailer_code
       ? `http://youtube.com/watch?v=${movie.yt_trailer_code}`
       : null,

@@ -3,25 +3,23 @@ import { createMiddleware } from "../../../utils/createMiddleware";
 import verifyAndSetSession from "../../middleware/verifyAndSetSession";
 import { Film } from "../../../entity/Films";
 import { Between, Like, Raw } from "typeorm";
-// import { fetchRawData } from "../../../scripts/seedFilmDb/fetchRawData";
-// import { ytsFetch } from "../subModules/ytsFetch";
-// import { formatSearch } from "../../../scripts/seedFilmDb/formats";
+import { genreList } from "../../../common/globals";
 
-// pct:https://tv-v2.api-fetch.website/movies/1?sort=last%20added&amp;order=-1&amp;genre=action&amp;keywords=%22%22
 const defaultValues: {
   rating: number[];
   year: number[];
   genres: string;
   keywords: string;
+  order: Object;
 } = {
   rating: [0, 100],
   year: [0, 2021],
-  genres: "comedy",
-  keywords: "nation"
+  genres: "all",
+  keywords: "",
+  order: { rating: "DESC" }
 };
 
-// A est contenu par B --> A <@ B
-
+//https://stackoverflow.com/questions/50705276/typeorm-postgres-where-any-or-in-with-querybuilder-or-find
 const resolvers: ResolverMap = {
   Query: {
     searchFilms:
@@ -31,66 +29,30 @@ const resolvers: ResolverMap = {
         try {
           if (!args.prodYear) args.year = defaultValues.year;
           if (!args.rating) args.rating = defaultValues.rating;
-          console.log(!args.keywords, defaultValues.keywords);
           args.keywords = !args.keywords
             ? defaultValues.keywords
-            : args.keywords.tolowerCase();
-
-          console.log(args.keywords, args.genres[0]);
+            : args.keywords.toLowerCase();
+          if (!args.genres || !genreList.includes(args.genres))
+            args.genres = defaultValues.genres;
+          if (!args.order) args.order = defaultValues.order;
           const result = (await Film.find({
-            rating: Between(args.rating[0], args.rating[1]),
-            year: Between(args.year[0], args.year[1]),
-            title: Like(`%${args.keywords}%`),
-            genres: Raw(alias => `${alias} @> "${args.genres[0]}"`) //SQL INJECTIONS
+            where: {
+              rating: Between(args.rating[0], args.rating[1]),
+              year: Between(args.year[0], args.year[1]),
+              title: Like(`%${args.keywords}%`),
+              genres: Raw(
+                alias => `'${args.genres.toLowerCase()}' = ANY(${alias})`
+              )
+            },
+            order: args.order,
+            take: 50,
+            skip: 50 * args.page
           })) as any;
           return result;
-
-          //   //FETCH DATA
-          //   const [pctRawResult, ytsRawResult] = await Promise.all([
-          //     fetchRawData(args, "pct"),
-          //     fetchRawData(args, "yts")
-          //   ]);
-          //   // console.log(
-          //   //   " ---- RESULT FROM POPCORN ---- ",
-          //   //   pctRawResult.length,
-          //   //   pctRawResult[0]
-          //   // );
-          //   // console.log(
-          //   //   " ---- RESULT FROM YTS ---- ",
-          //   //   ytsRawResult.length,
-          //   //   ytsRawResult[0]
-          //   // );
-          //   //FORMATER PCT
-          //   const pctCleanList = await formatSearch(
-          //     pctRawResult,
-          //     "pct",
-          //     pctRawResult
-          //   );
-          //   // console.log(
-          //   //   " ---- CLEAN FILM LIST FROM POPCORN ---- ",
-          //   //   pctCleanList.length
-          //   //   // pctCleanList[0]
-          //   // );
-          //   //FORMATER YTS ET VERIFIER DOUBLON
-          //   const ytsCleanList = await formatSearch(
-          //     ytsRawResult,
-          //     "yts",
-          //     pctRawResult
-          //   );
-          //   console.log(
-          //     " ---- CLEAN FILM LIST FROM BOTH YTS--  PCT-- ",
-          //     ytsCleanList.length,
-          //     pctCleanList.length
-          //     // ytsCleanList[0]
-          //   );
-          //   const finalList = pctCleanList.concat(ytsCleanList);
-          //   console.log("final List from BOTH", finalList.length);
-          //   return finalList;
         } catch (err) {
           console.log("error in the film fetching", err);
           return null;
         }
-        // console.log("in the findOneFilm Resolver", url);
       }
   }
 };
