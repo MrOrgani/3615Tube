@@ -10,13 +10,9 @@ const resolvers: ResolverMap = {
     dummy: (_: any, { name }: any) => `${name || "You"} is a dummy`
   },
   Mutation: {
-    sendForgotPasswordEmail: async (
-      _: any,
-      args: GQL.ISendForgotPasswordEmailOnMutationArguments
-    ) => {
+    sendForgotPasswordEmail: async (_: any, { email }: { email: string }) => {
       // sendForgotPasswordEmail: async (_: any, args: any) => {
       // console.log(args);
-      const { email } = args;
       const user = await User.findOne({
         where: { email }
       });
@@ -29,6 +25,7 @@ const resolvers: ResolverMap = {
       _: any,
       args: GQL.IForgotPasswordChangeOnMutationArguments
     ) => {
+      // forgotPasswordChange: async (_: any, args: any) => {
       const { password, id } = args;
       try {
         await PasswordSchema.validate(args, { abortEarly: false });

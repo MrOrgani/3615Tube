@@ -12,7 +12,7 @@ const resolvers: ResolverMap = {
   },
   Mutation: {
     login: async (_: any, args: GQL.ILoginOnMutationArguments, { session }) => {
-      // login: async (_: any, { login, password }: any, { session }) => {
+      // login: async (_: any, args: any, { session }) => {
       // console.log("in the login resolver", login, password);
       const { login, password } = args;
       try {

@@ -34,21 +34,17 @@ const resolvers: ResolverMap = {
   Mutation: {
     register: async (_: any, args: GQL.IRegisterOnMutationArguments) => {
       // register: async (_: any, args: any) => {
-      // console.log("in the register resolver", args);
       try {
-        // console.log("args", args);
         await SignupSchema.validate(args, { abortEarly: false });
       } catch (error) {
         return await formatYupError(error);
       }
-
       const { firstName, lastName, login, email, password } = args;
       const userAlreadyExists = await User.findOne({
         where: { email },
         select: ["id"]
       });
       if (userAlreadyExists) {
-        // console.log("not creating the user");
         return await formatError("email", "email is already taken");
       }
       const user = (await saveUserInDb(

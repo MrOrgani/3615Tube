@@ -14,7 +14,7 @@ const resolvers: ResolverMap = {
     findOneFilm:
       // findOneMoive: createMiddleware(
       //   verifyAndSetSession,
-      async (_: any, { imdbId }: any) => {
+      async (_: any, { imdbId }: { imdbId: string }) => {
         const url = `${pctAdd}/movie/${imdbId}`;
         // console.log("in the findOneFilm Resolver", url);
         try {

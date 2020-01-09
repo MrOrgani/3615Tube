@@ -24,6 +24,7 @@ interface IQuery {
 __typename: "Query";
 allCommentary: Array<ICommentary> | null;
 findOneFilm: IFilm | null;
+searchFilms: Array<IFilm | null> | null;
 findOne: IUser | null;
 dummy: string;
 hello: string;
@@ -36,6 +37,15 @@ imdbId?: string | null;
 
 interface IFindOneFilmOnQueryArguments {
 imdbId?: string | null;
+}
+
+interface ISearchFilmsOnQueryArguments {
+page: number;
+order?: IOrderInput | null;
+rating?: Array<number | null> | null;
+year?: Array<number | null> | null;
+genres?: string | null;
+keywords?: string | null;
 }
 
 interface IFindOneOnQueryArguments {
@@ -74,25 +84,21 @@ language: string;
 
 interface IFilm {
 __typename: "Film";
-imdb_id: string;
+imdbId: string | null;
+ytsId: string | null;
 title: string;
-released: number;
+year: number;
 synopsis: string;
 rating: number;
-image: string;
-torrents: Array<ITorrent> | null;
+poster: string;
+torrents: Array<string> | null;
 genres: Array<string> | null;
 }
 
-interface ITorrent {
-__typename: "Torrent";
-fileSize: string;
-quality: string;
-language: string;
-peer: number;
-seed: number;
-url: string;
-provider: string;
+interface IOrderInput {
+rating?: string | null;
+year?: string | null;
+title?: string | null;
 }
 
 interface IMutation {
@@ -154,6 +160,17 @@ interface IError {
 __typename: "Error";
 path: string;
 msg: string;
+}
+
+interface ITorrent {
+__typename: "Torrent";
+fileSize: string;
+quality: string;
+language: string;
+peer: number;
+seed: number;
+url: string;
+provider: string;
 }
 }
 

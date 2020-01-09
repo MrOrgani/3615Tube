@@ -27,7 +27,7 @@ const resolvers: ResolverMap = {
     searchFilms:
       // searchFilms: createMiddleware(
       //   verifyAndSetSession,
-      async (_: any, args: any) => {
+      async (_: any, args: GQL.ISearchFilmsOnQueryArguments) => {
         try {
           if (!args.page || args.page < 0) args.page = defaultValues.page;
           if (!args.year) args.year = defaultValues.year;
@@ -44,10 +44,11 @@ const resolvers: ResolverMap = {
               year: Between(args.year[0], args.year[1]),
               title: Like(`%${args.keywords}%`),
               genres: Raw(
-                alias => `'${args.genres.toLowerCase()}' = ANY(${alias})`
+                alias =>
+                  `'${(args.genres as string).toLowerCase()}' = ANY(${alias})`
               )
             },
-            order: args.order,
+            order: args.order as any,
             take: 50,
             skip: 50 * args.page
           })) as any;
