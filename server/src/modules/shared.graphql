@@ -9,9 +9,7 @@ type User {
   lastName: String!
   login: String!
   email: String!
-  password: String
   avatar: String
-  description: String!
   language: String!
 }
 
@@ -35,12 +33,12 @@ type Film {
   genres: [String!]
 }
 
-type Torrent {
-  fileSize: String!
-  quality: String!
-  language: String!
-  peer: Int!
-  seed: Int!
-  url: String!
-  provider: String!
-}
+# type Torrent {
+#   fileSize: String!
+#   quality: String!
+#   language: String!
+#   peer: Int!
+#   seed: Int!
+#   url: String!
+#   provider: String!
+# }
