@@ -6,6 +6,7 @@ import { Between, Like, Raw } from "typeorm";
 import { genreList } from "../../../common/globals";
 
 const defaultValues: {
+  page: number;
   rating: number[];
   year: number[];
   genres: string;
@@ -13,6 +14,7 @@ const defaultValues: {
   order: Object;
 } = {
   rating: [0, 100],
+  page: 0,
   year: [0, 2021],
   genres: "all",
   keywords: "",
@@ -27,7 +29,8 @@ const resolvers: ResolverMap = {
       //   verifyAndSetSession,
       async (_: any, args: any) => {
         try {
-          if (!args.prodYear) args.year = defaultValues.year;
+          if (!args.page || args.page < 0) args.page = defaultValues.page;
+          if (!args.year) args.year = defaultValues.year;
           if (!args.rating) args.rating = defaultValues.rating;
           args.keywords = !args.keywords
             ? defaultValues.keywords
@@ -48,6 +51,7 @@ const resolvers: ResolverMap = {
             take: 50,
             skip: 50 * args.page
           })) as any;
+          console.log("length of result:", result.length);
           return result;
         } catch (err) {
           console.log("error in the film fetching", err);

@@ -11,7 +11,7 @@ type Query {
     page: Int!
     order: OrderInput
     rating: [Int]
-    prodYear: [Int]
+    year: [Int]
     genres: String
     keywords: String
   ): [Film]
