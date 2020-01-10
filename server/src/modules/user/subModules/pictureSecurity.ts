@@ -1,4 +1,5 @@
-// import FileReader from "FileReader";
+// import FileReader from "dom";
+// import Blob  from "blob" as any
 
 const getMimetype = (signature: string) => {
   console.log(signature);
@@ -19,7 +20,10 @@ export async function pictureSecurtiy(pic: any) {
     let errorCount: number = 0;
     // console.log(pic);
     // const parsedPic = await JSON.parse(pic);
-    const readerProof = new FileReader();
+
+    //OLD VERSION
+    const readerProof: FileReader = new FileReader();
+    // console.log(readerProof);
 
     readerProof.onloadend = function(evt: any) {
       const uint = new Uint8Array(evt.target.result); //turns the 4 letter string into an array of unsigned int

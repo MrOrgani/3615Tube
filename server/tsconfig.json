@@ -3,7 +3,14 @@
     "typeRoots": ["./node_modules/@types"],
     "target": "es6",
     "module": "commonjs",
-    "lib": ["dom", "es2017", "esnext.asynciterable"],
+    "lib": [
+      "DOM",
+      "dom",
+      "DOM.Iterable",
+      "ES2015",
+      "es2017",
+      "esnext.asynciterable"
+    ],
     "sourceMap": true,
     "outDir": "./dist",
     "moduleResolution": "node",

@@ -29,11 +29,11 @@ const resolvers: ResolverMap = {
           // }
           args.password = await bcrypt.hash(args.password, 10);
         }
-        if (args.avatar && !(await pictureSecurtiy(args.avatar)))
-          return await formatError(
-            "picture",
-            "image must be of type png or jpeg for real"
-          );
+        // if (args.avatar && !(await pictureSecurtiy(args.avatar)))
+        //   return await formatError(
+        //     "picture",
+        //     "image must be of type png or jpeg for real"
+        //   );
         User.update({ id: session.user.id }, args);
         session.user = args;
         return null;
