@@ -14,6 +14,7 @@ import {
 import classes from "*.module.css";
 import SearchIcon from "@material-ui/icons/Search";
 import Autocomplete from "@material-ui/lab/Autocomplete";
+import { genreList } from "../../common";
 
 interface FilmOptionType {
   title: string;
@@ -120,9 +121,9 @@ const MovieListFilters = () => {
             <Autocomplete
               multiple
               id="tags-outlined"
-              options={[]}
+              options={genreList}
               getOptionLabel={(option: FilmOptionType) => option.title}
-              defaultValue={[]}
+              defaultValue={genreList[0]}
               filterSelectedOptions
               renderInput={params => (
                 <TextField
