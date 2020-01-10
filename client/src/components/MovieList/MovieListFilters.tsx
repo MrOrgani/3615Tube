@@ -11,12 +11,13 @@ import {
   InputBase,
   TextField
 } from "@material-ui/core";
-import classes from "*.module.css";
 import SearchIcon from "@material-ui/icons/Search";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import { genreList } from "../../common";
+import { Formik } from "formik";
 
 interface FilmOptionType {
+  firstLetter: string;
   title: string;
   year: number;
 }
@@ -78,65 +79,115 @@ const useStyles = makeStyles((theme: Theme) => {
 
 const MovieListFilters = () => {
   const classes = useStyles();
-  const [value, setValue] = React.useState<number[]>([1900, 2020]);
+  const [value, setValue] = React.useState({
+    year: [1900, 2020],
+    rating: [0, 100],
+    genre: "All"
+  });
 
-  const handleChange = (_: any, newValue: number | number[]) => {
-    setValue(newValue as number[]);
+  const handleChange = (event: any, newValue: number | number[] | string) => {
+    console.log(newValue, event);
+    //   setValue({ ...state, []});
   };
 
   return (
     <Grid item container xl={12}>
       <Paper className="filters-box">
-        <Grid container>
-          <Grid item>
-            <Typography id="range-slider" gutterBottom>
-              Year release
-            </Typography>
-            <Slider
-              value={value}
-              onChange={handleChange}
-              valueLabelDisplay="auto"
-              aria-labelledby="range-slider"
-              min={1900}
-              max={2020}
-              // getAriaValueText={valuetext}
-            />
-          </Grid>
-          <Grid item>
-            <div className={classes.search}>
-              <div className={classes.searchIcon}>
-                <SearchIcon />
-              </div>
-              <InputBase
-                placeholder="Search…"
-                classes={{
-                  root: classes.inputRoot,
-                  input: classes.inputInput
-                }}
-                inputProps={{ "aria-label": "search" }}
-              />
-            </div>
-          </Grid>
-          <Grid item>
-            <Autocomplete
-              multiple
-              id="tags-outlined"
-              options={genreList}
-              getOptionLabel={(option: FilmOptionType) => option.title}
-              defaultValue={genreList[0]}
-              filterSelectedOptions
-              renderInput={params => (
-                <TextField
-                  {...params}
-                  variant="outlined"
-                  label="filterSelectedOptions"
-                  placeholder="Favorites"
-                  fullWidth
-                />
-              )}
-            />
-          </Grid>
-        </Grid>
+        <Formik
+          initialValues={{
+            year: [1900, 2020],
+            rating: [0, 100],
+            genre: "All",
+            keywords: ""
+          }}
+          onSubmit={async (values, actions) => {
+            // console.log("values, in Myprofile view ", values);
+            // const errors = await props.submit(values);
+            // if (errors) {
+            //   actions.setErrors(errors);
+            // } else {
+            //   setOpen(false);
+            //   props.onFinish();
+            // }
+          }}
+          validateOnChange={false}
+          validateOnBlur={false}
+          //   validationSchema={ProfileSchema}
+        >
+          {({ isSubmitting, errors, values, handleChange, setFieldValue }) => {
+            return (
+              <Grid container justify="space-evenly">
+                <Grid item>
+                  <Typography id="range-slider" gutterBottom>
+                    Year release
+                  </Typography>
+                  <Slider
+                    value={values.year}
+                    onChange={(_, value) => setFieldValue("year", value)}
+                    valueLabelDisplay="auto"
+                    aria-labelledby="range-slider"
+                    min={1900}
+                    max={2020}
+                    name={"year"}
+                    // getAriaValueText={valuetext}
+                  />
+                </Grid>
+                <Grid item>
+                  <div className={classes.search}>
+                    <div className={classes.searchIcon}>
+                      <SearchIcon />
+                    </div>
+                    <InputBase
+                      placeholder="Search…"
+                      name="keywords"
+                      classes={{
+                        root: classes.inputRoot,
+                        input: classes.inputInput
+                      }}
+                      inputProps={{ "aria-label": "search" }}
+                      onChange={event =>
+                        setFieldValue("keywords", event.target.value)
+                      }
+                    />
+                  </div>
+                </Grid>
+                <Grid item>
+                  <Autocomplete
+                    id="combo-box-demo"
+                    options={genreList}
+                    getOptionLabel={(option: FilmOptionType) => option + ""}
+                    style={{ width: 300 }}
+                    defaultValue={values.genre}
+                    onChange={handleChange}
+                    renderInput={params => (
+                      <TextField
+                        {...params}
+                        label="Combo box"
+                        variant="outlined"
+                        fullWidth
+                      />
+                    )}
+                  />
+                </Grid>
+                <Grid item>
+                  <Typography id="range-slider" gutterBottom>
+                    Rating
+                  </Typography>
+                  <Slider
+                    name="rating"
+                    value={values.rating}
+                    onChange={(_, value) => setFieldValue("rating", value)}
+                    valueLabelDisplay="auto"
+                    aria-labelledby="range-slider"
+                    min={0}
+                    max={100}
+                    // getAriaValueText={valuetext}
+                  />
+                </Grid>
+              </Grid>
+            );
+          }}
+        </Formik>
       </Paper>
     </Grid>
   );
