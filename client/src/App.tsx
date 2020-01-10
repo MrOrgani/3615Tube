@@ -22,21 +22,10 @@ export const meQuery = gql`
   }
 `;
 
-//VAL UN VIEUX TEST QUI PEUT SERVIR A SUPPRIMER SI IL GENE TROP
-export const findOneQuery = gql`
-  query findOneQuery {
-    findOne(id: "71c14b08-2d11-4f8c-ba0c-5a2739bdf762") {
-      login
-      firstName
-      language
-      password
-    }
-  }
-`;
-
 const App = () => {
   const { data } = useQuery(meQuery);
-  // console.log("this is a test to see if the find One query works", useQuery(findOneQuery));
+  console.log("this is a test to see if the find One query works", data);
+
   return (
     <UserProvider value={data ? data.me : null}>
       <Pages />

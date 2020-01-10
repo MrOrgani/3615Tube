@@ -26,6 +26,7 @@ const GET_MOVIE_COMMENTS = gql`
   query allCommentary($imdbId: String) {
     allCommentary(imdbId: $imdbId) {
       authorId {
+        id
         login
         avatar
       }
@@ -56,7 +57,7 @@ const CommentController = (props: Props) => {
     variables: { imdbId: key }
   });
   //-----------> SI DES COMS, LES REDESIGNER
-  const allCommentary = data ? data.allCommentary : 0;
+  const allCommentary = data ? data.allCommentary : [];
 
   // ECRIRE UN COMMENTAIRE
   const [mutate, { error: errorMut }] = useMutation(POST_MOVIE_COMMENT);

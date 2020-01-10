@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
   Grid,
   Box,
@@ -13,6 +13,7 @@ import Skeleton from "@material-ui/lab/Skeleton";
 import "./MoviesListSkeleton.styles.scss";
 import { Form, Formik, Field } from "formik";
 import { UserContext, MovieContext } from "../../pages/context";
+import { Link } from "react-router-dom";
 // import CustomButton from "../button/button.component";
 
 interface MediaProps {
@@ -55,11 +56,7 @@ const CommentsView = ({ data, loading, submit }: MediaProps) => {
                 onSubmit={async values => {
                   const myComment = await submit(values);
                   data.push(myComment);
-                  // if (errors) {
-                  //   actions.setErrors(errors);
-                  // } else {
                   setCanComment(false);
-                  // }
                 }}
                 validateOnChange={false}
                 validateOnBlur={false}
@@ -105,6 +102,7 @@ const CommentsView = ({ data, loading, submit }: MediaProps) => {
           </Box>
         ))}
       {data &&
+        !loading &&
         Array.from(data).map((item: any, index: any) => (
           <Grid container item key={`Com-${index}`} spacing={0} direction="row">
             <Paper
@@ -116,7 +114,9 @@ const CommentsView = ({ data, loading, submit }: MediaProps) => {
             >
               <Grid container>
                 <Grid item>
-                  <Avatar alt="Author Avatar" src={item.authorId.avatar} />
+                  <Link to={`/profile/${item.authorId.id}`}>
+                    <Avatar alt="Author Avatar" src={item.authorId.avatar} />
+                  </Link>
                 </Grid>
                 <Grid item xs>
                   <Typography>{item.authorId.login}</Typography>

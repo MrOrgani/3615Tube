@@ -1,13 +1,13 @@
 import React from "react";
 import MovieController from "../../controller/MovieOneController";
-import MovieView from "./MovieOneView";
+import MovieOneView from "./MovieOneView";
 
 const MovieOneConnector = () => {
   // console.log("Movie Connector, ", props);
 
   return (
     <MovieController>
-      {({ movieInfo }) => <MovieView movieInfo={movieInfo} />}
+      {({ movieInfo }) => <MovieOneView movieInfo={movieInfo} />}
     </MovieController>
   );
 };
