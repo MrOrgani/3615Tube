@@ -6,6 +6,7 @@ import {
 import gql from "graphql-tag";
 import { MovieContext } from "../../pages/context";
 import { useContext } from "react";
+import MovieOneView from "../../components/MovieOne/MovieOneView";
 // import { normalizeErrors } from "../../utils/normalizeErrors";
 
 interface Props {
@@ -45,7 +46,7 @@ const MovieController = (props: Props) => {
   // console.log("movieinfo after query, ", movieInfo);
   if (error) return <p>{JSON.stringify(error, null, 2)}</p>;
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <MovieOneView loading />;
 
   //   const submit = async (values: any) => {
   //     const {

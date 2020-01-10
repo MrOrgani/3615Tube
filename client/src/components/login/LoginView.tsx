@@ -2,8 +2,9 @@ import React from "react";
 import { Formik, FormikErrors, Form, Field } from "formik";
 import { SignInSchema } from "../../common";
 import { Link } from "react-router-dom";
-import { Grid, Button } from "@material-ui/core";
+import { Grid, Button, Divider } from "@material-ui/core";
 import FieldInput from "../FiledInput/FieldInput.component";
+import FTLogo from "../../assets/images/FTLogo.svg";
 
 interface FormValues {
   login?: string;
@@ -74,14 +75,28 @@ export default (props: Props) => {
           </Form>
         )}
       </Formik>
-      <div>
-        <div>
-          <a href={`http://localhost:4000/Oauth/42`}>42</a>
-        </div>
-        <div>
-          <a href={`http://localhost:4000/Oauth/google`}>Google</a>
-        </div>
-      </div>
+      <Divider variant="middle" style={{ margin: "10px 0" }} />
+      <Grid container justify="space-evenly">
+        <Grid item>
+          <a href="http://localhost:4000/Oauth/42">
+            <Button
+              fullWidth
+              variant="contained"
+              style={{ backgroundColor: "black", color: "white" }}
+            >
+              42
+            </Button>
+          </a>
+        </Grid>
+        <Grid item>
+          <a href={`http://localhost:4000/Oauth/google`}>
+            <Button fullWidth variant="contained" color="secondary">
+              Google
+            </Button>
+          </a>
+        </Grid>
+      </Grid>
+      <Divider variant="middle" style={{ margin: "10px 0" }} />
       <span>
         Or <Link to="/register">Register</Link> |{" "}
         <Link to="/forgot-password">Forgot Password</Link>

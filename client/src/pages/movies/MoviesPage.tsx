@@ -1,11 +1,12 @@
 import React from "react";
 import MovieListConnector from "../../components/MovieList/MovieListConnector";
+import "./movies.styles.scss";
 
 const MoviesPage = (props: any) => {
   // console.log("Movies Page Props, ", props);
   const { history } = props;
   return (
-    <div className="homepage">
+    <div className="moviesPage">
       {/* This is the Homepage */}
       <MovieListConnector history={history} />
     </div>

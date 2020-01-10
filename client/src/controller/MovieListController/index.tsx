@@ -1,13 +1,9 @@
 import * as React from "react";
-import {
-  // useMutation,
-  useQuery
-} from "react-apollo";
-import gql from "graphql-tag";
+// import { useQuery } from "react-apollo";
+// import gql from "graphql-tag";
 // import { normalizeErrors } from "../../utils/normalizeErrors";
 import { movieList } from "../../test.js";
 import MovieListItem from "../../components/MovieList/MovieListView";
-// import { normalizeErrors } from "../../utils/normalizeErrors.js";
 
 interface Props {
   children: (data: {

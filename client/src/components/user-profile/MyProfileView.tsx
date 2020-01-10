@@ -64,7 +64,7 @@ const Fade = React.forwardRef<HTMLDivElement, FadeProps>(function Fade(
 
 export default function SpringModal(props: any) {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
   const { userInfo } = props;
   const handleOpen = () => {
     setOpen(true);
@@ -97,7 +97,7 @@ export default function SpringModal(props: any) {
             <Formik
               initialValues={{ ...userInfo, newPassowrd: "" }}
               onSubmit={async (values, actions) => {
-                console.log("values, in Myprofile view ", values);
+                // console.log("values, in Myprofile view ", values);
                 const errors = await props.submit(values);
                 if (errors) {
                   actions.setErrors(errors);

@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Grid, Box, Typography } from "@material-ui/core";
-// import Skeleton from "@material-ui/lab/Skeleton";
 import StarOutlinedIcon from "@material-ui/icons/StarOutlined";
 
 import "./MoviesListSkeleton.styles.scss";
 import Skeleton from "@material-ui/lab/Skeleton";
+import { UserContext } from "../../pages/context";
+import MovieListFilters from "./MovieListFilters";
 
 interface MediaProps {
   loading?: boolean;
@@ -32,6 +33,9 @@ const MovieSkeletonItem = (
 );
 
 const MovieListView = ({ data, history, loading }: MediaProps) => {
+  const userIsConnected = useContext(UserContext);
+  const { pathname } = window.location;
+
   return (
     <Grid item container lg={12} md={5}>
       {// IF LOADING ---> SKELETON
@@ -41,6 +45,8 @@ const MovieListView = ({ data, history, loading }: MediaProps) => {
             {MovieSkeletonItem}
           </Box>
         ))}
+      {// if Connected render Filter
+      userIsConnected && pathname.includes("/movie") && <MovieListFilters />}
       {// IF !LOADING ---> RENDER DATA
       data &&
         Array.from(data).map((item: any, index: any) => (
