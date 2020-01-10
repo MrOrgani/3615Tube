@@ -78,5 +78,4 @@ export const ProfileSchema = Yup.object().shape({
       "It must contain one of these chars: '§!@#$%^&*()"
     )
     .min(6, "Too Short! Min 6 chars")
-  // .required("Required")
 });
