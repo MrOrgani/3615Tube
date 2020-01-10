@@ -1,4 +1,3 @@
-import { pctAdd, ytsAdd } from "../../utils/apiGlobals";
 import axios from "axios";
 import {
   ytsFormatFilmResult,
@@ -6,10 +5,11 @@ import {
   pctFormatTorrentsResult,
   pctFormatFilmResult
 } from "./formats";
+import { getConnection, createConnection } from "typeorm";
+import { Film } from "../../entity/Films";
 
 ////////////////////////// YTES YTS YTS /////////////////////
 const getYtsPage: any = async (i: number) => {
-  console.log(`https://yts.lt/api/v2/list_movies.json?limit=50&page=${i}`);
   const res = await axios.get(
     `https://yts.lt/api/v2/list_movies.json?limit=50&page=${i}`
   );
@@ -18,66 +18,109 @@ const getYtsPage: any = async (i: number) => {
 };
 
 const seedYts = async () => {
-  console.log("seedingYts");
+  console.log("seeding YTS");
   let functionArray: Array<any> = [];
-  for (var i = 0; i < 1; i++) {
+  for (var i = 0; i < 100; i++) {
     functionArray.push(getYtsPage(i));
   }
-  // functionArray = functionArray.map(i => getYtsPage(i));
   const rawPagesResults = (await Promise.all(functionArray)) as any;
   const rawFilmsResults: Array<any> = [];
+  let imdbIdArray: string[] = [];
   rawPagesResults.forEach((page: any) =>
-    page.forEach((film: any) => rawFilmsResults.push(film))
+    page.forEach((film: any) => {
+      if (!imdbIdArray.includes(film.imdb_code)) {
+        imdbIdArray.push(film.imdb_code);
+        rawFilmsResults.push(film);
+      }
+    })
   );
-  console.log("rawFilmsResults size:", rawFilmsResults.length);
-  const cleanResults: any = await rawFilmsResults.map(async (movie: any) => {
-    const torrents: Array<any> = await ytsFormatTorrentsResult(movie);
-    return await ytsFormatFilmResult(movie, torrents);
+  // console.log("rawFilmsResults size:", rawFilmsResults.length);
+  const ytsCleanResult: any = await rawFilmsResults.map((movie: any) => {
+    const torrents: Array<any> = ytsFormatTorrentsResult(movie);
+    const cleanFilm = ytsFormatFilmResult(movie, torrents);
+    return cleanFilm;
   });
-  return cleanResults;
+  return { ytsCleanResult, imdbIdArray };
 };
 
 //\\\\\\\\\\\\\\\\\\\ POPCORN TIME |||||||||||||||||||||
-const getPctPage: any = async (i: number) => {
+const getPctPage: any = async () => {
   const res = await axios.get(
     `https://tv-v2.api-fetch.website/movies/1?sort=last%20added&order=1&genre=all&keywords=%22%22`
   );
   return res.data;
 };
 
-const seedPct = async () => {
+const seedPct = async (imdbIdArray: string[]) => {
   console.log("seeding POPCORNTIME");
   let functionArray: Array<any> = [];
-  for (var i = 0; i < 1; i++) {
+  for (var i = 0; i < 100; i++) {
     functionArray.push(getPctPage(i));
   }
-  // functionArray = functionArray.map(i => getPctPage(i));
   const rawPagesResults = (await Promise.all(functionArray)) as any;
   const rawFilmsResults: Array<any> = [];
   rawPagesResults.forEach((page: any) =>
-    page.forEach((film: any) => rawFilmsResults.push(film))
+    page.forEach(async (film: any) => {
+      if (!(await imdbIdArray.includes(film.imdb_id)))
+        rawFilmsResults.push(film);
+    })
   );
-  const cleanResults: any = await rawFilmsResults.map(async (movie: any) => {
-    const torrents: Array<any> = await pctFormatTorrentsResult(movie);
-    return await pctFormatFilmResult(movie, torrents);
-  });
+  // console.log("rawFilmsResults size:", rawFilmsResults.length);
+  const cleanResults: any = await rawFilmsResults
+    .map((movie: any) => {
+      const torrents: Array<any> = pctFormatTorrentsResult(movie);
+      return pctFormatFilmResult(movie, torrents);
+    })
+    .filter(e => e !== null);
   return cleanResults;
 };
 
 const seedFilmDatabase = async () => {
-  const ytsCleanResult = await seedYts();
-  console.log(
-    " ---- RESULT FROM YTS ---- ",
-    ytsCleanResult.length,
-    typeof ytsCleanResult[0],
-    ytsCleanResult[0]
-  );
-  const pctCleanResult = await seedPct();
-  console.log(
-    " ---- RESULT FROM YTS ---- ",
-    pctCleanResult.length,
-    typeof pctCleanResult[0],
-    pctCleanResult[0]
-  );
+  try {
+    await createConnection();
+    await getConnection()
+      .createQueryBuilder()
+      .delete()
+      .from(Film)
+      .execute();
+    // const [ytsCleanResult, pctCleanResult] = (await Promise.all([
+    //   seedYts,
+    //   seedPct
+    // ])) as any[];
+    // let ytsCleanResult:any = {};
+    // let pctCleanResultan = {};
+    // await (() => {
+    //   ytsCleanResult = seedYts();
+    //   pctCleanResult = seedPct();
+    // });
+
+    const { ytsCleanResult, imdbIdArray } = await seedYts();
+    // console.log(
+    //   " ---- RESULT FROM YTS ---- ",
+    //   ytsCleanResult.length
+    //   // ytsCleanResult[0]
+    // );
+    const pctCleanResult = await seedPct(imdbIdArray);
+    // console.log(
+    //   " ---- RESULT FROM POPCORN TIME ---- ",
+    //   pctCleanResult.length
+    //   // pctCleanResult[0].title
+    // );
+    console.log(
+      "finished querying information and formating --> now puting it into the db"
+    );
+    if ((await ytsCleanResult) && (await pctCleanResult)) {
+      const finalResult = ytsCleanResult.concat(pctCleanResult);
+      await getConnection()
+        .createQueryBuilder()
+        .insert()
+        .into(Film)
+        .values(finalResult)
+        .execute();
+      console.log("FINISHED SEEDING THE DATABASE");
+    } else console.log("a problem occured and one of the results was empty");
+  } catch (e) {
+    console.log("caugh an error fetching and formating the data", e);
+  }
 };
 seedFilmDatabase();

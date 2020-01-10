@@ -7,8 +7,7 @@ const resolvers: ResolverMap = {
   Query: {
     findOne: createMiddleware(
       verifyAndSetSession,
-      async (_: any, { id }: GQL.IFindOneOnQueryArguments) => {
-        // findOne: async (_: any, { id }: any) => {
+      async (_: any, { id }: { id: string }) => {
         const user = (await User.findOne({ where: { id: id } })) as User;
         if (!user) return null;
         delete user.password && delete user.email;

@@ -1,68 +1,63 @@
 import { ResolverMap } from "../../../types/graphql-utils";
 import { createMiddleware } from "../../../utils/createMiddleware";
 import verifyAndSetSession from "../../middleware/verifyAndSetSession";
-// import { fetchRawData } from "../../../scripts/seedFilmDb/fetchRawData";
-// import { ytsFetch } from "../subModules/ytsFetch";
-// import { formatSearch } from "../../../scripts/seedFilmDb/formats";
+import { Film } from "../../../entity/Films";
+import { Between, Like, Raw } from "typeorm";
+import { genreList } from "../../../common/globals";
 
-// pct:https://tv-v2.api-fetch.website/movies/1?sort=last%20added&amp;order=-1&amp;genre=action&amp;keywords=%22%22
+const defaultValues: {
+  page: number;
+  rating: number[];
+  year: number[];
+  genres: string;
+  keywords: string;
+  order: Object;
+} = {
+  rating: [0, 100],
+  page: 0,
+  year: [0, 2021],
+  genres: "all",
+  keywords: "",
+  order: { rating: "DESC" }
+};
 
+//https://stackoverflow.com/questions/50705276/typeorm-postgres-where-any-or-in-with-querybuilder-or-find
 const resolvers: ResolverMap = {
   Query: {
     searchFilms:
       // searchFilms: createMiddleware(
       //   verifyAndSetSession,
-      async (_: any, __: any) => {
+      async (_: any, args: GQL.ISearchFilmsOnQueryArguments) => {
         try {
-          console.log("caca");
-          return null;
-
-          //   //FETCH DATA
-          //   const [pctRawResult, ytsRawResult] = await Promise.all([
-          //     fetchRawData(args, "pct"),
-          //     fetchRawData(args, "yts")
-          //   ]);
-          //   // console.log(
-          //   //   " ---- RESULT FROM POPCORN ---- ",
-          //   //   pctRawResult.length,
-          //   //   pctRawResult[0]
-          //   // );
-          //   // console.log(
-          //   //   " ---- RESULT FROM YTS ---- ",
-          //   //   ytsRawResult.length,
-          //   //   ytsRawResult[0]
-          //   // );
-          //   //FORMATER PCT
-          //   const pctCleanList = await formatSearch(
-          //     pctRawResult,
-          //     "pct",
-          //     pctRawResult
-          //   );
-          //   // console.log(
-          //   //   " ---- CLEAN FILM LIST FROM POPCORN ---- ",
-          //   //   pctCleanList.length
-          //   //   // pctCleanList[0]
-          //   // );
-          //   //FORMATER YTS ET VERIFIER DOUBLON
-          //   const ytsCleanList = await formatSearch(
-          //     ytsRawResult,
-          //     "yts",
-          //     pctRawResult
-          //   );
-          //   console.log(
-          //     " ---- CLEAN FILM LIST FROM BOTH YTS--  PCT-- ",
-          //     ytsCleanList.length,
-          //     pctCleanList.length
-          //     // ytsCleanList[0]
-          //   );
-          //   const finalList = pctCleanList.concat(ytsCleanList);
-          //   console.log("final List from BOTH", finalList.length);
-          //   return finalList;
+          if (!args.page || args.page < 0) args.page = defaultValues.page;
+          if (!args.year) args.year = defaultValues.year;
+          if (!args.rating) args.rating = defaultValues.rating;
+          args.keywords = !args.keywords
+            ? defaultValues.keywords
+            : args.keywords.toLowerCase();
+          if (!args.genres || !genreList.includes(args.genres))
+            args.genres = defaultValues.genres;
+          if (!args.order) args.order = defaultValues.order;
+          const result = (await Film.find({
+            where: {
+              rating: Between(args.rating[0], args.rating[1]),
+              year: Between(args.year[0], args.year[1]),
+              title: Like(`%${args.keywords}%`),
+              genres: Raw(
+                alias =>
+                  `'${(args.genres as string).toLowerCase()}' = ANY(${alias})`
+              )
+            },
+            order: args.order as any,
+            take: 50,
+            skip: 50 * args.page
+          })) as any;
+          console.log("length of result:", result.length);
+          return result;
         } catch (err) {
           console.log("error in the film fetching", err);
           return null;
         }
-        // console.log("in the findOneFilm Resolver", url);
       }
   }
 };

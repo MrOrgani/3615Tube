@@ -9,13 +9,11 @@ type User {
   lastName: String!
   login: String!
   email: String!
-  password: String
   avatar: String
-  description: String!
   language: String!
 }
 
-type Commentary{
+type Commentary {
   id: String!
   film_id: String!
   authorId: User!
@@ -30,17 +28,17 @@ type Film {
   year: Int!
   synopsis: String!
   rating: Int!
-  image: String!
-  torrents: [Torrent!]
+  poster: String!
+  torrents: [String!]
   genres: [String!]
 }
 
-type Torrent {
-  fileSize: String!
-  quality: String!
-  language: String!
-  peer: Int!
-  seed: Int!
-  url: String!
-  provider: String!
-}
+# type Torrent {
+#   fileSize: String!
+#   quality: String!
+#   language: String!
+#   peer: Int!
+#   seed: Int!
+#   url: String!
+#   provider: String!
+# }

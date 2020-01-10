@@ -9,11 +9,11 @@ const resolvers: ResolverMap = {
   Query: {
     allCommentary: createMiddleware(
       verifyAndSetSession,
-      async (_: any, { imdbId }: any) => {
+      async (_: any, { imdbId }: { imdbId: string }) => {
         const result = await getRepository(Commentary)
           .createQueryBuilder("commentary")
           .innerJoinAndSelect("commentary.author", "user.id")
-          .where("commentary.film_id = :imdbId", { imdbId: imdbId })
+          .where("commentary.film_id = :imdbId", { imdbId })
           .orderBy("commentary.createdAt", "DESC")
           .execute();
         console.log(result);
