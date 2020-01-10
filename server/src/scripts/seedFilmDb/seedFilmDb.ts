@@ -20,7 +20,7 @@ const getYtsPage: any = async (i: number) => {
 const seedYts = async () => {
   console.log("seeding YTS");
   let functionArray: Array<any> = [];
-  for (var i = 0; i < 100; i++) {
+  for (var i = 0; i < 500; i++) {
     functionArray.push(getYtsPage(i));
   }
   const rawPagesResults = (await Promise.all(functionArray)) as any;
@@ -31,16 +31,40 @@ const seedYts = async () => {
       if (!imdbIdArray.includes(film.imdb_code)) {
         imdbIdArray.push(film.imdb_code);
         rawFilmsResults.push(film);
+        const torrents: Array<string> = ytsFormatTorrentsResult(film);
+        const cleanFilm = Film.create(
+          ytsFormatFilmResult(film, torrents) as Film
+        );
+        cleanFilm.save();
       }
     })
   );
-  // console.log("rawFilmsResults size:", rawFilmsResults.length);
-  const ytsCleanResult: any = await rawFilmsResults.map((movie: any) => {
-    const torrents: Array<any> = ytsFormatTorrentsResult(movie);
-    const cleanFilm = ytsFormatFilmResult(movie, torrents);
-    return cleanFilm;
+  rawFilmsResults.forEach(async (movie: any) => {
+    // console.log(j);
+    // if (j % 1000 === 0) {
+    //   console.log("1000 movies number", j);
+    //   await getConnection()
+    //     .createQueryBuilder()
+    //     .insert()
+    //     .into(Film)
+    //     .values(cleanResult)
+    //     .execute();
+    //   cleanResult = [];
+    // }
   });
-  return { ytsCleanResult, imdbIdArray };
+  // await getConnection()
+  //   .createQueryBuilder()
+  //   .insert()
+  //   .into(Film)
+  //   .values(cleanResult)
+  //   .execute();
+  //ASDF
+  // const ytsCleanResult: any = await rawFilmsResults.map((movie: any) => {
+  //   const torrents: Array<any> = ytsFormatTorrentsResult(movie);
+  //   const cleanFilm = ytsFormatFilmResult(movie, torrents);
+  //   return cleanFilm;
+  // });
+  // return { ytsCleanResult, imdbIdArray };
 };
 
 //\\\\\\\\\\\\\\\\\\\ POPCORN TIME |||||||||||||||||||||
@@ -94,13 +118,13 @@ const seedFilmDatabase = async () => {
     //   pctCleanResult = seedPct();
     // });
 
-    const { ytsCleanResult, imdbIdArray } = await seedYts();
+    await seedYts();
     // console.log(
     //   " ---- RESULT FROM YTS ---- ",
     //   ytsCleanResult.length
     //   // ytsCleanResult[0]
     // );
-    const pctCleanResult = await seedPct(imdbIdArray);
+    // const pctCleanResult = await seedPct(imdbIdArray);
     // console.log(
     //   " ---- RESULT FROM POPCORN TIME ---- ",
     //   pctCleanResult.length
@@ -109,18 +133,16 @@ const seedFilmDatabase = async () => {
     console.log(
       "finished querying information and formating --> now puting it into the db"
     );
-    if ((await ytsCleanResult) && (await pctCleanResult)) {
-      const finalResult = ytsCleanResult.concat(pctCleanResult);
-      await getConnection()
-        .createQueryBuilder()
-        .insert()
-        .into(Film)
-        .values(finalResult)
-        .execute();
-      console.log("FINISHED SEEDING THE DATABASE");
-    } else console.log("a problem occured and one of the results was empty");
+    // if (await ytsCleanResult) {
+    //   await getConnection()
+    //     .createQueryBuilder()
+    //     .insert()
+    //     .into(Film)
+    //     .values(ytsCleanResult)
+    //     .execute();
+    console.log("FINISHED SEEDING THE DATABASE");
   } catch (e) {
-    console.log("caugh an error fetching and formating the data", e);
+    console.log("caugh an error fetching and formating the data", e.message);
   }
 };
 seedFilmDatabase();
