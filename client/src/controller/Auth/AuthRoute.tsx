@@ -13,7 +13,6 @@ export const meQuery = gql`
       lastName
       login
       firstName
-      password
       language
       avatar
     }
