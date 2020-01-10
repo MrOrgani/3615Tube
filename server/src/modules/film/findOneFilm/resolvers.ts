@@ -3,7 +3,10 @@ import { createMiddleware } from "../../../utils/createMiddleware";
 import verifyAndSetSession from "../../middleware/verifyAndSetSession";
 import { pctAdd } from "../../../utils/apiGlobals";
 import Axios from "axios";
-import { pctFormatFilmResult } from "../subModules/pctformat";
+import {
+  pctFormatFilmResult,
+  pctFormatTorrentsResult
+} from "../../../scripts/seedFilmDb/formats";
 
 const resolvers: ResolverMap = {
   Query: {
@@ -17,7 +20,8 @@ const resolvers: ResolverMap = {
           const pctFilm = await Axios.get(url);
           // console.log(pctFilm);
           if (!pctFilm.data) return null;
-          const result = await pctFormatFilmResult(pctFilm.data);
+          const torrents = await pctFormatTorrentsResult(pctFilm.data);
+          const result = await pctFormatFilmResult(pctFilm.data, torrents);
           // console.log(result);
           return result;
         } catch (err) {

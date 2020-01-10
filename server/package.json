@@ -20,6 +20,7 @@
     "@types/nodemailer": "^6.2.2",
     "@types/parse-torrent": "^5.8.3",
     "@types/passport": "^1.0.2",
+    "@types/request": "^2.48.4",
     "@types/sendmail": "^1.4.2",
     "@types/torrent-stream": "^0.0.5",
     "@types/uuid": "^3.4.6",
@@ -64,7 +65,8 @@
     "start": "nodemon -L --exec ts-node --files src/index.ts",
     "typeorm": "ts-node ../node_modules/.bin/typeorm",
     "test": "jest --detectOpenHandles --runInBand",
-    "gen-schema-types": "ts-node src/scripts/createTypes.ts"
+    "gen-schema-types": "ts-node src/scripts/createTypes.ts",
+    "seedDatabase": "ts-node src/scripts/seedFilmDb/seedFilmDb.ts"
   },
   "jest": {
     "preset": "ts-jest",
