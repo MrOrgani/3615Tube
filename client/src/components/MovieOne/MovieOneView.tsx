@@ -6,7 +6,6 @@ import CommentConnector from "../Comments/CommentConnector";
 import { Grid } from "@material-ui/core";
 import MovieTorrents from "./MovieTorrents";
 import Skeleton from "@material-ui/lab/Skeleton";
-import { userInfo } from "os";
 
 const MovieOneView = ({ movieInfo, loading }: any) => {
   // console.log(movieInfo);

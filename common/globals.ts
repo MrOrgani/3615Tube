@@ -1,4 +1,4 @@
-export const genreList: string[] = [
+export const genreList = [
   "All",
   "Action",
   "Adventure",
@@ -22,5 +22,5 @@ export const genreList: string[] = [
   "Western"
 ];
 
-export const orderKeyList: string[] = ["rating", "year", "title"];
-export const orderValueList: string[] = ["ASC", "DESC"];
+export const orderKeyList = ["rating", "year", "title"];
+export const orderValueList = ["ASC", "DESC"];
