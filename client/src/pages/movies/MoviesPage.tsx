@@ -1,14 +1,26 @@
 import React from "react";
 import MovieListConnector from "../../components/MovieList/MovieListConnector";
 import "./movies.styles.scss";
+import { MovieListProvider } from "../context";
 
 const MoviesPage = (props: any) => {
-  // console.log("Movies Page Props, ", props);
   const { history } = props;
+
+  const filters = {
+    page: 0,
+    year: [1900, 2020],
+    rating: [0, 100],
+    genres: "All",
+    keywords: "",
+    orderKey: "rating",
+    orderValue: "DESC"
+  };
+
   return (
     <div className="moviesPage">
-      {/* This is the Homepage */}
-      <MovieListConnector history={history} />
+      <MovieListProvider value={filters}>
+        <MovieListConnector history={history} />
+      </MovieListProvider>
     </div>
   );
 };

@@ -12,6 +12,7 @@ interface MediaProps {
   data?: any;
   nbOfItem?: number;
   history?: any;
+  filterList?: any;
 }
 
 const MovieSkeletonItem = (
@@ -32,7 +33,7 @@ const MovieSkeletonItem = (
   </>
 );
 
-const MovieListView = ({ data, history, loading }: MediaProps) => {
+const MovieListView = ({ data, history, loading, filterList }: MediaProps) => {
   const userIsConnected = useContext(UserContext);
   const { pathname } = window.location;
 
@@ -45,8 +46,10 @@ const MovieListView = ({ data, history, loading }: MediaProps) => {
             {MovieSkeletonItem}
           </Box>
         ))}
-      {// if Connected render Filter
-      userIsConnected && pathname.includes("/movie") && <MovieListFilters />}
+      {// ********************* FILTERS ********************************
+      userIsConnected && pathname.includes("/movie") && (
+        <MovieListFilters filterList={filterList} />
+      )}
       {// IF !LOADING ---> RENDER DATA
       data &&
         Array.from(data).map((item: any, index: any) => (
@@ -54,12 +57,12 @@ const MovieListView = ({ data, history, loading }: MediaProps) => {
             <>
               <div
                 className="movie-box"
-                onClick={() => history.push(`/movie/${item.imdb_id}`)}
+                onClick={() => history.push(`/movie/${item.imdbId}`)}
               >
                 <img
                   style={{ width: 185, height: 278 }}
                   alt={item.title}
-                  src={item.images ? item.images.poster : null}
+                  src={item.poster ? item.poster : null}
                   className="poster"
                 />
                 <div className="hover-info">

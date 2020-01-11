@@ -1,19 +1,24 @@
 import React from "react";
 
-// import { movieList } from "../../test.js";
 import MovieListView from "./MovieListView";
 import MovieListController from "../../controller/MovieListController";
 
 const MovieListConnector = (props: any) => {
-  // console.log("props of MovieList, ", props);
   const { history } = props;
 
   return (
     <MovieListController>
       {({
-        allMovies
+        allMovies,
+        filterList
         // submit
-      }) => <MovieListView history={history} data={allMovies} />}
+      }) => (
+        <MovieListView
+          history={history}
+          data={allMovies}
+          filterList={filterList}
+        />
+      )}
     </MovieListController>
   );
 };

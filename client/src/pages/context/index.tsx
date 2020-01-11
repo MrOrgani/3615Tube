@@ -11,4 +11,9 @@ const MovieContext = React.createContext({});
 export const MovieProvider = MovieContext.Provider;
 export const MovieConsumer = MovieContext.Consumer;
 
-export { MovieContext, UserContext };
+const MovieListContext = React.createContext({});
+
+export const MovieListProvider = MovieListContext.Provider;
+export const MovieListConsumer = MovieListContext.Consumer;
+
+export { MovieContext, UserContext, MovieListContext };

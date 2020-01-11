@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   Grid,
   Typography,
@@ -16,6 +16,8 @@ import SearchIcon from "@material-ui/icons/Search";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import { genreList, orderKeyList, orderValueList } from "../../common";
 import { Formik, Form } from "formik";
+import { MovieListContext } from "../../pages/context";
+import { useQuery } from "react-apollo";
 
 interface FilmOptionType {
   firstLetter: string;
@@ -78,23 +80,27 @@ const useStyles = makeStyles((theme: Theme) => {
   });
 });
 
-const MovieListFilters = () => {
+const MovieListFilters = ({ filterList }: any) => {
   const classes = useStyles();
+  const filters = useContext(MovieListContext) as any;
+
+  // console.log("filters are : ", filters);
 
   return (
     <Grid item container xl={12}>
       <Paper className="filters-box">
         <Formik
-          initialValues={{
-            year: [1900, 2020],
-            rating: [0, 100],
-            genre: "All",
-            keywords: "",
-            orderKey: "rating",
-            orderValue: "DESC"
-          }}
+          // initialValues={{
+          //   year: [1900, 2020],
+          //   rating: [0, 100],
+          //   genre: "All",
+          //   keywords: "",
+          //   orderKey: "rating",
+          //   orderValue: "DESC"
+          // }}
+          initialValues={filters}
           onSubmit={async (values, actions) => {
-            console.log("values, in Myprofile view ", values);
+            filterList({ variables: values });
             // const errors = await props.submit(values);
             // if (errors) {
             //   actions.setErrors(errors);
@@ -158,9 +164,9 @@ const MovieListFilters = () => {
                       options={genreList}
                       getOptionLabel={(option: FilmOptionType) => option + ""}
                       style={{ width: 200 }}
-                      defaultValue={values.genre}
+                      defaultValue={values.genres}
                       onChange={(_: any, value: string) =>
-                        setFieldValue("genre", value)
+                        setFieldValue("genres", value)
                       }
                       renderInput={params => (
                         <TextField
