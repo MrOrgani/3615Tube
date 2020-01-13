@@ -17,7 +17,6 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 import { genreList, orderKeyList, orderValueList } from "../../common";
 import { Formik, Form } from "formik";
 import { MovieListContext } from "../../pages/context";
-import { useQuery } from "react-apollo";
 
 interface FilmOptionType {
   firstLetter: string;
@@ -90,14 +89,6 @@ const MovieListFilters = ({ filterList }: any) => {
     <Grid item container xl={12}>
       <Paper className="filters-box">
         <Formik
-          // initialValues={{
-          //   year: [1900, 2020],
-          //   rating: [0, 100],
-          //   genre: "All",
-          //   keywords: "",
-          //   orderKey: "rating",
-          //   orderValue: "DESC"
-          // }}
           initialValues={filters}
           onSubmit={async (values, actions) => {
             filterList({ variables: values });
@@ -160,7 +151,7 @@ const MovieListFilters = ({ filterList }: any) => {
                   </Grid>
                   <Grid item>
                     <Autocomplete
-                      id="combo-box-demo"
+                      id="combo-box-genres"
                       options={genreList}
                       getOptionLabel={(option: FilmOptionType) => option + ""}
                       style={{ width: 200 }}
@@ -195,7 +186,7 @@ const MovieListFilters = ({ filterList }: any) => {
                   </Grid>
                   <Grid item>
                     <Autocomplete
-                      id="combo-box-demo"
+                      id="combo-box-orderKey"
                       options={orderKeyList}
                       getOptionLabel={(option: FilmOptionType) => option + ""}
                       style={{ width: 200 }}
@@ -215,7 +206,7 @@ const MovieListFilters = ({ filterList }: any) => {
                   </Grid>
                   <Grid item>
                     <Autocomplete
-                      id="combo-box-demo"
+                      id="combo-box-orderValue"
                       options={orderValueList}
                       getOptionLabel={(option: FilmOptionType) => option + ""}
                       style={{ width: 200 }}

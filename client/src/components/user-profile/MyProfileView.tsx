@@ -9,7 +9,16 @@ import Avatar from "../avatar/avatar.component";
 // import CustomButton from "../button/button.component";
 import { ProfileSchema } from "../../common";
 import BuildOutlinedIcon from "@material-ui/icons/BuildOutlined";
-import { Grid, TextField, Button, Container } from "@material-ui/core";
+import {
+  Grid,
+  TextField,
+  Button,
+  Container,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem
+} from "@material-ui/core";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -74,6 +83,7 @@ export default function SpringModal(props: any) {
     setOpen(false);
   };
 
+  const inputLabel = React.useRef<HTMLLabelElement>(null);
   return (
     <div className="icon-modify">
       <BuildOutlinedIcon
@@ -137,7 +147,7 @@ export default function SpringModal(props: any) {
                         ) : null}
 
                         <Grid item container spacing={2} justify="center">
-                          <Grid item xs={12} sm={6}>
+                          <Grid item xs={12} sm={5}>
                             <TextField
                               autoComplete="fname"
                               name="firstName"
@@ -151,7 +161,7 @@ export default function SpringModal(props: any) {
                               onChange={handleChange}
                             />
                           </Grid>
-                          <Grid item xs={12} sm={6}>
+                          <Grid item xs={12} sm={5}>
                             <TextField
                               variant="outlined"
                               required
@@ -163,6 +173,33 @@ export default function SpringModal(props: any) {
                               value={values.lastName}
                               onChange={handleChange}
                             />
+                          </Grid>
+                          <Grid item xs={12} sm={2}>
+                            <FormControl variant="outlined">
+                              <InputLabel
+                                ref={inputLabel}
+                                id="demo-simple-select-outlined-label"
+                              >
+                                Age
+                              </InputLabel>
+                              <Select
+                                name="language"
+                                value={values.language}
+                                onChange={handleChange}
+                              >
+                                <MenuItem value={"fr"}>
+                                  <span role="img" aria-label="france">
+                                    🇫🇷
+                                  </span>
+                                </MenuItem>
+                                <MenuItem value={"en"}>
+                                  <span role="img" aria-label="UK">
+                                    🇬🇧
+                                  </span>
+                                </MenuItem>
+                                {/* <MenuItem value={30}>Thirty</MenuItem> */}
+                              </Select>
+                            </FormControl>
                           </Grid>
                           <Grid item xs={12}>
                             <TextField

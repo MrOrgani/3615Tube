@@ -4,7 +4,7 @@ import { SignInSchema } from "../../common";
 import { Link } from "react-router-dom";
 import { Grid, Button, Divider } from "@material-ui/core";
 import FieldInput from "../FiledInput/FieldInput.component";
-import FTLogo from "../../assets/images/FTLogo.svg";
+// import FTLogo from "../../assets/images/FTLogo.svg";
 
 interface FormValues {
   login?: string;

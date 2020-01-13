@@ -2,7 +2,7 @@ import * as React from "react";
 import { useQuery, useLazyQuery } from "react-apollo";
 import gql from "graphql-tag";
 // import { normalizeErrors } from "../../utils/normalizeErrors";
-import { movieList } from "../../test.js";
+// import { movieList } from "../../test.js";
 import MovieListItem from "../../components/MovieList/MovieListView";
 import { useContext } from "react";
 import { MovieListContext } from "../../pages/context";
