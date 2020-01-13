@@ -38,7 +38,11 @@ const MovieListView = ({ data, history, loading, filterList }: MediaProps) => {
   const { pathname } = window.location;
 
   return (
-    <Grid item container lg={12} md={5}>
+    <Grid item container lg={12}>
+      {// ********************* FILTERS ********************************
+      userIsConnected && pathname.includes("/movie") && (
+        <MovieListFilters filterList={filterList} />
+      )}
       {// IF LOADING ---> SKELETON
       loading &&
         Array.from(new Array(20)).map((_, index: any) => (
@@ -46,10 +50,6 @@ const MovieListView = ({ data, history, loading, filterList }: MediaProps) => {
             {MovieSkeletonItem}
           </Box>
         ))}
-      {// ********************* FILTERS ********************************
-      userIsConnected && pathname.includes("/movie") && (
-        <MovieListFilters filterList={filterList} />
-      )}
       {// IF !LOADING ---> RENDER DATA
       data &&
         Array.from(data).map((item: any, index: any) => (
