@@ -21,19 +21,12 @@ const resolvers: ResolverMap = {
         } catch (error) {
           return await formatYupError(error);
         }
-        if (args.password) {
-          // try {
-          //   await PasswordSchema.validate(args, { abortEarly: false });
-          // } catch (error) {
-          //   return await formatYupError(error);
-          // }
-          args.password = await bcrypt.hash(args.password, 10);
-        }
-        if (args.avatar && !(await pictureSecurtiy(args.avatar)))
-          return await formatError(
-            "picture",
-            "image must be of type png or jpeg for real"
-          );
+        if (args.password) args.password = await bcrypt.hash(args.password, 10);
+        // if (args.avatar && !(await pictureSecurtiy(args.avatar)))
+        //   return await formatError(
+        //     "picture",
+        //     "image must be of type png or jpeg for real"
+        //   );
         User.update({ id: session.user.id }, args);
         session.user = args;
         return null;
