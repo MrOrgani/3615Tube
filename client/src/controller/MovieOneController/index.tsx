@@ -7,6 +7,7 @@ import gql from "graphql-tag";
 import { MovieContext } from "../../pages/context";
 import { useContext } from "react";
 import MovieOneView from "../../components/MovieOne/MovieOneView";
+import axios from "axios";
 // import { normalizeErrors } from "../../utils/normalizeErrors";
 
 interface Props {
@@ -44,12 +45,25 @@ const MovieController = (props: Props) => {
 
   if (loading) return <MovieOneView loading />;
 
-  // const parsedTorrents = async (movieInfo: any) => {
-  //   return await JSON.parse(movieInfo.torrents[0]);
-  // };
-  // console.log("torrents, ", parsedTorrents(movieInfo));
-  console.log("torrents, ", movieInfo.torrents.join(","));
+  // PARSING TORRENTS OF EACH SINGLE MOVIE
+  const parsedTorrents = () =>
+    movieInfo.torrents.map((torrent: string) => JSON.parse(torrent));
+  movieInfo.torrents = parsedTorrents();
+  //***************************************** */
 
+  // GETTING THE CAST AND CREW FROM IMDB
+  const getCastAndCrew = async () => {
+    const {
+      data: { cast, crew }
+    } = await axios.get(
+      `https://api.themoviedb.org/3/movie/${imdbId}/credits?api_key=7d2a25a20cce518da4384c007bd8cd69`
+    );
+    movieInfo.cast = cast.slice(0, 8);
+    movieInfo.crew = crew.slice(0, 8);
+  };
+  getCastAndCrew();
+
+  console.log("res of fetch", movieInfo);
   return props.children({
     movieInfo
   });

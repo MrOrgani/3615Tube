@@ -16,6 +16,7 @@
     "@types/react-dom": "16.9.4",
     "apollo": "^2.21.2",
     "apollo-boost": "^0.4.4",
+    "axios": "^0.19.1",
     "cross-env": "6.0.3",
     "dotenv": "^8.2.0",
     "formik": "^2.0.6",

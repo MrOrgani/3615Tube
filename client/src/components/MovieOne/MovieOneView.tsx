@@ -8,49 +8,9 @@ import MovieTorrents from "./MovieTorrents";
 import Skeleton from "@material-ui/lab/Skeleton";
 
 const MovieOneView = ({ movieInfo, loading }: any) => {
+  console.log("Movie One view", movieInfo);
   return (
     <>
-      {/*------------------------------> LOADING  <-----------------------------**/}
-      {loading && (
-        <Grid container xl={12} spacing={3}>
-          {/**********************  PLAYER **********************************/}
-          <Grid item container xl={6}>
-            <video id="videoPlayer" controls style={{ width: "inherit" }}>
-              {/* <source
-                // src={`http://localhost:4000/streaming/${magnet}`}
-                type="video/mp4"
-              /> */}
-            </video>
-          </Grid>
-          {/**********************  INFO ON THE MOVIE **********************************/}
-          <Grid item xl={6} md={12} container>
-            <Skeleton
-              variant="rect"
-              width={185}
-              height={278}
-              style={{ backgroundColor: "rgba(222, 85, 257, 0.08)" }}
-            />
-          </Grid>
-          {/**********************  TORRENTS **********************************/}
-          <Grid item xl={6} md={12} container>
-            <Skeleton
-              variant="rect"
-              width={185}
-              height={278}
-              style={{ backgroundColor: "rgba(222, 85, 257, 0.08)" }}
-            />
-          </Grid>
-          {/**********************  COMMENTS **********************************/}
-          <Grid item xl={6} md={12} container>
-            <Skeleton
-              variant="rect"
-              width={185}
-              height={278}
-              style={{ backgroundColor: "rgba(222, 85, 257, 0.08)" }}
-            />
-          </Grid>
-        </Grid>
-      )}
       {movieInfo && (
         <Grid container xl={12} spacing={3}>
           {/**********************  PLAYER **********************************/}
@@ -73,6 +33,46 @@ const MovieOneView = ({ movieInfo, loading }: any) => {
           {/**********************  COMMENTS **********************************/}
           <Grid item xl={6} md={12} container>
             <CommentConnector />
+          </Grid>
+        </Grid>
+      )}
+      {/*------------------------------> LOADING  <-----------------------------**/}
+      {loading && (
+        <Grid container xl={12} spacing={3}>
+          {/**********************  PLAYER **********************************/}
+          <Grid item container xl={6}>
+            <video
+              id="videoPlayer"
+              controls
+              style={{ width: "inherit" }}
+            ></video>
+          </Grid>
+          {/**********************  INFO ON THE MOVIE **********************************/}
+          <Grid item xl={6} md={12} container>
+            <Skeleton
+              variant="rect"
+              width={185}
+              height={278}
+              style={{ backgroundColor: "rgba(222, 85, 257, 0.08)" }}
+            />
+          </Grid>
+          {/**********************  TORRENTS **********************************/}
+          <Grid item xl={6} md={12} container>
+            <Skeleton
+              variant="rect"
+              width={185}
+              height={278}
+              style={{ backgroundColor: "rgba(222, 85, 257, 0.08)" }}
+            />
+          </Grid>
+          {/**********************  COMMENTS **********************************/}
+          <Grid item xl={6} md={12} container>
+            <Skeleton
+              variant="rect"
+              width={185}
+              height={278}
+              style={{ backgroundColor: "rgba(222, 85, 257, 0.08)" }}
+            />
           </Grid>
         </Grid>
       )}

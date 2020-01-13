@@ -14,7 +14,7 @@ const MovieTorrents = ({ data: { torrents } }: any) => {
           overflow: "auto"
         }}
       >
-        {[].map((torrent: any, index: number) => {
+        {torrents.map((torrent: any, index: number) => {
           return (
             <ButtonBase
               key={`torrent-index${index}`}

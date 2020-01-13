@@ -56,7 +56,6 @@ const MovieInfo = ({
           </Grid>
         </Grid>
       </Grid>
-      {/* <Typography variant="h6">{rating}</Typography> */}
     </Grid>
   );
 };
