@@ -19,7 +19,7 @@ const getYtsPage: any = async (i: number) => {
 const seedYts = async () => {
   console.log("seeding YTS");
   let functionArray: Array<any> = [];
-  for (var i = 0; i < 10; i++) {
+  for (var i = 0; i < 300; i++) {
     functionArray.push(getYtsPage(i));
   }
   const rawPagesResults = (await Promise.all(functionArray)) as any;
@@ -64,6 +64,7 @@ const seedPct = async (imdbIdArray: string[]) => {
           const torrents: Array<any> = pctFormatTorrentsResult(film);
           const verif = pctFormatFilmResult(film, torrents) as Film;
           if (verif) {
+            imdbIdArray.push(film.imdb_id);
             const cleanFilm = Film.create(verif);
             cleanFilm.save();
           }
