@@ -108,11 +108,11 @@ const MovieListFilters = ({ filterList }: any) => {
         >
           {({
             isSubmitting,
-            errors,
+            // errors,
             values,
-            handleChange,
-            setFieldValue,
-            handleSubmit
+            // handleChange,
+            setFieldValue
+            // handleSubmit
           }) => {
             return (
               <Form>
