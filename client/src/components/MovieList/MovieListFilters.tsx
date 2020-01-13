@@ -91,6 +91,8 @@ const MovieListFilters = ({ filterList }: any) => {
         <Formik
           initialValues={filters}
           onSubmit={async (values, actions) => {
+            values.order = { [values.orderKey]: values.orderValue };
+            console.log("values", values);
             filterList({ variables: values });
             // const errors = await props.submit(values);
             // if (errors) {
