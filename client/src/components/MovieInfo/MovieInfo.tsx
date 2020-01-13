@@ -8,7 +8,7 @@ const MovieInfo = ({
     synopsis,
     // rating,
     genres,
-    image
+    poster
   }
 }: any) => {
   return (
@@ -25,12 +25,13 @@ const MovieInfo = ({
       alignItems="center"
     >
       <Grid item container justify="flex-start">
+        {/***********  POSTER ********************/}
         <img
           style={{
             width: "200px",
             height: "auto"
           }}
-          src={image}
+          src={poster}
           alt="moviePoster"
         />
         <Grid item xl container style={{ padding: "0 14px" }}>

@@ -52,7 +52,7 @@ const getPctPage: any = async () => {
 const seedPct = async (imdbIdArray: string[]) => {
   console.log("seeding POPCORNTIME");
   let functionArray: Array<any> = [];
-  for (var i = 0; i < 100; i++) {
+  for (var i = 0; i < 0; i++) {
     functionArray.push(getPctPage(i));
   }
   const rawPagesResults = (await Promise.all(functionArray)) as any;

@@ -4,6 +4,7 @@
 
 .movie-box {
   display: flex;
+  cursor: pointer;
 }
 
 .hover-info {
@@ -18,13 +19,28 @@
   img {
     opacity: 0.3;
   }
-  // .hover-info {
-  //   opacity: 1;
-  //   display: flex;
-  //   align-items: center;
-  //   justify-content: center;
-  //   // position: fixed;
-  //   color: black;
-  //   // align-content: flex-start;
-  // }
+  .hover-info {
+    opacity: 1;
+    // display: flex;
+    // align-items: center;
+    // justify-content: center;
+    // position: fixed;
+    // color: black;
+    // align-content: flex-start;
+  }
 }
+
+// .cardGrid {
+//   display: flex;
+// }
+
+// .movie-box {
+//   display: flex;
+// }
+
+// .hover-info {
+//   opacity: 0;
+//   color: white;
+//   position: absolute;
+//   // margin: 20px;
+// }

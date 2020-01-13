@@ -12,6 +12,7 @@ interface MediaProps {
   data?: any;
   nbOfItem?: number;
   history?: any;
+  filterList?: any;
 }
 
 const MovieSkeletonItem = (
@@ -32,12 +33,16 @@ const MovieSkeletonItem = (
   </>
 );
 
-const MovieListView = ({ data, history, loading }: MediaProps) => {
+const MovieListView = ({ data, history, loading, filterList }: MediaProps) => {
   const userIsConnected = useContext(UserContext);
   const { pathname } = window.location;
 
   return (
-    <Grid item container lg={12} md={5}>
+    <Grid item container lg={12}>
+      {// ********************* FILTERS ********************************
+      userIsConnected && pathname.includes("/movie") && (
+        <MovieListFilters filterList={filterList} />
+      )}
       {// IF LOADING ---> SKELETON
       loading &&
         Array.from(new Array(20)).map((_, index: any) => (
@@ -45,41 +50,85 @@ const MovieListView = ({ data, history, loading }: MediaProps) => {
             {MovieSkeletonItem}
           </Box>
         ))}
-      {// if Connected render Filter
-      userIsConnected && pathname.includes("/movie") && <MovieListFilters />}
       {// IF !LOADING ---> RENDER DATA
       data &&
         Array.from(data).map((item: any, index: any) => (
-          <Box key={index} width={185} mx={1}>
+          <Box
+            key={index}
+            width={185}
+            mx={1}
+            onClick={() => history.push(`/movie/${item.imdbId}`)}
+            // className="movie-box"
+          >
             <>
-              <div
-                className="movie-box"
-                onClick={() => history.push(`/movie/${item.imdb_id}`)}
-              >
+              <div className="movie-box">
                 <img
                   style={{ width: 185, height: 278 }}
                   alt={item.title}
-                  src={item.images ? item.images.poster : null}
+                  src={item.poster ? item.poster : null}
                   className="poster"
                 />
-                <div className="hover-info">
-                  <div
-                    style={{
-                      zIndex: 99999
-                    }}
+                <Grid
+                  container
+                  className="hover-info"
+                  direction="column"
+                  style={{ width: "185px", height: "278px" }}
+                >
+                  <Grid
+                    item
+                    container
+                    justify="center"
+                    alignItems="flex-start"
+                    style={{ margin: "10px 0px" }}
                   >
-                    {item.vote_average}
-                    <StarOutlinedIcon
-                      fontSize={"large"}
+                    <Grid
+                      item
+                      container
+                      justify="center"
+                      alignItems="center"
+                      xs
+                    >
+                      <Grid item>
+                        <StarOutlinedIcon
+                          fontSize={"small"}
+                          style={{
+                            color: "yellow",
+                            zIndex: 5,
+                            fontSize: "20px"
+                          }}
+                        />
+                      </Grid>
+                      <Grid
+                        item
+                        style={{
+                          zIndex: 99999
+                        }}
+                      >
+                        {item.rating}
+                      </Grid>
+                    </Grid>
+                    <Grid item xs style={{ textAlign: "center" }}>
+                      {item.year}
+                    </Grid>
+                  </Grid>
+                  <Grid item xl style={{ margin: "0 10px" }}>
+                    <Typography
+                      align="justify"
+                      variant="caption"
+                      // noWrap
                       style={{
-                        color: "yellow",
-                        position: "absolute",
-                        zIndex: 5,
-                        fontSize: "60px"
+                        // width: "100%",
+                        overflow: "hidden",
+                        display: "-webkit-box",
+                        WebkitLineClamp: 12,
+                        WebkitBoxOrient: "vertical"
+                        // position: "absolute"
                       }}
-                    />
-                  </div>
-                </div>
+                    >
+                      {item.synopsis}
+                    </Typography>
+                  </Grid>
+                </Grid>
               </div>
               <Box pr={2}>
                 <Typography

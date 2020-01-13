@@ -75,8 +75,8 @@ const UserProfile = ({ userInfo, submit, onFinish, loading }: Props) => {
               sizes="large"
             />
           </div>
-          {userInfo.firstName} {userInfo.lastName} | 👤 {userInfo.login} | ✉️{" "}
-          {userInfo.email}
+          {userInfo.firstName} {userInfo.lastName} | {userInfo.language} | 👤{" "}
+          {userInfo.login} | ✉️ {userInfo.email}
           {pathname === "/profile" && (
             <MyProfileView
               userInfo={userInfo}
