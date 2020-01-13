@@ -2,7 +2,7 @@ import { generateKeyPairSync } from "crypto";
 
 //||||||||||||POPCORN TIME||||||||||||||
 export const pctFormatTorrentsResult = (movie: any) => {
-  const torrents: Array<any> = [];
+  const torrents: Array<string> = [];
   for (const language in movie.torrents) {
     for (const quality in movie.torrents[language]) {
       const torrent = {
@@ -21,7 +21,7 @@ export const pctFormatTorrentsResult = (movie: any) => {
   return torrents;
 };
 
-export const pctFormatFilmResult = (movie: any, torrents: Array<any>) => {
+export const pctFormatFilmResult = (movie: any, torrents: Array<string>) => {
   if (!movie.images || !movie.images.poster) return null;
   movie.genres.push("all");
   return {
@@ -40,7 +40,7 @@ export const pctFormatFilmResult = (movie: any, torrents: Array<any>) => {
 
 ////////////////////////// YTES YTS YTS /////////////////////
 export const ytsFormatTorrentsResult = (movie: any) => {
-  const torrents: Array<any> = [];
+  const torrents: Array<string> = [];
   for (const item in movie.torrents) {
     const torrent = {
       magnet: movie.torrents[item].url,
@@ -57,7 +57,7 @@ export const ytsFormatTorrentsResult = (movie: any) => {
   return torrents;
 };
 
-export const ytsFormatFilmResult = (movie: any, torrents: Array<any>) => {
+export const ytsFormatFilmResult = (movie: any, torrents: Array<string>) => {
   movie.genres.push("all");
   return {
     imdbId: movie.imdb_code,

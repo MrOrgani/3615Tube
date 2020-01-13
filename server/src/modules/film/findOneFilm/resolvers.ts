@@ -14,6 +14,7 @@ const resolvers: ResolverMap = {
           const result = (await Film.findOne({
             where: { imdbId: imdbId }
           })) as any;
+          console.log(result);
           return result;
         } catch (err) {
           console.log("error in the film fetching", err);

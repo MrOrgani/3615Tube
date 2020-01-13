@@ -7,6 +7,7 @@ import gql from "graphql-tag";
 import { MovieContext } from "../../pages/context";
 import { useContext } from "react";
 import MovieOneView from "../../components/MovieOne/MovieOneView";
+import axios from "axios";
 // import { normalizeErrors } from "../../utils/normalizeErrors";
 
 interface Props {
@@ -27,47 +28,44 @@ const GET_ONE_MOVIE_INFO = gql`
       rating
       genres
       poster
+      torrents
     }
   }
 `;
 
 const MovieController = (props: Props) => {
   const imdbId = useContext(MovieContext) as any;
-  // console.log(
-  //   "MovieController, key MovieContext waiting for a :imdbId, ",
-  //   imdbId
-  // );
 
   const { data, loading, error } = useQuery(GET_ONE_MOVIE_INFO, {
     variables: { imdbId }
   });
   const movieInfo = data ? data.findOneFilm : null;
 
-  // console.log("movieinfo after query, ", movieInfo);
   if (error) return <p>{JSON.stringify(error, null, 2)}</p>;
 
   if (loading) return <MovieOneView loading />;
 
-  //   const submit = async (values: any) => {
-  //     const {
-  //       data: { profile }
-  //     } = await mutate({
-  //       variables: values
-  //     });
+  // PARSING TORRENTS OF EACH SINGLE MOVIE
+  const parsedTorrents = () =>
+    movieInfo.torrents.map((torrent: string) => JSON.parse(torrent));
+  movieInfo.torrents = parsedTorrents();
+  //***************************************** */
 
-  //     if (profile) {
-  //       return normalizeErrors(profile);
-  //     }
-  //     return null;
-  //   };
+  // GETTING THE CAST AND CREW FROM IMDB
+  const getCastAndCrew = async () => {
+    const {
+      data: { cast, crew }
+    } = await axios.get(
+      `https://api.themoviedb.org/3/movie/${imdbId}/credits?api_key=7d2a25a20cce518da4384c007bd8cd69`
+    );
+    movieInfo.cast = cast.slice(0, 8);
+    movieInfo.crew = crew.slice(0, 8);
+  };
+  getCastAndCrew();
 
-  // function onFinish() {
-  //   props.history.push("/");
-  // }
+  console.log("res of fetch", movieInfo);
   return props.children({
-    // submit,
     movieInfo
-    //  onFinish
   });
 };
 
