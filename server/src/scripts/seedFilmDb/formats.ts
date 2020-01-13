@@ -54,6 +54,8 @@ export const ytsFormatTorrentsResult = (movie: any) => {
     };
     torrents.push(JSON.stringify(torrent));
   }
+  if (movie.imdb_code == "tt0080339")
+    console.log("in format yts", movie.torrents, torrents);
   return torrents;
 };
 
