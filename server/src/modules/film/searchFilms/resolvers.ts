@@ -24,9 +24,9 @@ const defaultValues: {
 //https://stackoverflow.com/questions/50705276/typeorm-postgres-where-any-or-in-with-querybuilder-or-find
 const resolvers: ResolverMap = {
   Query: {
-    searchFilms:
-      // searchFilms: createMiddleware(
-      //   verifyAndSetSession,
+    // searchFilms:
+    searchFilms: createMiddleware(
+      verifyAndSetSession,
       async (_: any, args: GQL.ISearchFilmsOnQueryArguments) => {
         try {
           if (!args.page || args.page < 0) args.page = defaultValues.page;
@@ -52,13 +52,14 @@ const resolvers: ResolverMap = {
             take: 50,
             skip: 50 * args.page
           })) as any;
-          console.log("length of result:", result.length);
+          // console.log("length of result:", result.length);
           return result;
         } catch (err) {
           console.log("error in the film fetching", err);
           return null;
         }
       }
+    )
   }
 };
 

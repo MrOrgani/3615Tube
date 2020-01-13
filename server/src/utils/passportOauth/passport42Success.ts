@@ -1,6 +1,7 @@
 import { Response } from "express";
 import { User } from "../../entity/User";
 import { saveUserInDb } from "../../modules/user/register/resolvers";
+import { findNewLogin } from "./findNewLogin";
 
 export async function passport42Success(req: any, res: Response) {
   if (req.user) {
@@ -16,12 +17,14 @@ export async function passport42Success(req: any, res: Response) {
       if (!id) throw "token expired";
       if (!req.session) throw "session Issue with your request";
       let registeredUser = (await User.findOne({
-        where: { id42: parseInt(id) }
+        where: [{ id42: parseInt(id) }, { email }]
       })) as User;
+      // !registeredUser && registeredUser =
       if (!registeredUser) {
-        registeredUser = (await saveUserInDb(
+        // login =  as string;
+        registeredUser = registeredUser = (await saveUserInDb(
           "",
-          login,
+          (await findNewLogin(login)) as string,
           email,
           first_name,
           last_name
