@@ -29,6 +29,7 @@ type Film {
   synopsis: String!
   rating: Int!
   poster: String!
+  seen: Boolean
   torrents: [String!]
   genres: [String!]
 }
