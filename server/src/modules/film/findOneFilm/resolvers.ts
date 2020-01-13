@@ -1,14 +1,12 @@
 import { ResolverMap } from "../../../types/graphql-utils";
 import { createMiddleware } from "../../../utils/createMiddleware";
 import verifyAndSetSession from "../../middleware/verifyAndSetSession";
-import { pctAdd } from "../../../utils/apiGlobals";
 import { Film } from "../../../entity/Films";
 
 const resolvers: ResolverMap = {
   Query: {
-    findOneFilm:
-      // findOneMoive: createMiddleware(
-      //   verifyAndSetSession,
+    findOneFilm: createMiddleware(
+      verifyAndSetSession,
       async (_: any, { imdbId }: { imdbId: string }) => {
         try {
           const result = (await Film.findOne({
@@ -20,6 +18,7 @@ const resolvers: ResolverMap = {
           return null;
         }
       }
+    )
   }
 };
 

@@ -23,6 +23,6 @@ export const setSessionAndTest = async function name(
     logOutAfterTest &&
       transport.post(process.env.BACK_HOST, { query: logOutQuery });
   } catch (e) {
-    console.log(e);
+    console.log("error in set session", e);
   }
 };
