@@ -63,7 +63,6 @@ const MovieController = (props: Props) => {
   };
   getCastAndCrew();
 
-  console.log("res of fetch", movieInfo);
   return props.children({
     movieInfo
   });
