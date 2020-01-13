@@ -5,7 +5,7 @@ import * as express from "express";
 const router = express.Router();
 router.use("/Oauth", require("./Oauth"))
 .use("/confirm", require("./confirm"))
-.use('/streaming', require('./streaming'))
+.use('/video', require('./video'))
 
 //   .use("/test", (req: any, res: any) => {
 //     console.log("ok");
