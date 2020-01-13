@@ -46,9 +46,11 @@ const MovieController = (props: Props) => {
   if (loading) return <MovieOneView loading />;
 
   // PARSING TORRENTS OF EACH SINGLE MOVIE
-  const parsedTorrents = () =>
-    movieInfo.torrents.map((torrent: string) => JSON.parse(torrent));
-  movieInfo.torrents = parsedTorrents();
+  if (movieInfo.torrents) {
+    const parsedTorrents = () =>
+      movieInfo.torrents.map((torrent: string) => JSON.parse(torrent));
+    movieInfo.torrents = parsedTorrents();
+  }
   //***************************************** */
 
   // GETTING THE CAST AND CREW FROM IMDB
