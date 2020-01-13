@@ -10,6 +10,7 @@ import Skeleton from "@material-ui/lab/Skeleton";
 const MovieOneView = ({ movieInfo, loading }: any) => {
   return (
     <>
+      {/*------------------------------> LOADING  <-----------------------------**/}
       {loading && (
         <Grid container xl={12} spacing={3}>
           {/**********************  PLAYER **********************************/}

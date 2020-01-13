@@ -27,47 +27,31 @@ const GET_ONE_MOVIE_INFO = gql`
       rating
       genres
       poster
+      torrents
     }
   }
 `;
 
 const MovieController = (props: Props) => {
   const imdbId = useContext(MovieContext) as any;
-  // console.log(
-  //   "MovieController, key MovieContext waiting for a :imdbId, ",
-  //   imdbId
-  // );
 
   const { data, loading, error } = useQuery(GET_ONE_MOVIE_INFO, {
     variables: { imdbId }
   });
   const movieInfo = data ? data.findOneFilm : null;
 
-  // console.log("movieinfo after query, ", movieInfo);
   if (error) return <p>{JSON.stringify(error, null, 2)}</p>;
 
   if (loading) return <MovieOneView loading />;
 
-  //   const submit = async (values: any) => {
-  //     const {
-  //       data: { profile }
-  //     } = await mutate({
-  //       variables: values
-  //     });
+  // const parsedTorrents = async (movieInfo: any) => {
+  //   return await JSON.parse(movieInfo.torrents[0]);
+  // };
+  // console.log("torrents, ", parsedTorrents(movieInfo));
+  console.log("torrents, ", movieInfo.torrents.join(","));
 
-  //     if (profile) {
-  //       return normalizeErrors(profile);
-  //     }
-  //     return null;
-  //   };
-
-  // function onFinish() {
-  //   props.history.push("/");
-  // }
   return props.children({
-    // submit,
     movieInfo
-    //  onFinish
   });
 };
 

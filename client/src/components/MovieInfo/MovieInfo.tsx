@@ -2,14 +2,7 @@ import React from "react";
 import { Typography, Grid, Chip } from "@material-ui/core";
 
 const MovieInfo = ({
-  data: {
-    title,
-    year,
-    synopsis,
-    // rating,
-    genres,
-    poster
-  }
+  data: { title, year, synopsis, rating, genres, poster }
 }: any) => {
   return (
     <Grid
@@ -42,7 +35,7 @@ const MovieInfo = ({
           {/***********  INFOS ********************/}
           <Grid item container>
             <Typography variant="h6">
-              {year} | ⭐️ -fake- 9.5 |{" "}
+              {year} | ⭐️ {rating} |{" "}
               {genres.map((element: string, index: number) => (
                 <Chip key={index} label={element} />
               ))}
