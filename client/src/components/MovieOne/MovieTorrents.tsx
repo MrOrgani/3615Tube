@@ -1,7 +1,10 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useContext } from "react";
 import { Typography, Grid, Paper, ButtonBase } from "@material-ui/core";
+import { TorrentContext } from "../../pages/context";
 
 const MovieTorrents = ({ data: { torrents } }: any) => {
+  const [, setSrcTorrent] = useContext(TorrentContext) as any;
+
   return (
     <>
       <Typography variant="h4" style={{ color: "white" }}>
@@ -19,6 +22,7 @@ const MovieTorrents = ({ data: { torrents } }: any) => {
             <ButtonBase
               key={`torrent-index${index}`}
               style={{ minWidth: "-moz-available", height: "50px" }}
+              onClick={() => setSrcTorrent(torrent.magnet)}
             >
               <Paper
                 style={{

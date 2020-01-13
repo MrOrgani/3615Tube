@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 // import videoPlayerImg from "../../assets/images/LecteurToSuppr.png";
 // import TabsComponent from "../Tabs/TabsComponent";
 import MovieInfo from "../MovieInfo/MovieInfo";
@@ -45,11 +45,12 @@ const MovieOneSkeleton = (
 );
 
 const MovieOneView = ({ movieInfo, loading }: any) => {
-  console.log("Movie One view", movieInfo);
+  const [srcTorrent, setSrcTorrent] = useState("");
+
   return (
     <>
       {movieInfo && (
-        <TorrentProvider value={""}>
+        <TorrentProvider value={[srcTorrent, setSrcTorrent]}>
           <Grid container xl={12} spacing={3}>
             {/**********************  PLAYER **********************************/}
             <Grid item container xl={6} justify="center">
