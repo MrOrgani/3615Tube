@@ -16,4 +16,9 @@ const MovieListContext = React.createContext({});
 export const MovieListProvider = MovieListContext.Provider;
 export const MovieListConsumer = MovieListContext.Consumer;
 
-export { MovieContext, UserContext, MovieListContext };
+const TorrentContext = React.createContext({});
+
+export const TorrentProvider = TorrentContext.Provider;
+export const TorrentConsumer = TorrentContext.Consumer;
+
+export { MovieContext, UserContext, MovieListContext, TorrentContext };

@@ -92,28 +92,13 @@ const MovieListFilters = ({ filterList }: any) => {
           initialValues={filters}
           onSubmit={async (values, actions) => {
             values.order = { [values.orderKey]: values.orderValue };
-            console.log("values", values);
             filterList({ variables: values });
-            // const errors = await props.submit(values);
-            // if (errors) {
-            //   actions.setErrors(errors);
-            // } else {
-            //   setOpen(false);
-            //   props.onFinish();
-            // }
           }}
           validateOnChange={false}
           validateOnBlur={false}
           //   validationSchema={ProfileSchema}
         >
-          {({
-            isSubmitting,
-            // errors,
-            values,
-            // handleChange,
-            setFieldValue
-            // handleSubmit
-          }) => {
+          {({ isSubmitting, values, setFieldValue }) => {
             return (
               <Form>
                 <Grid container justify="space-evenly" alignItems="center">
