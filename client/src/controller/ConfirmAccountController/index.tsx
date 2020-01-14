@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useQuery } from "react-apollo";
-import gql from "graphql-tag";
+// import gql from "graphql-tag";
 // import { normalizeErrors } from "../../utils/normalizeErrors";
 
 // interface Props {
@@ -9,23 +9,20 @@ import gql from "graphql-tag";
 //   }) => JSX.Element | null;
 // }
 
-export const ConfirmAccount = gql`
-  query confirmAccount($id: String!) {
-    confirmAccount(id: $id) {
-      msg
-    }
-  }
-`;
+// export const ConfirmAccount = gql`
+//   query confirmAccount($id: String!) {
+//     confirmAccount(id: $id) {
+//       msg
+//     }
+//   }
+// `;
 
 const ConfirmAccountController = (props: any) => {
-  const { loading, error, data } = useQuery(ConfirmAccount);
-
-  if (error) return <p>{JSON.stringify(error, null, 2)}</p>;
-
-  return props.children({
-    loading,
-    data
-  });
+  // const { loading, error, data } = useQuery(ConfirmAccount);
+  // if (error) return <p>{JSON.stringify(error, null, 2)}</p>;
+  // return props.children({
+  //   data
+  // });
 };
 
 export default ConfirmAccountController;
