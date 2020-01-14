@@ -41,32 +41,19 @@ const MovieInfo = ({ data }: any) => {
             width: "200px",
             height: "auto"
           }}
-<<<<<<< HEAD
           src={data.poster}
-=======
-          src={poster}
->>>>>>> 5230dccb96b3d1d58db2a24d43ada4bf33f1b576
           alt="moviePoster"
         />
         <Grid item xl container style={{ padding: "0 14px" }}>
           {/***********  TITLE ********************/}
           <Grid item container justify="flex-start">
-<<<<<<< HEAD
             <Typography variant="h2">{data.title}</Typography>
-=======
-            <Typography variant="h2">{title}</Typography>
->>>>>>> 5230dccb96b3d1d58db2a24d43ada4bf33f1b576
           </Grid>
           {/***********  INFOS ********************/}
           <Grid item container>
             <Typography variant="h6">
-<<<<<<< HEAD
               {data.year} | ⭐️ {data.rating} |{" "}
               {data.genres.map((element: string, index: number) => (
-=======
-              {year} | ⭐️ {rating} |{" "}
-              {genres.map((element: string, index: number) => (
->>>>>>> 5230dccb96b3d1d58db2a24d43ada4bf33f1b576
                 <Chip key={index} label={element} />
               ))}
             </Typography>
@@ -81,17 +68,12 @@ const MovieInfo = ({ data }: any) => {
                 fontStyle: "italic"
               }}
             >
-<<<<<<< HEAD
               {data.synopsis}
-=======
-              {synopsis}
->>>>>>> 5230dccb96b3d1d58db2a24d43ada4bf33f1b576
             </Typography>
           </Grid>
         </Grid>
       </Grid>
       <Grid item container xl>
-<<<<<<< HEAD
         <div>Crew</div>
         <Grid item container justify="space-evenly">
           {crewInfo.map((pers: any, index: number) => (
@@ -156,18 +138,6 @@ const MovieInfo = ({ data }: any) => {
               </Paper>
             </Grid>
           ))}
-=======
-        <Grid item container xs={12}>
-          Crew
-          {/* {crew.map((value: any) => (
-            <Grid key={value} item>
-              <Paper style={{ height: 140, width: 100 }} />
-            </Grid>
-          ))} */}
-        </Grid>
-        <Grid item container xs={12}>
-          Cast
->>>>>>> 5230dccb96b3d1d58db2a24d43ada4bf33f1b576
         </Grid>
       </Grid>
     </Grid>

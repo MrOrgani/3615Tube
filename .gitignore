@@ -15,3 +15,7 @@ node_modules
 
 # sessions are stored locally in server/sessions
 **/sessions/*
+
+/server/DS_store
+/server/downloads/
+
