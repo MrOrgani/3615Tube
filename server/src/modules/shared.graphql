@@ -31,6 +31,7 @@ type Film {
   poster: String!
   torrents: [String!]
   genres: [String!]
+  seen: Boolean
 }
 
 # type Torrent {

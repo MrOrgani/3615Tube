@@ -42,6 +42,7 @@ export const registerTest = (
       expect(user.email).toEqual(email);
       expect(user.password).not.toEqual(password);
       expect(user.verified).toEqual(false);
+      User.update({ email }, { verified: true });
     });
 
     test("Yup validation", async () => {

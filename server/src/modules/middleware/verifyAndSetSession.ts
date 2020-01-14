@@ -22,7 +22,8 @@ export default async (
   // );
   if (!context.session.userId) {
     // console.log("we lack a cookie here", info.returnType);
-    if (info.returnType.name) return null;
+    if (info.returnType.name || info.returnType.ofType.name === "Film")
+      return null;
     else if (info.returnType.ofType.ofType.name === "Error")
       return formatError("cookie", "no session cookie was detected");
     else if (info.returnType.constructor.name === "GraphQLList") return [];
@@ -30,7 +31,6 @@ export default async (
   const user = await User.findOne({ where: { id: session.userId } });
   if (user) session.user = user;
   else return false;
-  // console.log("session . user = ", session.user);
 
   const result = await resolver(parent, args, context, info);
   // console.log("result from resolver", result);

@@ -40,13 +40,20 @@ const resolvers: ResolverMap = {
         return await formatYupError(error);
       }
       const { firstName, lastName, login, email, password } = args;
-      const userAlreadyExists = await User.findOne({
-        where: { email },
-        select: ["id"]
-      });
-      if (userAlreadyExists) {
+      if (
+        await User.findOne({
+          where: { email },
+          select: ["id"]
+        })
+      )
         return await formatError("email", "email is already taken");
-      }
+      else if (
+        await User.findOne({
+          where: { login },
+          select: ["id"]
+        })
+      )
+        return await formatError("login", "login is already taken");
       const user = (await saveUserInDb(
         password,
         login,

@@ -18,6 +18,6 @@ export class User extends BaseEntity {
   @Column("varchar", { length: 255, default: "en" }) language: string;
   @Column("simple-array", { default: [] }) seenFilms: string[];
   // @Column("simple-array", { nullable: true }) toWatchFilms: string[];
-  @Column("text", { nullable: true }) id42: string;
-  @Column("text", { nullable: true }) idGoogle: string;
+  @Column("text", { nullable: true, unique: true }) id42: string;
+  @Column("text", { nullable: true, unique: true }) idGoogle: string;
 }
