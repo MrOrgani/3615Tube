@@ -3,7 +3,16 @@ import React from "react";
 import MovieListView from "./MovieListView";
 import MovieListController from "../../controller/MovieListController";
 
-const MovieListConnector = (props: any) => {
+interface MediaProps {
+  loading?: boolean;
+  data?: any;
+  nbOfItem?: number;
+  history?: any;
+  filterList?: any;
+  loadMore?: () => void;
+}
+
+const MovieListConnector = (props: MediaProps) => {
   const { history } = props;
 
   return (

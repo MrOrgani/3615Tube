@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Grid, Box, Typography, Button } from "@material-ui/core";
 import StarOutlinedIcon from "@material-ui/icons/StarOutlined";
 
@@ -14,7 +14,7 @@ interface MediaProps {
   nbOfItem?: number;
   history?: any;
   filterList?: any;
-  loadMore?: any;
+  loadMore?: () => void;
 }
 
 const MovieSkeletonItem = (
@@ -45,23 +45,23 @@ const MovieListView = ({
   const userIsConnected = useContext(UserContext);
   const { pathname } = window.location;
   let [filters] = useContext(MovieListContext) as any;
+  const [load, setLoad] = useState(false);
 
-  // const handleScroll = () => {
-  //   console.log("SCROLLING");
-  //   if (
-  //     window.innerHeight + document.documentElement.scrollTop !==
-  //     document.documentElement.offsetHeight
-  //   )
-  //     return;
-  //   // filters = { ...filters, page: filters.page + 1 };
-  //   console.log("SCROLLING MAAAAAAAAAAAAAAX", filters);
-  //   loadMore();
-  // };
+  pathname === "/movies" &&
+    window.addEventListener("scroll", () => {
+      if (
+        window.innerHeight + document.documentElement.scrollTop !==
+        document.documentElement.offsetHeight
+      )
+        return;
+      if (loadMore && !load) {
+        setLoad(true);
+        setTimeout(() => loadMore(), 3000);
+        setLoad(false);
+      }
 
-  // useEffect(() => {
-  //   window.addEventListener("scroll", handleScroll);
-  //   return () => window.removeEventListener("scroll", handleScroll);
-  // }, []);
+      return null;
+    });
 
   return (
     <>
@@ -170,17 +170,6 @@ const MovieListView = ({
             </Box>
           ))}
       </Grid>
-
-      <Button
-        // type="submit"
-        fullWidth
-        variant="contained"
-        color="primary"
-        // disabled={isSubmitting}
-        onClick={loadMore}
-      >
-        Send
-      </Button>
     </>
   );
 };

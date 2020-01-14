@@ -6,9 +6,9 @@ import UserProfileView from "./UserProfileView";
 const UserProfileConnector = (props: any) => {
   const { history, userId } = props;
 
-  const onFinish = () => {
-    history.push("/profile");
-  };
+  // const onFinish = () => {
+  //   history.push("/profile");
+  // };
 
   return (
     <UserProfileController userId={userId}>
@@ -16,7 +16,7 @@ const UserProfileConnector = (props: any) => {
         <UserProfileView
           userInfo={userInfo}
           submit={submit}
-          onFinish={onFinish}
+          // onFinish={onFinish}
         />
       )}
     </UserProfileController>

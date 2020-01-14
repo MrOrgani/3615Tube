@@ -19,13 +19,13 @@ interface FormValues {
 
 interface Props {
   submit?: (values: FormValues) => Promise<FormikErrors<FormValues> | null>;
-  onFinish?: () => void;
+  // onFinish?: () => void;
   userInfo?: any;
   userLogin?: any;
   loading?: boolean;
 }
 
-const UserProfile = ({ userInfo, submit, onFinish, loading }: Props) => {
+const UserProfile = ({ userInfo, submit, loading }: Props) => {
   // console.log("userinfo UserProfile, ", userInfo);
   const { pathname } = window.location;
 
@@ -81,7 +81,7 @@ const UserProfile = ({ userInfo, submit, onFinish, loading }: Props) => {
             <MyProfileView
               userInfo={userInfo}
               submit={submit}
-              onFinish={onFinish}
+              // onFinish={onFinish}
             />
           )}
         </div>
