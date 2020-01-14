@@ -21,7 +21,7 @@ export default async (
   //   session.userId
   // );
   if (!context.session.userId) {
-    console.log("we lack a cookie here", info.returnType);
+    // console.log("we lack a cookie here", info.returnType);
     if (info.returnType.name || info.returnType.ofType.name === "Film")
       return null;
     else if (info.returnType.ofType.ofType.name === "Error")
