@@ -6,7 +6,7 @@ const RegisterConnector = (props: any) => {
   const { history } = props;
 
   const onFinish = () => {
-    history.push("/m/confirm-email", {
+    history.push("/m/login", {
       message: "check your email to confirm your account"
     });
   };
