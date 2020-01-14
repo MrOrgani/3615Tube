@@ -1,9 +1,9 @@
 import React from "react";
 // import MovieListSkeleton from "../MovieListSkeleton/MoviesListSkeleton.component";
-import MovieListView from "../MovieList/MovieListView";
+// import MovieListView from "../MovieList/MovieListView";
 
 import "./user-activity.styles.scss";
-import TabsComponent from "../Tabs/TabsComponent";
+// import TabsComponent from "../Tabs/TabsComponent";
 
 const UserActivity = ({ userInfo }: any) => {
   const { pathname } = window.location;

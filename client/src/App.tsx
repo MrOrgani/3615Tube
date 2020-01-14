@@ -3,33 +3,33 @@ import "./index.css";
 // import Header from "./components/header/header.component";
 // import Footer from "./components/footer/footer.component";
 import Pages from "./pages";
-import { UserProvider } from "./pages/context";
-import { useQuery } from "react-apollo";
+// import { UserProvider } from "./pages/context";
+// import { useQuery } from "react-apollo";
 
-import gql from "graphql-tag";
+// import gql from "graphql-tag";
 
-export const meQuery = gql`
-  query meQuery {
-    me {
-      lastName
-      login
-      firstName
-      language
-      avatar
-      email
-      language
-    }
-  }
-`;
+// export const meQuery = gql`
+//   query meQuery {
+//     me {
+//       id
+//       lastName
+//       login
+//       firstName
+//       language
+//       avatar
+//       email
+//       language
+//     }
+//   }
+// `;
 
 const App = () => {
-  const { data } = useQuery(meQuery);
-  // console.log("this is a test to see if the find One query works", data);
+  // const { data } = useQuery(meQuery);
 
   return (
-    <UserProvider value={data ? data.me : null}>
-      <Pages />
-    </UserProvider>
+    // <UserProvider value={data ? data.me : null}>
+    <Pages />
+    // </UserProvider>
   );
 };
 

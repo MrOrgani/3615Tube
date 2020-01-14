@@ -13,7 +13,7 @@ const ProfilePage = (props: any) => {
     }
   } = props;
 
-  // console.log("profile page", login);
+  console.log("profile page", id);
   return (
     <div className="profile-page">
       <div className="page-title">Profile Page</div>

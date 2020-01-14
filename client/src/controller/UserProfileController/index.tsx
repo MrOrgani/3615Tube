@@ -21,7 +21,8 @@ const profileMutation = gql`
     $login: String!
     $email: String!
     $password: String
-    $avatar: String
+    $avatar: String!
+    $language: String!
   ) {
     update(
       firstName: $firstName
@@ -30,6 +31,7 @@ const profileMutation = gql`
       email: $email
       password: $password
       avatar: $avatar
+      language: $language
     ) {
       path
       msg
@@ -64,7 +66,7 @@ const GET_USER_INFO = gql`
 `;
 
 const UserProfileController = ({ userId, children }: Props) => {
-  const myInfo = useContext(UserContext) as any;
+  const [myInfo] = useContext(UserContext) as any;
 
   const [mutate, { error: errorMut }] = useMutation(profileMutation);
   const { data, loading, error: errorQuery } = useQuery(GET_USER_INFO, {
@@ -75,7 +77,9 @@ const UserProfileController = ({ userId, children }: Props) => {
     return <p>{JSON.stringify(errorMut && errorQuery, null, 2)}</p>;
 
   if (loading) return <p>Loading...</p>;
-  const userInfo = data.findOne ? data.findOne : myInfo;
+  const userInfo = data ? data.findOne : myInfo;
+
+  console.log("data.findOne", data, userInfo);
 
   const submit = async (values: any) => {
     const {

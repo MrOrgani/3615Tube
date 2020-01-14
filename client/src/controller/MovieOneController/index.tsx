@@ -16,7 +16,7 @@ interface Props {
     data?: any;
     movieInfo?: any;
   }) => JSX.Element | null;
-  movieId?: string;
+  imdbId?: string;
 }
 
 const GET_ONE_MOVIE_INFO = gql`
@@ -36,7 +36,8 @@ const GET_ONE_MOVIE_INFO = gql`
 `;
 
 const MovieController = (props: Props) => {
-  const imdbId = useContext(MovieContext) as any;
+  // const imdbId = useContext(MovieContext) as any;
+  const imdbId = props.imdbId;
 
   const { data, loading, error } = useQuery(GET_ONE_MOVIE_INFO, {
     variables: { imdbId }

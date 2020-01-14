@@ -27,7 +27,7 @@ const resolvers: ResolverMap = {
         return await formatError("password", "wrong password");
       else if (!user.verified)
         return await formatError(
-          "verified",
+          "login",
           "you must verify your account before you can login"
         );
 

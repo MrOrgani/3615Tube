@@ -20,7 +20,7 @@ const MovieInfo = ({ data }: any) => {
     getCastAndCrew();
   }, [imdbId, setCrewInfo, setCastInfo]);
 
-  console.log("castInfo", castInfo);
+  // console.log("castInfo", castInfo);
   return (
     <Grid
       container

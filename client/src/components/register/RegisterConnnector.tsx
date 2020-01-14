@@ -1,19 +1,13 @@
 import React from "react";
 import RegisterView from "./RegisterView";
-import RegisterController from "../../controller/RegisterController";
+import RegisterController from "./RegisterController";
 
-const RegisterConnector = (props: any) => {
-  const { history } = props;
-
-  const onFinish = () => {
-    history.push("/m/login", {
-      message: "check your email to confirm your account"
-    });
-  };
-
+const RegisterConnector = ({ history }: any) => {
   return (
-    <RegisterController>
-      {({ submit }) => <RegisterView submit={submit} onFinish={onFinish} />}
+    <RegisterController history={history}>
+      {({ submit, onFinish }) => (
+        <RegisterView submit={submit} onFinish={onFinish} />
+      )}
     </RegisterController>
   );
 };

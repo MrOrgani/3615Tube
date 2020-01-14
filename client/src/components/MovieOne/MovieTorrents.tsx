@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React, { useContext } from "react";
 import { Typography, Grid, Paper, ButtonBase } from "@material-ui/core";
 import { TorrentContext } from "../../pages/context";
 

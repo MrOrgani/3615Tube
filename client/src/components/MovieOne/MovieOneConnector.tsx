@@ -2,9 +2,16 @@ import React from "react";
 import MovieController from "../../controller/MovieOneController";
 import MovieOneView from "./MovieOneView";
 
-const MovieOneConnector = () => {
+const MovieOneConnector = (props: any) => {
+  const {
+    // history,
+    match: {
+      params: { imdbId }
+    }
+  } = props;
+
   return (
-    <MovieController>
+    <MovieController imdbId={imdbId}>
       {({ movieInfo }) => <MovieOneView movieInfo={movieInfo} />}
     </MovieController>
   );

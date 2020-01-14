@@ -3,7 +3,12 @@ import ChangePasswordView from "./ChangePasswordView";
 import ChangePasswordController from "../../controller/ChangePasswordController";
 
 const ChangePasswordConnector = (props: any) => {
-  const { token, history } = props;
+  const {
+    match: {
+      params: { key }
+    },
+    history
+  } = props;
 
   const onFinish = () => {
     history.push("/login");
@@ -12,7 +17,7 @@ const ChangePasswordConnector = (props: any) => {
   return (
     <ChangePasswordController>
       {({ submit }) => (
-        <ChangePasswordView token={token} submit={submit} onFinish={onFinish} />
+        <ChangePasswordView token={key} submit={submit} onFinish={onFinish} />
       )}
     </ChangePasswordController>
   );

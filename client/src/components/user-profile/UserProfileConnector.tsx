@@ -4,7 +4,7 @@ import UserProfileController from "./../../controller/UserProfileController";
 import UserProfileView from "./UserProfileView";
 
 const UserProfileConnector = (props: any) => {
-  const { history, userId } = props;
+  const { userId } = props;
 
   // const onFinish = () => {
   //   history.push("/profile");

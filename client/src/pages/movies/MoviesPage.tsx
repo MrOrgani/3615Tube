@@ -13,12 +13,11 @@ const MoviesPage = (props: any) => {
     genres: "All",
     keywords: "",
     orderKey: "rating",
-    orderValue: "DESC",
-    allMovies: []
+    orderValue: "DESC"
   });
 
   return (
-    <div className="moviesPage">
+    <div className="moviesPage" id="moviesPage">
       <MovieListProvider value={[filters, setFilters]}>
         <MovieListConnector history={history} />
       </MovieListProvider>

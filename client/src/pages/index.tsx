@@ -1,20 +1,20 @@
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import HomePage from "./homepage/homepage.component";
-import RegisterPage from "./register/RegisterPage";
-import LoginPage from "./login/LoginPage";
-import ProfilePage from "./profile/ProfilePage";
-import ForgotPasswordPage from "./forgot-password/ForgotPasswordPage";
-import ChangePasswordPage from "./change-password/ChangePasswordPage";
-import ConfirmAccountPage from "./confirm/ConfirmAccountPage";
-import "./index.scss";
 import AuthRoute from "../controller/Auth/AuthRoute";
-import TextPage from "./textpage/textpage";
+import TextPage from "../components/textpage/textpage";
 import LogoutConnector from "../components/Logout/LogoutConnector";
 import Header from "../components/header/header.component";
 import Footer from "../components/footer/footer.component";
-import MoviePage from "./movie/MoviePage";
-import MoviesPage from "./movies/MoviesPage";
+import RegisterConnector from "../components/Register/RegisterConnnector";
+import LoginConnector from "../components/login/LoginConnector";
+import ConfirmAccountConnector from "../components/ConfirmAccount/ConfirmAccountConnector";
+import ChangePasswordConnector from "../components/ChangePassword/ChangePasswordConnector";
+import UserProfileConnector from "../components/user-profile/UserProfileConnector";
+import MovieListConnector from "../components/MovieList/MovieListConnector";
+import MovieOneConnector from "../components/MovieOne/MovieOneConnector";
+import ForgotPasswordConnector from "../components/ForgotPassword/ForgotPasswordConnector";
+import "./index.scss";
 
 export const Pages = () => (
   <BrowserRouter>
@@ -22,17 +22,20 @@ export const Pages = () => (
     <div className="App">
       <Switch>
         <Route exact path="/" component={HomePage} />
-        <Route path="/register" component={RegisterPage} />
-        <Route path="/login" component={LoginPage} />
+        <Route path="/register" component={RegisterConnector} />
+        <Route path="/login" component={LoginConnector} />
         <Route path="/m" component={TextPage} />
         <Route path="/logout" component={LogoutConnector} />
-        <Route path="/confirm/:token" component={ConfirmAccountPage} />
-        <Route path="/forgot-password" component={ForgotPasswordPage} />
-        <Route path="/change-password/:key" component={ChangePasswordPage} />
-        <AuthRoute exact path="/profile/:id" component={ProfilePage} />
-        <AuthRoute exact path="/profile" component={ProfilePage} />
-        <Route exact path="/movies" component={MoviesPage} />
-        <AuthRoute exact path="/movie/:imdbId" component={MoviePage} />
+        <Route path="/confirm/:token" component={ConfirmAccountConnector} />
+        <Route path="/forgot-password" component={ForgotPasswordConnector} />
+        <Route
+          path="/change-password/:key"
+          component={ChangePasswordConnector}
+        />
+        <AuthRoute exact path="/profile/:id" component={UserProfileConnector} />
+        <AuthRoute exact path="/profile" component={UserProfileConnector} />
+        <Route exact path="/movies" component={MovieListConnector} />
+        <AuthRoute exact path="/movie/:imdbId" component={MovieOneConnector} />
       </Switch>
     </div>
     <Footer />

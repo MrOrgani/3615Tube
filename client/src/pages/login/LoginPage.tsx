@@ -1,6 +1,18 @@
 import React from "react";
 import LoginConnector from "../../components/login/LoginConnector";
 
+// DELETE
+// DELETE
+// DELETE
+// DELETE
+// DELETE
+// DELETE
+// DELETE
+// DELETE
+// DELETE
+// DELETE
+// DELETE
+
 import "./sign-in-sign-up.styles.scss";
 
 const LoginPage = (props: any) => {

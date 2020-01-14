@@ -16,9 +16,20 @@ router.get("/:token", async (req: express.Request, res: express.Response) => {
     const user = (await User.findOne({ id })) as User;
     if (user) {
       await User.update({ id }, { verified: true });
-      res.send("ok");
-    } else res.send("no user found");
-  } else res.send("no id provided");
+      res.send({
+        type: "Success !",
+        message: `Your account has been validated, you can now login.`
+      });
+    } else
+      res.send({
+        type: "Error !",
+        message: `No user found.`
+      });
+  } else
+    res.send({
+      type: "Error !",
+      message: `No id provided.`
+    });
 });
 
 module.exports = router;

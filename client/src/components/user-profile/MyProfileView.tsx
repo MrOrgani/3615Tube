@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
@@ -11,7 +11,6 @@ import { ProfileSchema } from "../../common";
 import BuildOutlinedIcon from "@material-ui/icons/BuildOutlined";
 import {
   Grid,
-  TextField,
   Button,
   Container,
   FormControl,
@@ -19,6 +18,8 @@ import {
   Select,
   MenuItem
 } from "@material-ui/core";
+import FieldInput from "../FiledInput/FieldInput.component";
+import { UserContext } from "../../pages/context";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -74,7 +75,9 @@ const Fade = React.forwardRef<HTMLDivElement, FadeProps>(function Fade(
 export default function SpringModal(props: any) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
-  const { userInfo } = props;
+  const [myInfo, setMyInfo] = useContext(UserContext) as any;
+
+  console.log("userInfo,", myInfo);
   const handleOpen = () => {
     setOpen(true);
   };
@@ -105,15 +108,17 @@ export default function SpringModal(props: any) {
         <Fade in={open}>
           <div className={classes.paper}>
             <Formik
-              initialValues={{ ...userInfo, newPassowrd: "" }}
+              initialValues={myInfo}
               onSubmit={async (values, actions) => {
                 // console.log("values, in Myprofile view ", values);
                 const errors = await props.submit(values);
+                // console.log("error on Myprofile, ", errors);
                 if (errors) {
                   actions.setErrors(errors);
                 } else {
                   setOpen(false);
-                  props.onFinish();
+                  setMyInfo({ ...myInfo, values });
+                  // props.onFinish();
                 }
               }}
               validateOnChange={false}
@@ -141,46 +146,35 @@ export default function SpringModal(props: any) {
                         <span>Click on the image to change your avatar</span>
 
                         {errors.avatar ? (
-                          <label style={{ fontSize: "10px", color: "red" }}>
+                          <label style={{ fontSize: "20px", color: "red" }}>
                             You must change your avatar
                           </label>
                         ) : null}
 
                         <Grid item container spacing={2} justify="center">
-                          <Grid item xs={12} sm={5}>
-                            <TextField
-                              autoComplete="fname"
-                              name="firstName"
-                              variant="outlined"
-                              required
-                              fullWidth
-                              id="firstName"
-                              label="First Name"
-                              autoFocus
-                              value={values.firstName}
-                              onChange={handleChange}
-                            />
-                          </Grid>
-                          <Grid item xs={12} sm={5}>
-                            <TextField
-                              variant="outlined"
-                              required
-                              fullWidth
-                              id="lastName"
-                              label="Last Name"
-                              name="lastName"
-                              autoComplete="lname"
-                              value={values.lastName}
-                              onChange={handleChange}
-                            />
-                          </Grid>
+                          <Field
+                            grid={{ xs: 12, sm: 5 }}
+                            required
+                            name="firstName"
+                            type="text"
+                            component={FieldInput}
+                            label="First Name"
+                          />
+                          <Field
+                            grid={{ xs: 12, sm: 5 }}
+                            required
+                            name="lastName"
+                            type="text"
+                            label="Last Name"
+                            component={FieldInput}
+                          />
                           <Grid item xs={12} sm={2}>
                             <FormControl variant="outlined">
                               <InputLabel
                                 ref={inputLabel}
                                 id="demo-simple-select-outlined-label"
                               >
-                                Age
+                                Language
                               </InputLabel>
                               <Select
                                 name="language"
@@ -201,49 +195,32 @@ export default function SpringModal(props: any) {
                               </Select>
                             </FormControl>
                           </Grid>
-                          <Grid item xs={12}>
-                            <TextField
-                              variant="outlined"
-                              required
-                              fullWidth
-                              id="login"
-                              label="Login"
-                              name="login"
-                              value={values.login}
-                              onChange={handleChange}
-                            />
-                          </Grid>
-                          <Grid item xs={12}>
-                            <TextField
-                              variant="outlined"
-                              required
-                              fullWidth
-                              id="email"
-                              label="Email Address"
-                              name="email"
-                              autoComplete="email"
-                              value={values.email}
-                              onChange={handleChange}
-                            />
-                          </Grid>
-                          <Grid item xs={12}>
-                            <TextField
-                              variant="outlined"
-                              fullWidth
-                              name="password"
-                              label="New Password"
-                              type="password"
-                              id="password"
-                              onChange={handleChange}
-                            />
-                          </Grid>
+                          <Field
+                            required
+                            name="login"
+                            type="text"
+                            label="Login"
+                            component={FieldInput}
+                          />
+                          <Field
+                            required
+                            name="email"
+                            type="text"
+                            label="Email"
+                            component={FieldInput}
+                          />
+                          <Field
+                            name="password"
+                            type="password"
+                            label="Password"
+                            component={FieldInput}
+                          />
                           <Grid item xs={12} sm={4}>
                             <Button
                               type="submit"
                               fullWidth
                               variant="contained"
                               color="primary"
-                              // className={classes.submit}
                               disabled={isSubmitting}
                             >
                               Modify

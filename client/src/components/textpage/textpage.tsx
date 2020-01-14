@@ -7,7 +7,11 @@ const TextPage = (props: any) => {
       state: { message }
     }
   } = props;
-  return <div>{message}</div>;
+  return (
+    <div className="sign-up" style={{ background: "black", color: "white" }}>
+      {message}
+    </div>
+  );
 };
 
 export default TextPage;

@@ -1,27 +1,13 @@
 import React from "react";
 import ConfirmAccountView from "./ConfirmAccountView";
-// import ConfirmAccountController from "../../controller/ConfirmAccountController";
-
-// interface Params {
-//   loading: boolean;
-//   data: string;
-// }
 
 const ConfirmAccountConnector = (props: any) => {
-  const { token } = props;
-  return (
-    // <ConfirmAccountController token={token}>
-    // {({ loading, data }: any) => (
-    <ConfirmAccountView
-      token={token}
-      // status={{
-      // loading,
-      // data
-      // }}
-    />
-    // )}
-    // </ConfirmAccountController>
-  );
+  const {
+    match: {
+      params: { token }
+    }
+  } = props;
+  return <ConfirmAccountView token={token} />;
 };
 
 export default ConfirmAccountConnector;

@@ -4,15 +4,11 @@ import CommentsView from "./CommentsView";
 // import LoginView from "./LoginView";
 // import LoginController from "../../controller/LoginController";
 
-const CommentConnector = () => {
+const CommentConnector = (props: any) => {
   return (
     <CommentsController>
       {({ allCommentary, submit }) => (
-        <CommentsView
-          submit={submit}
-          data={allCommentary}
-          //   onFinish={onFinish}
-        />
+        <CommentsView submit={submit} data={allCommentary} />
       )}
     </CommentsController>
   );

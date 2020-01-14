@@ -6,7 +6,25 @@ import { MovieProvider } from "../context";
 
 const MoviePage = (props: any) => {
   const {
-    // history,
+    // DELETE,
+    // DELETE,
+    // DELETE,
+    // DELETE,
+    // DELETE,
+    // DELETE,
+    // DELETE,
+    // DELETE,
+    // DELETE,
+    // DELETE,
+    // DELETE,
+    // DELETE,
+    // DELETE,
+    // DELETE,
+    // DELETE,
+    // DELETE,
+    // DELETE,
+    // DELETE,
+    // DELETE,
     match: {
       params: { imdbId }
     }

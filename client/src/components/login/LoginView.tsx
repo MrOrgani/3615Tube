@@ -26,6 +26,7 @@ export default (props: Props) => {
         }}
         onSubmit={async (values, actions) => {
           const errors = await props.submit(values);
+          // console.log("errros of login are : ", errors);
           if (errors) {
             actions.setErrors(errors);
           } else {

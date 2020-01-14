@@ -3,9 +3,10 @@ import { useQuery, useLazyQuery } from "react-apollo";
 import gql from "graphql-tag";
 // import { normalizeErrors } from "../../utils/normalizeErrors";
 // import { movieList } from "../../test.js";
-import MovieListItem from "../../components/MovieList/MovieListView";
+// import MovieListItem from "../../components/MovieList/MovieListView";
 import { useContext } from "react";
 import { MovieListContext } from "../../pages/context";
+import MovieListLoading from "../../components/MovieList/MovieListLoading";
 
 interface Props {
   children: (data: {
@@ -79,7 +80,7 @@ const MovieListController = (props: Props) => {
   if (error) return <p>{JSON.stringify(error, null, 2)}</p>;
 
   //SI LOADING JE RENVOIE UN -------SKELETON------- DES COMS
-  if (loading) return <MovieListItem loading />;
+  if (loading) return <MovieListLoading loading />;
 
   console.log("allMovies, ", allMovies);
 

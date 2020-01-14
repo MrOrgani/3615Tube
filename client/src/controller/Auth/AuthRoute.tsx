@@ -24,7 +24,7 @@ const AuthRoute = (props: any) => {
   // console.log("data in Authroute, ", data);
   const renderRoute = (routeProps: any) => {
     const { component } = props;
-    // console.log("data in Authroute, ", data);
+    console.log("data in Authroute, ", data);
     if (!data || loading) {
       // loading screen
       return null;

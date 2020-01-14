@@ -12,7 +12,7 @@ const Footer: any = () => {
       <span role="img" aria-label="coffee">
         ☕️
       </span>{" "}
-      by morgani & vlecoq-v
+      by morgani & vlecoq-v & mtordjma & Piabdo
     </div>
   );
 };

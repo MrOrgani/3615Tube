@@ -1,6 +1,6 @@
-import React, { useContext, useEffect } from "react";
-import { Grid, Box, Typography } from "@material-ui/core";
-import StarOutlinedIcon from "@material-ui/icons/StarOutlined";
+import React, { useContext } from "react";
+import { Grid, Box } from "@material-ui/core";
+// import StarOutlinedIcon from "@material-ui/icons/StarOutlined";
 
 import "./MoviesListSkeleton.styles.scss";
 import Skeleton from "@material-ui/lab/Skeleton";
@@ -14,7 +14,6 @@ interface MediaProps {
   nbOfItem?: number;
   history?: any;
   filterList?: any;
-  loadMore: () => void;
 }
 
 const MovieSkeletonItem = (
@@ -35,34 +34,11 @@ const MovieSkeletonItem = (
   </>
 );
 
-const MovieListView = ({
-  data,
-  history,
-  loading,
-  filterList,
-  loadMore
-}: MediaProps) => {
+const MovieListLoading = ({ loading, filterList }: MediaProps) => {
   const userIsConnected = useContext(UserContext);
   const { pathname } = window.location;
   // let [filters] = useContext(MovieListContext) as any;
   // const [load, setLoad] = useState(false);
-
-  // ----------------------------------- INFINITE SCROLL ---------------------
-  useEffect(() => {
-    pathname === "/movies" &&
-      window.addEventListener("scroll", function() {
-        console.log("scroooopoooooooooolling");
-        if (
-          window.innerHeight + document.documentElement.scrollTop !==
-          document.documentElement.offsetHeight
-        ) {
-          return;
-        } else if (!loading && pathname === "/movies") {
-          loadMore();
-        }
-      });
-  }, [loadMore, loading, pathname]);
-  // ----------------------------------- INFINITE SCROLL ---------------------
 
   return (
     <>
@@ -78,7 +54,7 @@ const MovieListView = ({
               {MovieSkeletonItem}
             </Box>
           ))}
-        {// IF !LOADING ---> RENDER DATA
+        {/* {// IF !LOADING ---> RENDER DATA
         data &&
           Array.from(data).map((item: any, index: any) => (
             <Box
@@ -169,10 +145,10 @@ const MovieListView = ({
                 </Box>
               </>
             </Box>
-          ))}
+          ))} */}
       </Grid>
     </>
   );
 };
 
-export default MovieListView;
+export default MovieListLoading;

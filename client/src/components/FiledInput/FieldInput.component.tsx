@@ -1,17 +1,6 @@
 import React from "react";
-// import PropTypes from "prop-types";
-// import { withStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import { Grid } from "@material-ui/core";
-
-// const styles = {
-//   // root: {
-//   //   background: "none"
-//   // },
-//   input: {
-//     color: "white"
-//   }
-// };
 
 function FieldInput(props: any) {
   const { grid } = props;
@@ -33,9 +22,5 @@ function FieldInput(props: any) {
     </Grid>
   );
 }
-
-// FieldInput.propTypes = {
-//   classes: PropTypes.object.isRequired
-// };
 
 export default FieldInput;

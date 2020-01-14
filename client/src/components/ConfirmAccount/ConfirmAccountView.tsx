@@ -1,18 +1,10 @@
 import React, { useEffect } from "react";
 import Axios from "axios";
 import { useState } from "react";
-
-// import { Link } from "react-router-dom";
-
-// interface FormValues {
-//   email: string;
-// }
+import { Grid, Button } from "@material-ui/core";
+import { Link } from "react-router-dom";
 
 interface Props {
-  // status: {
-  // loading: any;
-  // data: any;
-  // };
   token: string;
 }
 
@@ -20,12 +12,16 @@ export default (props: Props) => {
   const { token } = props;
 
   const [loading, setLoading] = useState(false);
+  const [data, setData] = useState({ status: null, type: "", message: "" });
 
   useEffect(() => {
     (async () => {
       setLoading(true);
-      const data = await Axios.get(`http://localhost:4000/confirm/${token}`);
-      console.log("data is ", data);
+      const {
+        status,
+        data: { type, message }
+      } = await Axios.get(`http://localhost:4000/confirm/${token}`);
+      setData({ status, type, message });
       setLoading(false);
     })();
   }, [setLoading, token]);
@@ -34,6 +30,17 @@ export default (props: Props) => {
     <div className="sign-up">
       <h2>Validating your account</h2>
       {loading && <div>"Loading..."</div>}
+      {!loading && <h1>{data.type}</h1>}
+      {!loading && <h6>{data.message}</h6>}
+      {data.status === 200 && (
+        <Grid item xs={12} container justify="center">
+          <Link to="/login">
+            <Button variant="contained" color="primary">
+              Login
+            </Button>
+          </Link>
+        </Grid>
+      )}
     </div>
   );
 };

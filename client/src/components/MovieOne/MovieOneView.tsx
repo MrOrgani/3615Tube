@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 // import videoPlayerImg from "../../assets/images/LecteurToSuppr.png";
 // import TabsComponent from "../Tabs/TabsComponent";
-import MovieInfo from "../MovieInfo/MovieInfo";
+import MovieInfo from "./MovieInfo";
 import CommentConnector from "../Comments/CommentConnector";
 import { Grid } from "@material-ui/core";
 import MovieTorrents from "./MovieTorrents";
