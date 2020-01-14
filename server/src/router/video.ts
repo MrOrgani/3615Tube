@@ -13,16 +13,13 @@ const router = express.Router();
 */
 router.route("/:magnet").get(async (req, res) => {
   try{
-      console.log("PARAMSMAGNET=>", req.params.magnet)
-      const magnet: any = await torrentManager.parseMagnet(req.params.magnet);
+      const magnet = req.params.magnet;
     // ==> Have to verify magnet here
-      const engine = torrentStream(magnet.uri,{path: './downloads/', verify: true , trackers: magnet.trackers});
+      const engine = torrentStream(magnet,{path: './downloads/', verify: true });
       const file: any = torrentManager.isDownloaded(magnet) || await torrentManager.getTorrentFile(engine);
       if(file.type === 'mp4' || file.type === 'webm'){
-        console.log('===>NORMAL STREAM<====');
         torrentManager.startStream(file,req,res);
       } else if(file.type === 'mkv'){
-        console.log('===>CONVERT STREAM<====');
         torrentManager.startConvert(file,res);
       } else { throw new Error('BAD_EXTENSION') };
     } catch(err){

@@ -24,10 +24,10 @@ const defaultValues: {
 //https://stackoverflow.com/questions/50705276/typeorm-postgres-where-any-or-in-with-querybuilder-or-find
 const resolvers: ResolverMap = {
   Query: {
-    // searchFilms:
-    searchFilms: createMiddleware(
-      verifyAndSetSession,
-      async (_: any, args: GQL.ISearchFilmsOnQueryArguments, { session }) => {
+    searchFilms:
+      // searchFilms: createMiddleware(
+      //   verifyAndSetSession,
+      async (_: any, args: GQL.ISearchFilmsOnQueryArguments) => {
         try {
           if (!args.page || args.page < 0) args.page = defaultValues.page;
           if (!args.year) args.year = defaultValues.year;
@@ -38,7 +38,7 @@ const resolvers: ResolverMap = {
           if (!args.genres || !genreList.includes(args.genres))
             args.genres = defaultValues.genres;
           if (!args.order) args.order = defaultValues.order;
-          let result = (await Film.find({
+          const result = (await Film.find({
             where: {
               rating: Between(args.rating[0], args.rating[1]),
               year: Between(args.year[0], args.year[1]),
@@ -51,20 +51,14 @@ const resolvers: ResolverMap = {
             order: args.order as any,
             take: 50,
             skip: 50 * args.page
-          })) as Film[];
-          // console.log("length of result:", result.length);
-          result.forEach((film: Film) => {
-            film.seen = session.user.seenFilms.includes(film.imdbId)
-              ? true
-              : false;
-          });
+          })) as any;
+          console.log("length of result:", result.length);
           return result;
         } catch (err) {
           console.log("error in the film fetching", err);
           return null;
         }
       }
-    )
   }
 };
 

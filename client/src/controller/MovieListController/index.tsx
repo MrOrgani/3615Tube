@@ -47,19 +47,9 @@ const GET_MOVIES = gql`
 `;
 
 const MovieListController = (props: Props) => {
-  const { children, variables } = props;
+  const [filters] = useContext(MovieListContext) as any;
 
-  const filters = useContext(MovieListContext) as any;
-
-  console.log("props of MovieListController", props);
   console.log("filters in MovieListController", filters);
-  // const key = useContext(MovieContext) as any;
-  // console.log("CommentController, key MovieContext waiting for a :key, ", key);
-
-  // FIND A MOVIE
-  //   On execute la query pour fetch de la data
-  //  const { error, data: { movies = {} }, loading } = useQuery(GET_MOVIES)
-  //           ||
   const { data, loading, error, fetchMore } = useQuery(GET_MOVIES, {
     variables: filters
   });
@@ -79,8 +69,10 @@ const MovieListController = (props: Props) => {
   // console.log("data fitlered", result);
   // -----------> SI DES COMS, LES REDESIGNER
 
-  // ECRIRE UN COMMENTAIRE
-  // const [mutate, { error: errorMut }] = useMutation(POST_MOVIE_COMMENT);
+  if (filteredList && filteredList.searchFilms) {
+    allMovies = filteredList.searchFilms;
+    console.log("ALL MOVIES CHANGED", allMovies);
+  }
 
   //SI ERREUR DE GRAPHQL RETURN THIS
   if (error) return <p>{JSON.stringify(error, null, 2)}</p>;
@@ -88,42 +80,29 @@ const MovieListController = (props: Props) => {
   //SI LOADING JE RENVOIE UN -------SKELETON------- DES COMS
   if (loading) return <MovieListItem loading />;
 
-  // const submit = async (values: any) => {
-  //   const {
-  //     data: { searchFilms }
-  //   } = (await useQuery(GET_MOVIES, {
-  //     variables: values
-  //   })) as any;
-
-  //   if (putCommentary) {
-  //     return normalizeErrors(putCommentary);
-  //   }
-  //   return searchFilms;
-  // };
-
   console.log("allMovies, ", allMovies);
 
-  return children({
-    // hasMoreListings,
+  return props.children({
     allMovies,
-    // loading,
     filterList,
     loadMore: () => {
+      // filters.page++;
+      console.log("filter page", filters.page);
+
       fetchMore({
         variables: {
-          ...variables,
-          offset: allMovies.length
+          ...filters,
+          page: ++filters.page
         },
-        updateQuery: (prev, { fetchMoreResult }) => {
+        updateQuery: (prev, { fetchMoreResult, variables }) => {
+          // console.log("prev", prev, "fetchmore", fetchMoreResult, variables);
           if (!fetchMoreResult) {
             return prev;
           }
           return {
             ...prev,
-            searchListings: [
-              ...prev.searchListings,
-              ...fetchMoreResult.searchListings
-            ]
+            searchFilms: [...prev.searchFilms, ...fetchMoreResult.searchFilms],
+            variables: variables
           };
         }
       });

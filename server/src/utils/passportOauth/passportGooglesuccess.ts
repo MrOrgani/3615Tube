@@ -1,7 +1,6 @@
 import { Response } from "express";
 import { User } from "../../entity/User";
 import { saveUserInDb } from "../../modules/user/register/resolvers";
-import { findNewLogin } from "./findNewLogin";
 
 export async function passportGoogleSuccess(req: any, res: Response) {
   if (req.user) {
@@ -17,12 +16,12 @@ export async function passportGoogleSuccess(req: any, res: Response) {
       if (!id) throw "no id was received from the response";
       if (!req.session) throw "session Issue with your request";
       let registeredUser = (await User.findOne({
-        where: [{ email }, { idGoogle: parseInt(id) }]
+        where: { idGoogle: parseInt(id) }
       })) as User;
       if (!registeredUser) {
         registeredUser = (await saveUserInDb(
           "",
-          (await findNewLogin(firstName + lastName)) as string,
+          firstName + lastName,
           email,
           firstName,
           lastName

@@ -19,7 +19,7 @@ const getYtsPage: any = async (i: number) => {
 const seedYts = async () => {
   console.log("seeding YTS");
   let functionArray: Array<any> = [];
-  for (var i = 0; i < 1; i++) {
+  for (var i = 0; i < 10; i++) {
     functionArray.push(getYtsPage(i));
   }
   const rawPagesResults = (await Promise.all(functionArray)) as any;
@@ -52,7 +52,7 @@ const getPctPage: any = async () => {
 const seedPct = async (imdbIdArray: string[]) => {
   console.log("seeding POPCORNTIME");
   let functionArray: Array<any> = [];
-  for (var i = 0; i < 10; i++) {
+  for (var i = 0; i < 100; i++) {
     functionArray.push(getPctPage(i));
   }
   const rawPagesResults = (await Promise.all(functionArray)) as any;

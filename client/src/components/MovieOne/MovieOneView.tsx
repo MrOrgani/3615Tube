@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 // import videoPlayerImg from "../../assets/images/LecteurToSuppr.png";
 // import TabsComponent from "../Tabs/TabsComponent";
 import MovieInfo from "../MovieInfo/MovieInfo";
-import MoviePlayer from '../MoviePlayer/MoviePlayer';
 import CommentConnector from "../Comments/CommentConnector";
 import { Grid } from "@material-ui/core";
 import MovieTorrents from "./MovieTorrents";
@@ -47,7 +46,6 @@ const MovieOneSkeleton = (
 
 const MovieOneView = ({ movieInfo, loading }: any) => {
   const [srcTorrent, setSrcTorrent] = useState("");
-
   return (
     <>
       {movieInfo && (
@@ -55,7 +53,12 @@ const MovieOneView = ({ movieInfo, loading }: any) => {
           <Grid container xl={12} spacing={3}>
             {/**********************  PLAYER **********************************/}
             <Grid item container xl={6} justify="center">
-              <MoviePlayer />
+              <video id="videoPlayer" controls>
+                {/* <source
+                src={`http://localhost:4000/streaming/${magnet}`}
+                type="video/mp4"
+              /> */}
+              </video>
             </Grid>
             {/**********************  INFO ON THE MOVIE **********************************/}
             <Grid item xl={6} md={12} container>

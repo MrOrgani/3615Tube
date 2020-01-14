@@ -10,13 +10,15 @@ const MovieListConnector = (props: any) => {
     <MovieListController>
       {({
         allMovies,
-        filterList
+        filterList,
+        loadMore
         // submit
       }) => (
         <MovieListView
           history={history}
           data={allMovies}
           filterList={filterList}
+          loadMore={loadMore}
         />
       )}
     </MovieListController>

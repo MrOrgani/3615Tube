@@ -26,11 +26,8 @@ const resolvers: ResolverMap = {
       const validPassword = await bcrypt.compare(password, user.password);
       if (!validPassword)
         return await formatError("password", "wrong password");
-      else if (!user.verified)
-        return await formatError(
-          "verified",
-          "you must verify your account before you can login"
-        );
+      // else if (!user.verified)
+      //   return await formatError("verified", "you must verify your account before you can login")
 
       //LOGIN SUCCESSFULL
       session.userId = user.id;

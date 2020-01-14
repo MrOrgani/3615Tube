@@ -16,7 +16,7 @@ const resolvers: ResolverMap = {
           .where("commentary.film_id = :imdbId", { imdbId })
           .orderBy("commentary.createdAt", "DESC")
           .execute();
-        // console.log(result);
+        console.log(result);
         if (!result[0]) return null;
         return formatCommentaryResult(result);
       }

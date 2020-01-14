@@ -22,6 +22,7 @@ interface Props {
 const GET_ONE_MOVIE_INFO = gql`
   query findOneFilm($imdbId: String) {
     findOneFilm(imdbId: $imdbId) {
+      imdbId
       title
       year
       synopsis

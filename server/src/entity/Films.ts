@@ -17,5 +17,4 @@ export class Film extends BaseEntity {
   @Column("text") poster: string;
   @Column("int") rating: number;
   @Column("varchar", { nullable: true, array: true }) torrents: string[];
-  @Column("bool", { nullable: true }) seen: boolean;
 }

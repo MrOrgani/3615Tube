@@ -1,11 +1,12 @@
-import React, { useContext } from "react";
-import { Grid, Box, Typography } from "@material-ui/core";
+import React, { useContext, useEffect } from "react";
+import { Grid, Box, Typography, Button } from "@material-ui/core";
 import StarOutlinedIcon from "@material-ui/icons/StarOutlined";
 
 import "./MoviesListSkeleton.styles.scss";
 import Skeleton from "@material-ui/lab/Skeleton";
 import { UserContext } from "../../pages/context";
 import MovieListFilters from "./MovieListFilters";
+import { MovieListContext } from "../../pages/context";
 
 interface MediaProps {
   loading?: boolean;
@@ -13,6 +14,7 @@ interface MediaProps {
   nbOfItem?: number;
   history?: any;
   filterList?: any;
+  loadMore?: any;
 }
 
 const MovieSkeletonItem = (
@@ -33,116 +35,153 @@ const MovieSkeletonItem = (
   </>
 );
 
-const MovieListView = ({ data, history, loading, filterList }: MediaProps) => {
+const MovieListView = ({
+  data,
+  history,
+  loading,
+  filterList,
+  loadMore
+}: MediaProps) => {
   const userIsConnected = useContext(UserContext);
   const { pathname } = window.location;
+  let [filters] = useContext(MovieListContext) as any;
+
+  // const handleScroll = () => {
+  //   console.log("SCROLLING");
+  //   if (
+  //     window.innerHeight + document.documentElement.scrollTop !==
+  //     document.documentElement.offsetHeight
+  //   )
+  //     return;
+  //   // filters = { ...filters, page: filters.page + 1 };
+  //   console.log("SCROLLING MAAAAAAAAAAAAAAX", filters);
+  //   loadMore();
+  // };
+
+  // useEffect(() => {
+  //   window.addEventListener("scroll", handleScroll);
+  //   return () => window.removeEventListener("scroll", handleScroll);
+  // }, []);
 
   return (
-    <Grid item container lg={12}>
-      {// ********************* FILTERS ********************************
-      userIsConnected && pathname.includes("/movie") && (
-        <MovieListFilters filterList={filterList} />
-      )}
-      {// IF LOADING ---> SKELETON
-      loading &&
-        Array.from(new Array(20)).map((_, index: any) => (
-          <Box key={index} width={185} mx={1}>
-            {MovieSkeletonItem}
-          </Box>
-        ))}
-      {// IF !LOADING ---> RENDER DATA
-      data &&
-        Array.from(data).map((item: any, index: any) => (
-          <Box
-            key={index}
-            width={185}
-            mx={1}
-            onClick={() => history.push(`/movie/${item.imdbId}`)}
-            // className="movie-box"
-          >
-            <>
-              <div className="movie-box">
-                <img
-                  style={{ width: 185, height: 278 }}
-                  alt={item.title}
-                  src={item.poster ? item.poster : null}
-                  className="poster"
-                />
-                <Grid
-                  container
-                  className="hover-info"
-                  direction="column"
-                  style={{ width: "185px", height: "278px" }}
-                >
+    <>
+      <Grid item container lg={12}>
+        {// ********************* FILTERS ********************************
+        userIsConnected && pathname.includes("/movie") && (
+          <MovieListFilters filterList={filterList} />
+        )}
+        {// IF LOADING ---> SKELETON
+        loading &&
+          Array.from(new Array(20)).map((_, index: any) => (
+            <Box key={index} width={185} mx={1}>
+              {MovieSkeletonItem}
+            </Box>
+          ))}
+        {// IF !LOADING ---> RENDER DATA
+        data &&
+          Array.from(data).map((item: any, index: any) => (
+            <Box
+              key={index}
+              width={185}
+              mx={1}
+              onClick={() => history.push(`/movie/${item.imdbId}`)}
+              // className="movie-box"
+            >
+              <>
+                <div className="movie-box">
+                  <img
+                    style={{ width: 185, height: 278 }}
+                    alt={item.title}
+                    src={item.poster ? item.poster : null}
+                    className="poster"
+                  />
                   <Grid
-                    item
                     container
-                    justify="center"
-                    alignItems="flex-start"
-                    style={{ margin: "10px 0px" }}
+                    className="hover-info"
+                    direction="column"
+                    style={{ width: "185px", height: "278px" }}
                   >
                     <Grid
                       item
                       container
                       justify="center"
-                      alignItems="center"
-                      xs
+                      alignItems="flex-start"
+                      style={{ margin: "10px 0px" }}
                     >
-                      <Grid item>
-                        <StarOutlinedIcon
-                          fontSize={"small"}
-                          style={{
-                            color: "yellow",
-                            zIndex: 5,
-                            fontSize: "20px"
-                          }}
-                        />
-                      </Grid>
                       <Grid
                         item
-                        style={{
-                          zIndex: 99999
-                        }}
+                        container
+                        justify="center"
+                        alignItems="center"
+                        xs
                       >
-                        {item.rating}
+                        <Grid item>
+                          <StarOutlinedIcon
+                            fontSize={"small"}
+                            style={{
+                              color: "yellow",
+                              zIndex: 5,
+                              fontSize: "20px"
+                            }}
+                          />
+                        </Grid>
+                        <Grid
+                          item
+                          style={{
+                            zIndex: 99999
+                          }}
+                        >
+                          {item.rating}
+                        </Grid>
+                      </Grid>
+                      <Grid item xs style={{ textAlign: "center" }}>
+                        {item.year}
                       </Grid>
                     </Grid>
-                    <Grid item xs style={{ textAlign: "center" }}>
-                      {item.year}
+                    <Grid item xl style={{ margin: "0 10px" }}>
+                      <Typography
+                        align="justify"
+                        variant="caption"
+                        // noWrap
+                        style={{
+                          // width: "100%",
+                          overflow: "hidden",
+                          display: "-webkit-box",
+                          WebkitLineClamp: 12,
+                          WebkitBoxOrient: "vertical"
+                          // position: "absolute"
+                        }}
+                      >
+                        {item.synopsis}
+                      </Typography>
                     </Grid>
                   </Grid>
-                  <Grid item xl style={{ margin: "0 10px" }}>
-                    <Typography
-                      align="justify"
-                      variant="caption"
-                      // noWrap
-                      style={{
-                        // width: "100%",
-                        overflow: "hidden",
-                        display: "-webkit-box",
-                        WebkitLineClamp: 12,
-                        WebkitBoxOrient: "vertical"
-                        // position: "absolute"
-                      }}
-                    >
-                      {item.synopsis}
-                    </Typography>
-                  </Grid>
-                </Grid>
-              </div>
-              <Box pr={2}>
-                <Typography
-                  variant="body2"
-                  style={{ color: "white" }}
-                  align="center"
-                >
-                  {item.title}
-                </Typography>
-              </Box>
-            </>
-          </Box>
-        ))}
-    </Grid>
+                </div>
+                <Box pr={2}>
+                  <Typography
+                    variant="body2"
+                    style={{ color: "white" }}
+                    align="center"
+                  >
+                    {item.title}
+                  </Typography>
+                </Box>
+              </>
+            </Box>
+          ))}
+      </Grid>
+
+      <Button
+        // type="submit"
+        fullWidth
+        variant="contained"
+        color="primary"
+        // disabled={isSubmitting}
+        onClick={loadMore}
+      >
+        Send
+      </Button>
+    </>
   );
 };
 

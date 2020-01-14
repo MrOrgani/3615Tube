@@ -1,19 +1,19 @@
 import { ResolverMap } from "../../../types/graphql-utils";
 import { createMiddleware } from "../../../utils/createMiddleware";
 import verifyAndSetSession from "../../middleware/verifyAndSetSession";
+import { pctAdd } from "../../../utils/apiGlobals";
 import { Film } from "../../../entity/Films";
-import session = require("express-session");
 
 const resolvers: ResolverMap = {
   Query: {
-    findOneFilm: createMiddleware(
-      verifyAndSetSession,
-      async (_: any, { imdbId }: { imdbId: string }, { session }) => {
+    findOneFilm:
+      // findOneMoive: createMiddleware(
+      //   verifyAndSetSession,
+      async (_: any, { imdbId }: { imdbId: string }) => {
         try {
           const result = (await Film.findOne({
             where: { imdbId: imdbId }
-          })) as Film;
-          result.seen = session.user.seenFilms.includes(imdbId) ? true : false;
+          })) as any;
           console.log(result);
           return result;
         } catch (err) {
@@ -21,7 +21,6 @@ const resolvers: ResolverMap = {
           return null;
         }
       }
-    )
   }
 };
 

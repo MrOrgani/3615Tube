@@ -81,7 +81,7 @@ const useStyles = makeStyles((theme: Theme) => {
 
 const MovieListFilters = ({ filterList }: any) => {
   const classes = useStyles();
-  const filters = useContext(MovieListContext) as any;
+  const [filters] = useContext(MovieListContext) as any;
 
   // console.log("filters are : ", filters);
 

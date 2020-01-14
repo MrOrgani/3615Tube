@@ -22,8 +22,7 @@ export default async (
   // );
   if (!context.session.userId) {
     // console.log("we lack a cookie here", info.returnType);
-    if (info.returnType.name || info.returnType.ofType.name === "Film")
-      return null;
+    if (info.returnType.name) return null;
     else if (info.returnType.ofType.ofType.name === "Error")
       return formatError("cookie", "no session cookie was detected");
     else if (info.returnType.constructor.name === "GraphQLList") return [];
