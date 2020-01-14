@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
   Grid,
   Box,
@@ -36,6 +36,8 @@ const CommentSkeletonItem = (
 
 const CommentsView = ({ data, loading, submit }: MediaProps) => {
   const [canComment, setCanComment] = useState(true);
+  const [comments, setComments] = useState([]) as any;
+  useEffect(() => setComments(data ? data : []), [setComments, data]);
   const { avatar, login } = useContext(UserContext) as any;
   const imdbId = useContext(MovieContext) as any;
   // console.log("data, ", data);
@@ -55,7 +57,9 @@ const CommentsView = ({ data, loading, submit }: MediaProps) => {
                 }}
                 onSubmit={async values => {
                   const myComment = await submit(values);
-                  data.push(myComment);
+                  setComments(
+                    !comments.length ? [myComment] : [...comments, myComment]
+                  );
                   setCanComment(false);
                 }}
                 validateOnChange={false}
@@ -103,7 +107,7 @@ const CommentsView = ({ data, loading, submit }: MediaProps) => {
         ))}
       {data &&
         !loading &&
-        Array.from(data).map((item: any, index: any) => (
+        Array.from(comments).map((item: any, index: any) => (
           <Grid container item key={`Com-${index}`} spacing={0} direction="row">
             <Paper
               style={{

@@ -15,7 +15,7 @@ const UserActivity = ({ userInfo }: any) => {
           ? "Your activity"
           : `${userInfo ? `${userInfo.login}'s activity` : "Loading..."} `}
       </h2>
-      <TabsComponent
+      {/* <TabsComponent
         tabsNames={["Movies seen", "To watch list", "Rated movies"]}
         tabsToRender={[
           // ADD LOADING TO RENDER SKELETON
@@ -23,7 +23,7 @@ const UserActivity = ({ userInfo }: any) => {
           <MovieListView loading />,
           <MovieListView loading />
         ]}
-      />
+      /> */}
     </div>
   );
 };
