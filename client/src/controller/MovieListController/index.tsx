@@ -42,6 +42,7 @@ const GET_MOVIES = gql`
       synopsis
       rating
       poster
+      seen
     }
   }
 `;

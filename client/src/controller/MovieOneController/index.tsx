@@ -30,6 +30,7 @@ const GET_ONE_MOVIE_INFO = gql`
       genres
       poster
       torrents
+      seen
     }
   }
 `;
