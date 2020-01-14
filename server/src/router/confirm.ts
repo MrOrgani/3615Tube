@@ -9,10 +9,10 @@ const router = express.Router();
 router.get("/:token", async (req: express.Request, res: express.Response) => {
   const { token } = req.params;
 
-  // res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+  res.header("Access-Control-Allow-Origin", "http://localhost:3000");
   if (token) {
     const { id }: any = jwt.verify(token, process.env.SESSION_SECRET);
-    console.log(id);
+    // console.log(id);
     const user = (await User.findOne({ id })) as User;
     if (user) {
       await User.update({ id }, { verified: true });
