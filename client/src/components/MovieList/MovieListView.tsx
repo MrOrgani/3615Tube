@@ -47,21 +47,21 @@ const MovieListView = ({
   let [filters] = useContext(MovieListContext) as any;
   const [load, setLoad] = useState(false);
 
-  pathname === "/movies" &&
-    window.addEventListener("scroll", () => {
-      if (
-        window.innerHeight + document.documentElement.scrollTop !==
-        document.documentElement.offsetHeight
-      )
-        return;
-      if (loadMore && !load) {
-        setLoad(true);
-        setTimeout(() => loadMore(), 3000);
-        setLoad(false);
-      }
+  // pathname === "/movies" &&
+  //   window.addEventListener("scroll", () => {
+  //     if (
+  //       window.innerHeight + document.documentElement.scrollTop !==
+  //       document.documentElement.offsetHeight
+  //     )
+  //       return;
+  //     if (loadMore && !load) {
+  //       setLoad(true);
+  //       setTimeout(() => loadMore(), 3000);
+  //       setLoad(false);
+  //     }
 
-      return null;
-    });
+  //     return null;
+  //   });
 
   return (
     <>
