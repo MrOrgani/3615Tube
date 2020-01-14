@@ -13,7 +13,7 @@ const resolvers: ResolverMap = {
             where: { imdbId: imdbId }
           })) as Film;
           result.seen = session.user.seenFilms.includes(imdbId) ? true : false;
-          console.log(result);
+          // console.log(result);
           return result;
         } catch (err) {
           console.log("error in the film fetching", err);
