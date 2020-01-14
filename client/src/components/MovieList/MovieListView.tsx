@@ -147,7 +147,7 @@ const MovieListView = ({
                           // width: "100%",
                           overflow: "hidden",
                           display: "-webkit-box",
-                          WebkitLineClamp: 12,
+                          WebkitLineClamp: 11,
                           WebkitBoxOrient: "vertical"
                           // position: "absolute"
                         }}

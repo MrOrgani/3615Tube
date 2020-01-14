@@ -12,11 +12,11 @@ export const PasswordSchema = Yup.object().shape({
   password: PasswordValidation
 });
 
-export const CommentSchema = Yup.object().shape({
+export const CommentsSchema = Yup.object().shape({
   text: Yup.string()
     .min(2, "Too Short!")
     .max(100, "Too Long!")
-    .matches(/^[a-zA-Z0-9-_]+$/, "Only letters & digits!")
+    .matches(/^[a-zA-Z0-9-_ ]+$/, "Only letters & digits!")
     .required("Required")
 });
 

@@ -14,6 +14,8 @@ import "./MoviesListSkeleton.styles.scss";
 import { Form, Formik, Field } from "formik";
 import { UserContext, MovieContext } from "../../pages/context";
 import { Link } from "react-router-dom";
+import FieldInput from "../FiledInput/FieldInput.component";
+import { CommentsSchema } from "../../common";
 // import CustomButton from "../button/button.component";
 
 interface MediaProps {
@@ -64,7 +66,7 @@ const CommentsView = ({ data, loading, submit }: MediaProps) => {
                 }}
                 validateOnChange={false}
                 validateOnBlur={false}
-                // validationSchema={ProfileSchema}
+                validationSchema={CommentsSchema}
               >
                 {({ handleSubmit }) => {
                   return (
@@ -89,6 +91,7 @@ const CommentsView = ({ data, loading, submit }: MediaProps) => {
                           border: "1px solid #ccd0d5",
                           borderRadius: "16px"
                         }}
+                        component={FieldInput}
                         disabled={!canComment}
                       />
                     </Form>
@@ -105,7 +108,7 @@ const CommentsView = ({ data, loading, submit }: MediaProps) => {
             {CommentSkeletonItem}
           </Box>
         ))}
-      {data &&
+      {comments &&
         !loading &&
         Array.from(comments).map((item: any, index: any) => (
           <Grid container item key={`Com-${index}`} spacing={0} direction="row">
