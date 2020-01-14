@@ -7,6 +7,7 @@ import { Grid } from "@material-ui/core";
 import MovieTorrents from "./MovieTorrents";
 import Skeleton from "@material-ui/lab/Skeleton";
 import { TorrentProvider } from "../../pages/context";
+import MoviePlayer from "../MoviePlayer/MoviePlayer";
 
 const MovieOneSkeleton = (
   <Grid container xl={12} spacing={3}>
@@ -53,12 +54,7 @@ const MovieOneView = ({ movieInfo, loading }: any) => {
           <Grid container xl={12} spacing={3}>
             {/**********************  PLAYER **********************************/}
             <Grid item container xl={6} justify="center">
-              <video id="videoPlayer" controls>
-                {/* <source
-                src={`http://localhost:4000/streaming/${magnet}`}
-                type="video/mp4"
-              /> */}
-              </video>
+              <MoviePlayer />
             </Grid>
             {/**********************  INFO ON THE MOVIE **********************************/}
             <Grid item xl={6} md={12} container>

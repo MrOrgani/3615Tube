@@ -1,19 +1,18 @@
 import { ResolverMap } from "../../../types/graphql-utils";
 import { createMiddleware } from "../../../utils/createMiddleware";
 import verifyAndSetSession from "../../middleware/verifyAndSetSession";
-import { pctAdd } from "../../../utils/apiGlobals";
 import { Film } from "../../../entity/Films";
 
 const resolvers: ResolverMap = {
   Query: {
-    findOneFilm:
-      // findOneMoive: createMiddleware(
-      //   verifyAndSetSession,
-      async (_: any, { imdbId }: { imdbId: string }) => {
+    findOneFilm: createMiddleware(
+      verifyAndSetSession,
+      async (_: any, { imdbId }: { imdbId: string }, { session }) => {
         try {
           const result = (await Film.findOne({
             where: { imdbId: imdbId }
-          })) as any;
+          })) as Film;
+          result.seen = session.user.seenFilms.includes(imdbId) ? true : false;
           console.log(result);
           return result;
         } catch (err) {
@@ -21,6 +20,7 @@ const resolvers: ResolverMap = {
           return null;
         }
       }
+    )
   }
 };
 

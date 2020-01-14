@@ -16,12 +16,15 @@ const startServer = async () => {
   // query and mutaitons we also need it to get the request information like
   const server = new GraphQLServer({
     schema: (await genSchema()) as any,
-    context: ({ request, response }) => ({
-      url: request.protocol + "://" + request.get("host"),
-      session: request.session,
-      res: response,
-      req: request
-    })
+    context: ({ request, response }) => {
+      response.header("Access-Control-Allow-Origin", "http://localhost:3000");
+      return {
+        url: request.protocol + "://" + request.get("host"),
+        session: request.session,
+        res: response,
+        req: request
+      };
+    }
   });
 
   // EXTRA SET UP: connecting to the db and the sessions (cookie stored using filed store in the session dir)
@@ -45,8 +48,8 @@ const startServer = async () => {
     origin: [
       process.env.FRONT_HOST,
       process.env.BACK_HOST,
-      "http://localhost:4000/",
-      "http://localhost:3000/"
+      "http://localhost:4000/*",
+      "http://localhost:3000/*"
     ]
   };
   await server.start({ cors }, () =>
