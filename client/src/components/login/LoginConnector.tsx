@@ -8,6 +8,11 @@ const LoginConnector = (props: any) => {
     location: { state }
   } = props;
 
+  console.log(
+    "LoginConnector : I try to redirect a guy toward a movie when he is not connected",
+    state
+  );
+
   const onFinish = () => {
     if (state && state.next) {
       return history.push(state.next);

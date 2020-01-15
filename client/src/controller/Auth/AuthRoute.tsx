@@ -1,12 +1,12 @@
 import React, { useContext } from "react";
-import { useQuery } from "react-apollo";
-import gql from "graphql-tag";
+// import { useQuery } from "react-apollo";
+// import gql from "graphql-tag";
 import {
   // RouteProps,
   Redirect,
   Route
 } from "react-router";
-import { UserProvider, UserContext } from "../../components/context";
+import { UserContext } from "../../components/context";
 
 const AuthRoute = (props: any) => {
   const userAuthed = useContext(UserContext) as any;
@@ -15,11 +15,6 @@ const AuthRoute = (props: any) => {
     const { component } = props;
 
     if (!userAuthed) {
-      //   return null;
-      // }
-
-      // if (!data.me) {
-      // user not logged in
       return (
         <Redirect
           to={{
@@ -32,11 +27,7 @@ const AuthRoute = (props: any) => {
 
     const Component = component as any;
 
-    return (
-      // <UserProvider value={data ? data.me : null}>
-      <Component {...routeProps} />
-      // </UserProvider>
-    );
+    return <Component {...routeProps} />;
   };
   const { data: _, component: __, ...rest } = props;
   return <Route {...rest} render={renderRoute} />;

@@ -9,7 +9,6 @@ import parseTorrent from "parse-torrent";
 import { User } from "../entity/User";
 import { Torrent } from "../entity/Torrent"
 import { getConnection, LessThanOrEqual } from "typeorm";
-import { removeConnectionDirectiveFromDocument } from "apollo-utilities";
 
 export const startConvert = (file: any, res: any) => {
   if (file.type !== "mkv") {

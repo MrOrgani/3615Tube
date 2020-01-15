@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import { FormikErrors } from "formik";
-import MyProfileView from "./MyProfileView";
 import image from "../../assets/images/avatar.png";
 import UserActivity from "../user-activity/user-activity.component";
 
@@ -8,6 +7,7 @@ import "./user-profile.styles.scss";
 import Skeleton from "@material-ui/lab/Skeleton";
 import { Avatar } from "@material-ui/core";
 import { UserContext } from "../context";
+import ModifyMyProfileConnector from "./ModifyMyProfileConnector";
 
 interface FormValues {
   firstName: string;
@@ -84,12 +84,7 @@ const UserProfileView = ({ userInfo, submit, loading }: Props) => {
           </div>
           {myInfo.firstName} {myInfo.lastName} | {myInfo.language} | 👤{" "}
           {myInfo.login} | ✉️ {myInfo.email}
-          {pathname === "/profile" && (
-            <MyProfileView
-              submit={submit}
-              // onFinish={onFinish}
-            />
-          )}
+          {pathname === "/profile" && <ModifyMyProfileConnector />}
         </div>
       )}
       <UserActivity userInfo={userInfo} />

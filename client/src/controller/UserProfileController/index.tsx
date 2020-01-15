@@ -1,43 +1,42 @@
 import * as React from "react";
-import { useMutation, useQuery } from "react-apollo";
+import { useQuery } from "react-apollo";
 import gql from "graphql-tag";
-import { normalizeErrors } from "../../utils/normalizeErrors";
 import { useContext } from "react";
 import { UserContext } from "../../components/context";
 
 interface Props {
   children: (data: {
-    submit: (values: any) => Promise<any>;
+    // submit: (values: any) => Promise<any>;
     userInfo?: any;
     data?: any;
   }) => JSX.Element | null;
   userId?: string;
 }
 
-const profileMutation = gql`
-  mutation Update(
-    $firstName: String!
-    $lastName: String!
-    $login: String!
-    $email: String!
-    $password: String
-    $avatar: String!
-    $language: String!
-  ) {
-    update(
-      firstName: $firstName
-      lastName: $lastName
-      login: $login
-      email: $email
-      password: $password
-      avatar: $avatar
-      language: $language
-    ) {
-      path
-      msg
-    }
-  }
-`;
+// const profileMutation = gql`
+//   mutation Update(
+//     $firstName: String!
+//     $lastName: String!
+//     $login: String!
+//     $email: String!
+//     $password: String
+//     $avatar: String!
+//     $language: String!
+//   ) {
+//     update(
+//       firstName: $firstName
+//       lastName: $lastName
+//       login: $login
+//       email: $email
+//       password: $password
+//       avatar: $avatar
+//       language: $language
+//     ) {
+//       path
+//       msg
+//     }
+//   }
+// `;
 
 // const GET_MY_INFO = gql`
 //   query queryMe {
@@ -69,33 +68,22 @@ const UserProfileController = (props: Props) => {
   const myInfo = useContext(UserContext) as any;
   console.log("UserProfileController: myInfo", myInfo);
 
-  const [mutate, { error: errorMut }] = useMutation(profileMutation);
+  // const [mutate, { error: errorMut }] = useMutation(profileMutation);
   const { data, loading, error: errorQuery } = useQuery(GET_USER_INFO, {
     variables: { id: props.userId }
   });
 
-  if (errorMut || errorQuery)
-    return <p>{JSON.stringify(errorMut && errorQuery, null, 2)}</p>;
+  if (errorQuery) return <p>{JSON.stringify(errorQuery, null, 2)}</p>;
 
   if (loading) return <p>Loading...</p>;
-  const userInfo = data ? data.findOne : myInfo;
+
+  let userInfo;
+
+  if (props.userId) userInfo = myInfo;
 
   console.log("data.findOne", data, userInfo);
 
-  const submit = async (values: any) => {
-    const {
-      data: { profile }
-    } = await mutate({
-      variables: values
-    });
-    if (profile) {
-      return normalizeErrors(profile);
-    }
-    return null;
-  };
-
   return props.children({
-    submit,
     userInfo
   });
 };

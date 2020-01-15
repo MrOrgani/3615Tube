@@ -1,35 +1,30 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { Typography, Grid, Chip, Paper, Avatar } from "@material-ui/core";
 import axios from "axios";
-import { MovieContext } from "../context";
 import image from "../../assets/images/avatar.png";
 
-const MovieInfo = ({ data }: any) => {
-  const imdbId = useContext(MovieContext);
+const MovieInfo = ({ movieInfo }: any) => {
   const [castInfo, setCastInfo] = useState([]) as any;
   const [crewInfo, setCrewInfo] = useState([]) as any;
 
   useEffect(() => {
     const getCastAndCrew = async () => {
       const { data } = await axios.get(
-        `https://api.themoviedb.org/3/movie/${imdbId}/credits?api_key=7d2a25a20cce518da4384c007bd8cd69`
+        `https://api.themoviedb.org/3/movie/${movieInfo.imdbId}/credits?api_key=7d2a25a20cce518da4384c007bd8cd69`
       );
       setCastInfo(data.cast.slice(0, 8));
       setCrewInfo(data.crew.slice(0, 8));
     };
     getCastAndCrew();
-  }, [imdbId, setCrewInfo, setCastInfo]);
+  }, [movieInfo.imdbId, setCrewInfo, setCastInfo]);
 
-  // console.log("castInfo", castInfo);
   return (
     <Grid
       container
       style={{
-        // minHeight: "-webkit-fill-available",
         backgroundImage:
           "radial-gradient(circle at 10% 20%, rgba(90, 92, 106, 0.24) 0%, rgba(32, 45, 58, 0.2) 81.3%)",
         borderRadius: "10px"
-        // flexGrow: 1
       }}
       justify="center"
       alignItems="center"
@@ -41,19 +36,19 @@ const MovieInfo = ({ data }: any) => {
             width: "200px",
             height: "auto"
           }}
-          src={data.poster}
+          src={movieInfo.poster}
           alt="moviePoster"
         />
         <Grid item xl container style={{ padding: "0 14px" }}>
           {/***********  TITLE ********************/}
           <Grid item container justify="flex-start">
-            <Typography variant="h2">{data.title}</Typography>
+            <Typography variant="h2">{movieInfo.title}</Typography>
           </Grid>
           {/***********  INFOS ********************/}
           <Grid item container>
             <Typography variant="h6">
-              {data.year} | ⭐️ {data.rating} |{" "}
-              {data.genres.map((element: string, index: number) => (
+              {movieInfo.year} | ⭐️ {movieInfo.rating} |{" "}
+              {movieInfo.genres.map((element: string, index: number) => (
                 <Chip key={index} label={element} />
               ))}
             </Typography>
@@ -68,7 +63,7 @@ const MovieInfo = ({ data }: any) => {
                 fontStyle: "italic"
               }}
             >
-              {data.synopsis}
+              {movieInfo.synopsis}
             </Typography>
           </Grid>
         </Grid>
