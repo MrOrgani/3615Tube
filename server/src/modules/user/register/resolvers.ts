@@ -42,15 +42,13 @@ const resolvers: ResolverMap = {
       const { firstName, lastName, login, email, password } = args;
       if (
         await User.findOne({
-          where: { email },
-          select: ["id"]
+          where: { email }
         })
       )
         return await formatError("email", "email is already taken");
       else if (
         await User.findOne({
-          where: { login },
-          select: ["id"]
+          where: { login }
         })
       )
         return await formatError("login", "login is already taken");
