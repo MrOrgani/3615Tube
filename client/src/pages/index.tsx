@@ -6,7 +6,7 @@ import TextPage from "../components/textpage/textpage";
 import LogoutConnector from "../components/Logout/LogoutConnector";
 import Header from "../components/header/header.component";
 import Footer from "../components/footer/footer.component";
-import RegisterConnector from "../components/Register/RegisterConnnector";
+import RegisterConnector from "../components/register/RegisterConnnector";
 import LoginConnector from "../components/login/LoginConnector";
 import ConfirmAccountConnector from "../components/ConfirmAccount/ConfirmAccountConnector";
 import ChangePasswordConnector from "../components/ChangePassword/ChangePasswordConnector";
@@ -40,12 +40,12 @@ export const Pages = ({ loading }: Props) => (
             path="/change-password/:key"
             component={ChangePasswordConnector}
           />
+          <AuthRoute exact path="/profile" component={UserProfileConnector} />
           <AuthRoute
             exact
             path="/profile/:id"
             component={UserProfileConnector}
           />
-          <AuthRoute exact path="/profile" component={UserProfileConnector} />
           <Route exact path="/movies" component={MovieListConnector} />
           <AuthRoute
             exact

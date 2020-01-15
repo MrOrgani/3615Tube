@@ -6,7 +6,9 @@ import { normalizeErrors } from "../../utils/normalizeErrors";
 interface Props {
   children: (data: {
     submit: (values: any) => Promise<any>;
+    onFinish: () => void;
   }) => JSX.Element | null;
+  history: any;
 }
 
 export const registerMutation = gql`
@@ -30,7 +32,7 @@ export const registerMutation = gql`
   }
 `;
 
-const SignUpController = (props: Props) => {
+const RegisterController = ({ history, children }: Props) => {
   const [mutate, { error }] = useMutation(registerMutation);
 
   if (error) return <p>{JSON.stringify(error, null, 2)}</p>;
@@ -48,14 +50,16 @@ const SignUpController = (props: Props) => {
     return null;
   };
 
-  // function onFinish() {
-  //   props.history.push("/");
-  // }
+  const onFinish = () => {
+    history.push("/m/login", {
+      message: "check your email to confirm your account"
+    });
+  };
 
-  return props.children({
-    submit
-    //  onFinish
+  return children({
+    submit,
+    onFinish
   });
 };
 
-export default SignUpController;
+export default RegisterController;

@@ -65,12 +65,13 @@ const GET_USER_INFO = gql`
   }
 `;
 
-const UserProfileController = ({ userId, children }: Props) => {
-  const [myInfo] = useContext(UserContext) as any;
+const UserProfileController = (props: Props) => {
+  const myInfo = useContext(UserContext) as any;
+  console.log("UserProfileController: myInfo", myInfo);
 
   const [mutate, { error: errorMut }] = useMutation(profileMutation);
   const { data, loading, error: errorQuery } = useQuery(GET_USER_INFO, {
-    variables: { id: userId }
+    variables: { id: props.userId }
   });
 
   if (errorMut || errorQuery)
@@ -93,7 +94,7 @@ const UserProfileController = ({ userId, children }: Props) => {
     return null;
   };
 
-  return children({
+  return props.children({
     submit,
     userInfo
   });

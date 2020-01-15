@@ -1,6 +1,6 @@
 import React from "react";
 import RegisterView from "./RegisterView";
-import RegisterController from "./RegisterController";
+import RegisterController from "../../controller/RegisterController";
 
 const RegisterConnector = ({ history }: any) => {
   return (

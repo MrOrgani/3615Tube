@@ -63,11 +63,11 @@ const SkeletonProfile = (
   </div>
 );
 
-const UserProfile = ({ userInfo, submit, loading }: Props) => {
+const UserProfileView = ({ userInfo, submit, loading }: Props) => {
   const { pathname } = window.location;
-  const [myInfo] = useContext(UserContext) as any;
-  const userInfoToDiplay = pathname === "/profile" ? myInfo : userInfo;
-  console.log(userInfoToDiplay);
+  const myInfo = useContext(UserContext) as any;
+  // const userInfoToDiplay = pathname === "/profile" ? myInfo : userInfo;
+  console.log(myInfo);
 
   return (
     <>
@@ -78,13 +78,12 @@ const UserProfile = ({ userInfo, submit, loading }: Props) => {
           <div className="avatar-container">
             <Avatar
               alt="MyAvatar"
-              src={!userInfoToDiplay.avatar ? image : userInfoToDiplay.avatar}
+              src={!myInfo.avatar ? image : myInfo.avatar}
               sizes="large"
             />
           </div>
-          {userInfoToDiplay.firstName} {userInfoToDiplay.lastName} |{" "}
-          {userInfoToDiplay.language} | 👤 {userInfoToDiplay.login} | ✉️{" "}
-          {userInfoToDiplay.email}
+          {myInfo.firstName} {myInfo.lastName} | {myInfo.language} | 👤{" "}
+          {myInfo.login} | ✉️ {myInfo.email}
           {pathname === "/profile" && (
             <MyProfileView
               submit={submit}
@@ -98,4 +97,4 @@ const UserProfile = ({ userInfo, submit, loading }: Props) => {
   );
 };
 
-export default UserProfile;
+export default UserProfileView;
