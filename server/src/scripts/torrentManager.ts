@@ -110,6 +110,9 @@ export const updateSeenFilms = (req: any) => {
   return new Promise(async (resolve, reject) => {
     try{
       const user = await User.findOne(req.session.userId) as User;
+      if(user.seenFilms[0] === "[]"){
+        user.seenFilms.shift();
+      }
       if(user.seenFilms.indexOf(req.params.imdbId) === -1){
       user.seenFilms.push(req.params.imdbId);
       await getConnection()
