@@ -18,7 +18,6 @@ const resolvers: ResolverMap = {
       async (_: any, args: any, { session }) => {
         if (args.password.length == 0) delete args.password;
         try {
-          // console.log("args", args);
           await ProfileSchema.validate(args, { abortEarly: false });
         } catch (error) {
           console.log("yup erro", await formatYupError(error));
