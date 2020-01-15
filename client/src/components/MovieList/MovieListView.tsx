@@ -38,30 +38,18 @@ const MovieSkeletonItem = (
 const MovieListView = ({
   data,
   history,
-  loading,
+  // loading,
   filterList,
   loadMore
 }: MediaProps) => {
   const userIsConnected = useContext(UserContext);
   const { pathname } = window.location;
+
   // let [filters] = useContext(MovieListContext) as any;
   // const [load, setLoad] = useState(false);
 
   // ----------------------------------- INFINITE SCROLL ---------------------
-  useEffect(() => {
-    pathname === "/movies" &&
-      window.addEventListener("scroll", function() {
-        console.log("scroooopoooooooooolling");
-        if (
-          window.innerHeight + document.documentElement.scrollTop !==
-          document.documentElement.offsetHeight
-        ) {
-          return;
-        } else if (!loading && pathname === "/movies") {
-          loadMore();
-        }
-      });
-  }, [loadMore, loading, pathname]);
+
   // ----------------------------------- INFINITE SCROLL ---------------------
 
   return (
@@ -71,13 +59,6 @@ const MovieListView = ({
         userIsConnected && pathname.includes("/movie") && (
           <MovieListFilters filterList={filterList} />
         )}
-        {// IF LOADING ---> SKELETON
-        loading &&
-          Array.from(new Array(20)).map((_, index: any) => (
-            <Box key={index} width={185} mx={1}>
-              {MovieSkeletonItem}
-            </Box>
-          ))}
         {// IF !LOADING ---> RENDER DATA
         data &&
           Array.from(data).map((item: any, index: any) => (

@@ -49,6 +49,36 @@ const GET_MOVIES = gql`
 `;
 
 const MovieListController = (props: Props) => {
+  const loadMore = () => {
+    fetchMore({
+      variables: {
+        ...filters,
+        page: ++filters.page
+      },
+      updateQuery: (prev, { fetchMoreResult, variables }) => {
+        if (!fetchMoreResult) return prev;
+        return {
+          ...prev,
+          searchFilms: [...prev.searchFilms, ...fetchMoreResult.searchFilms],
+          variables: variables
+        };
+      }
+    });
+  };
+
+  React.useEffect(() => {
+    const setScrollListener = () => {
+      if (
+        window.innerHeight + document.documentElement.scrollTop !==
+        document.documentElement.offsetHeight
+      )
+        return;
+      else loadMore();
+    };
+    window.addEventListener("scroll", setScrollListener);
+    return () => window.removeEventListener("scroll", setScrollListener);
+  }, [loadMore]);
+
   const [filters] = useContext(MovieListContext) as any;
 
   console.log("filters in MovieListController", filters);
@@ -87,28 +117,7 @@ const MovieListController = (props: Props) => {
   return props.children({
     allMovies,
     filterList,
-    loadMore: () => {
-      // filters.page++;
-      console.log("filter page", filters.page);
-
-      fetchMore({
-        variables: {
-          ...filters,
-          page: ++filters.page
-        },
-        updateQuery: (prev, { fetchMoreResult, variables }) => {
-          // console.log("prev", prev, "fetchmore", fetchMoreResult, variables);
-          if (!fetchMoreResult) {
-            return prev;
-          }
-          return {
-            ...prev,
-            searchFilms: [...prev.searchFilms, ...fetchMoreResult.searchFilms],
-            variables: variables
-          };
-        }
-      });
-    }
+    loadMore
   });
 };
 
