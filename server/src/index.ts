@@ -1,6 +1,8 @@
 import "reflect-metadata";
 import bodyParser from "body-parser";
 // import { Request, Response } from "express";
+import { CronJob } from "cron";
+import * as torrentManager from "./scripts/torrentManager";
 import { GraphQLServer } from "graphql-yoga";
 import passport from "passport";
 import connectToDb from "./utils/connecToDb";
@@ -52,6 +54,10 @@ const startServer = async () => {
       "http://localhost:3000/*"
     ]
   };
+  new CronJob("0 8 * * *", torrentManager.deleteOldFilms).start();
+  /* Manually start deleteOldFilm : */
+
+  // torrentManager.deleteOldFilms();
   await server.start({ cors }, () =>
     console.log(`Server is running on ${process.env.BACK_HOST}`)
   );

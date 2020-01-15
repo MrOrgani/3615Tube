@@ -4,9 +4,7 @@ const MoviePlayer = () => {
   const [srcTorrent] = useContext(TorrentContext) as any;
   const [src, setSrc] = useState(srcTorrent);
   const video = useRef(null) as any;
-  useEffect(() => {
-    console.log("=====>SRC<=====", src);
-  }, [src]);
+  const imdbId = document.location.pathname.split("/");
   useEffect(() => {
     setSrc(srcTorrent);
     if (video.current) {
@@ -19,10 +17,11 @@ const MoviePlayer = () => {
       style={{ height: "400px", width: "600px" }}
       id="videoPlayer"
       controls
-      autoPlay
     >
       <source
-        src={`http://localhost:4000/video/${encodeURIComponent(src)}`}
+        src={`http://localhost:4000/video/${encodeURIComponent(src)}/${
+          imdbId[2]
+        }`}
         type="video/mp4"
       />
     </video>

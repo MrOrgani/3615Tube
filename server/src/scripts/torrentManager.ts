@@ -1,22 +1,29 @@
 import pump from "pump";
+import fs from 'fs';
 import parseRange from "range-parser";
 import path from "path";
 import ffmpeg from "fluent-ffmpeg";
+import moment from 'moment'
+import rimraf from 'rimraf';
 import parseTorrent from "parse-torrent";
+import { User } from "../entity/User";
+import { Torrent } from "../entity/Torrent"
+import { getConnection, LessThanOrEqual } from "typeorm";
+import { removeConnectionDirectiveFromDocument } from "apollo-utilities";
 
-/* https://stackoverflow.com/questions/20665982/convert-videos-to-webm-via-ffmpeg-faster */
 export const startConvert = (file: any, res: any) => {
   if (file.type !== "mkv") {
     return;
   }
   let flux = file.createReadStream();
-  let progressBar: number = 0;
-  flux.on("data", (chunk: any) => {
-    progressBar += chunk.length;
-    console.log(
-      file.name + " : " + Math.round((100 * progressBar) / file.length) + "%"
-    );
-  });
+  /* Uncomment to see downloading logs */  
+  // let progressBar: number = 0;
+  // flux.on("data", (chunk: any) => {
+  //   progressBar += chunk.length;
+  //   console.log(
+  //     file.name + " : " + Math.round((100 * progressBar) / file.length) + "%"
+  //   );
+  // });
   ffmpeg(flux)
     .on("error", (err: any) => console.log(err))
     .audioBitrate(128)
@@ -55,19 +62,16 @@ export const startStream = (file: any, req: any, res: any) => {
       `bytes ${ranges[0].start}-${ranges[0].end}/${file.length}`
     );
     let flux = file.createReadStream(ranges[0]);
-    let progressBar: number = 0;
-    flux.on("data", (chunk: any) => {
-      progressBar += chunk.length;
-      console.log(
-        file.name + " : " + Math.round((100 * progressBar) / file.length) + "%"
-      );
-    });
+    /* Uncomment to see downloading logs */
+    // let progressBar: number = 0;
+    // flux.on("data", (chunk: any) => {
+    //   progressBar += chunk.length;
+    //   console.log(
+    //     file.name + " : " + Math.round((100 * progressBar) / file.length) + "%"
+    //   );
+    // });
     return pump(flux, res);
   }
-};
-
-export const isDownloaded = (magnet: string) => {
-  return null; // si false sinon return file object ?
 };
 
 export const getTorrentFile = (engine: any) => {
@@ -97,8 +101,43 @@ export const parseMagnet = (magnet: string) => {
         infoHash: parsedTorrent?.infoHash,
         trackers: parsedTorrent?.announce
       };
-      // console.log(torrent)
       resolve(torrent);
     });
   });
 };
+
+export const updateSeenFilms = (req: any) => {
+  return new Promise(async (resolve, reject) => {
+    try{
+      const user = await User.findOne(req.session.userId) as User;
+      if(user.seenFilms.indexOf(req.params.imdbId) === -1){
+      user.seenFilms.push(req.params.imdbId);
+      await getConnection()
+            .createQueryBuilder()
+            .update(User)
+            .set({
+              seenFilms: user.seenFilms
+            })
+            .where("id = :id", { id: req.session.userId })
+            .execute();
+      }
+      resolve()
+    } catch(err){
+      reject(err)
+    }
+  })
+}
+
+export const deleteOldFilms = async () => {
+  const oneMonthAgo = moment().subtract(1, 'months');
+  const oldTorrent = await Torrent.find({where: {createdAt: LessThanOrEqual(oneMonthAgo)}});
+  for(const key in oldTorrent){
+    rimraf(`./downloads/${oldTorrent[key].infoHash}`,() => { console.log(`${oldTorrent[key].infoHash} was removed.`) }) ;
+    await getConnection()
+    .createQueryBuilder()
+    .delete()
+    .from(Torrent)
+    .where("infoHash = :infoHash", { infoHash: oldTorrent[key].infoHash })
+    .execute();
+  }
+}

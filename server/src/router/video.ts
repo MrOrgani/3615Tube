@@ -1,6 +1,6 @@
 import * as express from "express";
 import * as torrentManager from "../scripts/torrentManager";
-import fs from "fs";
+import {Torrent} from '../entity/Torrent'
 import torrentStream from "torrent-stream";
 const router = express.Router();
 
@@ -11,24 +11,28 @@ const router = express.Router();
  - CronJob
  - torrent entity
 */
-router.route("/:magnet").get(async (req, res) => {
+router.route("/:magnet/:imdbId").get(async (req, res) => {
   try {
-    console.log("PARAMSMAGNET=>", req.params.magnet);
+    if(!req.session) { throw new Error('NOT_CONNECTED') };
+    if(req.headers.range === "bytes=0-"){
+      torrentManager.updateSeenFilms(req);
+    }
     const magnet: any = await torrentManager.parseMagnet(req.params.magnet);
-    // ==> Have to verify magnet here
     const engine = torrentStream(magnet.uri, {
-      path: "./downloads/",
+      path: `./downloads/${magnet.infoHash}`,
       verify: true,
       trackers: magnet.trackers
     });
-    const file: any =
-      torrentManager.isDownloaded(magnet) ||
-      (await torrentManager.getTorrentFile(engine));
+    const file: any = await torrentManager.getTorrentFile(engine);
+    const findTorrent = await Torrent.findOne({where: {infoHash: magnet.infoHash}})
+    if(!findTorrent){
+      const newDbTorrent = new Torrent;
+      newDbTorrent.infoHash = magnet.infoHash;
+      newDbTorrent.save();
+    }
     if (file.type === "mp4" || file.type === "webm") {
-      console.log("===>NORMAL STREAM<====");
       torrentManager.startStream(file, req, res);
     } else if (file.type === "mkv") {
-      console.log("===>CONVERT STREAM<====");
       torrentManager.startConvert(file, res);
     } else {
       throw new Error("BAD_EXTENSION");

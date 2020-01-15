@@ -47,18 +47,15 @@ const resolvers: ResolverMap = {
                   `'${(args.genres as string).toLowerCase()}' = ANY(${alias})`
               )
             },
-            order: args.order as any,
-            take: 50,
-            skip: 50 * args.page
+            order: args.order as any
           })) as Film[];
           // console.log("length of result:", result.length);
-          result.forEach((film: Film) => {
-            film.seen = session.user.seenFilms.includes(film.imdbId)
-              ? true
-              : false;
-          });
-          // console.log("length of result:", result.length);
-          return result;
+          return result
+            .slice(args.page * 50, (args.page + 1) * 50)
+            .map((film: Film) => ({
+              ...film,
+              seen: session.user.seenFilms.includes(film.imdbId) ? true : false
+            }));
         } catch (err) {
           console.log("error in the film fetching", err);
           return null;
