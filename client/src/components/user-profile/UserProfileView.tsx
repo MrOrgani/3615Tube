@@ -82,8 +82,10 @@ const UserProfileView = ({ userInfo, loading }: Props) => {
             />
           </div>
           {userInfoToDiplay.firstName} {userInfoToDiplay.lastName} |{" "}
-          {userInfoToDiplay.language} | 👤 {userInfoToDiplay.login} | ✉️{" "}
-          {userInfoToDiplay.email}
+          {userInfoToDiplay.language} | 👤 {userInfoToDiplay.login}{" "}
+          {pathname === "/profile" &&
+            ` | ✉️ 
+          ${userInfoToDiplay.email}`}
           {pathname === "/profile" && <ModifyMyProfileConnector />}
         </div>
       )}

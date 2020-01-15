@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import Axios from "axios";
 import { useState } from "react";
-import { Grid, Button } from "@material-ui/core";
+import { Grid, Button, Container } from "@material-ui/core";
 import { Link } from "react-router-dom";
 
 interface Props {
@@ -27,7 +27,7 @@ export default (props: Props) => {
   }, [setLoading, token]);
 
   return (
-    <div className="sign-up">
+    <Container maxWidth="sm" className="sign-up">
       <h2>Validating your account</h2>
       {loading && <div>"Loading..."</div>}
       {!loading && <h1>{data.type}</h1>}
@@ -41,6 +41,6 @@ export default (props: Props) => {
           </Link>
         </Grid>
       )}
-    </div>
+    </Container>
   );
 };

@@ -43,7 +43,7 @@ export const Pages = ({ loading }: Props) => (
           <AuthRoute exact path="/profile" component={UserProfileConnector} />
           <AuthRoute
             exact
-            path="/profile/:id"
+            path="/profile/:userId"
             component={UserProfileConnector}
           />
           <AuthRoute exact path="/movies" component={MovieListConnector} />

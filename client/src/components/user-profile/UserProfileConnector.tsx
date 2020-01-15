@@ -3,7 +3,12 @@ import UserProfileController from "./../../controller/UserProfileController";
 import UserProfileView from "./UserProfileView";
 
 const UserProfileConnector = (props: any) => {
-  const { userId } = props;
+  const {
+    match: {
+      params: { userId }
+    }
+  } = props;
+  console.log("UserProfileConnector", userId);
 
   return (
     <UserProfileController userId={userId}>

@@ -37,6 +37,8 @@ const MovieController = (props: Props) => {
 
   const movieInfo = data ? data.findOneFilm : null;
 
+  console.log("MovieController movie info, ", movieInfo.torrents);
+
   // PARSING TORRENTS OF EACH SINGLE MOVIE
   if (movieInfo.torrents) {
     const parsedTorrents = () =>
