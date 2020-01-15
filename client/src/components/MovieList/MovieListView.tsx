@@ -36,7 +36,7 @@ const MovieListView = ({ data, history, filterList }: MediaProps) => {
               onClick={() => history.push(`/movie/${item.imdbId}`)}
             >
               <>
-                <div className={`movie-box ${data.seen ? "seen" : ""}`}>
+                <div className={`movie-box ${data[index].seen ? "seen" : ""}`}>
                   <img
                     style={{ width: 185, height: 278 }}
                     alt={item.title}
