@@ -1,22 +1,13 @@
 import React, { useState, useContext, useEffect } from "react";
-import {
-  Grid,
-  Box,
-  Card,
-  CardHeader,
-  Avatar,
-  Typography,
-  Paper
-} from "@material-ui/core";
+import { Grid, Box, Card, CardHeader, Avatar, Button } from "@material-ui/core";
 import Skeleton from "@material-ui/lab/Skeleton";
 
 import "./MoviesListSkeleton.styles.scss";
-import { Form, Formik, Field } from "formik";
+import { Formik, Field } from "formik";
 import { UserContext, MovieContext } from "../context";
 import { Link } from "react-router-dom";
 import FieldInput from "../FiledInput/FieldInput.component";
 import { CommentsSchema } from "../../common";
-// import CustomButton from "../button/button.component";
 
 interface MediaProps {
   loading?: boolean;
@@ -30,19 +21,20 @@ const CommentSkeletonItem = (
   <Card>
     <CardHeader
       avatar={<Skeleton variant="circle" width={40} height={40} />}
-      title={<Skeleton height={10} width="80%" style={{ marginBottom: 6 }} />}
+      title={<Skeleton height={10} width="80%" />}
       subheader={<Skeleton height={10} width="40%" />}
     />
   </Card>
 );
 
 const CommentsView = ({ data, loading, submit }: MediaProps) => {
-  const [canComment, setCanComment] = useState(true);
+  // const [canComment, setCanComment] = useState(true);
   const [comments, setComments] = useState([]) as any;
   useEffect(() => setComments(data ? data : []), [setComments, data]);
   const { avatar, login } = useContext(UserContext) as any;
   const imdbId = useContext(MovieContext) as any;
-  // console.log("data, ", data);
+
+  console.log("data, ", comments);
 
   return (
     <Grid container item lg={12} md={5} direction="column">
@@ -60,9 +52,8 @@ const CommentsView = ({ data, loading, submit }: MediaProps) => {
                 onSubmit={async values => {
                   const myComment = await submit(values);
                   setComments(
-                    !comments.length ? [myComment] : [...comments, myComment]
+                    !comments.length ? [myComment] : [myComment, ...comments]
                   );
-                  setCanComment(false);
                 }}
                 validateOnChange={false}
                 validateOnBlur={false}
@@ -70,21 +61,10 @@ const CommentsView = ({ data, loading, submit }: MediaProps) => {
               >
                 {({ handleSubmit }) => {
                   return (
-                    <Form
-                      style={{
-                        display: "flex",
-                        // flexDirection: "column",
-                        alignItems: "center"
-                      }}
-                      onSubmit={event => {
-                        event.preventDefault();
-                        handleSubmit();
-                      }}
-                    >
+                    <>
                       <Field
                         name="text"
                         type="text"
-                        // component={FieldInput}
                         placeholder="Write your comment"
                         style={{
                           backgroundColor: "#f2f3f5",
@@ -92,9 +72,17 @@ const CommentsView = ({ data, loading, submit }: MediaProps) => {
                           borderRadius: "16px"
                         }}
                         component={FieldInput}
-                        disabled={!canComment}
                       />
-                    </Form>
+                      <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        color="primary"
+                        onClick={() => handleSubmit()}
+                      >
+                        Send
+                      </Button>
+                    </>
                   );
                 }}
               </Formik>
@@ -111,29 +99,19 @@ const CommentsView = ({ data, loading, submit }: MediaProps) => {
       {comments &&
         !loading &&
         Array.from(comments).map((item: any, index: any) => (
-          <Grid container item key={`Com-${index}`} spacing={0} direction="row">
-            <Paper
-              style={{
-                width: "inherit"
-                // margin: `20px auto`
-                // padding: 5
-              }}
-            >
-              <Grid container>
-                <Grid item>
+          <Box key={`ComSkel-${index}`} my={0.5}>
+            <Card style={{ backgroundColor: "rgb(225, 225, 225)" }}>
+              <CardHeader
+                avatar={
                   <Link to={`/profile/${item.authorId.id}`}>
                     <Avatar alt="Author Avatar" src={item.authorId.avatar} />
                   </Link>
-                </Grid>
-                <Grid item xs>
-                  <Typography>{item.authorId.login}</Typography>
-                </Grid>
-                <Grid item xl>
-                  <Typography variant="subtitle1">{item.text}</Typography>
-                </Grid>
-              </Grid>
-            </Paper>
-          </Grid>
+                }
+                title={`${item.authorId.login} (${item.createdAt})`}
+                subheader={item.text}
+              />
+            </Card>
+          </Box>
         ))}
     </Grid>
   );

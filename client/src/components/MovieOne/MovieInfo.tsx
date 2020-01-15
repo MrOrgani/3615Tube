@@ -69,11 +69,13 @@ const MovieInfo = ({ movieInfo }: any) => {
         </Grid>
       </Grid>
       <Grid item container xl>
-        <div>Crew</div>
+        <Typography variant="h6" color="primary">
+          Crew
+        </Typography>
         <Grid item container justify="space-evenly">
           {crewInfo.map((pers: any, index: number) => (
             <Grid key={`${index}-Crew`} item>
-              <Paper style={{ height: 80, width: 100 }}>
+              <Paper style={{ height: "auto", width: 100 }}>
                 <Grid
                   container
                   justify="center"
@@ -101,11 +103,13 @@ const MovieInfo = ({ movieInfo }: any) => {
             </Grid>
           ))}
         </Grid>
-        <div>Cast</div>
+        <Typography variant="h6" color="primary">
+          Cast
+        </Typography>
         <Grid item container justify="space-evenly">
           {castInfo.map((pers: any, index: number) => (
             <Grid key={`${index}-Cast`} item>
-              <Paper style={{ height: 80, width: 100 }}>
+              <Paper style={{ height: "auto", width: 100 }}>
                 <Grid
                   container
                   justify="center"

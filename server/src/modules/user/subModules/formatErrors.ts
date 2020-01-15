@@ -8,14 +8,15 @@ export const formatYupError = (
   missingpath: string = "unknown"
 ) => {
   const errors: Array<{ path: string; msg: string }> = [];
-  // console.log(err.inner[0].path.length > 0 ? err.inner[0].path : missingpath);
+  // console.log(err.inner[0].path.Olength > 0 ? err.inner[0].path : missingpath);
+
   err.inner.forEach(e => {
     errors.push({
       path: e.path ? e.path : missingpath,
       msg: e.message
     });
   });
-
+  // console.log("in formatyup errors", errors);
   return errors;
 };
 

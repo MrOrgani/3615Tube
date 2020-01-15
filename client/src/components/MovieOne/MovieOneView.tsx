@@ -61,11 +61,17 @@ const MovieOneView = ({ movieInfo, loading }: any) => {
               <MovieInfo movieInfo={movieInfo} />
             </Grid>
             {/**********************  TORRENTS **********************************/}
-            <Grid item xl={6} md={12} container>
+            <Grid item xl={6} md={12} container alignItems="flex-start">
               <MovieTorrents data={movieInfo} />
             </Grid>
             {/**********************  COMMENTS **********************************/}
-            <Grid item xl={6} md={12} container>
+            <Grid
+              item
+              xl={6}
+              md={12}
+              container
+              style={{ height: "40vh", overflow: "auto" }}
+            >
               <CommentConnector />
             </Grid>
           </Grid>

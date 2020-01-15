@@ -15,7 +15,7 @@ import {
 import SearchIcon from "@material-ui/icons/Search";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import { genreList, orderKeyList, orderValueList } from "../../common";
-import { Formik, Form } from "formik";
+import { Formik } from "formik";
 import { MovieListContext } from "../context";
 
 interface FilmOptionType {
@@ -87,7 +87,10 @@ const MovieListFilters = ({ filterList }: any) => {
 
   return (
     <Grid item container xl={12}>
-      <Paper className="filters-box">
+      <Paper
+        className="filters-box"
+        style={{ width: "-webkit-fill-available" }}
+      >
         <Formik
           initialValues={filters}
           onSubmit={async (values, actions) => {
@@ -96,135 +99,134 @@ const MovieListFilters = ({ filterList }: any) => {
           }}
           validateOnChange={false}
           validateOnBlur={false}
-          //   validationSchema={ProfileSchema}
         >
-          {({ isSubmitting, values, setFieldValue }) => {
+          {({ isSubmitting, values, setFieldValue, handleSubmit }) => {
             return (
-              <Form>
-                <Grid container justify="space-evenly" alignItems="center">
-                  <Grid item>
-                    <Typography id="range-slider" gutterBottom>
-                      Year release
-                    </Typography>
-                    <Slider
-                      value={values.year}
-                      onChange={(_, value) => setFieldValue("year", value)}
-                      valueLabelDisplay="auto"
-                      aria-labelledby="range-slider"
-                      min={1900}
-                      max={2020}
-                      name={"year"}
-                      // getAriaValueText={valuetext}
-                    />
-                  </Grid>
-                  <Grid item>
-                    <div className={classes.search}>
-                      <div className={classes.searchIcon}>
-                        <SearchIcon />
-                      </div>
-                      <InputBase
-                        placeholder="Search…"
-                        name="keywords"
-                        classes={{
-                          root: classes.inputRoot,
-                          input: classes.inputInput
-                        }}
-                        inputProps={{ "aria-label": "search" }}
-                        onChange={event =>
-                          setFieldValue("keywords", event.target.value)
-                        }
-                      />
-                    </div>
-                  </Grid>
-                  <Grid item>
-                    <Autocomplete
-                      id="combo-box-genres"
-                      options={genreList}
-                      getOptionLabel={(option: FilmOptionType) => option + ""}
-                      style={{ width: 200 }}
-                      defaultValue={values.genres}
-                      onChange={(_: any, value: string) =>
-                        setFieldValue("genres", value)
-                      }
-                      renderInput={params => (
-                        <TextField
-                          {...params}
-                          label="Genre"
-                          variant="outlined"
-                          fullWidth
-                        />
-                      )}
-                    />
-                  </Grid>
-                  <Grid item>
-                    <Typography id="range-slider" gutterBottom>
-                      Rating
-                    </Typography>
-                    <Slider
-                      name="rating"
-                      value={values.rating}
-                      onChange={(_, value) => setFieldValue("rating", value)}
-                      valueLabelDisplay="auto"
-                      aria-labelledby="range-slider"
-                      min={0}
-                      max={100}
-                      // getAriaValueText={valuetext}
-                    />
-                  </Grid>
-                  <Grid item>
-                    <Autocomplete
-                      id="combo-box-orderKey"
-                      options={orderKeyList}
-                      getOptionLabel={(option: FilmOptionType) => option + ""}
-                      style={{ width: 200 }}
-                      defaultValue={values.orderKey}
-                      onChange={(_: any, value: string) =>
-                        setFieldValue("orderKey", value)
-                      }
-                      renderInput={params => (
-                        <TextField
-                          {...params}
-                          label="Combo box"
-                          variant="outlined"
-                          fullWidth
-                        />
-                      )}
-                    />
-                  </Grid>
-                  <Grid item>
-                    <Autocomplete
-                      id="combo-box-orderValue"
-                      options={orderValueList}
-                      getOptionLabel={(option: FilmOptionType) => option + ""}
-                      style={{ width: 200 }}
-                      defaultValue={values.orderValue}
-                      onChange={(_: any, value: string) =>
-                        setFieldValue("orderValue", value)
-                      }
-                      renderInput={params => (
-                        <TextField
-                          {...params}
-                          label="Combo box"
-                          variant="outlined"
-                          fullWidth
-                        />
-                      )}
-                    />
-                  </Grid>
-                  <Grid item>
-                    <Button
-                      type="submit"
-                      fullWidth
-                      variant="contained"
-                      color="primary"
-                      // className={classes.submit}
-                      disabled={isSubmitting}
-                    >
-                      Apply
-                    </Button>
-                  </Grid>
+              // <Form>
+              <Grid container justify="space-evenly" alignItems="center">
+                <Grid item>
+                  <Typography id="range-slider" gutterBottom>
+                    Year release
+                  </Typography>
+                  <Slider
+                    value={values.year}
+                    onChange={(_, value) => setFieldValue("year", value)}
+                    valueLabelDisplay="auto"
+                    aria-labelledby="range-slider"
+                    min={1900}
+                    max={2020}
+                    name={"year"}
+                  />
                 </Grid>
-              </Form>
+                <Grid item>
+                  <div className={classes.search}>
+                    <div className={classes.searchIcon}>
+                      <SearchIcon />
+                    </div>
+                    <InputBase
+                      placeholder="Search…"
+                      name="keywords"
+                      classes={{
+                        root: classes.inputRoot,
+                        input: classes.inputInput
+                      }}
+                      inputProps={{ "aria-label": "search" }}
+                      onChange={event =>
+                        setFieldValue("keywords", event.target.value)
+                      }
+                    />
+                  </div>
+                </Grid>
+                <Grid item>
+                  <Autocomplete
+                    id="combo-box-genres"
+                    options={genreList}
+                    getOptionLabel={(option: FilmOptionType) => option + ""}
+                    style={{ width: 200 }}
+                    defaultValue={values.genres}
+                    onChange={(_: any, value: string) =>
+                      setFieldValue("genres", value)
+                    }
+                    renderInput={params => (
+                      <TextField
+                        {...params}
+                        label="Genre"
+                        variant="outlined"
+                        fullWidth
+                      />
+                    )}
+                  />
+                </Grid>
+                <Grid item>
+                  <Typography id="range-slider" gutterBottom>
+                    Rating
+                  </Typography>
+                  <Slider
+                    name="rating"
+                    value={values.rating}
+                    onChange={(_, value) => setFieldValue("rating", value)}
+                    valueLabelDisplay="auto"
+                    aria-labelledby="range-slider"
+                    min={0}
+                    max={100}
+                    // getAriaValueText={valuetext}
+                  />
+                </Grid>
+                <Grid item>
+                  <Autocomplete
+                    id="combo-box-orderKey"
+                    options={orderKeyList}
+                    getOptionLabel={(option: FilmOptionType) => option + ""}
+                    style={{ width: 200 }}
+                    defaultValue={values.orderKey}
+                    onChange={(_: any, value: string) =>
+                      setFieldValue("orderKey", value)
+                    }
+                    renderInput={params => (
+                      <TextField
+                        {...params}
+                        label="Combo box"
+                        variant="outlined"
+                        fullWidth
+                      />
+                    )}
+                  />
+                </Grid>
+                <Grid item>
+                  <Autocomplete
+                    id="combo-box-orderValue"
+                    options={orderValueList}
+                    getOptionLabel={(option: FilmOptionType) => option + ""}
+                    style={{ width: 200 }}
+                    defaultValue={values.orderValue}
+                    onChange={(_: any, value: string) =>
+                      setFieldValue("orderValue", value)
+                    }
+                    renderInput={params => (
+                      <TextField
+                        {...params}
+                        label="Combo box"
+                        variant="outlined"
+                        fullWidth
+                      />
+                    )}
+                  />
+                </Grid>
+                <Grid item>
+                  <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    color="primary"
+                    // className={classes.submit}
+                    disabled={isSubmitting}
+                    onClick={() => handleSubmit()}
+                  >
+                    Apply
+                  </Button>
+                </Grid>
+              </Grid>
+              // </Form>
             );
           }}
         </Formik>

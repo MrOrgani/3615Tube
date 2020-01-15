@@ -6,50 +6,54 @@ const MovieTorrents = ({ data: { torrents } }: any) => {
   const [, setSrcTorrent] = useContext(TorrentContext) as any;
 
   return (
-    <>
+    // <>
+    <Grid container alignItems="flex-start">
       <Typography variant="h4" style={{ color: "white" }}>
         torrents
       </Typography>
-      <Grid
-        container
-        style={{
-          maxHeight: "20vh",
-          overflow: "auto"
-        }}
-      >
+      <Grid container justify="center" alignItems="flex-start" spacing={1}>
         {torrents.map((torrent: any, index: number) => {
           return (
-            <ButtonBase
+            <Grid
               key={`torrent-index${index}`}
-              style={{ minWidth: "-moz-available", height: "50px" }}
-              onClick={() => setSrcTorrent(torrent.magnet)}
+              item
+              xs={12}
+              style={{ display: "flex", justifyContent: "center" }}
             >
-              <Paper
-                style={{
-                  minWidth: "-moz-available",
-                  height: "50px",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center"
-                }}
+              <ButtonBase
+                style={{ minWidth: "-moz-available", height: "50px" }}
+                onClick={() => setSrcTorrent(torrent.magnet)}
               >
-                audio:{" "}
-                {torrent.language === "fr" ? (
-                  <span role="img" aria-label="france">
-                    🇫🇷
-                  </span>
-                ) : (
-                  <span role="img" aria-label="UK">
-                    🇬🇧
-                  </span>
-                )}{" "}
-                | {torrent.quality} | {torrent.seed} seeds | {torrent.peer} peer
-              </Paper>
-            </ButtonBase>
+                <Paper
+                  style={{
+                    minWidth: "-moz-available",
+                    height: "50px",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    width: "20vw"
+                  }}
+                >
+                  audio:{" "}
+                  {torrent.language === "fr" ? (
+                    <span role="img" aria-label="france">
+                      🇫🇷
+                    </span>
+                  ) : (
+                    <span role="img" aria-label="UK">
+                      🇬🇧
+                    </span>
+                  )}{" "}
+                  | {torrent.quality} | {torrent.seed} seeds | {torrent.peer}{" "}
+                  peer
+                </Paper>
+              </ButtonBase>
+            </Grid>
           );
         })}
       </Grid>
-    </>
+    </Grid>
+    // </>
   );
 };
 

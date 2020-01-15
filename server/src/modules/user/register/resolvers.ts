@@ -42,22 +42,22 @@ const resolvers: ResolverMap = {
       const { firstName, lastName, login, email, password } = args;
       if (
         await User.findOne({
-          where: { email },
+          where: { email: email.toLowerCase() },
           select: ["id"]
         })
       )
         return await formatError("email", "email is already taken");
       else if (
         await User.findOne({
-          where: { login },
+          where: { login: login.toLowerCase() },
           select: ["id"]
         })
       )
         return await formatError("login", "login is already taken");
       const user = (await saveUserInDb(
         password,
-        login,
-        email,
+        login.toLowerCase(),
+        email.toLowerCase(),
         firstName,
         lastName
       )) as User;

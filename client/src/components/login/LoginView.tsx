@@ -1,8 +1,14 @@
 import React from "react";
-import { Formik, FormikErrors, Form, Field } from "formik";
+import { Formik, FormikErrors, Field } from "formik";
 import { SignInSchema } from "../../common";
 import { Link } from "react-router-dom";
-import { Grid, Button, Divider } from "@material-ui/core";
+import {
+  Grid,
+  Button,
+  Divider,
+  Typography,
+  Container
+} from "@material-ui/core";
 import FieldInput from "../FiledInput/FieldInput.component";
 // import FTLogo from "../../assets/images/FTLogo.svg";
 
@@ -18,7 +24,8 @@ interface Props {
 
 export default (props: Props) => {
   return (
-    <div className="sign-up">
+    // <div className="sign-up">
+    <Container maxWidth="sm" className="sign-up">
       <Formik
         initialValues={{
           login: "",
@@ -37,43 +44,40 @@ export default (props: Props) => {
         validateOnBlur={false}
         validationSchema={SignInSchema}
       >
-        {({ isSubmitting }) => (
-          <Form
+        {({ isSubmitting, handleSubmit }) => (
+          <Grid
+            container
+            justify="center"
+            direction="column"
             style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center"
+              textAlign: "center"
             }}
           >
-            <h2>I have an account</h2>
-            <span>Please enter your creditials</span>
-            <Grid container spacing={2} justify="center">
-              <Field
-                required
-                label="Login"
-                name="login"
-                component={FieldInput}
-              />
-              <Field
-                required
-                type="password"
-                label="Password"
-                name="password"
-                component={FieldInput}
-              />
-              <Grid item xs={12} sm={4}>
+            <Typography variant="h5">I have an account</Typography>
+            <Typography variant="h6">Please enter your creditials</Typography>
+            <Field required label="Login" name="login" component={FieldInput} />
+            <Field
+              required
+              type="password"
+              label="Password"
+              name="password"
+              component={FieldInput}
+            />
+            <Grid item xs={12} container justify="center">
+              <Grid item>
                 <Button
                   type="submit"
                   fullWidth
                   variant="contained"
                   color="primary"
                   disabled={isSubmitting}
+                  onClick={() => handleSubmit()}
                 >
                   Log in
                 </Button>
               </Grid>
             </Grid>
-          </Form>
+          </Grid>
         )}
       </Formik>
       <Divider variant="middle" style={{ margin: "10px 0" }} />
@@ -102,6 +106,6 @@ export default (props: Props) => {
         Or <Link to="/register">Register</Link> |{" "}
         <Link to="/forgot-password">Forgot Password</Link>
       </span>
-    </div>
+    </Container>
   );
 };

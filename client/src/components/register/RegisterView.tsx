@@ -1,11 +1,11 @@
 import React from "react";
-import { Field, Formik, FormikErrors, Form } from "formik";
+import { Field, Formik, FormikErrors } from "formik";
 import FieldInput from "../FiledInput/FieldInput.component";
 import { SignupSchema } from "../../common";
 
 import "./register.scss";
 import { Link } from "react-router-dom";
-import { Grid, Button } from "@material-ui/core";
+import { Grid, Button, Container, Typography } from "@material-ui/core";
 import InputIcon from "@material-ui/icons/Input";
 
 interface FormValues {
@@ -24,7 +24,7 @@ interface Props {
 
 export default (props: Props) => {
   return (
-    <div className="sign-up">
+    <Container maxWidth="sm" className="sign-up">
       <Formik
         initialValues={{
           firstName: "",
@@ -44,16 +44,17 @@ export default (props: Props) => {
         }}
         validationSchema={SignupSchema}
       >
-        {({ isSubmitting }) => (
-          <Form
+        {({ isSubmitting, handleSubmit }) => (
+          <Grid
+            container
+            justify="center"
+            direction="column"
             style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center"
+              textAlign: "center"
             }}
           >
-            <h2>I don't have an account</h2>
-            <span>Fill these fields to sign up</span>
+            <Typography variant="h5">I don't have an account</Typography>
+            <Typography variant="h6">Fill these fields to sign up</Typography>
             <Grid container spacing={1} justify="center">
               <Field
                 grid={{ xs: 12, sm: 6 }}
@@ -114,9 +115,9 @@ export default (props: Props) => {
                 </Link>
               </Grid>
             </Grid>
-          </Form>
+          </Grid>
         )}
       </Formik>
-    </div>
+    </Container>
   );
 };

@@ -46,7 +46,7 @@ export const Pages = ({ loading }: Props) => (
             path="/profile/:id"
             component={UserProfileConnector}
           />
-          <Route exact path="/movies" component={MovieListConnector} />
+          <AuthRoute exact path="/movies" component={MovieListConnector} />
           <AuthRoute
             exact
             path="/movie/:imdbId"

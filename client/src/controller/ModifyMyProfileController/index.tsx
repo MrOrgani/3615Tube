@@ -48,12 +48,14 @@ const ModifyMyProfileController = (props: Props) => {
 
   const submit = async (values: any) => {
     const {
-      data: { profile }
+      data: { update }
     } = await mutate({
       variables: values
     });
-    if (profile) {
-      return normalizeErrors(profile);
+
+    // console.log("My profil controller, ", result);
+    if (update) {
+      return normalizeErrors(update);
     }
     return null;
   };

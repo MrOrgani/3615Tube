@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { FormikErrors } from "formik";
 import image from "../../assets/images/avatar.png";
-import UserActivity from "../user-activity/user-activity.component";
+// import UserActivity from "../user-activity/user-activity.component";
 
 import "./user-profile.styles.scss";
 import Skeleton from "@material-ui/lab/Skeleton";
@@ -63,11 +63,10 @@ const SkeletonProfile = (
   </div>
 );
 
-const UserProfileView = ({ userInfo, submit, loading }: Props) => {
+const UserProfileView = ({ userInfo, loading }: Props) => {
   const { pathname } = window.location;
   const myInfo = useContext(UserContext) as any;
-  // const userInfoToDiplay = pathname === "/profile" ? myInfo : userInfo;
-  console.log(myInfo);
+  const userInfoToDiplay = pathname === "/profile" ? myInfo : userInfo;
 
   return (
     <>
@@ -78,16 +77,17 @@ const UserProfileView = ({ userInfo, submit, loading }: Props) => {
           <div className="avatar-container">
             <Avatar
               alt="MyAvatar"
-              src={!myInfo.avatar ? image : myInfo.avatar}
+              src={!userInfoToDiplay.avatar ? image : userInfoToDiplay.avatar}
               sizes="large"
             />
           </div>
-          {myInfo.firstName} {myInfo.lastName} | {myInfo.language} | 👤{" "}
-          {myInfo.login} | ✉️ {myInfo.email}
+          {userInfoToDiplay.firstName} {userInfoToDiplay.lastName} |{" "}
+          {userInfoToDiplay.language} | 👤 {userInfoToDiplay.login} | ✉️{" "}
+          {userInfoToDiplay.email}
           {pathname === "/profile" && <ModifyMyProfileConnector />}
         </div>
       )}
-      <UserActivity userInfo={userInfo} />
+      {/* <UserActivity userInfo={userInfo} /> */}
     </>
   );
 };

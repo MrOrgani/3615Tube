@@ -13,45 +13,6 @@ interface Props {
   userId?: string;
 }
 
-// const profileMutation = gql`
-//   mutation Update(
-//     $firstName: String!
-//     $lastName: String!
-//     $login: String!
-//     $email: String!
-//     $password: String
-//     $avatar: String!
-//     $language: String!
-//   ) {
-//     update(
-//       firstName: $firstName
-//       lastName: $lastName
-//       login: $login
-//       email: $email
-//       password: $password
-//       avatar: $avatar
-//       language: $language
-//     ) {
-//       path
-//       msg
-//     }
-//   }
-// `;
-
-// const GET_MY_INFO = gql`
-//   query queryMe {
-//     me {
-//       id
-//       firstName
-//       lastName
-//       login
-//       email
-//       avatar
-//       language
-//     }
-//   }
-// `;
-
 const GET_USER_INFO = gql`
   query findOne($login: String) {
     findOne(id: $login) {
@@ -68,7 +29,6 @@ const UserProfileController = (props: Props) => {
   const myInfo = useContext(UserContext) as any;
   console.log("UserProfileController: myInfo", myInfo);
 
-  // const [mutate, { error: errorMut }] = useMutation(profileMutation);
   const { data, loading, error: errorQuery } = useQuery(GET_USER_INFO, {
     variables: { id: props.userId }
   });
@@ -77,9 +37,9 @@ const UserProfileController = (props: Props) => {
 
   if (loading) return <p>Loading...</p>;
 
-  let userInfo;
+  let userInfo = myInfo;
 
-  if (props.userId) userInfo = myInfo;
+  if (props.userId) userInfo = data;
 
   console.log("data.findOne", data, userInfo);
 
