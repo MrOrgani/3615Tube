@@ -21,9 +21,9 @@ const MovieListView = ({ data, history, filterList }: MediaProps) => {
 
   return (
     <>
-      <Grid item container lg={12} id={"infinite-list"}>
+      <Grid item container lg={12} justify="center">
         {// ********************* FILTERS ********************************
-        userIsConnected && pathname.includes("/movie") && (
+        userIsConnected && pathname === "/movies" && (
           <MovieListFilters filterList={filterList} />
         )}
         {// IF !LOADING ---> RENDER DATA

@@ -1,5 +1,8 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
 import { TorrentContext } from "../context";
+import Skeleton from "@material-ui/lab/Skeleton";
+// import { Grid } from "@material-ui/core";
+
 const MoviePlayer = () => {
   const [srcTorrent] = useContext(TorrentContext) as any;
   const [src, setSrc] = useState(srcTorrent);
@@ -11,7 +14,20 @@ const MoviePlayer = () => {
       video.current.load();
     }
   }, [srcTorrent]);
-  return !src ? null : (
+  return !src ? (
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center"
+      }}
+    >
+      <Skeleton variant="rect" width={600} height={400} />
+      <h5 style={{ position: "absolute", color: "white" }}>
+        Please, click on a torrent to start streaming
+      </h5>
+    </div>
+  ) : (
     <video
       ref={video}
       style={{ height: "400px", width: "600px" }}

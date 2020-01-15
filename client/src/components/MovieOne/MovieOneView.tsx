@@ -12,8 +12,8 @@ import MoviePlayer from "../MoviePlayer/MoviePlayer";
 const MovieOneSkeleton = (
   <Grid container xl={12} spacing={3}>
     {/**********************  PLAYER **********************************/}
-    <Grid item container xl={6}>
-      <video id="videoPlayer" controls style={{ width: "inherit" }}></video>
+    <Grid item container xl={6} justify="center">
+      <Skeleton variant="rect" width={600} height={400} />
     </Grid>
     {/**********************  INFO ON THE MOVIE **********************************/}
     <Grid item xl={6} md={12} container>

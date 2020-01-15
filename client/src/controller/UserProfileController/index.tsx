@@ -1,9 +1,9 @@
 import * as React from "react";
 import { useQuery } from "react-apollo";
 import gql from "graphql-tag";
-import { useContext } from "react";
-import { UserContext } from "../../components/context";
-import UserProfileView from "../../components/user-profile/UserProfileView";
+// import { useContext } from "react";
+// import { UserContext } from "../../components/context";
+// import UserProfileView from "../../components/user-profile/UserProfileView";
 
 interface Props {
   children: (data: {
@@ -45,7 +45,7 @@ const UserProfileController = (props: Props) => {
   // if (props.userId)
   const userInfo = data ? data.findOne : null;
 
-  console.log("data.findOne", data, userInfo);
+  // console.log("data.findOne", data, userInfo);
 
   return props.children({
     userInfo
