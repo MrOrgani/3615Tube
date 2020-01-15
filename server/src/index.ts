@@ -9,6 +9,7 @@ import connectToDb from "./utils/connecToDb";
 import { genSchema } from "./utils/genSchema";
 import { createSession } from "./utils/createSession";
 import { passportSetUp } from "./utils/passportOauth/passportSetUp";
+import {seedFilmDatabase} from './scripts/seedFilmDb/seedFilmDb';
 
 const startServer = async () => {
   await require("dotenv").config();
@@ -55,6 +56,8 @@ const startServer = async () => {
     ]
   };
   new CronJob("0 8 * * *", torrentManager.deleteOldFilms).start();
+  new CronJob("0 7 * * *", seedFilmDatabase).start();
+
   /* Manually start deleteOldFilm : */
 
   // torrentManager.deleteOldFilms();

@@ -73,7 +73,7 @@ const seedPct = async (imdbIdArray: string[]) => {
   );
 };
 
-const seedFilmDatabase = async () => {
+export const seedFilmDatabase = async () => {
   try {
     await createConnection();
     await getConnection()
@@ -89,4 +89,5 @@ const seedFilmDatabase = async () => {
     console.log("caugh an error fetching and formating the data", e.message);
   }
 };
-seedFilmDatabase();
+/* Uncomment to launch the script */
+// seedFilmDatabase();
