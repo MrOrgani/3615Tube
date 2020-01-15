@@ -26,7 +26,11 @@ export const Pages = ({ loading }: Props) => (
   <BrowserRouter>
     <Header />
     <div className="App">
-      {loading && <CircularProgress />}
+      {loading && (
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <CircularProgress size="20vh" variant="indeterminate" />
+        </div>
+      )}
       {!loading && (
         <Switch>
           <Route exact path="/" component={HomePage} />
