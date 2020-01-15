@@ -4,7 +4,6 @@ import MovieOneView from "./MovieOneView";
 
 const MovieOneConnector = (props: any) => {
   const {
-    // history,
     match: {
       params: { imdbId }
     }

@@ -58,7 +58,7 @@ const MovieOneView = ({ movieInfo, loading }: any) => {
             </Grid>
             {/**********************  INFO ON THE MOVIE **********************************/}
             <Grid item xl={6} md={12} container>
-              <MovieInfo data={movieInfo} />
+              <MovieInfo movieInfo={movieInfo} />
             </Grid>
             {/**********************  TORRENTS **********************************/}
             <Grid item xl={6} md={12} container>
