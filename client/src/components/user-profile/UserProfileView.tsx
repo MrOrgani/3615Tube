@@ -6,12 +6,12 @@ import image from "../../assets/images/avatar.png";
 import "./user-profile.styles.scss";
 import Skeleton from "@material-ui/lab/Skeleton";
 import {
-  Avatar,
+  // Avatar,
   Grid,
   Container,
   Typography,
-  CardMedia,
-  Card,
+  // CardMedia,
+  // Card,
   Divider
 } from "@material-ui/core";
 import { UserContext } from "../context";
@@ -132,20 +132,22 @@ const UserProfileView = ({ userInfo, loading }: Props) => {
                 )}
               </Typography>
             </Grid>
-            <Divider
-              variant="middle"
-              light
-              style={{ margin: "10px 0", width: "inherit" }}
-            />
-            <Grid item>
-              {pathname === "/profile" && `✉️  ${userInfoToDiplay.email}`}
-            </Grid>
-            <Divider
-              variant="middle"
-              light
-              style={{ margin: "10px 0", width: "inherit" }}
-            />
-            {pathname === "/profile" && <ModifyMyProfileConnector />}
+            {pathname === "/profile" && (
+              <>
+                <Divider
+                  variant="middle"
+                  light
+                  style={{ margin: "10px 0", width: "inherit" }}
+                />
+                <Grid item>{`✉️  ${userInfoToDiplay.email}`}</Grid>
+                <Divider
+                  variant="middle"
+                  light
+                  style={{ margin: "10px 0", width: "inherit" }}
+                />
+                <ModifyMyProfileConnector />
+              </>
+            )}
           </Grid>
         </Container>
       )}

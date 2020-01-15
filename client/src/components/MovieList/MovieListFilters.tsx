@@ -87,10 +87,7 @@ const MovieListFilters = ({ filterList }: any) => {
 
   return (
     <Grid item container xl={12}>
-      <Paper
-        className="filters-box"
-        style={{ width: "-webkit-fill-available" }}
-      >
+      <Paper className="filters-box" style={{ width: "inherit" }}>
         <Formik
           initialValues={filters}
           onSubmit={async (values, actions) => {
@@ -104,21 +101,7 @@ const MovieListFilters = ({ filterList }: any) => {
             return (
               // <Form>
               <Grid container justify="space-evenly" alignItems="center">
-                <Grid item>
-                  <Typography id="range-slider" gutterBottom>
-                    Year release
-                  </Typography>
-                  <Slider
-                    value={values.year}
-                    onChange={(_, value) => setFieldValue("year", value)}
-                    valueLabelDisplay="auto"
-                    aria-labelledby="range-slider"
-                    min={1900}
-                    max={2020}
-                    name={"year"}
-                  />
-                </Grid>
-                <Grid item>
+                <Grid item xs={12} sm={4}>
                   <div className={classes.search}>
                     <div className={classes.searchIcon}>
                       <SearchIcon />
@@ -137,7 +120,21 @@ const MovieListFilters = ({ filterList }: any) => {
                     />
                   </div>
                 </Grid>
-                <Grid item>
+                <Grid item xs={12} sm style={{ padding: "0 20px" }}>
+                  <Typography id="range-slider" gutterBottom>
+                    Year release
+                  </Typography>
+                  <Slider
+                    value={values.year}
+                    onChange={(_, value) => setFieldValue("year", value)}
+                    valueLabelDisplay="auto"
+                    aria-labelledby="range-slider"
+                    min={1900}
+                    max={2020}
+                    name={"year"}
+                  />
+                </Grid>
+                <Grid item xs={12} sm>
                   <Autocomplete
                     id="combo-box-genres"
                     options={genreList}
@@ -157,7 +154,7 @@ const MovieListFilters = ({ filterList }: any) => {
                     )}
                   />
                 </Grid>
-                <Grid item>
+                <Grid item xs={12} sm={2} style={{ padding: "0 20px" }}>
                   <Typography id="range-slider" gutterBottom>
                     Rating
                   </Typography>
@@ -172,7 +169,7 @@ const MovieListFilters = ({ filterList }: any) => {
                     // getAriaValueText={valuetext}
                   />
                 </Grid>
-                <Grid item>
+                <Grid item xs={12} sm>
                   <Autocomplete
                     id="combo-box-orderKey"
                     options={orderKeyList}
@@ -192,7 +189,7 @@ const MovieListFilters = ({ filterList }: any) => {
                     )}
                   />
                 </Grid>
-                <Grid item>
+                <Grid item xs={12} sm>
                   <Autocomplete
                     id="combo-box-orderValue"
                     options={orderValueList}
@@ -212,7 +209,7 @@ const MovieListFilters = ({ filterList }: any) => {
                     )}
                   />
                 </Grid>
-                <Grid item>
+                <Grid item xs>
                   <Button
                     type="submit"
                     fullWidth

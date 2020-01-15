@@ -1,5 +1,13 @@
 import React, { useState, useContext, useEffect } from "react";
-import { Grid, Box, Card, CardHeader, Avatar, Button } from "@material-ui/core";
+import {
+  Grid,
+  Box,
+  Card,
+  CardHeader,
+  Avatar,
+  Button,
+  Container
+} from "@material-ui/core";
 import Skeleton from "@material-ui/lab/Skeleton";
 
 import "./MoviesListSkeleton.styles.scss";
@@ -37,83 +45,85 @@ const CommentsView = ({ data, loading, submit }: MediaProps) => {
   // comments.map((com: any) => console.log(com.authorId.id));
 
   return (
-    <Grid container item lg={12} direction="column">
-      <Box my={0.5}>
-        <Card style={{ backgroundColor: "rgb(225, 225, 225)" }}>
-          <CardHeader
-            avatar={<Avatar alt="MyAvatar" src={avatar} />}
-            title={login}
-            subheader={
-              <Formik
-                initialValues={{
-                  text: "",
-                  imdbId: imdbId
-                }}
-                onSubmit={async values => {
-                  const myComment = await submit(values);
-                  setComments(
-                    !comments.length ? [myComment] : [myComment, ...comments]
-                  );
-                }}
-                validateOnChange={false}
-                validateOnBlur={false}
-                validationSchema={CommentsSchema}
-              >
-                {({ handleSubmit }) => {
-                  return (
-                    <>
-                      <Field
-                        name="text"
-                        type="text"
-                        placeholder="Write your comment"
-                        style={{
-                          backgroundColor: "#f2f3f5",
-                          border: "1px solid #ccd0d5",
-                          borderRadius: "16px"
-                        }}
-                        component={FieldInput}
-                      />
-                      <Button
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        color="primary"
-                        onClick={() => handleSubmit()}
-                      >
-                        Send
-                      </Button>
-                    </>
-                  );
-                }}
-              </Formik>
-            }
-          />
-        </Card>
-      </Box>
-      {loading &&
-        Array.from(new Array(4)).map((_, index: number) => (
-          <Box key={`ComSkel-${index}`} my={0.5}>
-            {CommentSkeletonItem}
-          </Box>
-        ))}
-      {comments &&
-        !loading &&
-        Array.from(comments).map((item: any, index: any) => (
-          <Box key={`ComSkel-${index}`} my={0.5}>
-            <Card style={{ backgroundColor: "rgb(225, 225, 225)" }}>
-              <CardHeader
-                avatar={
-                  <Link to={`/profile/${item.authorId.id}`}>
-                    <Avatar alt="Author Avatar" src={item.authorId.avatar} />
-                  </Link>
-                }
-                title={`${item.authorId.login} (${item.createdAt})`}
-                subheader={item.text}
-              />
-            </Card>
-          </Box>
-        ))}
-    </Grid>
+    <Container maxWidth="md" style={{ height: "40vh", overflow: "auto" }}>
+      <Grid container item direction="column">
+        <Box my={0.5}>
+          <Card style={{ backgroundColor: "rgb(225, 225, 225)" }}>
+            <CardHeader
+              avatar={<Avatar alt="MyAvatar" src={avatar} />}
+              title={login}
+              subheader={
+                <Formik
+                  initialValues={{
+                    text: "",
+                    imdbId: imdbId
+                  }}
+                  onSubmit={async values => {
+                    const myComment = await submit(values);
+                    setComments(
+                      !comments.length ? [myComment] : [myComment, ...comments]
+                    );
+                  }}
+                  validateOnChange={false}
+                  validateOnBlur={false}
+                  validationSchema={CommentsSchema}
+                >
+                  {({ handleSubmit }) => {
+                    return (
+                      <>
+                        <Field
+                          name="text"
+                          type="text"
+                          placeholder="Write your comment"
+                          style={{
+                            backgroundColor: "#f2f3f5",
+                            border: "1px solid #ccd0d5",
+                            borderRadius: "16px"
+                          }}
+                          component={FieldInput}
+                        />
+                        <Button
+                          type="submit"
+                          fullWidth
+                          variant="contained"
+                          color="primary"
+                          onClick={() => handleSubmit()}
+                        >
+                          Send
+                        </Button>
+                      </>
+                    );
+                  }}
+                </Formik>
+              }
+            />
+          </Card>
+        </Box>
+        {loading &&
+          Array.from(new Array(4)).map((_, index: number) => (
+            <Box key={`ComSkel-${index}`} my={0.5}>
+              {CommentSkeletonItem}
+            </Box>
+          ))}
+        {comments &&
+          !loading &&
+          Array.from(comments).map((item: any, index: any) => (
+            <Box key={`ComSkel-${index}`} my={0.5}>
+              <Card style={{ backgroundColor: "rgb(225, 225, 225)" }}>
+                <CardHeader
+                  avatar={
+                    <Link to={`/profile/${item.authorId.id}`}>
+                      <Avatar alt="Author Avatar" src={item.authorId.avatar} />
+                    </Link>
+                  }
+                  title={`${item.authorId.login} (${item.createdAt})`}
+                  subheader={item.text}
+                />
+              </Card>
+            </Box>
+          ))}
+      </Grid>
+    </Container>
   );
 };
 

@@ -3,7 +3,7 @@ import React, { useState } from "react";
 // import TabsComponent from "../Tabs/TabsComponent";
 import MovieInfo from "./MovieInfo";
 import CommentConnector from "../Comments/CommentConnector";
-import { Grid } from "@material-ui/core";
+import { Grid, Container } from "@material-ui/core";
 import MovieTorrents from "./MovieTorrents";
 import Skeleton from "@material-ui/lab/Skeleton";
 import { TorrentProvider } from "../context";
@@ -51,30 +51,33 @@ const MovieOneView = ({ movieInfo, loading }: any) => {
     <>
       {movieInfo && (
         <TorrentProvider value={[srcTorrent, setSrcTorrent]}>
-          <Grid container xl={12} spacing={3}>
-            {/**********************  PLAYER **********************************/}
-            <Grid item container xl={6} justify="center">
-              <MoviePlayer />
+          <Container maxWidth="xl">
+            <Grid container xl={12} spacing={3}>
+              {/**********************  PLAYER **********************************/}
+              <Grid item container xl={6} justify="center">
+                <MoviePlayer />
+              </Grid>
+              {/**********************  INFO ON THE MOVIE **********************************/}
+              <Grid item xl={6} md={12} container>
+                <MovieInfo movieInfo={movieInfo} />
+              </Grid>
+              {/**********************  TORRENTS **********************************/}
+              <Grid item xl={6} md={12} container alignItems="flex-start">
+                <MovieTorrents data={movieInfo} />
+              </Grid>
+              {/**********************  COMMENTS **********************************/}
+              <Grid
+                item
+                xl={6}
+                md={12}
+                container
+                // style={{ height: "40vh", overflow: "auto" }}
+                justify="center"
+              >
+                <CommentConnector />
+              </Grid>
             </Grid>
-            {/**********************  INFO ON THE MOVIE **********************************/}
-            <Grid item xl={6} md={12} container>
-              <MovieInfo movieInfo={movieInfo} />
-            </Grid>
-            {/**********************  TORRENTS **********************************/}
-            <Grid item xl={6} md={12} container alignItems="flex-start">
-              <MovieTorrents data={movieInfo} />
-            </Grid>
-            {/**********************  COMMENTS **********************************/}
-            <Grid
-              item
-              xl={6}
-              md={12}
-              container
-              style={{ height: "40vh", overflow: "auto" }}
-            >
-              <CommentConnector />
-            </Grid>
-          </Grid>
+          </Container>
         </TorrentProvider>
       )}
       {/* IF LOADING */}
