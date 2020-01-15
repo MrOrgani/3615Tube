@@ -81,7 +81,7 @@ const MovieListController = (props: Props) => {
 
   const [filters] = useContext(MovieListContext) as any;
 
-  console.log("filters in MovieListController", filters);
+  // console.log("filters in MovieListController", filters);
   const { data, loading, error, fetchMore } = useQuery(GET_MOVIES, {
     variables: filters
   });
@@ -95,7 +95,7 @@ const MovieListController = (props: Props) => {
 
   if (filteredList && filteredList.searchFilms) {
     allMovies = filteredList.searchFilms;
-    console.log("ALL MOVIES CHANGED", allMovies);
+    // console.log("ALL MOVIES CHANGED", allMovies);
   }
 
   // console.log("data fitlered", result);
@@ -103,7 +103,7 @@ const MovieListController = (props: Props) => {
 
   if (filteredList && filteredList.searchFilms) {
     allMovies = filteredList.searchFilms;
-    console.log("ALL MOVIES CHANGED", allMovies);
+    // console.log("ALL MOVIES CHANGED", allMovies);
   }
 
   //SI ERREUR DE GRAPHQL RETURN THIS
@@ -112,7 +112,7 @@ const MovieListController = (props: Props) => {
   //SI LOADING JE RENVOIE UN -------SKELETON------- DES COMS
   if (loading) return <MovieListLoading loading />;
 
-  console.log("allMovies, ", allMovies);
+  // console.log("allMovies, ", allMovies);
 
   return props.children({
     allMovies,

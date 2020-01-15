@@ -3,14 +3,13 @@ import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import { useSpring, animated } from "react-spring/web.cjs"; // web.cjs is required for IE 11 support
-import { Formik, Form, Field } from "formik";
+import { Formik, Field } from "formik";
 import Avatar from "../avatar/avatar.component";
 import { ProfileSchema } from "../../common";
 import BuildOutlinedIcon from "@material-ui/icons/BuildOutlined";
 import {
   Grid,
   Button,
-  Container,
   FormControl,
   InputLabel,
   Select,

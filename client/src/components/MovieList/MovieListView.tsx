@@ -1,12 +1,10 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { Grid, Box, Typography } from "@material-ui/core";
 import StarOutlinedIcon from "@material-ui/icons/StarOutlined";
 
 import "./MoviesListSkeleton.styles.scss";
-import Skeleton from "@material-ui/lab/Skeleton";
 import { UserContext } from "../context";
 import MovieListFilters from "./MovieListFilters";
-// import { MovieListContext } from "../../pages/context";
 
 interface MediaProps {
   loading?: boolean;
@@ -17,40 +15,9 @@ interface MediaProps {
   loadMore: () => void;
 }
 
-const MovieSkeletonItem = (
-  <>
-    <Skeleton
-      variant="rect"
-      width={185}
-      height={278}
-      style={{ backgroundColor: "rgba(222, 85, 257, 0.08)" }}
-    />
-    <Box pt={0.5}>
-      <Skeleton style={{ backgroundColor: "rgba(222, 85, 257, 0.08)" }} />
-      <Skeleton
-        width="60%"
-        style={{ backgroundColor: "rgba(222, 85, 257, 0.08)" }}
-      />
-    </Box>
-  </>
-);
-
-const MovieListView = ({
-  data,
-  history,
-  // loading,
-  filterList,
-  loadMore
-}: MediaProps) => {
+const MovieListView = ({ data, history, filterList }: MediaProps) => {
   const userIsConnected = useContext(UserContext);
   const { pathname } = window.location;
-
-  // let [filters] = useContext(MovieListContext) as any;
-  // const [load, setLoad] = useState(false);
-
-  // ----------------------------------- INFINITE SCROLL ---------------------
-
-  // ----------------------------------- INFINITE SCROLL ---------------------
 
   return (
     <>
@@ -67,7 +34,6 @@ const MovieListView = ({
               width={185}
               mx={1}
               onClick={() => history.push(`/movie/${item.imdbId}`)}
-              // className="movie-box"
             >
               <>
                 <div className={`movie-box ${data.seen ? "seen" : ""}`}>
