@@ -4,7 +4,7 @@ import StarOutlinedIcon from "@material-ui/icons/StarOutlined";
 
 import "./MoviesListSkeleton.styles.scss";
 import Skeleton from "@material-ui/lab/Skeleton";
-import { UserContext } from "../../pages/context";
+import { UserContext } from "../context";
 import MovieListFilters from "./MovieListFilters";
 // import { MovieListContext } from "../../pages/context";
 

@@ -3,7 +3,7 @@ import { useMutation, useQuery } from "react-apollo";
 import gql from "graphql-tag";
 import { normalizeErrors } from "../../utils/normalizeErrors";
 import { useContext } from "react";
-import { UserContext } from "../../pages/context";
+import { UserContext } from "../../components/context";
 
 interface Props {
   children: (data: {

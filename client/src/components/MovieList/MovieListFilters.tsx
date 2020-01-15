@@ -16,7 +16,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import { genreList, orderKeyList, orderValueList } from "../../common";
 import { Formik, Form } from "formik";
-import { MovieListContext } from "../../pages/context";
+import { MovieListContext } from "../context";
 
 interface FilmOptionType {
   firstLetter: string;

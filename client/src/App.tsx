@@ -1,35 +1,34 @@
 import React from "react";
 import "./index.css";
-// import Header from "./components/header/header.component";
-// import Footer from "./components/footer/footer.component";
 import Pages from "./pages";
-// import { UserProvider } from "./pages/context";
-// import { useQuery } from "react-apollo";
+import { useQuery } from "react-apollo";
+import gql from "graphql-tag";
+import { UserProvider } from "./components/context";
 
-// import gql from "graphql-tag";
-
-// export const meQuery = gql`
-//   query meQuery {
-//     me {
-//       id
-//       lastName
-//       login
-//       firstName
-//       language
-//       avatar
-//       email
-//       language
-//     }
-//   }
-// `;
+export const meQuery = gql`
+  query meQuery {
+    me {
+      id
+      lastName
+      login
+      firstName
+      language
+      avatar
+      email
+      language
+    }
+  }
+`;
 
 const App = () => {
-  // const { data } = useQuery(meQuery);
+  const { data, loading } = useQuery(meQuery);
+
+  if (loading) return <Pages loading={true} />;
 
   return (
-    // <UserProvider value={data ? data.me : null}>
-    <Pages />
-    // </UserProvider>
+    <UserProvider value={data.me}>
+      <Pages />
+    </UserProvider>
   );
 };
 

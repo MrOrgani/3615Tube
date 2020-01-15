@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import MovieListView from "./MovieListView";
 import MovieListController from "../../controller/MovieListController";
-import { MovieListProvider } from "../../pages/context";
+import { MovieListProvider } from "../context";
 
 interface MediaProps {
   loading?: boolean;

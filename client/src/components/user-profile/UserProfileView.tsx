@@ -7,7 +7,7 @@ import UserActivity from "../user-activity/user-activity.component";
 import "./user-profile.styles.scss";
 import Skeleton from "@material-ui/lab/Skeleton";
 import { Avatar } from "@material-ui/core";
-import { UserContext } from "../../pages/context";
+import { UserContext } from "../context";
 
 interface FormValues {
   firstName: string;

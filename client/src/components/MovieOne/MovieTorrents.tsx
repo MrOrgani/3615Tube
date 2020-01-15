@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Typography, Grid, Paper, ButtonBase } from "@material-ui/core";
-import { TorrentContext } from "../../pages/context";
+import { TorrentContext } from "../context";
 
 const MovieTorrents = ({ data: { torrents } }: any) => {
   const [, setSrcTorrent] = useContext(TorrentContext) as any;

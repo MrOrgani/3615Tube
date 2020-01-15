@@ -6,6 +6,7 @@ import {
   Redirect,
   Route
 } from "react-router";
+import { UserProvider } from "../../components/context";
 
 export const meQuery = gql`
   query meQuery {
@@ -44,7 +45,11 @@ const AuthRoute = (props: any) => {
 
     const Component = component as any;
 
-    return <Component {...routeProps} />;
+    return (
+      <UserProvider value={data ? data.me : null}>
+        <Component {...routeProps} />
+      </UserProvider>
+    );
   };
   const { data: _, component: __, ...rest } = props;
   return <Route {...rest} render={renderRoute} />;

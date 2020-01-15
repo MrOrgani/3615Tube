@@ -2,7 +2,7 @@ import React from "react";
 import MovieOneConnector from "../../components/MovieOne/MovieOneConnector";
 
 import "./movie.styles.scss";
-import { MovieProvider } from "../context";
+import { MovieProvider } from "../../components/context";
 
 const MoviePage = (props: any) => {
   const {

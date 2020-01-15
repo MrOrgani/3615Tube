@@ -19,7 +19,7 @@ import {
   MenuItem
 } from "@material-ui/core";
 import FieldInput from "../FiledInput/FieldInput.component";
-import { UserContext } from "../../pages/context";
+import { UserContext } from "../context";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

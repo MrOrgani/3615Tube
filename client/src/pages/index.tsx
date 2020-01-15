@@ -14,29 +14,46 @@ import UserProfileConnector from "../components/user-profile/UserProfileConnecto
 import MovieListConnector from "../components/MovieList/MovieListConnector";
 import MovieOneConnector from "../components/MovieOne/MovieOneConnector";
 import ForgotPasswordConnector from "../components/ForgotPassword/ForgotPasswordConnector";
+import CircularProgress from "@material-ui/core/CircularProgress";
+
 import "./index.scss";
 
-export const Pages = () => (
+interface Props {
+  loading?: boolean;
+}
+
+export const Pages = ({ loading }: Props) => (
   <BrowserRouter>
     <Header />
     <div className="App">
-      <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route path="/register" component={RegisterConnector} />
-        <Route path="/login" component={LoginConnector} />
-        <Route path="/m" component={TextPage} />
-        <Route path="/logout" component={LogoutConnector} />
-        <Route path="/confirm/:token" component={ConfirmAccountConnector} />
-        <Route path="/forgot-password" component={ForgotPasswordConnector} />
-        <Route
-          path="/change-password/:key"
-          component={ChangePasswordConnector}
-        />
-        <AuthRoute exact path="/profile/:id" component={UserProfileConnector} />
-        <AuthRoute exact path="/profile" component={UserProfileConnector} />
-        <Route exact path="/movies" component={MovieListConnector} />
-        <AuthRoute exact path="/movie/:imdbId" component={MovieOneConnector} />
-      </Switch>
+      {loading && <CircularProgress />}
+      {!loading && (
+        <Switch>
+          <Route exact path="/" component={HomePage} />
+          <Route path="/register" component={RegisterConnector} />
+          <Route path="/login" component={LoginConnector} />
+          <Route path="/m" component={TextPage} />
+          <Route path="/logout" component={LogoutConnector} />
+          <Route path="/confirm/:token" component={ConfirmAccountConnector} />
+          <Route path="/forgot-password" component={ForgotPasswordConnector} />
+          <Route
+            path="/change-password/:key"
+            component={ChangePasswordConnector}
+          />
+          <AuthRoute
+            exact
+            path="/profile/:id"
+            component={UserProfileConnector}
+          />
+          <AuthRoute exact path="/profile" component={UserProfileConnector} />
+          <Route exact path="/movies" component={MovieListConnector} />
+          <AuthRoute
+            exact
+            path="/movie/:imdbId"
+            component={MovieOneConnector}
+          />
+        </Switch>
+      )}
     </div>
     <Footer />
   </BrowserRouter>

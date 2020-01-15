@@ -5,6 +5,15 @@ import UserProfileConnector from "../../components/user-profile/UserProfileConne
 
 import "./profile.styles.scss";
 
+// DELETE
+// DELETE
+// DELETE
+// DELETE
+// DELETE
+// DELETE
+// DELETE
+// DELETE
+
 const ProfilePage = (props: any) => {
   const {
     history,
@@ -17,7 +26,8 @@ const ProfilePage = (props: any) => {
   return (
     <div className="profile-page">
       <div className="page-title">Profile Page</div>
-      <UserProfileConnector userId={id} history={history} />
+      {/* <UserProfileConnector userId={id} history={history} /> */}
+      NO MORE USED
     </div>
   );
 };

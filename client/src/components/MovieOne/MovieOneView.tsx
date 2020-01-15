@@ -6,7 +6,7 @@ import CommentConnector from "../Comments/CommentConnector";
 import { Grid } from "@material-ui/core";
 import MovieTorrents from "./MovieTorrents";
 import Skeleton from "@material-ui/lab/Skeleton";
-import { TorrentProvider } from "../../pages/context";
+import { TorrentProvider } from "../context";
 import MoviePlayer from "../MoviePlayer/MoviePlayer";
 
 const MovieOneSkeleton = (

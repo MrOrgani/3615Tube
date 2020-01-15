@@ -4,7 +4,7 @@ import {
   useQuery
 } from "react-apollo";
 import gql from "graphql-tag";
-import { MovieContext } from "../../pages/context";
+import { MovieContext } from "../../components/context";
 import { useContext } from "react";
 import MovieOneView from "../../components/MovieOne/MovieOneView";
 import axios from "axios";

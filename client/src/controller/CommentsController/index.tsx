@@ -6,7 +6,7 @@ import {
 } from "react-apollo";
 import gql from "graphql-tag";
 import { useContext } from "react";
-import { MovieContext } from "../../pages/context";
+import { MovieContext } from "../../components/context";
 // import { normalizeErrors } from "../../utils/normalizeErrors";
 import CommentsView from "../../components/Comments/CommentsView";
 // import { normalizeErrors } from "../../utils/normalizeErrors";

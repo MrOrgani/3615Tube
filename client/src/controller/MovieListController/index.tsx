@@ -5,7 +5,7 @@ import gql from "graphql-tag";
 // import { movieList } from "../../test.js";
 // import MovieListItem from "../../components/MovieList/MovieListView";
 import { useContext } from "react";
-import { MovieListContext } from "../../pages/context";
+import { MovieListContext } from "../../components/context";
 import MovieListLoading from "../../components/MovieList/MovieListLoading";
 
 interface Props {

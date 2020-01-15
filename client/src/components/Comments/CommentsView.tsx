@@ -12,7 +12,7 @@ import Skeleton from "@material-ui/lab/Skeleton";
 
 import "./MoviesListSkeleton.styles.scss";
 import { Form, Formik, Field } from "formik";
-import { UserContext, MovieContext } from "../../pages/context";
+import { UserContext, MovieContext } from "../context";
 import { Link } from "react-router-dom";
 import FieldInput from "../FiledInput/FieldInput.component";
 import { CommentsSchema } from "../../common";

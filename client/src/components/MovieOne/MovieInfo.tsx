@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Typography, Grid, Chip, Paper, Avatar } from "@material-ui/core";
 import axios from "axios";
-import { MovieContext } from "../../pages/context";
+import { MovieContext } from "../context";
 import image from "../../assets/images/avatar.png";
 
 const MovieInfo = ({ data }: any) => {
