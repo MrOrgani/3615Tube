@@ -14,7 +14,6 @@ const AuthRoute = (props: any) => {
   const renderRoute = (routeProps: any) => {
     const { component } = props;
 
-    console.log("AuthRoute", userAuthed);
     if (!userAuthed) {
       return (
         <Redirect

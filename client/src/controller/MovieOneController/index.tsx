@@ -1,21 +1,10 @@
 import * as React from "react";
-import {
-  // useMutation,
-  useQuery
-} from "react-apollo";
+import { useQuery } from "react-apollo";
 import gql from "graphql-tag";
-// import { MovieContext } from "../../components/context";
-// import { useContext } from "react";
 import MovieOneView from "../../components/MovieOne/MovieOneView";
-// import axios from "axios";
-// import { normalizeErrors } from "../../utils/normalizeErrors";
 
 interface Props {
-  children: (data: {
-    // submit: (values: any) => Promise<any>;
-    data?: any;
-    movieInfo?: any;
-  }) => JSX.Element | null;
+  children: (data: { data?: any; movieInfo?: any }) => JSX.Element | null;
   imdbId?: string;
 }
 
@@ -36,7 +25,6 @@ const GET_ONE_MOVIE_INFO = gql`
 `;
 
 const MovieController = (props: Props) => {
-  // const imdbId = useContext(MovieContext) as any;
   const imdbId = props.imdbId;
 
   const { data, loading, error } = useQuery(GET_ONE_MOVIE_INFO, {
@@ -57,7 +45,7 @@ const MovieController = (props: Props) => {
   }
   //***************************************** */
 
-  console.log("movie info,", movieInfo);
+  // console.log("movie info,", movieInfo);
 
   return props.children({
     movieInfo
