@@ -3,7 +3,7 @@ import { createMiddleware } from "../../../utils/createMiddleware";
 import verifyAndSetSession from "../../middleware/verifyAndSetSession";
 import { User } from "../../../entity/User";
 import * as bcrypt from "bcryptjs";
-import { ProfileSchema } from "../../../common";
+import { ProfileSchema, languageList } from "../../../common";
 import { formatYupError, formatError } from "../subModules/formatErrors";
 import { Not } from "typeorm";
 
@@ -34,6 +34,11 @@ const resolvers: ResolverMap = {
           })
         )
           return await formatError("login", "login is already taken");
+        else if (args.language && !languageList.includes(args.language))
+          return await formatError(
+            "language",
+            "this language is not available"
+          );
 
         if (args.password) args.password = await bcrypt.hash(args.password, 10);
         // if (args.avatar && !(await pictureSecurtiy(args.avatar)))

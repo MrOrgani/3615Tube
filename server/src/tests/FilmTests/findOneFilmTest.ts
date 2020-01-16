@@ -23,18 +23,19 @@ export const findOneFilmTest = (
         })) as any;
         expect(response.data.data.findOneFilm).toEqual(null);
       };
-      await setSessionAndTest(login, password, findOneFilmTest, false);
+      await setSessionAndTest(login, password, findOneFilmTest, true);
     });
     test("give me a movie", async () => {
       const findOneFilmTest = async () => {
         const response = (await Axios.post(process.env.BACK_HOST, {
           query: findOneFilmMutation(imdbId)
         })) as any;
+        console.log(response);
         expect(response.data.data.findOneFilm).toEqual({
           title: "parasite"
         });
       };
-      await setSessionAndTest(login, password, findOneFilmTest, false);
+      await setSessionAndTest(login, password, findOneFilmTest, true);
     });
   });
 };
