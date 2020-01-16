@@ -12,12 +12,12 @@ export const passportSetUp = () => {
     new FortyTwoStrategy(
       {
         clientID:
-          "5d0610399d93dc381272699d913e30df53e710ee0451e67ea86c56955026cb0a",
+          "21ee8791ef364480489dc035732d734be746729d0dfc68c2fab5c5816c85728c",
         clientSecret:
-          "f05c930209f878c84651a1849511887e60fa700888e119f80179002a11c9f0f4",
+          "73d97c9c7e44b2c59ff91abd3192e456a272e148fd2fb01a7739252e3e676ca0",
         callbackURL: `${process.env.BACK_HOST}/Oauth/42/redirect`
       },
-      (accessToken: any, refreshToken: any, profile: any, cb: any) =>
+      (_accessToken: any, _refreshToken: any, profile: any, cb: any) =>
         cb(null, profile)
     )
   );
@@ -30,7 +30,7 @@ export const passportSetUp = () => {
         clientSecret: GOOGLE_CLIENT_SECRET,
         callbackURL: `${process.env.BACK_HOST}/Oauth/google/redirect`
       },
-      (accessToken: any, refreshToken: any, profile: any, cb: any) =>
+      (_accessToken: any, _refreshToken: any, profile: any, cb: any) =>
         cb(null, profile)
     )
   );
