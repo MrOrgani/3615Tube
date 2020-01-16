@@ -5,15 +5,7 @@ import image from "../../assets/images/avatar.png";
 
 import "./user-profile.styles.scss";
 import Skeleton from "@material-ui/lab/Skeleton";
-import {
-  // Avatar,
-  Grid,
-  Container,
-  Typography,
-  // CardMedia,
-  // Card,
-  Divider
-} from "@material-ui/core";
+import { Grid, Container, Typography, Divider } from "@material-ui/core";
 import { UserContext } from "../context";
 import ModifyMyProfileConnector from "./ModifyMyProfileConnector";
 
@@ -73,7 +65,7 @@ const SkeletonProfile = (
 
 const UserProfileView = ({ userInfo, loading }: Props) => {
   const { pathname } = window.location;
-  const myInfo = useContext(UserContext) as any;
+  const [myInfo] = useContext(UserContext) as any;
   const userInfoToDiplay = pathname === "/profile" ? myInfo : userInfo;
 
   return (

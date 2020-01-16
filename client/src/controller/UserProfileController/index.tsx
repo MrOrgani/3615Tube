@@ -29,7 +29,7 @@ const GET_USER_INFO = gql`
 
 const UserProfileController = (props: Props) => {
   // const myInfo = useContext(UserContext) as any;
-  console.log("UserProfileController: props.userId", props.userId);
+  // console.log("UserProfileController: props.userId", props.userId);
 
   const { data, loading, error } = useQuery(GET_USER_INFO, {
     variables: { id: props.userId }

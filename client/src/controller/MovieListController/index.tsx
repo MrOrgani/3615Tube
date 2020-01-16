@@ -63,7 +63,6 @@ const MovieListController = (props: Props) => {
         page: ++filters.page
       },
       updateQuery: (prev, { fetchMoreResult, variables }) => {
-        console.log(fetchMoreResult.searchFilms);
         if (!fetchMoreResult) return prev;
         return {
           ...prev,
