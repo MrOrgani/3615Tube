@@ -91,7 +91,7 @@ const MovieListFilters = ({ filterList }: any) => {
           initialValues={filters}
           onSubmit={async (values, actions) => {
             values.order = { [values.orderKey]: values.orderValue };
-            // filterList({ variables: values });\
+            values.page = 0;
             setFilters(values);
           }}
           validateOnChange={false}
