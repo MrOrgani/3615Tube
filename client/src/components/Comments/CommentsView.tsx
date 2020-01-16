@@ -41,7 +41,7 @@ const CommentsView = ({ data, loading, submit }: MediaProps) => {
   const [{ avatar, login }] = useContext(UserContext) as any;
   const imdbId = useContext(MovieContext) as any;
 
-  console.log("CommentsView imdbId", imdbId);
+  // console.log("CommentsView imdbId", imdbId);
 
   return (
     <Container maxWidth="md" style={{ height: "40vh", overflow: "auto" }}>
@@ -58,7 +58,7 @@ const CommentsView = ({ data, loading, submit }: MediaProps) => {
                     imdbId: imdbId
                   }}
                   onSubmit={async (values, action) => {
-                    console.log("CommentsView value", values);
+                    // console.log("CommentsView value", values);
                     const myComment = await submit(values);
                     setComments(
                       !comments.length ? [myComment] : [myComment, ...comments]

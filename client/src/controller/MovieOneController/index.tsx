@@ -32,7 +32,7 @@ const GET_ONE_MOVIE_INFO = gql`
 const MovieOneController = (props: Props) => {
   const imdbId = React.useContext(MovieContext);
 
-  console.log("MovieOneController", imdbId);
+  // console.log("MovieOneController", imdbId);
 
   const { data, loading, error } = useQuery(GET_ONE_MOVIE_INFO, {
     variables: { imdbId }
