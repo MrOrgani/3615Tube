@@ -8,7 +8,6 @@ const UserProfileConnector = (props: any) => {
       params: { userId }
     }
   } = props;
-  console.log("UserProfileConnector", userId);
 
   return (
     <UserProfileController userId={userId}>

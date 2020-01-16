@@ -1,6 +1,7 @@
 import React from "react";
 import MovieController from "../../controller/MovieOneController";
 import MovieOneView from "./MovieOneView";
+import { MovieProvider } from "../context";
 
 const MovieOneConnector = (props: any) => {
   const {
@@ -10,11 +11,13 @@ const MovieOneConnector = (props: any) => {
   } = props;
 
   return (
-    <MovieController imdbId={imdbId}>
-      {({ movieInfo, parsedTorrents }) => (
-        <MovieOneView movieInfo={movieInfo} parsedTorrents={parsedTorrents} />
-      )}
-    </MovieController>
+    <MovieProvider value={imdbId}>
+      <MovieController>
+        {({ movieInfo, parsedTorrents }) => (
+          <MovieOneView movieInfo={movieInfo} parsedTorrents={parsedTorrents} />
+        )}
+      </MovieController>
+    </MovieProvider>
   );
 };
 

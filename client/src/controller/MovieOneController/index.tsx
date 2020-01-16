@@ -2,6 +2,7 @@ import * as React from "react";
 import { useQuery } from "react-apollo";
 import gql from "graphql-tag";
 import MovieOneView from "../../components/MovieOne/MovieOneView";
+import { MovieContext } from "../../components/context";
 
 interface Props {
   children: (data: {
@@ -28,8 +29,10 @@ const GET_ONE_MOVIE_INFO = gql`
   }
 `;
 
-const MovieController = (props: Props) => {
-  const imdbId = props.imdbId;
+const MovieOneController = (props: Props) => {
+  const imdbId = React.useContext(MovieContext);
+
+  console.log("MovieOneController", imdbId);
 
   const { data, loading, error } = useQuery(GET_ONE_MOVIE_INFO, {
     variables: { imdbId }
@@ -42,15 +45,9 @@ const MovieController = (props: Props) => {
   const movieInfo = data ? data.findOneFilm : null;
 
   // PARSING TORRENTS OF EACH SINGLE MOVIE
-  console.log("MovieController torrents", movieInfo.torrents);
-  // if (movieInfo.torrents) {
   const parsedTorrents = movieInfo.torrents
     ? movieInfo.torrents.map((torrent: string) => JSON.parse(torrent))
     : null;
-  // movieInfo.torrents = parsedTorrents();
-  // }
-  //***************************************** */
-  console.log("MovieController torrents", parsedTorrents);
 
   return props.children({
     movieInfo,
@@ -58,4 +55,4 @@ const MovieController = (props: Props) => {
   });
 };
 
-export default MovieController;
+export default MovieOneController;

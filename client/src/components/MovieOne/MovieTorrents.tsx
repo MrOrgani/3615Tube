@@ -5,10 +5,7 @@ import { TorrentContext } from "../context";
 const MovieTorrents = ({ parsedTorrents }: any) => {
   const [, setSrcTorrent] = useContext(TorrentContext) as any;
 
-  console.log("MovieTorrents torrents", parsedTorrents);
-
   return (
-    // <>
     <Grid container alignItems="flex-start">
       <Typography variant="h4" style={{ color: "white" }}>
         torrents
@@ -28,12 +25,10 @@ const MovieTorrents = ({ parsedTorrents }: any) => {
               >
                 <Paper
                   style={{
-                    // minWidth: "-moz-available",
                     height: "50px",
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
-                    // width: "20vw",
                     minWidth: "max-content"
                   }}
                 >
@@ -56,7 +51,6 @@ const MovieTorrents = ({ parsedTorrents }: any) => {
         })}
       </Grid>
     </Grid>
-    // </>
   );
 };
 

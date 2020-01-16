@@ -41,6 +41,8 @@ const CommentsView = ({ data, loading, submit }: MediaProps) => {
   const { avatar, login } = useContext(UserContext) as any;
   const imdbId = useContext(MovieContext) as any;
 
+  console.log("CommentsView imdbId", imdbId);
+
   return (
     <Container maxWidth="md" style={{ height: "40vh", overflow: "auto" }}>
       <Grid container item direction="column">
@@ -55,11 +57,13 @@ const CommentsView = ({ data, loading, submit }: MediaProps) => {
                     text: "",
                     imdbId: imdbId
                   }}
-                  onSubmit={async values => {
+                  onSubmit={async (values, action) => {
+                    console.log("CommentsView value", values);
                     const myComment = await submit(values);
                     setComments(
                       !comments.length ? [myComment] : [myComment, ...comments]
                     );
+                    action.resetForm();
                   }}
                   validateOnChange={false}
                   validateOnBlur={false}
