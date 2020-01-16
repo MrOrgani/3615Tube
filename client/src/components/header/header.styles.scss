@@ -1,39 +1,15 @@
 @import url("https://fonts.googleapis.com/css?family=Alata&display=swap");
+@font-face {
+  font-family: "VCR";
+  src: local("VCR"), url(../../assets/fonts/VCR.ttf) format("opentype");
+}
+
 .header {
   height: 70px;
-  // display: flex;
-  // justify-content: space-between;
-  // position: -webkit-sticky;
-  // position: fixed;
-  // // background-color: black;
-  // padding: 0px 100px;
-  // align-items: center;
-  // width: -webkit-fill-available;
-  // width: -moz-available;
-  // // background: linear-gradient(200.1deg, #ff005b -10.9%, #000000 66%);
-  // background: transparent;
-  // height: 70px;
-  // display: flex;
-  // justify-content: space-between;
-  // position: -webkit-sticky;
-  // position: fixed;
-  // padding: 0px 100px;
-  // align-items: center;
-  // width: -webkit-fill-available;
-  // width: -moz-available;
-  // background: transparent;
-
-  // .options {
-  //   width: 50%;
-  //   height: 100%;
-  //   display: flex;
-  //   align-items: center;
-  //   justify-content: flex-end;
-  // }
 }
 
 .logo-container {
-  // font-size: 50px;
+  font-family: "VCR";
   font-size: 30px;
   margin-left: 5vw;
   color: #ff005b;

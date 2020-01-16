@@ -54,8 +54,12 @@ export default (props: Props) => {
               textAlign: "center"
             }}
           >
-            <Typography variant="h5">I don't have an account</Typography>
-            <Typography variant="h6">Fill these fields to sign up</Typography>
+            <Typography variant="h5" style={{ fontFamily: "VCR" }}>
+              I don't have an account
+            </Typography>
+            <Typography variant="h6" style={{ fontFamily: "VCR" }}>
+              Fill these fields to sign up
+            </Typography>
             <Grid container spacing={1} justify="center">
               <Field
                 grid={{ xs: 12, sm: 6 }}
@@ -106,15 +110,21 @@ export default (props: Props) => {
                   Register
                 </Button>
               </Grid>
-              <Grid item xs={12} container justify="center">
-                <Grid item xs>
-                  Or
-                </Grid>
+              <Grid
+                item
+                xs={12}
+                container
+                justify="flex-end"
+                alignItems="center"
+              >
+                {/* <Grid item xs> */}
+
                 <Link to="/login">
                   <Button variant="contained" color="secondary">
                     <InputIcon /> Login
                   </Button>
                 </Link>
+                {/* </Grid> */}
               </Grid>
             </Grid>
           </Grid>

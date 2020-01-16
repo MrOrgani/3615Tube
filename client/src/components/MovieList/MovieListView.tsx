@@ -90,14 +90,11 @@ const MovieListView = ({ data, history, filterList }: MediaProps) => {
                       <Typography
                         align="justify"
                         variant="caption"
-                        // noWrap
                         style={{
-                          // width: "100%",
                           overflow: "hidden",
                           display: "-webkit-box",
                           WebkitLineClamp: 11,
                           WebkitBoxOrient: "vertical"
-                          // position: "absolute"
                         }}
                       >
                         {item.synopsis}
@@ -108,7 +105,7 @@ const MovieListView = ({ data, history, filterList }: MediaProps) => {
                 <Box pr={2}>
                   <Typography
                     variant="body2"
-                    style={{ color: "white" }}
+                    style={{ color: "white", fontFamily: "VCR" }}
                     align="center"
                   >
                     {item.title}

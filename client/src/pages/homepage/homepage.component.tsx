@@ -1,30 +1,66 @@
 import React from "react";
-// import MovieList from "../../components/movie-list/movie-list.component";
 import "./homepage.styles.scss";
+import { Container, Grid, Button, Typography } from "@material-ui/core";
+import { Link } from "react-router-dom";
+import InputIcon from "@material-ui/icons/Input";
 
-// const TestingVideoConversion = () => {
-//   const mandalorian = "magnet:?xt=urn:btih:853f3361287638373cffa51fd77fb01bc0b0360e&dn=The.Mandalorian.S01E02.1080p.D%2B.WEB-DL.x264-Rapta&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Fopen.demonii.com%3A1337&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Fexodus.desync.com%3A6969";
-//   const fakeImdbId = "tt8111088";
-//   return (
-//     <video
-//     style={{ height: "400px", width: "600px" }}
-//     id="videoPlayer"
-//     controls
-//   >
-//     <source
-//       src={`http://127.0.0.1:4000/video/${encodeURIComponent(mandalorian)}/${fakeImdbId}`}
-//       type="video/mp4"
-//     />
-//   </video>
-//   )
-// }
 const HomePage = () => {
   return (
-    <div className="homepage">
-      This is the Homepage
-      {/* <TestingVideoConversion /> */}
-      {/* <MovieList /> */}
-    </div>
+    <>
+      <video
+        autoPlay
+        muted
+        loop
+        id="myVideo"
+        style={{
+          position: "fixed",
+          right: 0,
+          bottom: 0,
+          minWidth: "100%",
+          minHeight: "100%",
+          zIndex: -1
+        }}
+      >
+        <source src="movie.mp4" type="video/mp4" />
+      </video>
+      <Container maxWidth="sm">
+        <Grid
+          container
+          sm
+          style={{ textAlign: "center", height: "50vh" }}
+          alignItems="center"
+        >
+          <Grid container item alignItems="flex-start" spacing={2}>
+            <Grid item xs={12}>
+              <Typography
+                variant="h2"
+                style={{
+                  fontFamily: "VCR",
+                  background: "-webkit-linear-gradient(#eee, #333)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent"
+                }}
+              >
+                3615Tube
+              </Typography>
+            </Grid>
+
+            <Grid item xs={12} container justify="space-evenly">
+              <Link to="/login">
+                <Button variant="contained" color="secondary">
+                  <InputIcon /> Login
+                </Button>
+              </Link>
+              <Link to="/register">
+                <Button variant="contained" color="secondary">
+                  <InputIcon /> Register
+                </Button>
+              </Link>
+            </Grid>
+          </Grid>
+        </Grid>
+      </Container>
+    </>
   );
 };
 

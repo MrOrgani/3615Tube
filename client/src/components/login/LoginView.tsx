@@ -50,8 +50,12 @@ export default (props: Props) => {
               textAlign: "center"
             }}
           >
-            <Typography variant="h5">I have an account</Typography>
-            <Typography variant="h6">Please enter your creditials</Typography>
+            <Typography variant="h5" style={{ fontFamily: "VCR" }}>
+              I have an account
+            </Typography>
+            <Typography variant="h6" style={{ fontFamily: "VCR" }}>
+              Please enter your creditials
+            </Typography>
             <Field required label="Login" name="login" component={FieldInput} />
             <Field
               required

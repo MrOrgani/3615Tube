@@ -44,8 +44,12 @@ export default (props: Props) => {
               textAlign: "center"
             }}
           >
-            <Typography variant="h5">Reset my password</Typography>
-            <Typography variant="h6">Please enter a new password</Typography>
+            <Typography variant="h5" style={{ fontFamily: "VCR" }}>
+              Reset my password
+            </Typography>
+            <Typography variant="h6" style={{ fontFamily: "VCR" }}>
+              Please enter a new password
+            </Typography>
             <Grid container spacing={1} justify="center">
               <Field
                 required
