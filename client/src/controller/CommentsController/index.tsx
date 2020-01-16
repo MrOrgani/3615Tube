@@ -1,15 +1,9 @@
 import * as React from "react";
-import {
-  // useMutation,
-  useQuery,
-  useMutation
-} from "react-apollo";
+import { useQuery, useMutation } from "react-apollo";
 import gql from "graphql-tag";
 import { useContext } from "react";
 import { MovieContext } from "../../components/context";
-// import { normalizeErrors } from "../../utils/normalizeErrors";
 import CommentsView from "../../components/Comments/CommentsView";
-// import { normalizeErrors } from "../../utils/normalizeErrors";
 
 interface Props {
   children: (data: {
@@ -19,7 +13,7 @@ interface Props {
     allCommentary?: any;
   }) => JSX.Element | null;
   allCommentary?: any;
-  movieId?: string;
+  imdbId?: string;
 }
 
 const GET_MOVIE_COMMENTS = gql`
@@ -50,11 +44,11 @@ const POST_MOVIE_COMMENT = gql`
 `;
 
 const CommentController = (props: Props) => {
-  const key = useContext(MovieContext) as any;
+  const imdbId = useContext(MovieContext) as any;
 
   // GET ALL COMMENTAIRE FROM A MOVIE
   const { data, loading, error } = useQuery(GET_MOVIE_COMMENTS, {
-    variables: { imdbId: key }
+    variables: { imdbId: imdbId }
   });
   //-----------> SI DES COMS, LES REDESIGNER
   const allCommentary = data ? data.allCommentary : [];

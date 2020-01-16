@@ -1,6 +1,5 @@
 import { User } from "../../entity/User";
 import { request } from "graphql-request";
-import { loginMutation } from "./loginTest";
 
 export const registerMutation = (
   login: string,
@@ -22,7 +21,6 @@ export const registerTest = (
 ) => {
   describe("register User", () => {
     test("Create user but only once", async () => {
-      // console.log(mutation);
       const response = await request(
         process.env.BACK_HOST,
         registerMutation(login, password, firstName, lastName, email)

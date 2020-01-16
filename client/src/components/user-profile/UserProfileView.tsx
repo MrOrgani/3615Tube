@@ -5,7 +5,7 @@ import image from "../../assets/images/avatar.png";
 
 import "./user-profile.styles.scss";
 import Skeleton from "@material-ui/lab/Skeleton";
-import { Avatar } from "@material-ui/core";
+import { Grid, Container, Typography, Divider } from "@material-ui/core";
 import { UserContext } from "../context";
 import ModifyMyProfileConnector from "./ModifyMyProfileConnector";
 
@@ -65,7 +65,7 @@ const SkeletonProfile = (
 
 const UserProfileView = ({ userInfo, loading }: Props) => {
   const { pathname } = window.location;
-  const myInfo = useContext(UserContext) as any;
+  const [myInfo] = useContext(UserContext) as any;
   const userInfoToDiplay = pathname === "/profile" ? myInfo : userInfo;
 
   return (
@@ -73,19 +73,73 @@ const UserProfileView = ({ userInfo, loading }: Props) => {
       {loading ? (
         SkeletonProfile
       ) : (
-        <div className="user-profile-container">
-          <div className="avatar-container">
-            <Avatar
-              alt="MyAvatar"
-              src={!userInfoToDiplay.avatar ? image : userInfoToDiplay.avatar}
-              sizes="large"
+        <Container maxWidth="sm">
+          <Grid
+            container
+            justify="center"
+            direction="column"
+            style={{ textAlign: "center" }}
+            className="user-profile-container"
+          >
+            <Grid item>
+              <Typography variant="h3">
+                <span role="img" aria-label="avatar">
+                  {userInfoToDiplay.login}
+                </span>
+              </Typography>
+            </Grid>
+            <Divider
+              variant="middle"
+              light
+              style={{ margin: "10px 0", width: "inherit" }}
             />
-          </div>
-          {userInfoToDiplay.firstName} {userInfoToDiplay.lastName} |{" "}
-          {userInfoToDiplay.language} | 👤 {userInfoToDiplay.login} | ✉️{" "}
-          {userInfoToDiplay.email}
-          {pathname === "/profile" && <ModifyMyProfileConnector />}
-        </div>
+            <img
+              src={!userInfoToDiplay.avatar ? image : userInfoToDiplay.avatar}
+              alt="MyAvatar"
+              style={{
+                borderRadius: "50%",
+                width: "inherit",
+                marginTop: "20px"
+              }}
+            />
+            {/* </div> */}
+            <Divider
+              variant="middle"
+              light
+              style={{ margin: "10px 0", width: "inherit" }}
+            />
+            <Grid item>
+              <Typography variant="h5">
+                {`${userInfoToDiplay.firstName} ${userInfoToDiplay.lastName} `}
+                {userInfoToDiplay.language === "fr" ? (
+                  <span role="img" aria-label="france">
+                    🇫🇷
+                  </span>
+                ) : (
+                  <span role="img" aria-label="UK">
+                    🇬🇧
+                  </span>
+                )}
+              </Typography>
+            </Grid>
+            {pathname === "/profile" && (
+              <>
+                <Divider
+                  variant="middle"
+                  light
+                  style={{ margin: "10px 0", width: "inherit" }}
+                />
+                <Grid item>{`✉️  ${userInfoToDiplay.email}`}</Grid>
+                <Divider
+                  variant="middle"
+                  light
+                  style={{ margin: "10px 0", width: "inherit" }}
+                />
+                <ModifyMyProfileConnector />
+              </>
+            )}
+          </Grid>
+        </Container>
       )}
       {/* <UserActivity userInfo={userInfo} /> */}
     </>

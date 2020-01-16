@@ -49,7 +49,6 @@ const resolvers: ResolverMap = {
             },
             order: args.order as any
           })) as Film[];
-          // console.log("length of result:", result.length);
           return result
             .slice(args.page * 50, (args.page + 1) * 50)
             .map((film: Film) => ({

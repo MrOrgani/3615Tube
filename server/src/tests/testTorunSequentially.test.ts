@@ -7,7 +7,6 @@ import { updateTest } from "./UserTests/updateTest";
 import { createConnection } from "typeorm";
 import { rmTestUser } from "../modules/user/subModules/rmUser";
 import { findOneFilmTest } from "./FilmTests/findOneFilmTest";
-// import { User } from "../entity/User";
 
 const login: string = "asdf";
 const password: string = "Asdf1*";
@@ -20,7 +19,7 @@ const language: string = "en";
 const newLanguage: string = "spa";
 const id: string = "71c14b08-2d11-4f8c-ba0c-5a2739bdf762";
 const avatar: string = "asdf";
-const imdbId: string = "tt0004972";
+const imdbId: string = "tt6751668";
 
 beforeAll(async () => {
   try {
@@ -35,7 +34,7 @@ describe("user Creation, modification and query", () => {
   registerTest(login, password, firstName, lastName, email, id);
   loginTest(login, password);
   meTest(login, firstName, language, password);
-  findOneTest(login, password, firstName, language, id);
+  findOneTest(login);
   updateTest(
     login,
     password,

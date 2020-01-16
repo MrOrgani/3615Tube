@@ -3,12 +3,13 @@ import { FieldProps } from "formik";
 import image from "../../assets/images/avatar.png";
 
 import "./avatar.styles.scss";
+import { Container, Grid } from "@material-ui/core";
 
 const Avatar: React.FC<FieldProps<any>> = (props: any) => {
   const {
     field: { value },
-    form: { setFieldValue },
-    uploadImg
+    form: { setFieldValue }
+    // uploadImg
   } = props;
 
   const handleChange = (e: any) => {
@@ -26,37 +27,49 @@ const Avatar: React.FC<FieldProps<any>> = (props: any) => {
   };
 
   return (
-    <div
-      className="avatar-container"
-      style={{ width: 50, height: 50, cursor: "pointer" }}
-    >
-      {uploadImg ? (
-        <>
-          <input
-            type={"file"}
-            onChange={o => handleChange(o)}
-            className={"form-control"}
-            id="fileupload"
-            accept="image/*"
-          />
-          <label htmlFor="fileupload">
-            <img
-              src={value ? value : image}
-              id={"myimage"}
-              className="image"
-              alt="avatar"
-            />
-          </label>
-        </>
-      ) : (
-        <img
-          src={value ? value : image}
-          id={"myimage"}
-          className="image"
-          alt="avatar"
+    // <div
+    //   className="avatar-container"
+    //   style={{ width: 50, height: 50, cursor: "pointer" }}
+    // >
+    <Container maxWidth="sm">
+      <Grid
+        container
+        justify="center"
+        direction="column"
+        style={{ textAlign: "center" }}
+        // className="user-profile-container"
+      >
+        <input
+          type={"file"}
+          onChange={o => handleChange(o)}
+          className={"form-control"}
+          style={{ display: "none" }}
+          id="fileupload"
+          accept="image/*"
         />
-      )}
-    </div>
+        <label
+          htmlFor="fileupload"
+          style={{
+            // borderRadius: "50%",
+            width: "inherit",
+            // marginTop: "20px"
+            cursor: "pointer"
+          }}
+        >
+          <img
+            src={value ? value : image}
+            alt="MyAvatar"
+            id={"myimage"}
+            style={{
+              borderRadius: "50%",
+              width: "150px",
+              height: "150px",
+              marginTop: "20px"
+            }}
+          />
+        </label>
+      </Grid>
+    </Container>
   );
 };
 

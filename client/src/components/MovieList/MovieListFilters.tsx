@@ -81,44 +81,26 @@ const useStyles = makeStyles((theme: Theme) => {
 
 const MovieListFilters = ({ filterList }: any) => {
   const classes = useStyles();
-  const [filters] = useContext(MovieListContext) as any;
-
-  // console.log("filters are : ", filters);
+  const [filters, setFilters] = useContext(MovieListContext) as any;
+  // console.log("MovieListFilters filters", filters);
 
   return (
     <Grid item container xl={12}>
-      <Paper
-        className="filters-box"
-        style={{ width: "-webkit-fill-available" }}
-      >
+      <Paper className="filters-box" style={{ width: "inherit" }}>
         <Formik
           initialValues={filters}
           onSubmit={async (values, actions) => {
             values.order = { [values.orderKey]: values.orderValue };
-            filterList({ variables: values });
+            // filterList({ variables: values });\
+            setFilters(values);
           }}
           validateOnChange={false}
           validateOnBlur={false}
         >
           {({ isSubmitting, values, setFieldValue, handleSubmit }) => {
             return (
-              // <Form>
               <Grid container justify="space-evenly" alignItems="center">
-                <Grid item>
-                  <Typography id="range-slider" gutterBottom>
-                    Year release
-                  </Typography>
-                  <Slider
-                    value={values.year}
-                    onChange={(_, value) => setFieldValue("year", value)}
-                    valueLabelDisplay="auto"
-                    aria-labelledby="range-slider"
-                    min={1900}
-                    max={2020}
-                    name={"year"}
-                  />
-                </Grid>
-                <Grid item>
+                <Grid item xs={12} sm={4}>
                   <div className={classes.search}>
                     <div className={classes.searchIcon}>
                       <SearchIcon />
@@ -134,10 +116,25 @@ const MovieListFilters = ({ filterList }: any) => {
                       onChange={event =>
                         setFieldValue("keywords", event.target.value)
                       }
+                      value={values.keywords}
                     />
                   </div>
                 </Grid>
-                <Grid item>
+                <Grid item xs={12} sm style={{ padding: "0 20px" }}>
+                  <Typography id="range-slider" gutterBottom>
+                    Year release
+                  </Typography>
+                  <Slider
+                    value={values.year}
+                    onChange={(_, value) => setFieldValue("year", value)}
+                    valueLabelDisplay="auto"
+                    aria-labelledby="range-slider"
+                    min={1900}
+                    max={2020}
+                    name={"year"}
+                  />
+                </Grid>
+                <Grid item xs={12} sm>
                   <Autocomplete
                     id="combo-box-genres"
                     options={genreList}
@@ -157,7 +154,7 @@ const MovieListFilters = ({ filterList }: any) => {
                     )}
                   />
                 </Grid>
-                <Grid item>
+                <Grid item xs={12} sm={2} style={{ padding: "0 20px" }}>
                   <Typography id="range-slider" gutterBottom>
                     Rating
                   </Typography>
@@ -172,7 +169,7 @@ const MovieListFilters = ({ filterList }: any) => {
                     // getAriaValueText={valuetext}
                   />
                 </Grid>
-                <Grid item>
+                <Grid item xs={12} sm>
                   <Autocomplete
                     id="combo-box-orderKey"
                     options={orderKeyList}
@@ -192,7 +189,7 @@ const MovieListFilters = ({ filterList }: any) => {
                     )}
                   />
                 </Grid>
-                <Grid item>
+                <Grid item xs={12} sm>
                   <Autocomplete
                     id="combo-box-orderValue"
                     options={orderValueList}
@@ -212,7 +209,7 @@ const MovieListFilters = ({ filterList }: any) => {
                     )}
                   />
                 </Grid>
-                <Grid item>
+                <Grid item xs>
                   <Button
                     type="submit"
                     fullWidth
@@ -220,7 +217,10 @@ const MovieListFilters = ({ filterList }: any) => {
                     color="primary"
                     // className={classes.submit}
                     disabled={isSubmitting}
-                    onClick={() => handleSubmit()}
+                    onClick={event => {
+                      event.preventDefault();
+                      handleSubmit();
+                    }}
                   >
                     Apply
                   </Button>

@@ -1,8 +1,9 @@
 import * as React from "react";
 import { useQuery } from "react-apollo";
 import gql from "graphql-tag";
-import { useContext } from "react";
-import { UserContext } from "../../components/context";
+// import { useContext } from "react";
+// import { UserContext } from "../../components/context";
+// import UserProfileView from "../../components/user-profile/UserProfileView";
 
 interface Props {
   children: (data: {
@@ -14,9 +15,10 @@ interface Props {
 }
 
 const GET_USER_INFO = gql`
-  query findOne($login: String) {
-    findOne(id: $login) {
+  query findOne($id: String) {
+    findOne(id: $id) {
       id
+      language
       firstName
       lastName
       login
@@ -26,22 +28,24 @@ const GET_USER_INFO = gql`
 `;
 
 const UserProfileController = (props: Props) => {
-  const myInfo = useContext(UserContext) as any;
-  console.log("UserProfileController: myInfo", myInfo);
+  // const myInfo = useContext(UserContext) as any;
+  // console.log("UserProfileController: props.userId", props.userId);
 
-  const { data, loading, error: errorQuery } = useQuery(GET_USER_INFO, {
+  const { data, loading, error } = useQuery(GET_USER_INFO, {
     variables: { id: props.userId }
   });
 
-  if (errorQuery) return <p>{JSON.stringify(errorQuery, null, 2)}</p>;
+  if (error) return <p>{JSON.stringify(error, null, 2)}</p>;
 
   if (loading) return <p>Loading...</p>;
+  // if (loading) return <UserProfileView loading={true} />;
 
-  let userInfo = myInfo;
+  // let userInfo = myInfo;
 
-  if (props.userId) userInfo = data;
+  // if (props.userId)
+  const userInfo = data ? data.findOne : null;
 
-  console.log("data.findOne", data, userInfo);
+  // console.log("data.findOne", data, userInfo);
 
   return props.children({
     userInfo

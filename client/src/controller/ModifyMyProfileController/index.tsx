@@ -2,13 +2,10 @@ import * as React from "react";
 import { useMutation } from "react-apollo";
 import gql from "graphql-tag";
 import { normalizeErrors } from "../../utils/normalizeErrors";
-import { useContext } from "react";
-import { UserContext } from "../../components/context";
 
 interface Props {
   children: (data: {
     submit: (values: any) => Promise<any>;
-    myInfo?: any;
     data?: any;
   }) => JSX.Element | null;
   userId?: string;
@@ -40,8 +37,6 @@ const profileMutation = gql`
 `;
 
 const ModifyMyProfileController = (props: Props) => {
-  const myInfo = useContext(UserContext) as any;
-
   const [mutate, { error }] = useMutation(profileMutation);
 
   if (error) return <p>{JSON.stringify(error, null, 2)}</p>;
@@ -52,8 +47,6 @@ const ModifyMyProfileController = (props: Props) => {
     } = await mutate({
       variables: values
     });
-
-    // console.log("My profil controller, ", result);
     if (update) {
       return normalizeErrors(update);
     }
@@ -61,8 +54,7 @@ const ModifyMyProfileController = (props: Props) => {
   };
 
   return props.children({
-    submit,
-    myInfo
+    submit
   });
 };
 

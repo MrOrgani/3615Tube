@@ -1,7 +1,6 @@
 // import FileReader from "FileReader";
 
 const getMimetype = (signature: string) => {
-  console.log(signature);
   switch (signature) {
     case "89504E47":
       return "image/png";
@@ -14,10 +13,8 @@ const getMimetype = (signature: string) => {
 };
 
 export async function pictureSecurtiy(pic: any) {
-  console.log("in picture security");
   try {
     let errorCount: number = 0;
-    // console.log(pic);
     // const parsedPic = await JSON.parse(pic);
     const readerProof = new FileReader();
 
@@ -28,7 +25,6 @@ export async function pictureSecurtiy(pic: any) {
         bytes.push(byte.toString(16));
       });
       const hex = bytes.join("").toUpperCase() as string;
-      console.log(hex, getMimetype(hex));
       if (hex && getMimetype(hex).slice(0, 5) !== "image") {
         errorCount++;
         return;
@@ -38,7 +34,6 @@ export async function pictureSecurtiy(pic: any) {
     if (errorCount) return false;
     else return true;
   } catch (err) {
-    console.log("ther was an error with picture security", err);
     return false;
   }
 }

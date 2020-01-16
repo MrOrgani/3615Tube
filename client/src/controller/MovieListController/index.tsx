@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useQuery, useLazyQuery } from "react-apollo";
+import { useQuery } from "react-apollo";
 import gql from "graphql-tag";
 // import { normalizeErrors } from "../../utils/normalizeErrors";
 // import { movieList } from "../../test.js";
@@ -14,7 +14,7 @@ interface Props {
     // data?: any;
     allMovies?: any;
     loadMore: () => void;
-    filterList: () => void;
+    // filterList: () => void;
   }) => JSX.Element | null;
   movieId?: string;
   variables?: any;
@@ -49,7 +49,14 @@ const GET_MOVIES = gql`
 `;
 
 const MovieListController = (props: Props) => {
-  const loadMore = () => {
+  const [filters] = useContext(MovieListContext) as any;
+
+  const { data, loading, error, fetchMore } = useQuery(GET_MOVIES, {
+    variables: filters
+  });
+  let allMovies: any = [];
+
+  const loadMore = React.useCallback(() => {
     fetchMore({
       variables: {
         ...filters,
@@ -64,7 +71,7 @@ const MovieListController = (props: Props) => {
         };
       }
     });
-  };
+  }, [fetchMore, filters]);
 
   React.useEffect(() => {
     const setScrollListener = () => {
@@ -79,32 +86,20 @@ const MovieListController = (props: Props) => {
     return () => window.removeEventListener("scroll", setScrollListener);
   }, [loadMore]);
 
-  const [filters] = useContext(MovieListContext) as any;
-
-  // console.log("filters in MovieListController", filters);
-  const { data, loading, error, fetchMore } = useQuery(GET_MOVIES, {
-    variables: filters
-  });
-  let allMovies: any = [];
-
   if (data && data.searchFilms) {
     allMovies = data.searchFilms;
   }
 
-  const [filterList, { data: filteredList }] = useLazyQuery(GET_MOVIES);
+  // const [filterList, { data: filteredList }] = useLazyQuery(GET_MOVIES);
 
-  if (filteredList && filteredList.searchFilms) {
-    allMovies = filteredList.searchFilms;
-    // console.log("ALL MOVIES CHANGED", allMovies);
-  }
+  // if (filteredList && filteredList.searchFilms) {
+  //   allMovies = filteredList.searchFilms;
+  // }
 
-  // console.log("data fitlered", result);
-  // -----------> SI DES COMS, LES REDESIGNER
-
-  if (filteredList && filteredList.searchFilms) {
-    allMovies = filteredList.searchFilms;
-    // console.log("ALL MOVIES CHANGED", allMovies);
-  }
+  // // -----------> SI DES COMS, LES REDESIGNER
+  // if (filteredList && filteredList.searchFilms) {
+  //   allMovies = filteredList.searchFilms;
+  // }
 
   //SI ERREUR DE GRAPHQL RETURN THIS
   if (error) return <p>{JSON.stringify(error, null, 2)}</p>;
@@ -116,7 +111,7 @@ const MovieListController = (props: Props) => {
 
   return props.children({
     allMovies,
-    filterList,
+    // filterList,
     loadMore
   });
 };

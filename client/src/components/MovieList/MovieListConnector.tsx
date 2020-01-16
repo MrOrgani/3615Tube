@@ -31,14 +31,14 @@ const MovieListConnector = (props: MediaProps) => {
       <MovieListController>
         {({
           allMovies,
-          filterList,
+          // filterList,
           loadMore
           // submit
         }) => (
           <MovieListView
             history={history}
             data={allMovies}
-            filterList={filterList}
+            // filterList={filterList}
             loadMore={loadMore}
           />
         )}

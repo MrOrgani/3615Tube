@@ -74,6 +74,7 @@ const seedPct = async (imdbIdArray: string[]) => {
 };
 
 export const seedFilmDatabase = async () => {
+  console.log("launching seed DB");
   try {
     await createConnection();
     await getConnection()
