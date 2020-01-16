@@ -5,12 +5,34 @@ import { Container } from "@material-ui/core";
 // import { Grid } from "@material-ui/core";
 import axios from "axios";
 
+/* 
+  CHECK SUBTITLES UNDEFINED 
+*/
 const MoviePlayer = () => {
   const [srcTorrent] = useContext(TorrentContext) as any;
   const [src, setSrc] = useState(srcTorrent);
+  const [subtitles, setSubtitles]: any = useState("");
+  const [favLanguage, setFavLanguage]: any = useState("en");
   const video = useRef(null) as any;
   const imdbId = document.location.pathname.split("/");
-
+  const getSubtitles = async () => {
+    try {
+      console.log("ON ENTRE TRY");
+      const res = await axios.get(
+        `http://localhost:4000/video/sub/${imdbId[2]}`,
+        { withCredentials: true }
+      );
+      const favLanguage = Object.keys(res.data);
+      if (favLanguage[1]) {
+        console.log("favLanguage", favLanguage[1]);
+        console.log("RESPONSE", res.data);
+        setFavLanguage(favLanguage[1]);
+      }
+      setSubtitles(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
   useEffect(() => {
     setSrc(srcTorrent);
     if (video.current) {
@@ -57,11 +79,20 @@ const MoviePlayer = () => {
         }`}
         type="video/mp4"
       />
-      <track
-        kind="subtitles"
-        label="English"
-        src={`http://127.0.0.1:4000/${imdbId[2]}-en.vtt`}
-      />
+      {subtitles.en ? (
+        <track
+          kind="subtitles"
+          label="English"
+          src={`data:text/vtt;base64, ${subtitles.en}`}
+        />
+      ) : null}
+      {favLanguage !== "en" && subtitles[favLanguage] ? (
+        <track
+          kind="subtitles"
+          label={favLanguage === "es" ? "Spanish" : "French"}
+          src={`data:text/vtt;base64, ${subtitles[favLanguage]}`}
+        />
+      ) : null}
     </video>
   );
 };

@@ -23,7 +23,7 @@ export const findOneFilmTest = (
         })) as any;
         expect(response.data.data.findOneFilm).toEqual(null);
       };
-      await findOneFilmTest();
+      await setSessionAndTest(login, password, findOneFilmTest, false);
     });
     test("give me a movie", async () => {
       const findOneFilmTest = async () => {
@@ -31,10 +31,10 @@ export const findOneFilmTest = (
           query: findOneFilmMutation(imdbId)
         })) as any;
         expect(response.data.data.findOneFilm).toEqual({
-          title: "the birth of a nation"
+          title: "parasite"
         });
       };
-      await findOneFilmTest();
+      await setSessionAndTest(login, password, findOneFilmTest, false);
     });
   });
 };

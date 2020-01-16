@@ -1,9 +1,5 @@
 import passport from "passport";
 
-const GOOGLE_CLIENT_ID =
-  "273389879865-jqohftesaasod68fnivsqlgnmri1arfd.apps.googleusercontent.com";
-const GOOGLE_CLIENT_SECRET = "m7uFkSgcpIaToih2Es5SMycf";
-
 export const passportSetUp = () => {
   const FortyTwoStrategy = require("passport-42").Strategy;
 
@@ -26,8 +22,8 @@ export const passportSetUp = () => {
   passport.use(
     new GoogleStrategy(
       {
-        clientID: GOOGLE_CLIENT_ID,
-        clientSecret: GOOGLE_CLIENT_SECRET,
+        clientID: process.env.GOOGLE_CLIENT_ID as string,
+        clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
         callbackURL: `${process.env.BACK_HOST}/Oauth/google/redirect`
       },
       (_accessToken: any, _refreshToken: any, profile: any, cb: any) =>
