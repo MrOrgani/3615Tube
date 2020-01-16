@@ -38,7 +38,7 @@ const CommentSkeletonItem = (
 const CommentsView = ({ data, loading, submit }: MediaProps) => {
   const [comments, setComments] = useState([]) as any;
   useEffect(() => setComments(data ? data : []), [setComments, data]);
-  const { avatar, login } = useContext(UserContext) as any;
+  const [{ avatar, login }] = useContext(UserContext) as any;
   const imdbId = useContext(MovieContext) as any;
 
   console.log("CommentsView imdbId", imdbId);
