@@ -90,4 +90,4 @@ export const seedFilmDatabase = async () => {
   }
 };
 /* Uncomment to launch the script */
-// seedFilmDatabase();
+seedFilmDatabase();

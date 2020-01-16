@@ -49,7 +49,14 @@ const GET_MOVIES = gql`
 `;
 
 const MovieListController = (props: Props) => {
-  const loadMore = () => {
+  const [filters] = useContext(MovieListContext) as any;
+
+  const { data, loading, error, fetchMore } = useQuery(GET_MOVIES, {
+    variables: filters
+  });
+  let allMovies: any = [];
+
+  const loadMore = React.useCallback(() => {
     fetchMore({
       variables: {
         ...filters,
@@ -64,7 +71,7 @@ const MovieListController = (props: Props) => {
         };
       }
     });
-  };
+  }, [fetchMore, filters]);
 
   React.useEffect(() => {
     const setScrollListener = () => {
@@ -78,13 +85,6 @@ const MovieListController = (props: Props) => {
     window.addEventListener("scroll", setScrollListener);
     return () => window.removeEventListener("scroll", setScrollListener);
   }, [loadMore]);
-
-  const [filters] = useContext(MovieListContext) as any;
-
-  const { data, loading, error, fetchMore } = useQuery(GET_MOVIES, {
-    variables: filters
-  });
-  let allMovies: any = [];
 
   if (data && data.searchFilms) {
     allMovies = data.searchFilms;
