@@ -30,7 +30,7 @@ const Header = () => {
     <Grid container justify="flex-start" alignItems="center" className="header">
       <Grid item xs container justify="flex-start">
         <Grid item>
-          <Link to="/">
+          <Link to={!connectedUser ? "/" : "/movies"}>
             <div className="logo-container">3615Tube</div>
           </Link>
         </Grid>
