@@ -3,6 +3,8 @@ import LoginView from "./LoginView";
 import LoginController from "../../controller/LoginController";
 
 const LoginConnector = (props: any) => {
+  console.log("state", props);
+
   const {
     history,
     location: { state }
@@ -11,7 +13,7 @@ const LoginConnector = (props: any) => {
     if (state && state.next) {
       return history.push(state.next);
     }
-    history.push("/");
+    history.push("/movies");
   };
 
   return (

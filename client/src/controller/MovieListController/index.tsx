@@ -1,9 +1,6 @@
 import * as React from "react";
 import { useQuery } from "react-apollo";
 import gql from "graphql-tag";
-// import { normalizeErrors } from "../../utils/normalizeErrors";
-// import { movieList } from "../../test.js";
-// import MovieListItem from "../../components/MovieList/MovieListView";
 import { useContext } from "react";
 import { MovieListContext } from "../../components/context";
 import MovieListLoading from "../../components/MovieList/MovieListLoading";
@@ -59,7 +56,6 @@ const MovieListController = (props: Props) => {
         ...filters,
         page: ++filters.page
       },
-      // updateQuery: (prev, { fetchMoreResult, variables }) => {
       updateQuery: (prev, { fetchMoreResult, variables }) => {
         if (!fetchMoreResult) return prev;
         return (

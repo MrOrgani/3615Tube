@@ -82,7 +82,6 @@ const useStyles = makeStyles((theme: Theme) => {
 const MovieListFilters = ({ filterList }: any) => {
   const classes = useStyles();
   const [filters, setFilters] = useContext(MovieListContext) as any;
-  // console.log("MovieListFilters filters", filters);
 
   return (
     <Grid item container xl={12}>

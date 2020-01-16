@@ -32,7 +32,7 @@ export async function passportGoogleSuccess(req: any, res: Response) {
         );
       }
       req.session.userId = registeredUser.id;
-      res.redirect(process.env.FRONT_HOST);
+      res.redirect(`${process.env.FRONT_HOST}/movies`);
     } catch (err) {
       console.log("error creating / finding google profile", err);
       res.redirect(`http://127.0.0.1:3000`);

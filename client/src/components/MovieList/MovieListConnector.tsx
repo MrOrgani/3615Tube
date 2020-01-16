@@ -26,8 +26,6 @@ const MovieListConnector = (props: MediaProps) => {
     orderValue: "DESC"
   });
 
-  console.log("MovieListConnector filters", filters);
-
   return (
     <MovieListProvider value={[filters, setFilters]}>
       <MovieListController>

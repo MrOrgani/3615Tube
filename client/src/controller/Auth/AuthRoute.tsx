@@ -1,20 +1,35 @@
-import React, { useContext } from "react";
-// import { useQuery } from "react-apollo";
-// import gql from "graphql-tag";
-import {
-  // RouteProps,
-  Redirect,
-  Route
-} from "react-router";
-import { UserContext } from "../../components/context";
+import React from "react";
+import { useQuery } from "react-apollo";
+import gql from "graphql-tag";
+import { Redirect, Route } from "react-router";
+import { CircularProgress } from "@material-ui/core";
+
+export const meQuery = gql`
+  query meQuery {
+    me {
+      lastName
+      login
+      firstName
+      language
+      avatar
+    }
+  }
+`;
 
 const AuthRoute = (props: any) => {
-  const [userAuthed] = useContext(UserContext) as any;
+  const { data, loading } = useQuery(meQuery);
 
   const renderRoute = (routeProps: any) => {
     const { component } = props;
+    if (!data || loading) {
+      return loading ? (
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <CircularProgress size="20vh" variant="indeterminate" />
+        </div>
+      ) : null;
+    }
 
-    if (!userAuthed) {
+    if (!data.me) {
       return (
         <Redirect
           to={{
