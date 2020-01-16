@@ -10,25 +10,26 @@ const MoviePlayer = () => {
   const [src, setSrc] = useState(srcTorrent);
   const video = useRef(null) as any;
   const imdbId = document.location.pathname.split("/");
-  const getSubtitles = async () => {
-    try {
-      console.log("ON ENTRE TRY");
-      await axios.get(`http://localhost:4000/video/sub/${imdbId[2]}`);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+
   useEffect(() => {
     setSrc(srcTorrent);
     if (video.current) {
       video.current.load();
     }
-  }, [srcTorrent]);
+  }, [srcTorrent, video]);
   useEffect(() => {
+    const getSubtitles = async () => {
+      try {
+        console.log("ON ENTRE TRY");
+        await axios.get(`http://localhost:4000/video/sub/${imdbId[2]}`);
+      } catch (err) {
+        console.log(err);
+      }
+    };
     if (src) {
       getSubtitles();
     }
-  }, [src]);
+  }, [src, imdbId]);
   return !src ? (
     <Container
       maxWidth="md"
