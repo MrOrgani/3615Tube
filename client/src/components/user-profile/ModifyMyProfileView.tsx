@@ -75,7 +75,6 @@ export default function ModifyMyProfileView(props: any) {
   const [open, setOpen] = React.useState(false);
   const myInfo = useContext(UserContext) as any;
 
-  // console.log("userInfo,", myInfo);
   const handleOpen = () => {
     setOpen(true);
   };
@@ -109,14 +108,14 @@ export default function ModifyMyProfileView(props: any) {
               // initialValues={myInfo}
               initialValues={{ ...myInfo, password: "" }}
               onSubmit={async (values, actions) => {
-                console.log("values, in Myprofile view ", values);
+                // console.log("values, in Myprofile view ", values);
                 const errors = await props.submit(values);
-                console.log("error on Myprofile, ", errors);
+                // console.log("error on Myprofile, ", errors);
                 if (errors) {
                   actions.setErrors(errors);
                 } else {
                   setOpen(false);
-                  // setMyInfo({ ...myInfo, values });
+                  // setMyInfo({ ...myInfo, values })s
                   // props.onFinish();
                 }
               }}

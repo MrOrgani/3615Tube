@@ -10,7 +10,6 @@ import {
   Container
 } from "@material-ui/core";
 import FieldInput from "../FiledInput/FieldInput.component";
-// import FTLogo from "../../assets/images/FTLogo.svg";
 
 interface FormValues {
   login?: string;
@@ -24,7 +23,6 @@ interface Props {
 
 export default (props: Props) => {
   return (
-    // <div className="sign-up">
     <Container maxWidth="sm" className="sign-up">
       <Formik
         initialValues={{
@@ -33,7 +31,6 @@ export default (props: Props) => {
         }}
         onSubmit={async (values, actions) => {
           const errors = await props.submit(values);
-          // console.log("errros of login are : ", errors);
           if (errors) {
             actions.setErrors(errors);
           } else {

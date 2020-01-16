@@ -83,8 +83,6 @@ const MovieListFilters = ({ filterList }: any) => {
   const classes = useStyles();
   const [filters] = useContext(MovieListContext) as any;
 
-  // console.log("filters are : ", filters);
-
   return (
     <Grid item container xl={12}>
       <Paper
@@ -102,7 +100,6 @@ const MovieListFilters = ({ filterList }: any) => {
         >
           {({ isSubmitting, values, setFieldValue, handleSubmit }) => {
             return (
-              // <Form>
               <Grid container justify="space-evenly" alignItems="center">
                 <Grid item>
                   <Typography id="range-slider" gutterBottom>

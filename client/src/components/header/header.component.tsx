@@ -7,12 +7,8 @@ import { UserContext } from "../context";
 import SettingsPowerOutlinedIcon from "@material-ui/icons/SettingsPowerOutlined";
 import VideocamOutlinedIcon from "@material-ui/icons/VideocamOutlined";
 
-// import Icon from "@material-ui/core/Icon";
-
 const Header = () => {
   const user = useContext(UserContext);
-  // console.log("user", user);
-
   const logInlogOut = !user ? (
     <Link className="option" to="/login">
       <AccountCircleIcon />

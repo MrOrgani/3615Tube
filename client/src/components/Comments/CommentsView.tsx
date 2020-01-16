@@ -34,8 +34,6 @@ const CommentsView = ({ data, loading, submit }: MediaProps) => {
   const { avatar, login } = useContext(UserContext) as any;
   const imdbId = useContext(MovieContext) as any;
 
-  console.log("data, ", comments);
-
   return (
     <Grid container item lg={12} md={5} direction="column">
       <Box my={0.5}>

@@ -1,7 +1,6 @@
 import React from "react";
 
 const TextPage = (props: any) => {
-  // console.log("textpage props, ", props);
   const {
     location: {
       state: { message }
