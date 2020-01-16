@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import { FormikErrors } from "formik";
 import image from "../../assets/images/avatar.png";
-// import UserActivity from "../user-activity/user-activity.component";
 
 import "./user-profile.styles.scss";
 import Skeleton from "@material-ui/lab/Skeleton";
@@ -20,7 +19,6 @@ interface FormValues {
 
 interface Props {
   submit?: (values: FormValues) => Promise<FormikErrors<FormValues> | null>;
-  // onFinish?: () => void;
   userInfo?: any;
   userLogin?: any;
   loading?: boolean;
@@ -158,7 +156,6 @@ const UserProfileView = ({ userInfo, loading }: Props) => {
           </Grid>
         </Container>
       )}
-      {/* <UserActivity userInfo={userInfo} /> */}
     </>
   );
 };

@@ -3,7 +3,7 @@ import LoginView from "./LoginView";
 import LoginController from "../../controller/LoginController";
 
 const LoginConnector = (props: any) => {
-  console.log("state", props);
+  // console.log("state", props);
 
   const {
     history,
