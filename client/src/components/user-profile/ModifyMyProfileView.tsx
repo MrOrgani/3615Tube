@@ -76,7 +76,7 @@ const Fade = React.forwardRef<HTMLDivElement, FadeProps>(function Fade(
 export default function ModifyMyProfileView(props: any) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
-  const myInfo = useContext(UserContext) as any;
+  const [myInfo, setMyInfo] = useContext(UserContext) as any;
 
   const handleOpen = () => {
     setOpen(true);
@@ -114,6 +114,7 @@ export default function ModifyMyProfileView(props: any) {
                 if (errors) {
                   actions.setErrors(errors);
                 } else {
+                  setMyInfo(values);
                   setOpen(false);
                 }
               }}

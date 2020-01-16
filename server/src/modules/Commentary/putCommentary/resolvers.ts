@@ -3,6 +3,7 @@ import { createMiddleware } from "../../../utils/createMiddleware";
 import verifyAndSetSession from "../../middleware/verifyAndSetSession";
 import { Commentary } from "../../../entity/Commentary";
 import moment from "moment";
+import { Film } from "../../../entity/Films";
 
 const resolvers: ResolverMap = {
   Mutation: {
@@ -14,8 +15,10 @@ const resolvers: ResolverMap = {
         { session }: any
       ) => {
         //   async (_: any, { text, imdbId }: any, { session }: any) => {
-        if (!text || !imdbId || text.length > 500) return null;
+        if (!text || !imdbId || typeof imdbId !== 'string' || text.length > 500) return null;
         // const userId: any = "2a2cf8cc-769d-459c-94a3-5863a504c9d5" for testing
+        const filmExist: any = await Film.findOne(imdbId);
+        if(!filmExist) { return null }
         const newCommentary = new Commentary();
         newCommentary.film_id = imdbId;
         newCommentary.text = text;

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useQuery, useLazyQuery } from "react-apollo";
+import { useQuery } from "react-apollo";
 import gql from "graphql-tag";
 // import { normalizeErrors } from "../../utils/normalizeErrors";
 // import { movieList } from "../../test.js";
@@ -14,7 +14,7 @@ interface Props {
     // data?: any;
     allMovies?: any;
     loadMore: () => void;
-    filterList: () => void;
+    // filterList: () => void;
   }) => JSX.Element | null;
   movieId?: string;
   variables?: any;
@@ -90,16 +90,16 @@ const MovieListController = (props: Props) => {
     allMovies = data.searchFilms;
   }
 
-  const [filterList, { data: filteredList }] = useLazyQuery(GET_MOVIES);
+  // const [filterList, { data: filteredList }] = useLazyQuery(GET_MOVIES);
 
-  if (filteredList && filteredList.searchFilms) {
-    allMovies = filteredList.searchFilms;
-  }
+  // if (filteredList && filteredList.searchFilms) {
+  //   allMovies = filteredList.searchFilms;
+  // }
 
-  // -----------> SI DES COMS, LES REDESIGNER
-  if (filteredList && filteredList.searchFilms) {
-    allMovies = filteredList.searchFilms;
-  }
+  // // -----------> SI DES COMS, LES REDESIGNER
+  // if (filteredList && filteredList.searchFilms) {
+  //   allMovies = filteredList.searchFilms;
+  // }
 
   //SI ERREUR DE GRAPHQL RETURN THIS
   if (error) return <p>{JSON.stringify(error, null, 2)}</p>;
@@ -111,7 +111,7 @@ const MovieListController = (props: Props) => {
 
   return props.children({
     allMovies,
-    filterList,
+    // filterList,
     loadMore
   });
 };

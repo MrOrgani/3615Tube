@@ -61,7 +61,6 @@ const startServer = async () => {
   new CronJob("0 7 * * *", seedFilmDatabase).start();
 
   /* Manually start deleteOldFilm : */
-
   // torrentManager.deleteOldFilms();
   await server.start({ cors }, () =>
     console.log(`Server is running on ${process.env.BACK_HOST}`)

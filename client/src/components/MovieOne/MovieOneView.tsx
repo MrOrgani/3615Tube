@@ -45,8 +45,9 @@ const MovieOneSkeleton = (
   </Grid>
 );
 
-const MovieOneView = ({ movieInfo, loading }: any) => {
+const MovieOneView = ({ movieInfo, loading, parsedTorrents }: any) => {
   const [srcTorrent, setSrcTorrent] = useState("");
+
   return (
     <>
       {movieInfo && (
@@ -63,17 +64,10 @@ const MovieOneView = ({ movieInfo, loading }: any) => {
               </Grid>
               {/**********************  TORRENTS **********************************/}
               <Grid item xl={6} md={12} container alignItems="flex-start">
-                <MovieTorrents data={movieInfo} />
+                <MovieTorrents parsedTorrents={parsedTorrents} />
               </Grid>
               {/**********************  COMMENTS **********************************/}
-              <Grid
-                item
-                xl={6}
-                md={12}
-                container
-                // style={{ height: "40vh", overflow: "auto" }}
-                justify="center"
-              >
+              <Grid item xl={6} md={12} container justify="center">
                 <CommentConnector />
               </Grid>
             </Grid>

@@ -13,7 +13,7 @@ interface Props {
     allCommentary?: any;
   }) => JSX.Element | null;
   allCommentary?: any;
-  movieId?: string;
+  imdbId?: string;
 }
 
 const GET_MOVIE_COMMENTS = gql`
@@ -44,11 +44,11 @@ const POST_MOVIE_COMMENT = gql`
 `;
 
 const CommentController = (props: Props) => {
-  const key = useContext(MovieContext) as any;
+  const imdbId = useContext(MovieContext) as any;
 
   // GET ALL COMMENTAIRE FROM A MOVIE
   const { data, loading, error } = useQuery(GET_MOVIE_COMMENTS, {
-    variables: { imdbId: key }
+    variables: { imdbId: imdbId }
   });
   //-----------> SI DES COMS, LES REDESIGNER
   const allCommentary = data ? data.allCommentary : [];

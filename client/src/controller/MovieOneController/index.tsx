@@ -2,9 +2,14 @@ import * as React from "react";
 import { useQuery } from "react-apollo";
 import gql from "graphql-tag";
 import MovieOneView from "../../components/MovieOne/MovieOneView";
+import { MovieContext } from "../../components/context";
 
 interface Props {
-  children: (data: { data?: any; movieInfo?: any }) => JSX.Element | null;
+  children: (data: {
+    data?: any;
+    movieInfo?: any;
+    parsedTorrents?: any;
+  }) => JSX.Element | null;
   imdbId?: string;
 }
 
@@ -24,8 +29,10 @@ const GET_ONE_MOVIE_INFO = gql`
   }
 `;
 
-const MovieController = (props: Props) => {
-  const imdbId = props.imdbId;
+const MovieOneController = (props: Props) => {
+  const imdbId = React.useContext(MovieContext);
+
+  // console.log("MovieOneController", imdbId);
 
   const { data, loading, error } = useQuery(GET_ONE_MOVIE_INFO, {
     variables: { imdbId }
@@ -38,16 +45,14 @@ const MovieController = (props: Props) => {
   const movieInfo = data ? data.findOneFilm : null;
 
   // PARSING TORRENTS OF EACH SINGLE MOVIE
-  if (movieInfo.torrents) {
-    const parsedTorrents = () =>
-      movieInfo.torrents.map((torrent: string) => JSON.parse(torrent));
-    movieInfo.torrents = parsedTorrents();
-  }
-  //***************************************** */
+  const parsedTorrents = movieInfo.torrents
+    ? movieInfo.torrents.map((torrent: string) => JSON.parse(torrent))
+    : null;
 
   return props.children({
-    movieInfo
+    movieInfo,
+    parsedTorrents
   });
 };
 
-export default MovieController;
+export default MovieOneController;

@@ -81,7 +81,8 @@ const useStyles = makeStyles((theme: Theme) => {
 
 const MovieListFilters = ({ filterList }: any) => {
   const classes = useStyles();
-  const [filters] = useContext(MovieListContext) as any;
+  const [filters, setFilters] = useContext(MovieListContext) as any;
+  // console.log("MovieListFilters filters", filters);
 
   return (
     <Grid item container xl={12}>
@@ -90,7 +91,8 @@ const MovieListFilters = ({ filterList }: any) => {
           initialValues={filters}
           onSubmit={async (values, actions) => {
             values.order = { [values.orderKey]: values.orderValue };
-            filterList({ variables: values });
+            // filterList({ variables: values });\
+            setFilters(values);
           }}
           validateOnChange={false}
           validateOnBlur={false}
@@ -114,6 +116,7 @@ const MovieListFilters = ({ filterList }: any) => {
                       onChange={event =>
                         setFieldValue("keywords", event.target.value)
                       }
+                      value={values.keywords}
                     />
                   </div>
                 </Grid>
@@ -214,7 +217,10 @@ const MovieListFilters = ({ filterList }: any) => {
                     color="primary"
                     // className={classes.submit}
                     disabled={isSubmitting}
-                    onClick={() => handleSubmit()}
+                    onClick={event => {
+                      event.preventDefault();
+                      handleSubmit();
+                    }}
                   >
                     Apply
                   </Button>
