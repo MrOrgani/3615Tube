@@ -21,7 +21,7 @@ const MoviePlayer = () => {
     const getSubtitles = async () => {
       try {
         console.log("ON ENTRE TRY");
-        await axios.get(`http://localhost:4000/video/sub/${imdbId[2]}`);
+        await axios.get(`http://127.0.0.1:4000/video/sub/${imdbId[2]}`);
       } catch (err) {
         console.log(err);
       }
@@ -52,7 +52,7 @@ const MoviePlayer = () => {
       controls
     >
       <source
-        src={`http://localhost:4000/video/${encodeURIComponent(src)}/${
+        src={`http://127.0.0.1:4000/video/${encodeURIComponent(src)}/${
           imdbId[2]
         }`}
         type="video/mp4"
@@ -60,7 +60,7 @@ const MoviePlayer = () => {
       <track
         kind="subtitles"
         label="English"
-        src={`http://localhost:4000/${imdbId[2]}-en.vtt`}
+        src={`http://127.0.0.1:4000/${imdbId[2]}-en.vtt`}
       />
     </video>
   );

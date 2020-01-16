@@ -25,27 +25,22 @@ const ChangePasswordController = (props: Props) => {
 
   const submit = async (values: any) => {
     const {
-      data: { changePassword }
+      data: { forgotPasswordChange }
     } = await mutate({
       variables: values
     });
 
-    if (changePassword) {
-      // if (errors) {
-      // return normalizeErrors(errors);
-      return normalizeErrors(changePassword);
+    console.log("ChangePasswordController", forgotPasswordChange);
+
+    if (forgotPasswordChange) {
+      return normalizeErrors(forgotPasswordChange);
     }
 
     return null;
   };
 
-  // function onFinish() {
-  //   props.history.push("/");
-  // }
-
   return props.children({
     submit
-    //  onFinish
   });
 };
 

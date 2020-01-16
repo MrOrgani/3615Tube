@@ -20,7 +20,7 @@ export default (props: Props) => {
       const {
         status,
         data: { type, message }
-      } = await Axios.get(`http://localhost:4000/confirm/${token}`);
+      } = await Axios.get(`http://127.0.0.1:4000/confirm/${token}`);
       setData({ status, type, message });
       setLoading(false);
     })();

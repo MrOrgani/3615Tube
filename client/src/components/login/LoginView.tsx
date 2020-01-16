@@ -80,7 +80,7 @@ export default (props: Props) => {
       <Divider variant="middle" style={{ margin: "10px 0" }} />
       <Grid container justify="space-evenly">
         <Grid item>
-          <a href="http://localhost:4000/Oauth/42">
+          <a href="http://127.0.0.1:4000/Oauth/42">
             <Button
               fullWidth
               variant="contained"
@@ -91,7 +91,7 @@ export default (props: Props) => {
           </a>
         </Grid>
         <Grid item>
-          <a href={`http://localhost:4000/Oauth/google`}>
+          <a href={`http://127.0.0.1:4000/Oauth/google`}>
             <Button fullWidth variant="contained" color="secondary">
               Google
             </Button>

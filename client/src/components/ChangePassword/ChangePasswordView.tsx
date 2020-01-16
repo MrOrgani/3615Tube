@@ -1,13 +1,14 @@
 import React from "react";
 import { Field, Formik, FormikErrors } from "formik";
 import FieldInput from "../FiledInput/FieldInput.component";
-import CustomButton from "../button/button.component";
-import { ChangePasswordSchema } from "../../common";
+// import CustomButton from "../button/button.component";
+import { PasswordSchema } from "../../common";
+import { Container, Grid, Typography, Button } from "@material-ui/core";
 // import { Link } from "react-router-dom";
 
 interface FormValues {
-  newPassword?: string;
-  token?: string;
+  password?: string;
+  id?: string;
 }
 
 interface Props {
@@ -18,44 +19,57 @@ interface Props {
 
 export default (props: Props) => {
   return (
-    <div className="sign-up">
-      <h2>Reset my password</h2>
-      <span>Please enter a new password</span>
+    <Container maxWidth="sm" className="sign-up">
       <Formik
         initialValues={{
-          newPassword: "",
-          token: props.token
+          password: "",
+          id: props.token
         }}
-        onSubmit={async ({ newPassword, token }, { setErrors }) => {
-          const errors = await props.submit({ newPassword, token: token });
+        onSubmit={async ({ password, id }, { setErrors }) => {
+          const errors = await props.submit({ password, id });
           if (errors) {
             setErrors(errors);
           } else {
             props.onFinish();
           }
         }}
-        validationSchema={ChangePasswordSchema}
+        validationSchema={PasswordSchema}
       >
         {({ handleSubmit, isSubmitting }) => (
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <Field
-              name="password"
-              type="password"
-              placeholder="New Password"
-              component={FieldInput}
-            />
-            <div>
-              <CustomButton
-                type="submit"
-                onClick={handleSubmit}
-                disabled={isSubmitting}
-              >
-                {isSubmitting ? "Loading..." : "Enregister"}
-              </CustomButton>
-            </div>
-          </div>
+          <Grid
+            container
+            justify="center"
+            direction="column"
+            style={{
+              textAlign: "center"
+            }}
+          >
+            <Typography variant="h5">Reset my password</Typography>
+            <Typography variant="h6">Please enter a new password</Typography>
+            <Grid container spacing={1} justify="center">
+              <Field
+                required
+                name="password"
+                type="password"
+                label="Password"
+                component={FieldInput}
+              />
+              <Grid item xs={12} sm={4}>
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  disabled={isSubmitting}
+                  onClick={() => handleSubmit()}
+                >
+                  {isSubmitting ? "Loading..." : "Enregister"}
+                </Button>
+              </Grid>
+            </Grid>
+          </Grid>
         )}
       </Formik>
-    </div>
+    </Container>
   );
 };

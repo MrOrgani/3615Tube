@@ -40,10 +40,7 @@ export const Pages = ({ loading }: Props) => (
           <Route path="/logout" component={LogoutConnector} />
           <Route path="/confirm/:token" component={ConfirmAccountConnector} />
           <Route path="/forgot-password" component={ForgotPasswordConnector} />
-          <Route
-            path="/change-password/:key"
-            component={ChangePasswordConnector}
-          />
+          <Route path="/reset/:key" component={ChangePasswordConnector} />
           <AuthRoute exact path="/profile" component={UserProfileConnector} />
           <AuthRoute
             exact

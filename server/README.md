@@ -69,7 +69,7 @@ it checks the database columns are in check with entities declared (TypeOrm) and
 
 index.ts (2) is called :
 it creates the graphql (graphqlYoga) server by aggregating all the schemas and the typedefs in modules. This aggregation is done by the src/utils/genSchema file
-it then listens to BACK_HOST (localhost:4000) for all schemas defined previously in modules. All interactions with databse like
+it then listens to BACK_HOST (127.0.0.1:4000) for all schemas defined previously in modules. All interactions with databse like
 insertino update or other is handled by the typeorm defined entity (ex User.update({id}, {verified:true}))
 
 modules (3) :
@@ -84,6 +84,6 @@ docker run -p 5432:5432 -d \
  -v pgdata:/var/lib/postgresql/data \
  postgres
 
-psql stripe-example -h localhost -U postgres
+psql stripe-example -h 127.0.0.1 -U postgres
 
 docker exec -it bdca2b8c09b7 psql -U postgres stripe-exampl

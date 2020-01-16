@@ -55,7 +55,7 @@ index.tsx (1) is called :
 it will compile the Apollo Provider params (from src/apollo.ts)
 it will also call the Router from pages (so you navigate on the website) /src/pages/index.tsx (2)
 
-When you go on a page, for example Register (localhost:3000/register) :
+When you go on a page, for example Register (127.0.0.1:3000/register) :
 the Router (/src/pages/index.tsx) you call the Register Page (/src/pages/register) which calls the Register Connector from components (src/components/`Register`connector) (3)
 
 A Connector will link a Controller to a View, for example with `Register`:

@@ -4,6 +4,7 @@ import { PasswordSchema } from "../../../common/yupSchemas/user";
 import { User } from "../../../entity/User";
 import { formatYupError, formatError } from "../subModules/formatErrors";
 import { sendMail } from "../subModules/sendMail";
+import jwt from "jsonwebtoken";
 
 const resolvers: ResolverMap = {
   Query: {
@@ -31,17 +32,19 @@ const resolvers: ResolverMap = {
       } catch (err) {
         return await formatYupError(err, "password");
       }
+      const verifiedId = (jwt.verify(id, process.env.SESSION_SECRET) as any).id;
+      // console.log("forgot password test", id, verifiedId);
       const user = await User.findOne({
-        where: { id },
+        where: { id: verifiedId },
         select: ["id"]
       });
       if (!user)
         return await formatError(
-          "id",
+          "password",
           "there was an error with your identification"
         );
       const hashedPwd = await bcrypt.hash(password, 10);
-      User.update({ id }, { password: hashedPwd });
+      User.update({ id: verifiedId }, { password: hashedPwd });
       return null;
     }
   }

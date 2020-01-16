@@ -35,8 +35,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "schema:download": "apollo schema:download --endpoint=http://localhost:4000",
-    "apollo:generate": "apollo codegen:generate --excludes=node_modules/* --includes=./src/controller/**/*.tsx --endpoint=http://localhost:4000 --target=typescript --tagName=gql --outputFlat src/generated",
+    "schema:download": "apollo schema:download --endpoint=http://127.0.0.1:4000",
+    "apollo:generate": "apollo codegen:generate --excludes=node_modules/* --includes=./src/controller/**/*.tsx --endpoint=http://127.0.0.1:4000 --target=typescript --tagName=gql --outputFlat src/generated",
     "gen:types": "npm run schema:download && npm run apollo:generate",
     "build": "react-scripts build",
     "test": "react-scripts test",

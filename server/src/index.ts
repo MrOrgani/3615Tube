@@ -21,7 +21,7 @@ const startServer = async () => {
   const server = new GraphQLServer({
     schema: (await genSchema()) as any,
     context: ({ request, response }) => {
-      response.header("Access-Control-Allow-Origin", "http://localhost:3000");
+      response.header("Access-Control-Allow-Origin", "http://127.0.0.1:3000");
       return {
         url: request.protocol + "://" + request.get("host"),
         session: request.session,
@@ -53,8 +53,8 @@ const startServer = async () => {
     origin: [
       process.env.FRONT_HOST,
       process.env.BACK_HOST,
-      "http://localhost:4000/*",
-      "http://localhost:3000/*"
+      "http://127.0.0.1:4000/*",
+      "http://127.0.0.1:3000/*"
     ]
   };
   new CronJob("0 8 * * *", torrentManager.deleteOldFilms).start();

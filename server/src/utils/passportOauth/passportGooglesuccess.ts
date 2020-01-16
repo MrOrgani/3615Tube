@@ -35,7 +35,7 @@ export async function passportGoogleSuccess(req: any, res: Response) {
       res.redirect(process.env.FRONT_HOST);
     } catch (err) {
       console.log("error creating / finding google profile", err);
-      res.redirect(`http://localhost:3000`);
+      res.redirect(`http://127.0.0.1:3000`);
     }
   }
 }

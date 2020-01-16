@@ -12,7 +12,7 @@ import "./homepage.styles.scss";
 //     controls
 //   >
 //     <source
-//       src={`http://localhost:4000/video/${encodeURIComponent(mandalorian)}/${fakeImdbId}`}
+//       src={`http://127.0.0.1:4000/video/${encodeURIComponent(mandalorian)}/${fakeImdbId}`}
 //       type="video/mp4"
 //     />
 //   </video>
