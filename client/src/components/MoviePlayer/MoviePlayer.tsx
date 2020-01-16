@@ -5,9 +5,6 @@ import { Container } from "@material-ui/core";
 // import { Grid } from "@material-ui/core";
 import axios from "axios";
 
-/* 
-  CHECK SUBTITLES UNDEFINED 
-*/
 const MoviePlayer = () => {
   const [srcTorrent] = useContext(TorrentContext) as any;
   const [src, setSrc] = useState(srcTorrent);
@@ -38,20 +35,14 @@ const MoviePlayer = () => {
     if (video.current) {
       video.current.load();
     }
-  }, [srcTorrent, video]);
+  }, [srcTorrent, video]); //remove video if bug here
+
   useEffect(() => {
-    const getSubtitles = async () => {
-      try {
-        console.log("ON ENTRE TRY");
-        await axios.get(`http://127.0.0.1:4000/video/sub/${imdbId[2]}`);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    if (src) {
-      getSubtitles();
+    if(src){
+      getSubtitles()
     }
-  }, [src, imdbId]);
+  }, [src])
+
   return !src ? (
     <Container
       maxWidth="md"
