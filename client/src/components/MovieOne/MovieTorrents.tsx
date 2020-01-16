@@ -26,12 +26,13 @@ const MovieTorrents = ({ data: { torrents } }: any) => {
               >
                 <Paper
                   style={{
-                    minWidth: "-moz-available",
+                    // minWidth: "-moz-available",
                     height: "50px",
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
-                    width: "20vw"
+                    // width: "20vw",
+                    minWidth: "max-content"
                   }}
                 >
                   audio:{" "}

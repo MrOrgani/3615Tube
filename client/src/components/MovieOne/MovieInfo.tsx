@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Typography, Grid, Chip, Paper, Avatar } from "@material-ui/core";
+import {
+  Typography,
+  Grid,
+  Chip,
+  Paper,
+  Avatar,
+  Container
+} from "@material-ui/core";
 import axios from "axios";
 import image from "../../assets/images/avatar.png";
 
@@ -19,127 +26,129 @@ const MovieInfo = ({ movieInfo }: any) => {
   }, [movieInfo.imdbId, setCrewInfo, setCastInfo]);
 
   return (
-    <Grid
-      container
-      style={{
-        backgroundImage:
-          "radial-gradient(circle at 10% 20%, rgba(90, 92, 106, 0.24) 0%, rgba(32, 45, 58, 0.2) 81.3%)",
-        borderRadius: "10px"
-      }}
-      justify="center"
-      alignItems="center"
-    >
-      <Grid item container justify="flex-start">
-        {/***********  POSTER ********************/}
-        <img
-          style={{
-            width: "200px",
-            height: "auto"
-          }}
-          src={movieInfo.poster}
-          alt="moviePoster"
-        />
-        <Grid item xl container style={{ padding: "0 14px" }}>
-          {/***********  TITLE ********************/}
-          <Grid item container justify="flex-start">
-            <Typography variant="h2">{movieInfo.title}</Typography>
+    <Container maxWidth="md">
+      <Grid
+        container
+        style={{
+          backgroundImage:
+            "radial-gradient(circle at 10% 20%, rgba(90, 92, 106, 0.24) 0%, rgba(32, 45, 58, 0.2) 81.3%)",
+          borderRadius: "10px"
+        }}
+        justify="center"
+        alignItems="center"
+      >
+        <Grid item container justify="center">
+          {/***********  POSTER ********************/}
+          <img
+            style={{
+              width: "200px",
+              height: "auto"
+            }}
+            src={movieInfo.poster}
+            alt="moviePoster"
+          />
+          <Grid item xl container style={{ padding: "0 14px" }}>
+            {/***********  TITLE ********************/}
+            <Grid item container justify="flex-start">
+              <Typography variant="h2">{movieInfo.title}</Typography>
+            </Grid>
+            {/***********  INFOS ********************/}
+            <Grid item container>
+              <Typography variant="h6">
+                {movieInfo.year} | ⭐️ {movieInfo.rating} |{" "}
+                {movieInfo.genres.map((element: string, index: number) => (
+                  <Chip key={index} label={element} />
+                ))}
+              </Typography>
+            </Grid>
+            {/***********  SYNOPSIS ********************/}
+            <Grid item>
+              <Typography
+                variant="body2"
+                style={{
+                  // padding: "0 10px",
+                  textAlign: "justify",
+                  fontStyle: "italic"
+                }}
+              >
+                {movieInfo.synopsis}
+              </Typography>
+            </Grid>
           </Grid>
-          {/***********  INFOS ********************/}
-          <Grid item container>
-            <Typography variant="h6">
-              {movieInfo.year} | ⭐️ {movieInfo.rating} |{" "}
-              {movieInfo.genres.map((element: string, index: number) => (
-                <Chip key={index} label={element} />
-              ))}
-            </Typography>
+        </Grid>
+        <Grid item container xl>
+          <Typography variant="h6" color="primary">
+            Crew
+          </Typography>
+          <Grid item container justify="space-evenly">
+            {crewInfo.map((pers: any, index: number) => (
+              <Grid key={`${index}-Crew`} item>
+                <Paper style={{ height: "auto", width: 100 }}>
+                  <Grid
+                    container
+                    justify="center"
+                    alignItems="center"
+                    style={{ textAlign: "center" }}
+                  >
+                    <Grid item container xs={12} justify="center">
+                      <Avatar
+                        alt="Pict"
+                        src={
+                          pers.profile_path
+                            ? `https://image.tmdb.org/t/p/w500${pers.profile_path}`
+                            : image
+                        }
+                      />
+                    </Grid>
+                    <Grid item xs={12} style={{ fontSize: "12px" }}>
+                      {pers.name}
+                    </Grid>
+                    <Grid item xs={12} style={{ fontSize: "10px" }}>
+                      {pers.job}
+                    </Grid>
+                  </Grid>
+                </Paper>
+              </Grid>
+            ))}
           </Grid>
-          {/***********  SYNOPSIS ********************/}
-          <Grid item>
-            <Typography
-              variant="body2"
-              style={{
-                // padding: "0 10px",
-                textAlign: "justify",
-                fontStyle: "italic"
-              }}
-            >
-              {movieInfo.synopsis}
-            </Typography>
+          <Typography variant="h6" color="primary">
+            Cast
+          </Typography>
+          <Grid item container justify="space-evenly">
+            {castInfo.map((pers: any, index: number) => (
+              <Grid key={`${index}-Cast`} item>
+                <Paper style={{ height: "auto", width: 100 }}>
+                  <Grid
+                    container
+                    justify="center"
+                    alignItems="center"
+                    style={{ textAlign: "center" }}
+                    item
+                  >
+                    <Grid item container xs={12} justify="center">
+                      <Avatar
+                        alt="Pict"
+                        src={
+                          pers.profile_path
+                            ? `https://image.tmdb.org/t/p/w500${pers.profile_path}`
+                            : image
+                        }
+                      />
+                    </Grid>
+                    <Grid item xs={12} style={{ fontSize: "12px" }}>
+                      {pers.name}
+                    </Grid>
+                    <Grid item xs={12} style={{ fontSize: "10px" }}>
+                      {pers.character}
+                    </Grid>
+                  </Grid>
+                </Paper>
+              </Grid>
+            ))}
           </Grid>
         </Grid>
       </Grid>
-      <Grid item container xl>
-        <Typography variant="h6" color="primary">
-          Crew
-        </Typography>
-        <Grid item container justify="space-evenly">
-          {crewInfo.map((pers: any, index: number) => (
-            <Grid key={`${index}-Crew`} item>
-              <Paper style={{ height: "auto", width: 100 }}>
-                <Grid
-                  container
-                  justify="center"
-                  alignItems="center"
-                  style={{ textAlign: "center" }}
-                >
-                  <Grid item container xs={12} justify="center">
-                    <Avatar
-                      alt="Pict"
-                      src={
-                        pers.profile_path
-                          ? `https://image.tmdb.org/t/p/w500${pers.profile_path}`
-                          : image
-                      }
-                    />
-                  </Grid>
-                  <Grid item xs={12} style={{ fontSize: "12px" }}>
-                    {pers.name}
-                  </Grid>
-                  <Grid item xs={12} style={{ fontSize: "10px" }}>
-                    {pers.job}
-                  </Grid>
-                </Grid>
-              </Paper>
-            </Grid>
-          ))}
-        </Grid>
-        <Typography variant="h6" color="primary">
-          Cast
-        </Typography>
-        <Grid item container justify="space-evenly">
-          {castInfo.map((pers: any, index: number) => (
-            <Grid key={`${index}-Cast`} item>
-              <Paper style={{ height: "auto", width: 100 }}>
-                <Grid
-                  container
-                  justify="center"
-                  alignItems="center"
-                  style={{ textAlign: "center" }}
-                  item
-                >
-                  <Grid item container xs={12} justify="center">
-                    <Avatar
-                      alt="Pict"
-                      src={
-                        pers.profile_path
-                          ? `https://image.tmdb.org/t/p/w500${pers.profile_path}`
-                          : image
-                      }
-                    />
-                  </Grid>
-                  <Grid item xs={12} style={{ fontSize: "12px" }}>
-                    {pers.name}
-                  </Grid>
-                  <Grid item xs={12} style={{ fontSize: "10px" }}>
-                    {pers.character}
-                  </Grid>
-                </Grid>
-              </Paper>
-            </Grid>
-          ))}
-        </Grid>
-      </Grid>
-    </Grid>
+    </Container>
   );
 };
 

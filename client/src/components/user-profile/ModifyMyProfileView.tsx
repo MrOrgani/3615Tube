@@ -7,6 +7,8 @@ import { Formik, Field } from "formik";
 import Avatar from "../avatar/avatar.component";
 import { ProfileSchema } from "../../common";
 import BuildOutlinedIcon from "@material-ui/icons/BuildOutlined";
+import ClearSharpIcon from "@material-ui/icons/ClearSharp";
+
 import {
   Grid,
   Button,
@@ -14,7 +16,8 @@ import {
   InputLabel,
   Select,
   MenuItem,
-  Typography
+  Typography,
+  Container
 } from "@material-ui/core";
 import FieldInput from "../FiledInput/FieldInput.component";
 import { UserContext } from "../context";
@@ -103,7 +106,7 @@ export default function ModifyMyProfileView(props: any) {
         }}
       >
         <Fade in={open}>
-          <div className={classes.paper}>
+          <Container maxWidth={"xs"} className={classes.paper}>
             <Formik
               // initialValues={myInfo}
               initialValues={{ ...myInfo, password: "" }}
@@ -138,26 +141,35 @@ export default function ModifyMyProfileView(props: any) {
                     direction="column"
                     style={{ textAlign: "center" }}
                   >
-                    <Typography variant="h6">Upload your info</Typography>
+                    <Grid
+                      item
+                      container
+                      justify="center"
+                      style={{ textAlign: "center" }}
+                    >
+                      <Typography variant="h6">Upload your info</Typography>
+                      <ClearSharpIcon
+                        // className="user-profile-container"
+                        onClick={handleClose}
+                      />
+                    </Grid>
 
-                    <Grid item>
+                    <Grid container item justify="center">
                       <Field
                         name="avatar"
                         uploadImg={true}
                         component={Avatar}
                       />
                     </Grid>
-                    <Grid item xl>
-                      <span>Click on the image to change your avatar</span>
+                    <span>Click on the image to change your avatar</span>
 
-                      {errors.avatar ? (
-                        <label style={{ fontSize: "20px", color: "red" }}>
-                          You must change your avatar
-                        </label>
-                      ) : null}
-                    </Grid>
+                    {errors.avatar ? (
+                      <label style={{ fontSize: "20px", color: "red" }}>
+                        You must change your avatar
+                      </label>
+                    ) : null}
 
-                    <Grid item container spacing={2} justify="center">
+                    <Grid item container justify="center">
                       <Field
                         grid={{ xs: 12, sm: 5 }}
                         required
@@ -237,7 +249,7 @@ export default function ModifyMyProfileView(props: any) {
                 );
               }}
             </Formik>
-          </div>
+          </Container>
         </Fade>
       </Modal>
     </div>

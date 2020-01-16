@@ -1,6 +1,9 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
 import { TorrentContext } from "../context";
-import axios from 'axios';
+import Skeleton from "@material-ui/lab/Skeleton";
+import { Container } from "@material-ui/core";
+// import { Grid } from "@material-ui/core";
+import axios from "axios";
 
 const MoviePlayer = () => {
   const [srcTorrent] = useContext(TorrentContext) as any;
@@ -8,13 +11,13 @@ const MoviePlayer = () => {
   const video = useRef(null) as any;
   const imdbId = document.location.pathname.split("/");
   const getSubtitles = async () => {
-    try{
-      console.log('ON ENTRE TRY')
+    try {
+      console.log("ON ENTRE TRY");
       await axios.get(`http://localhost:4000/video/sub/${imdbId[2]}`);
-    } catch(err){
+    } catch (err) {
       console.log(err);
     }
-  }
+  };
   useEffect(() => {
     setSrc(srcTorrent);
     if (video.current) {
@@ -22,11 +25,25 @@ const MoviePlayer = () => {
     }
   }, [srcTorrent]);
   useEffect(() => {
-    if(src){
-      getSubtitles()
+    if (src) {
+      getSubtitles();
     }
-  }, [src])
-  return !src ? null : (
+  }, [src]);
+  return !src ? (
+    <Container
+      maxWidth="md"
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center"
+      }}
+    >
+      <Skeleton variant="rect" width={600} height={400} />
+      <h5 style={{ position: "absolute", color: "white" }}>
+        Please, click on a torrent to start streaming
+      </h5>
+    </Container>
+  ) : (
     <video
       ref={video}
       style={{ height: "400px", width: "600px" }}
@@ -39,7 +56,11 @@ const MoviePlayer = () => {
         }`}
         type="video/mp4"
       />
-      <track kind="subtitles" label="English" src={`http://localhost:4000/${imdbId[2]}-en.vtt`} />
+      <track
+        kind="subtitles"
+        label="English"
+        src={`http://localhost:4000/${imdbId[2]}-en.vtt`}
+      />
     </video>
   );
 };
