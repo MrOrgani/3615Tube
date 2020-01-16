@@ -24,3 +24,4 @@ export const genreList = [
 
 export const orderKeyList = ["rating", "year", "title"];
 export const orderValueList = ["ASC", "DESC"];
+export const languageList = ["fr", "en", "es"];
