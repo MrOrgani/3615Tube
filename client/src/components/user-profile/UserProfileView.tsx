@@ -1,19 +1,11 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { FormikErrors } from "formik";
 import image from "../../assets/images/avatar.png";
 // import UserActivity from "../user-activity/user-activity.component";
 
 import "./user-profile.styles.scss";
 import Skeleton from "@material-ui/lab/Skeleton";
-import {
-  // Avatar,
-  Grid,
-  Container,
-  Typography,
-  // CardMedia,
-  // Card,
-  Divider
-} from "@material-ui/core";
+import { Grid, Container, Typography, Divider } from "@material-ui/core";
 import { UserContext } from "../context";
 import ModifyMyProfileConnector from "./ModifyMyProfileConnector";
 
@@ -28,7 +20,6 @@ interface FormValues {
 
 interface Props {
   submit?: (values: FormValues) => Promise<FormikErrors<FormValues> | null>;
-  // onFinish?: () => void;
   userInfo?: any;
   userLogin?: any;
   loading?: boolean;
@@ -74,11 +65,17 @@ const SkeletonProfile = (
 const UserProfileView = ({ userInfo, loading }: Props) => {
   const { pathname } = window.location;
   const myInfo = useContext(UserContext) as any;
-  const userInfoToDiplay = pathname === "/profile" ? myInfo : userInfo;
+
+  // const userInfoToDiplay = pathname === "/profile" ? myInfo : userInfo;
+  const [userInfoToDiplay, setUserInfoToDiplay] = useState(myInfo);
+  // Je veux display mes infos si le path est /profile
+  useEffect(() => {
+    setUserInfoToDiplay(pathname === "/profile" ? myInfo : userInfo);
+  }, [userInfo, pathname, myInfo]);
 
   return (
     <>
-      {loading ? (
+      {loading || !userInfoToDiplay ? (
         SkeletonProfile
       ) : (
         <Container maxWidth="sm">
