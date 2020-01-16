@@ -18,4 +18,5 @@ node_modules
 
 /server/DS_store
 /server/downloads/
+/server/tmp/
 

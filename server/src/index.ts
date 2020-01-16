@@ -2,6 +2,7 @@ import "reflect-metadata";
 import bodyParser from "body-parser";
 // import { Request, Response } from "express";
 import { CronJob } from "cron";
+import express from 'express';
 import * as torrentManager from "./scripts/torrentManager";
 import { GraphQLServer } from "graphql-yoga";
 import passport from "passport";
@@ -32,6 +33,7 @@ const startServer = async () => {
 
   // EXTRA SET UP: connecting to the db and the sessions (cookie stored using filed store in the session dir)
   server.express.use(createSession());
+  server.express.use(express.static('tmp'))
   await connectToDb();
   await passportSetUp();
   server.express.use(passport.initialize());
