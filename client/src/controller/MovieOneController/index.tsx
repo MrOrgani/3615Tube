@@ -4,7 +4,11 @@ import gql from "graphql-tag";
 import MovieOneView from "../../components/MovieOne/MovieOneView";
 
 interface Props {
-  children: (data: { data?: any; movieInfo?: any }) => JSX.Element | null;
+  children: (data: {
+    data?: any;
+    movieInfo?: any;
+    parsedTorrents?: any;
+  }) => JSX.Element | null;
   imdbId?: string;
 }
 
@@ -38,15 +42,19 @@ const MovieController = (props: Props) => {
   const movieInfo = data ? data.findOneFilm : null;
 
   // PARSING TORRENTS OF EACH SINGLE MOVIE
-  if (movieInfo.torrents) {
-    const parsedTorrents = () =>
-      movieInfo.torrents.map((torrent: string) => JSON.parse(torrent));
-    movieInfo.torrents = parsedTorrents();
-  }
+  console.log("MovieController torrents", movieInfo.torrents);
+  // if (movieInfo.torrents) {
+  const parsedTorrents = movieInfo.torrents
+    ? movieInfo.torrents.map((torrent: string) => JSON.parse(torrent))
+    : null;
+  // movieInfo.torrents = parsedTorrents();
+  // }
   //***************************************** */
+  console.log("MovieController torrents", parsedTorrents);
 
   return props.children({
-    movieInfo
+    movieInfo,
+    parsedTorrents
   });
 };
 

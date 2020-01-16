@@ -2,8 +2,10 @@ import React, { useContext } from "react";
 import { Typography, Grid, Paper, ButtonBase } from "@material-ui/core";
 import { TorrentContext } from "../context";
 
-const MovieTorrents = ({ data: { torrents } }: any) => {
+const MovieTorrents = ({ parsedTorrents }: any) => {
   const [, setSrcTorrent] = useContext(TorrentContext) as any;
+
+  console.log("MovieTorrents torrents", parsedTorrents);
 
   return (
     // <>
@@ -12,7 +14,7 @@ const MovieTorrents = ({ data: { torrents } }: any) => {
         torrents
       </Typography>
       <Grid container justify="center" alignItems="flex-start" spacing={1}>
-        {torrents.map((torrent: any, index: number) => {
+        {parsedTorrents.map((torrent: any, index: number) => {
           return (
             <Grid
               key={`torrent-index${index}`}

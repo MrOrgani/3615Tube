@@ -11,7 +11,9 @@ const MovieOneConnector = (props: any) => {
 
   return (
     <MovieController imdbId={imdbId}>
-      {({ movieInfo }) => <MovieOneView movieInfo={movieInfo} />}
+      {({ movieInfo, parsedTorrents }) => (
+        <MovieOneView movieInfo={movieInfo} parsedTorrents={parsedTorrents} />
+      )}
     </MovieController>
   );
 };
