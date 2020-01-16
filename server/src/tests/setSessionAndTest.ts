@@ -15,7 +15,6 @@ export const setSessionAndTest = async function name(
     });
     //set cookies we got from the login in the second request
     let [cookie] = res.headers["set-cookie"];
-    // console.log("cookie in login and test", cookie);
     transport.defaults.headers.Cookie = cookie;
 
     //ME QUERY verify we can login using the cookie we set

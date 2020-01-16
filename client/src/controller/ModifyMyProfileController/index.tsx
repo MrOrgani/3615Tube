@@ -52,8 +52,6 @@ const ModifyMyProfileController = (props: Props) => {
     } = await mutate({
       variables: values
     });
-
-    // console.log("My profil controller, ", result);
     if (update) {
       return normalizeErrors(update);
     }

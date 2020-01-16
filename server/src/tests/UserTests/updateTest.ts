@@ -35,7 +35,6 @@ export const updateTest = (
           lastName
         )
       })) as any;
-      // console.log(response, response.data.data);
       expect(response.data.data.update[0].path).toEqual("cookie");
     });
     test("basic update", async () => {
@@ -51,7 +50,6 @@ export const updateTest = (
           )
         })) as any;
         const user: User = (await User.findOne({ where: { email } })) as User;
-        // console.log(response.data.data);
         expect(response.data.data.update).toEqual(null);
         expect(user.language).toEqual(newLanguage);
         expect(user.firstName).toEqual(newFirstName);

@@ -12,7 +12,6 @@ router.get("/:token", async (req: express.Request, res: express.Response) => {
   res.header("Access-Control-Allow-Origin", "http://localhost:3000");
   if (token) {
     const { id }: any = jwt.verify(token, process.env.SESSION_SECRET);
-    // console.log(id);
     const user = (await User.findOne({ id })) as User;
     if (user) {
       await User.update({ id }, { verified: true });

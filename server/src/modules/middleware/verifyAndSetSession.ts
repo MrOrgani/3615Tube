@@ -11,17 +11,7 @@ export default async (
 ) => {
   //middleware
   const { session } = context;
-  // console.log("context in the middleware", parent, args, info);
-  // console.log(info.returnType);
-  // console.log(
-  //   "in verify and setSession of type",
-  //   info.fieldName,
-  //   "the session is : ",
-  //   session,
-  //   session.userId
-  // );
   if (!context.session.userId) {
-    // console.log("we lack a cookie here", info.returnType);
     if (info.returnType.name || info.returnType.ofType.name === "Film")
       return null;
     else if (info.returnType.ofType.ofType.name === "Error")
@@ -33,7 +23,6 @@ export default async (
   else return null;
 
   const result = await resolver(parent, args, context, info);
-  // console.log("result from resolver", result);
 
   //afterware
   return result;

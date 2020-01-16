@@ -1,13 +1,13 @@
 import pump from "pump";
-import fs from 'fs';
+import fs from "fs";
 import parseRange from "range-parser";
 import path from "path";
 import ffmpeg from "fluent-ffmpeg";
-import moment from 'moment'
-import rimraf from 'rimraf';
+import moment from "moment";
+import rimraf from "rimraf";
 import parseTorrent from "parse-torrent";
 import { User } from "../entity/User";
-import { Torrent } from "../entity/Torrent"
+import { Torrent } from "../entity/Torrent";
 import { getConnection, LessThanOrEqual } from "typeorm";
 
 export const startConvert = (file: any, res: any) => {
@@ -15,7 +15,8 @@ export const startConvert = (file: any, res: any) => {
     return;
   }
   let flux = file.createReadStream();
-  /* Uncomment to see downloading logs */  
+  /* Uncomment to see downloading logs */
+
   // let progressBar: number = 0;
   // flux.on("data", (chunk: any) => {
   //   progressBar += chunk.length;
@@ -107,39 +108,43 @@ export const parseMagnet = (magnet: string) => {
 
 export const updateSeenFilms = (req: any) => {
   return new Promise(async (resolve, reject) => {
-    try{
-      const user = await User.findOne(req.session.userId) as User;
-      if(user.seenFilms[0] === "[]"){
+    try {
+      const user = (await User.findOne(req.session.userId)) as User;
+      if (user.seenFilms[0] === "[]") {
         user.seenFilms.shift();
       }
-      if(user.seenFilms.indexOf(req.params.imdbId) === -1){
-      user.seenFilms.push(req.params.imdbId);
-      await getConnection()
-            .createQueryBuilder()
-            .update(User)
-            .set({
-              seenFilms: user.seenFilms
-            })
-            .where("id = :id", { id: req.session.userId })
-            .execute();
+      if (user.seenFilms.indexOf(req.params.imdbId) === -1) {
+        user.seenFilms.push(req.params.imdbId);
+        await getConnection()
+          .createQueryBuilder()
+          .update(User)
+          .set({
+            seenFilms: user.seenFilms
+          })
+          .where("id = :id", { id: req.session.userId })
+          .execute();
       }
-      resolve()
-    } catch(err){
-      reject(err)
+      resolve();
+    } catch (err) {
+      reject(err);
     }
-  })
-}
+  });
+};
 
 export const deleteOldFilms = async () => {
-  const oneMonthAgo = moment().subtract(1, 'months');
-  const oldTorrent = await Torrent.find({where: {createdAt: LessThanOrEqual(oneMonthAgo)}});
-  for(const key in oldTorrent){
-    rimraf(`./downloads/${oldTorrent[key].infoHash}`,() => { console.log(`${oldTorrent[key].infoHash} was removed.`) }) ;
+  const oneMonthAgo = moment().subtract(1, "months");
+  const oldTorrent = await Torrent.find({
+    where: { createdAt: LessThanOrEqual(oneMonthAgo) }
+  });
+  for (const key in oldTorrent) {
+    rimraf(`./downloads/${oldTorrent[key].infoHash}`, () => {
+      console.log(`${oldTorrent[key].infoHash} was removed.`);
+    });
     await getConnection()
-    .createQueryBuilder()
-    .delete()
-    .from(Torrent)
-    .where("infoHash = :infoHash", { infoHash: oldTorrent[key].infoHash })
-    .execute();
+      .createQueryBuilder()
+      .delete()
+      .from(Torrent)
+      .where("infoHash = :infoHash", { infoHash: oldTorrent[key].infoHash })
+      .execute();
   }
-}
+};

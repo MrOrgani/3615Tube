@@ -83,8 +83,6 @@ const MovieListFilters = ({ filterList }: any) => {
   const classes = useStyles();
   const [filters] = useContext(MovieListContext) as any;
 
-  // console.log("filters are : ", filters);
-
   return (
     <Grid item container xl={12}>
       <Paper className="filters-box" style={{ width: "inherit" }}>
@@ -99,7 +97,6 @@ const MovieListFilters = ({ filterList }: any) => {
         >
           {({ isSubmitting, values, setFieldValue, handleSubmit }) => {
             return (
-              // <Form>
               <Grid container justify="space-evenly" alignItems="center">
                 <Grid item xs={12} sm={4}>
                   <div className={classes.search}>

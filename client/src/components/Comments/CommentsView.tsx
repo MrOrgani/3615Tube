@@ -36,13 +36,10 @@ const CommentSkeletonItem = (
 );
 
 const CommentsView = ({ data, loading, submit }: MediaProps) => {
-  // const [canComment, setCanComment] = useState(true);
   const [comments, setComments] = useState([]) as any;
   useEffect(() => setComments(data ? data : []), [setComments, data]);
   const { avatar, login } = useContext(UserContext) as any;
   const imdbId = useContext(MovieContext) as any;
-
-  // comments.map((com: any) => console.log(com.authorId.id));
 
   return (
     <Container maxWidth="md" style={{ height: "40vh", overflow: "auto" }}>
