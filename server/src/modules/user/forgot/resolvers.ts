@@ -12,7 +12,6 @@ const resolvers: ResolverMap = {
   Mutation: {
     sendForgotPasswordEmail: async (_: any, { email }: { email: string }) => {
       // sendForgotPasswordEmail: async (_: any, args: any) => {
-      // console.log(args);
       const user = await User.findOne({
         where: { email }
       });

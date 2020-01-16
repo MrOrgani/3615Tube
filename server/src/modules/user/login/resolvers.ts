@@ -12,7 +12,6 @@ const resolvers: ResolverMap = {
   Mutation: {
     login: async (_: any, args: GQL.ILoginOnMutationArguments, { session }) => {
       // login: async (_: any, args: any, { session }) => {
-      // console.log("in the login resolver", login, password);
       const { login, password } = args;
       try {
         await SignInSchema.validate(args, { abortEarly: false });
@@ -30,7 +29,6 @@ const resolvers: ResolverMap = {
           "login",
           "you must verify your account before you can login"
         );
-
       //LOGIN SUCCESSFULL
       session.userId = user.id;
       return null;

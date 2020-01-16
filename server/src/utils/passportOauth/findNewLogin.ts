@@ -13,7 +13,6 @@ export const findNewLogin = async (login: string) => {
       })) as User
     )
       i++;
-    // console.log("found a new login", newLogin);
     return newLogin;
   } else return login;
 };

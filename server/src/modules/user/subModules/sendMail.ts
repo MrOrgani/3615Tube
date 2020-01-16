@@ -32,11 +32,7 @@ export const sendMail = async (
       }
     ]
   });
-  request
-    .then(() => {
-      // console.log(res.body);
-    })
-    .catch((err: any) => {
-      console.log(err.statusCode);
-    });
+  request.catch((err: any) => {
+    console.log(err.statusCode);
+  });
 };

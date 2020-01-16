@@ -108,18 +108,13 @@ export default function ModifyMyProfileView(props: any) {
         <Fade in={open}>
           <Container maxWidth={"xs"} className={classes.paper}>
             <Formik
-              // initialValues={myInfo}
               initialValues={{ ...myInfo, password: "" }}
               onSubmit={async (values, actions) => {
-                // console.log("values, in Myprofile view ", values);
                 const errors = await props.submit(values);
-                // console.log("error on Myprofile, ", errors);
                 if (errors) {
                   actions.setErrors(errors);
                 } else {
                   setOpen(false);
-                  // setMyInfo({ ...myInfo, values })s
-                  // props.onFinish();
                 }
               }}
               validateOnChange={false}

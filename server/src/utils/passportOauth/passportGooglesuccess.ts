@@ -12,7 +12,6 @@ export async function passportGoogleSuccess(req: any, res: Response) {
       email,
       picture
     } = req.user._json;
-    // console.log("id in passport Googlesuccess", id);
     try {
       if (!id) throw "no id was received from the response";
       if (!req.session) throw "session Issue with your request";

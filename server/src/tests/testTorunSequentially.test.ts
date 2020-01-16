@@ -35,7 +35,7 @@ describe("user Creation, modification and query", () => {
   registerTest(login, password, firstName, lastName, email, id);
   loginTest(login, password);
   meTest(login, firstName, language, password);
-  findOneTest(login, password, firstName, language, id);
+  findOneTest(login);
   updateTest(
     login,
     password,

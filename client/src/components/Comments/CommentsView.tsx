@@ -36,7 +36,6 @@ const CommentSkeletonItem = (
 );
 
 const CommentsView = ({ data, loading, submit }: MediaProps) => {
-  // const [canComment, setCanComment] = useState(true);
   const [comments, setComments] = useState([]) as any;
   useEffect(() => setComments(data ? data : []), [setComments, data]);
   const { avatar, login } = useContext(UserContext) as any;

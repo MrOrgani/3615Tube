@@ -13,7 +13,7 @@ export const resolvers: ResolverMap = {
         res.clearCookie("HT_id");
         if (session.user) {
           session.destroy(err => {
-            if (err) console.log(err);
+            if (err) console.log("error eliminating the session", err);
           });
           return true;
         }
