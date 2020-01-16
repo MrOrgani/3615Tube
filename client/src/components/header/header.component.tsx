@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import SettingsIcon from "@material-ui/icons/Settings";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import "./header.styles.scss";
@@ -9,8 +9,13 @@ import VideocamOutlinedIcon from "@material-ui/icons/VideocamOutlined";
 import { Grid } from "@material-ui/core";
 
 const Header = () => {
-  const user = useContext(UserContext);
-  const logInlogOut = !user ? (
+  const myInfo = useContext(UserContext) as any;
+
+  const [connectedUser, setConnectedUser] = useState(false);
+
+  useEffect(() => setConnectedUser(myInfo[0] ? true : false), [myInfo]);
+  // console.log("Header myinfo", );
+  const logInlogOut = !connectedUser ? (
     <Link className="option" to="/login">
       <AccountCircleIcon />
     </Link>

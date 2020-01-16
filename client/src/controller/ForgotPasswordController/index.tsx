@@ -25,27 +25,20 @@ const ForgotPasswordController = (props: Props) => {
 
   const submit = async (values: any) => {
     const {
-      data: { forgot }
+      data: { sendForgotPasswordEmail }
     } = await mutate({
       variables: values
     });
 
-    if (forgot) {
-      // if (errors) {
-      // return normalizeErrors(errors);
-      return normalizeErrors(forgot);
+    if (sendForgotPasswordEmail) {
+      return normalizeErrors(sendForgotPasswordEmail);
     }
 
     return null;
   };
 
-  // function onFinish() {
-  //   props.history.push("/");
-  // }
-
   return props.children({
     submit
-    //  onFinish
   });
 };
 

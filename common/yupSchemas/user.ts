@@ -8,6 +8,10 @@ export const PasswordValidation = Yup.string()
   .min(6, "Too Short! Min 6 chars")
   .required("Required");
 
+export const EmailValidation = Yup.string()
+  .email("Invalid email")
+  .required("Required");
+
 export const PasswordSchema = Yup.object().shape({
   password: PasswordValidation
 });

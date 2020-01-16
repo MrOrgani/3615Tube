@@ -1,9 +1,10 @@
 import React from "react";
 import { Field, Formik, FormikErrors } from "formik";
 import FieldInput from "../FiledInput/FieldInput.component";
-import CustomButton from "../button/button.component";
-// import { SignupSchema } from "../../common";
+// import CustomButton from "../button/button.component";
 import { Link } from "react-router-dom";
+import { Container, Grid, Button } from "@material-ui/core";
+import { EmailValidation } from "../../common";
 
 interface FormValues {
   email: string;
@@ -16,7 +17,7 @@ interface Props {
 
 export default (props: Props) => {
   return (
-    <div className="sign-up">
+    <Container maxWidth="sm" className="sign-up">
       <h2>I forgot my password</h2>
       <span>Enter your email your change your password</span>
       <Formik
@@ -24,6 +25,7 @@ export default (props: Props) => {
           email: ""
         }}
         onSubmit={async (values, actions) => {
+          // console.log("value", values);
           const errors = await props.submit(values);
           if (errors) {
             actions.setErrors(errors);
@@ -31,32 +33,40 @@ export default (props: Props) => {
             props.onFinish();
           }
         }}
-        // validationSchema={SignupSchema}
+        validationSchema={EmailValidation}
       >
-        {({ handleSubmit, isSubmitting }) => (
-          <div style={{ display: "flex", flexDirection: "column" }}>
+        {({ handleSubmit, isSubmitting, errors }) => (
+          <Grid
+            container
+            justify="center"
+            direction="column"
+            style={{
+              textAlign: "center"
+            }}
+          >
             <Field
+              required
               name="email"
               type="text"
-              placeholder="Email"
+              label="Email"
               component={FieldInput}
             />
-            <div>
-              <CustomButton
-                type="submit"
-                onClick={handleSubmit}
-                disabled={isSubmitting}
+            <Grid item xs={12} container justify="center">
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => handleSubmit()}
               >
                 {isSubmitting ? "Loading..." : "Reset my password"}
-              </CustomButton>
-            </div>
+              </Button>
+            </Grid>
             <span>
               Or <Link to="/login">Login</Link> |{" "}
               <Link to="/register">Register</Link>
             </span>
-          </div>
+          </Grid>
         )}
       </Formik>
-    </div>
+    </Container>
   );
 };

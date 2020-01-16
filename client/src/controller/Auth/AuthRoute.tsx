@@ -9,7 +9,7 @@ import {
 import { UserContext } from "../../components/context";
 
 const AuthRoute = (props: any) => {
-  const userAuthed = useContext(UserContext) as any;
+  const [userAuthed] = useContext(UserContext) as any;
 
   const renderRoute = (routeProps: any) => {
     const { component } = props;
