@@ -12,9 +12,9 @@ export const passportSetUp = () => {
     new FortyTwoStrategy(
       {
         clientID:
-          "21ee8791ef364480489dc035732d734be746729d0dfc68c2fab5c5816c85728c",
+          "1147a6093eeba9395c609615a02c74d062dc0ba819ed06b06c77f971f4d804af",
         clientSecret:
-          "73d97c9c7e44b2c59ff91abd3192e456a272e148fd2fb01a7739252e3e676ca0",
+          "c3ae72ca14b63acace97a152bfbe05b73e113b9c5e9fde5a68ebce58790f30fa",
         callbackURL: `${process.env.BACK_HOST}/Oauth/42/redirect`
       },
       (_accessToken: any, _refreshToken: any, profile: any, cb: any) =>
