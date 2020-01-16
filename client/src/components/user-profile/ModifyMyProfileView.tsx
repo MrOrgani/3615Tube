@@ -205,6 +205,11 @@ export default function ModifyMyProfileView(props: any) {
                                 🇬🇧
                               </span>
                             </MenuItem>
+                            <MenuItem value={"es"}>
+                              <span role="img" aria-label="ES">
+                                🇪🇸
+                              </span>
+                            </MenuItem>
                           </Select>
                         </FormControl>
                       </Grid>

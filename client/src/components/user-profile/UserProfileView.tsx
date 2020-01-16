@@ -68,6 +68,31 @@ const UserProfileView = ({ userInfo, loading }: Props) => {
   const [myInfo] = useContext(UserContext) as any;
   const userInfoToDiplay = pathname === "/profile" ? myInfo : userInfo;
 
+  let flag;
+  switch (userInfoToDiplay.language) {
+    case "fr":
+      flag = (
+        <span role="img" aria-label="FR">
+          🇫🇷
+        </span>
+      );
+      break;
+    case "es":
+      flag = (
+        <span role="img" aria-label="ESP">
+          🇪🇸
+        </span>
+      );
+      break;
+    case "en":
+      flag = (
+        <span role="img" aria-label="UK">
+          🇬🇧
+        </span>
+      );
+      break;
+  }
+
   return (
     <>
       {loading ? (
@@ -111,15 +136,7 @@ const UserProfileView = ({ userInfo, loading }: Props) => {
             <Grid item>
               <Typography variant="h5">
                 {`${userInfoToDiplay.firstName} ${userInfoToDiplay.lastName} `}
-                {userInfoToDiplay.language === "fr" ? (
-                  <span role="img" aria-label="france">
-                    🇫🇷
-                  </span>
-                ) : (
-                  <span role="img" aria-label="UK">
-                    🇬🇧
-                  </span>
-                )}
+                {flag}
               </Typography>
             </Grid>
             {pathname === "/profile" && (
