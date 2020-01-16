@@ -15,7 +15,7 @@ const resolvers: ResolverMap = {
     update: createMiddleware(
       verifyAndSetSession,
       async (_: any, args: any, { session }) => {
-        if (args.password.length == 0) delete args.password;
+        if (args.password && args.password.length == 0) delete args.password;
         try {
           await ProfileSchema.validate(args, { abortEarly: false });
         } catch (error) {
