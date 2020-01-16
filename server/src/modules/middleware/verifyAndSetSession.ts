@@ -18,7 +18,9 @@ export default async (
       return formatError("cookie", "no session cookie was detected");
     else if (info.returnType.constructor.name === "GraphQLList") return [];
   }
-  const user = await User.findOne({ where: { id: session.userId } });
+  const user = await User.findOne({
+    where: { id: session.userId, verified: true }
+  });
   if (user) session.user = user;
   else return null;
 

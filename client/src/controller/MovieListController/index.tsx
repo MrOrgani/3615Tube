@@ -10,11 +10,8 @@ import MovieListLoading from "../../components/MovieList/MovieListLoading";
 
 interface Props {
   children: (data: {
-    // submit: (values: any) => Promise<any>;
-    // data?: any;
     allMovies?: any;
     loadMore: () => void;
-    // filterList: () => void;
   }) => JSX.Element | null;
   movieId?: string;
   variables?: any;
@@ -62,13 +59,16 @@ const MovieListController = (props: Props) => {
         ...filters,
         page: ++filters.page
       },
+      // updateQuery: (prev, { fetchMoreResult, variables }) => {
       updateQuery: (prev, { fetchMoreResult, variables }) => {
         if (!fetchMoreResult) return prev;
-        return {
-          ...prev,
-          searchFilms: [...prev.searchFilms, ...fetchMoreResult.searchFilms],
-          variables: variables
-        };
+        return (
+          prev && {
+            ...prev,
+            searchFilms: [...prev.searchFilms, ...fetchMoreResult.searchFilms],
+            variables: variables
+          }
+        );
       }
     });
   }, [fetchMore, filters]);
@@ -90,28 +90,14 @@ const MovieListController = (props: Props) => {
     allMovies = data.searchFilms;
   }
 
-  // const [filterList, { data: filteredList }] = useLazyQuery(GET_MOVIES);
-
-  // if (filteredList && filteredList.searchFilms) {
-  //   allMovies = filteredList.searchFilms;
-  // }
-
-  // // -----------> SI DES COMS, LES REDESIGNER
-  // if (filteredList && filteredList.searchFilms) {
-  //   allMovies = filteredList.searchFilms;
-  // }
-
   //SI ERREUR DE GRAPHQL RETURN THIS
   if (error) return <p>{JSON.stringify(error, null, 2)}</p>;
 
   //SI LOADING JE RENVOIE UN -------SKELETON------- DES COMS
   if (loading) return <MovieListLoading loading />;
 
-  // console.log("allMovies, ", allMovies);
-
   return props.children({
     allMovies,
-    // filterList,
     loadMore
   });
 };

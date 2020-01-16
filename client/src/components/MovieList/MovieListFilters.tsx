@@ -217,10 +217,10 @@ const MovieListFilters = ({ filterList }: any) => {
                     color="primary"
                     // className={classes.submit}
                     disabled={isSubmitting}
-                    onClick={event => {
-                      event.preventDefault();
-                      handleSubmit();
-                    }}
+                    onClick={() =>
+                      // event.preventDefault();
+                      handleSubmit()
+                    }
                   >
                     Apply
                   </Button>

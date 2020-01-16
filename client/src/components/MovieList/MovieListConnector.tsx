@@ -26,19 +26,15 @@ const MovieListConnector = (props: MediaProps) => {
     orderValue: "DESC"
   });
 
+  console.log("MovieListConnector filters", filters);
+
   return (
     <MovieListProvider value={[filters, setFilters]}>
       <MovieListController>
-        {({
-          allMovies,
-          // filterList,
-          loadMore
-          // submit
-        }) => (
+        {({ allMovies, loadMore }) => (
           <MovieListView
             history={history}
             data={allMovies}
-            // filterList={filterList}
             loadMore={loadMore}
           />
         )}
