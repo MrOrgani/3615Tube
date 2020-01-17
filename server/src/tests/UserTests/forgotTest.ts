@@ -1,6 +1,6 @@
 import { User } from "../../entity/User";
 import { request } from "graphql-request";
-
+import jwt from "jsonwebtoken";
 const sendForgotMutation = (email: string) => `mutation{
   sendForgotPasswordEmail(email:"${email}")
   {
@@ -23,6 +23,7 @@ export const forgotTest = async (
   email: string,
   id: string
 ) => {
+  const token = jwt.sign({ id }, "alsjdvnewe");
   describe("forgot password", () => {
     test("send forgot password mail", async () => {
       const response = await request(
@@ -41,7 +42,7 @@ export const forgotTest = async (
     test("change password ", async () => {
       let response = await request(
         process.env.BACK_HOST,
-        changeForgotMutation(newPassword, id)
+        changeForgotMutation(newPassword, token)
       );
       expect(response).toEqual({ forgotPasswordChange: null });
       expect(newPassword).not.toEqual(password);
@@ -51,7 +52,7 @@ export const forgotTest = async (
       const user: User = (await User.findOne({ where: { email } })) as User;
       let response = await request(
         process.env.BACK_HOST,
-        changeForgotMutation("asdf1*", id)
+        changeForgotMutation("asdf1*", token)
       );
       expect(response.forgotPasswordChange[0].path).toEqual("password");
       expect(user.password).not.toEqual("asdf1*");
