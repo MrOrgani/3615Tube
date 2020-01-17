@@ -61,10 +61,8 @@ const Avatar: React.FC<FieldProps<any>> = (props: any) => {
             alt="MyAvatar"
             id={"myimage"}
             style={{
-              borderRadius: "50%",
-              width: "150px",
-              height: "150px",
-              marginTop: "20px"
+              borderRadius: "20px",
+              width: "50%"
             }}
           />
         </label>

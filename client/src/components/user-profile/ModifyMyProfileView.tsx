@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: "center"
     },
     paper: {
-      background: "linear-gradient(to right, #feac5e, #c779d0, #4bc0c8)",
+      background: "linear-gradient(to bottom, #9282e0, #ff8fb7)",
       border: "2px solid #000",
       boxShadow: theme.shadows[5],
       padding: theme.spacing(2, 4, 3),
@@ -139,7 +139,7 @@ export default function ModifyMyProfileView(props: any) {
                       item
                       container
                       justify="center"
-                      style={{ textAlign: "center" }}
+                      style={{ textAlign: "center"}}
                     >
                       <Typography variant="h6">Upload your info</Typography>
                       <ClearSharpIcon onClick={handleClose} />
@@ -168,6 +168,7 @@ export default function ModifyMyProfileView(props: any) {
                         type="text"
                         component={FieldInput}
                         label="First Name"
+                        style={{ margin: "5px 0px" }}
                       />
                       <Field
                         grid={{ xs: 12, sm: 5 }}
@@ -176,9 +177,10 @@ export default function ModifyMyProfileView(props: any) {
                         type="text"
                         label="Last Name"
                         component={FieldInput}
+                        style={{ margin: "5px 0px" }}
                       />
                       <Grid item xs={12} sm={2}>
-                        <FormControl variant="outlined">
+                        <FormControl variant="outlined" style={{ margin: "5px 0px" }}>
                           <InputLabel
                             ref={inputLabel}
                             id="demo-simple-select-outlined-label"
@@ -214,6 +216,7 @@ export default function ModifyMyProfileView(props: any) {
                         type="text"
                         label="Login"
                         component={FieldInput}
+                        style={{ margin: "5px 0px" }}
                       />
                       <Field
                         required
@@ -221,12 +224,14 @@ export default function ModifyMyProfileView(props: any) {
                         type="text"
                         label="Email"
                         component={FieldInput}
+                        style={{ margin: "5px 0px" }}
                       />
                       <Field
                         name="password"
                         type="password"
                         label="Password"
                         component={FieldInput}
+                        style={{ margin: "5px 0px" }}
                       />
                       <Grid item xs={12} sm={4}>
                         <Button
@@ -236,6 +241,7 @@ export default function ModifyMyProfileView(props: any) {
                           color="primary"
                           disabled={isSubmitting}
                           onClick={() => handleSubmit()}
+                          style={{ margin: "5px 0px" }}
                         >
                           Modify
                         </Button>

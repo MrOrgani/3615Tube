@@ -95,7 +95,7 @@ const MovieListFilters = ({ filterList }: any) => {
         className="filters-box"
         style={{
           width: "inherit",
-          padding: "10px 80px",
+          padding: "10px 50px",
           borderRadius: "0px",
           marginBottom: "10px",
           display: "flex"
