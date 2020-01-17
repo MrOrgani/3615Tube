@@ -60,9 +60,12 @@ const CommentsView = ({ data, loading, submit }: MediaProps) => {
                   onSubmit={async (values, action) => {
                     // console.log("CommentsView value", values);
                     const myComment = await submit(values);
-                    setComments(
-                      !comments.length ? [myComment] : [myComment, ...comments]
-                    );
+                    myComment &&
+                      setComments(
+                        !comments.length
+                          ? [myComment]
+                          : [myComment, ...comments]
+                      );
                     action.resetForm();
                   }}
                   validateOnChange={false}
