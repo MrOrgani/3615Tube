@@ -20,6 +20,7 @@ const MoviePlayer = () => {
   }, [srcTorrent, video]); //remove video if bug here
 
   useEffect(() => {
+    let isSubscribed = true;
     const getSubtitles = async () => {
       try {
         // console.log("ON ENTRE TRY");
@@ -31,9 +32,9 @@ const MoviePlayer = () => {
         if (favLanguage[1]) {
           // console.log("favLanguage", favLanguage[1]);
           // console.log("RESPONSE", res.data);
-          setFavLanguage(favLanguage[1]);
+          isSubscribed && setFavLanguage(favLanguage[1]);
         }
-        setSubtitles(res.data);
+        isSubscribed && setSubtitles(res.data);
       } catch (err) {
         console.log(err);
       }
@@ -41,6 +42,9 @@ const MoviePlayer = () => {
     if (src) {
       getSubtitles();
     }
+    return () => {
+      isSubscribed = false;
+    };
     // eslint-disable-next-line
   }, [src]);
 
