@@ -18,8 +18,8 @@ const LogoutController = (props: Props) => {
 
   return props.children({
     logout: async () => {
-      await mutate();
-      client!.resetStore();
+      // await mutate();
+      client!.clearStore().then(mutate as any);
       // client.resetStore();
     }
   });

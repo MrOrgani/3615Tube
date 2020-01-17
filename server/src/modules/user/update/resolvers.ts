@@ -15,6 +15,7 @@ const resolvers: ResolverMap = {
     update: createMiddleware(
       verifyAndSetSession,
       async (_: any, args: any, { session }) => {
+        // console.log("in update", args);
         if (!args.password && args.password.length == 0) {
           delete args.password;
         }
