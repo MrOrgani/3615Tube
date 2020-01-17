@@ -2,9 +2,9 @@ import * as express from "express";
 import * as torrentManager from "../scripts/torrentManager";
 import * as subManager from "../scripts/subtitles"
 import {Torrent} from '../entity/Torrent'
-import fs from 'fs';
 import torrentStream from "torrent-stream";
 import yifySub from 'yifysubtitles-api';
+import { Film } from "../entity/Films";
 
 
 const router = express.Router();
@@ -16,42 +16,47 @@ router.route('/sub/:imdbId').get(async (req: any, res: any) => {
     res.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:3000');
     res.setHeader('Access-Control-Allow-Credentials', true);
     if(language !== 'en' && language !== 'fr' && language !== 'es'){
-      console.log('BAD_LANGUAGE=>', language)
       throw new Error('BAD_LANGUAGE');
     }
-    // CHECK IMDBID NOT NULL AND IS IN DATABASE;
-    console.log("DOWNLOAD SUB");
+    const filmExist: any = await Film.findOne(req.params.imdbId);
+    if(!filmExist) { throw new Error('FILM_DOES_NOT_EXIST')}
   yifySub.search({imdbid: req.params.imdbId,limit:'best'}).then(async (sub: any) => {
-      /*nb sub a faire */
-    console.log("IMDBID==>", req.params.imdbId)
-    if(!sub.en){ throw new Error('NO_SUBTITLES_FOR_FILM') }
-    if(sub.en) {
-      const zip = await subManager.downSub(sub.en[0].url, req.params.imdbId) // Download zip and return zip's path.
-      const srt = await subManager.extSub(zip) // Extract zip path , remove the zip and return srt path.
-      const vtt = await subManager.convSub(srt, req.params.imdbId, "en");
+    try{
+        if(!sub.en){ throw new Error('NO_SUBTITLES_FOR_FILM') }
+        if(sub.en) {
+          const zip = await subManager.downSub(sub.en[0].url, req.params.imdbId) // Download zip and return zip's path.
+          const srt = await subManager.extSub(zip) // Extract zip path , remove the zip and return srt path.
+          const vtt = await subManager.convSub(srt, req.params.imdbId, "en");
+        }
+        if (language === "fr" && sub.fr) {
+          const zip = await subManager.downSub(sub.fr[0].url, req.params.imdbId) // Download zip and return zip's path.
+          const srt = await subManager.extSub(zip) // Extract zip path
+          const vtt = await subManager.convSub(srt,req.params.imdbId, "fr");
+        }
+        if (language === "es" && sub.es) {
+          const zip = await subManager.downSub(sub.es[0].url, req.params.imdbId) // Download zip and return zip's path.
+          const srt = await subManager.extSub(zip) // Extract zip path
+          const vtt = await subManager.convSub(srt, req.params.imdbId, "es");
+        }
+        let oneLanguage = null;
+        if((sub.fr && language === 'fr') || (sub.es && language === 'es')){
+          oneLanguage = false;
+        } else {
+          oneLanguage = true;
+        }
+        const response:any = await subManager.getSubtitles(req.params.imdbId,language,oneLanguage);
+        res.json(response);
+    } catch(err){
+      if(err.message !== 'NO_SUBTITLES_FOR_FILM'){
+        console.log('ytssub, video.ts', err);
+        res.status(400).end();
+      } else {
+        res.status(200).end();
+      }
     }
-    if (language === "fr" && sub.fr) {
-      const zip = await subManager.downSub(sub.fr[0].url, req.params.imdbId) // Download zip and return zip's path.
-      const srt = await subManager.extSub(zip) // Extract zip path
-      const vtt = await subManager.convSub(srt,req.params.imdbId, "fr");
-    }
-    if (language === "es" && sub.es) {
-      const zip = await subManager.downSub(sub.es[0].url, req.params.imdbId) // Download zip and return zip's path.
-      const srt = await subManager.extSub(zip) // Extract zip path
-      const vtt = await subManager.convSub(srt, req.params.imdbId, "es");
-    }
-    let oneLanguage = null;
-    if((sub.fr && language === 'fr') || (sub.es && language === 'es')){
-      oneLanguage = false;
-    } else {
-      oneLanguage = true;
-    }
-    const response:any = await subManager.getSubtitles(req.params.imdbId,language,oneLanguage);
-    console.log(Object.keys(response));
-    res.json(response);
   })
   }catch(err){
-    console.log(err);
+    console.log("video.ts", err);
     res.status(400).end();
   }
 })

@@ -42,7 +42,8 @@ const MoviePlayer = () => {
     if (src) {
       getSubtitles();
     }
-  }, [src, imdbId]);
+  // eslint-disable-next-line
+  }, [src]);
 
   return !src ? (
     <Container
