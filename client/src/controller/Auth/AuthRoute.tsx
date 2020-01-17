@@ -12,6 +12,7 @@ export const meQuery = gql`
       firstName
       language
       avatar
+      email
     }
   }
 `;

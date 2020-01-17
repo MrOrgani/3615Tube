@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { FormikErrors } from "formik";
 import image from "../../assets/images/avatar.png";
 
@@ -64,7 +64,17 @@ const SkeletonProfile = (
 const UserProfileView = ({ userInfo, loading }: Props) => {
   const { pathname } = window.location;
   const [myInfo] = useContext(UserContext) as any;
-  const userInfoToDiplay = pathname === "/profile" ? myInfo : userInfo;
+  const [userInfoToDiplay, setUserInfoToDiplay] = useState(
+    pathname === "/profile" ? myInfo : userInfo
+  );
+  useEffect(() => {
+    let isSubscribed = true;
+    pathname === "/profile" && isSubscribed && setUserInfoToDiplay(myInfo);
+    pathname !== "/profile" && isSubscribed && setUserInfoToDiplay(userInfo);
+    return () => {
+      isSubscribed = false;
+    };
+  }, [myInfo, pathname, userInfo]);
 
   let flag;
   switch (userInfoToDiplay.language) {
