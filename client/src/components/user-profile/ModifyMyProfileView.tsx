@@ -5,7 +5,6 @@ import Backdrop from "@material-ui/core/Backdrop";
 import { useSpring, animated } from "react-spring/web.cjs"; // web.cjs is required for IE 11 support
 import { Formik, Field } from "formik";
 import Avatar from "../avatar/avatar.component";
-import { ProfileSchema } from "../../common";
 import BuildOutlinedIcon from "@material-ui/icons/BuildOutlined";
 import ClearSharpIcon from "@material-ui/icons/ClearSharp";
 
@@ -120,7 +119,6 @@ export default function ModifyMyProfileView(props: any) {
               }}
               validateOnChange={false}
               validateOnBlur={false}
-              validationSchema={ProfileSchema}
             >
               {({
                 isSubmitting,
@@ -144,10 +142,7 @@ export default function ModifyMyProfileView(props: any) {
                       style={{ textAlign: "center" }}
                     >
                       <Typography variant="h6">Upload your info</Typography>
-                      <ClearSharpIcon
-                        // className="user-profile-container"
-                        onClick={handleClose}
-                      />
+                      <ClearSharpIcon onClick={handleClose} />
                     </Grid>
 
                     <Grid container item justify="center">

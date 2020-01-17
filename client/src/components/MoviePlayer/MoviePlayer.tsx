@@ -35,7 +35,7 @@ const MoviePlayer = () => {
         }
         setSubtitles(res.data);
       } catch (err) {
-        console.log(err);
+        // console.log(err);
       }
     };
     if (src) {
