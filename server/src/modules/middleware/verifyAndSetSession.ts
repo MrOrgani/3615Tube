@@ -12,10 +12,8 @@ export default async (
   //middleware
   const { session, res } = context;
   res.header("Cache-Control", "no-cache, private, no-store");
-  console.log("context.session", session);
   if (!session.userId) {
     if (info.returnType.name || info.returnType.ofType.name === "Film") {
-      console.log("return error");
       return null;
     } else if (info.returnType.ofType.ofType.name === "Error")
       return formatError("cookie", "no session cookie was detected");
