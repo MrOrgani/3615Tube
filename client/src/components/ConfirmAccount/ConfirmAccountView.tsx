@@ -15,15 +15,19 @@ export default (props: Props) => {
   const [data, setData] = useState({ status: null, type: "", message: "" });
 
   useEffect(() => {
+    let isSubscribed = true;
     (async () => {
       setLoading(true);
       const {
         status,
         data: { type, message }
       } = await Axios.get(`http://127.0.0.1:4000/confirm/${token}`);
-      setData({ status, type, message });
-      setLoading(false);
+      isSubscribed && setData({ status, type, message });
+      isSubscribed && setLoading(false);
     })();
+    return () => {
+      isSubscribed = false;
+    };
   }, [setLoading, token]);
 
   return (

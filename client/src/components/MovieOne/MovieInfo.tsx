@@ -15,14 +15,18 @@ const MovieInfo = ({ movieInfo }: any) => {
   const [crewInfo, setCrewInfo] = useState([]) as any;
 
   useEffect(() => {
+    let isSubscribed = true;
     const getCastAndCrew = async () => {
       const { data } = await axios.get(
         `https://api.themoviedb.org/3/movie/${movieInfo.imdbId}/credits?api_key=7d2a25a20cce518da4384c007bd8cd69`
       );
-      setCastInfo(data.cast.slice(0, 8));
-      setCrewInfo(data.crew.slice(0, 8));
+      isSubscribed && setCastInfo(data.cast.slice(0, 8));
+      isSubscribed && setCrewInfo(data.crew.slice(0, 8));
     };
     getCastAndCrew();
+    return () => {
+      isSubscribed = false;
+    };
   }, [movieInfo.imdbId, setCrewInfo, setCastInfo]);
 
   return (
