@@ -30,8 +30,6 @@ const ChangePasswordController = (props: Props) => {
       variables: values
     });
 
-    console.log("ChangePasswordController", forgotPasswordChange);
-
     if (forgotPasswordChange) {
       return normalizeErrors(forgotPasswordChange);
     }

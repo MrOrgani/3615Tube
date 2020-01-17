@@ -18,7 +18,7 @@ const profileMutation = gql`
     $login: String!
     $email: String!
     $password: String
-    $avatar: String!
+    $avatar: String
     $language: String!
   ) {
     update(
@@ -47,6 +47,7 @@ const ModifyMyProfileController = (props: Props) => {
     } = await mutate({
       variables: values
     });
+
     if (update) {
       return normalizeErrors(update);
     }

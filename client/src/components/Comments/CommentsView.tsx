@@ -38,11 +38,8 @@ const CommentSkeletonItem = (
 const CommentsView = ({ data, loading, submit }: MediaProps) => {
   const [comments, setComments] = useState([]) as any;
   useEffect(() => setComments(data ? data : []), [setComments, data]);
-  console.log( useContext(UserContext))
   const [{ avatar, login }] = useContext(UserContext) as any;
   const imdbId = useContext(MovieContext) as any;
-
-  // console.log("CommentsView imdbId", imdbId);
 
   return (
     <Container maxWidth="md" style={{ height: "40vh", overflow: "auto" }}>
@@ -59,7 +56,6 @@ const CommentsView = ({ data, loading, submit }: MediaProps) => {
                     imdbId: imdbId
                   }}
                   onSubmit={async (values, action) => {
-                    // console.log("CommentsView value", values);
                     const myComment = await submit(values);
                     myComment &&
                       setComments(

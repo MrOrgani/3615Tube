@@ -14,23 +14,25 @@ const MoviePlayer = () => {
   const imdbId = document.location.pathname.split("/");
 
   useEffect(() => {
-    setSrc(srcTorrent);
+    let isSubscribed = true;
+    isSubscribed && setSrc(srcTorrent);
+    return () => {
+      isSubscribed = false;
+    };
   }, [srcTorrent, video]); //remove video if bug here
   useEffect(() => {
+    let isSubscribed = true;
     const getSubtitles = async () => {
       try {
-        // console.log("ON ENTRE TRY");
         const res = await axios.get(
           `http://127.0.0.1:4000/video/sub/${imdbId[2]}`,
           { withCredentials: true }
         );
         const favLanguage = Object.keys(res.data);
         if (favLanguage[1]) {
-          // console.log("favLanguage", favLanguage[1]);
-          // console.log("RESPONSE", res.data);
-          setFavLanguage(favLanguage[1]);
+          isSubscribed && setFavLanguage(favLanguage[1]);
         }
-        setSubtitles(res.data);
+        isSubscribed && setSubtitles(res.data);
       } catch (err) {
         // console.log(err)
       }
@@ -39,6 +41,9 @@ const MoviePlayer = () => {
       video.current.oncanplay = getSubtitles;
       video.current.load();
     }
+    return () => {
+      isSubscribed = false;
+    };
     // eslint-disable-next-line
   }, [src]);
   return !src ? (

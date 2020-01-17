@@ -34,6 +34,7 @@ const POST_MOVIE_COMMENT = gql`
   mutation putCommentary($text: String!, $imdbId: String!) {
     putCommentary(text: $text, imdbId: $imdbId) {
       authorId {
+        id
         login
         avatar
       }
@@ -68,7 +69,6 @@ const CommentController = (props: Props) => {
     } = await mutate({
       variables: values
     });
-    // console.log(putCommentary);
     return putCommentary;
   };
 

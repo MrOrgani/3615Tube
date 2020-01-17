@@ -36,7 +36,6 @@ export default (props: Props) => {
         }}
         onSubmit={async (values, actions) => {
           const errors = await props.submit(values);
-          console.log("register errors,", errors);
           if (errors) {
             actions.setErrors(errors);
           } else {

@@ -139,7 +139,7 @@ export default function ModifyMyProfileView(props: any) {
                       item
                       container
                       justify="center"
-                      style={{ textAlign: "center"}}
+                      style={{ textAlign: "center" }}
                     >
                       <Typography variant="h6">Upload your info</Typography>
                       <ClearSharpIcon onClick={handleClose} />
@@ -180,7 +180,10 @@ export default function ModifyMyProfileView(props: any) {
                         style={{ margin: "5px 0px" }}
                       />
                       <Grid item xs={12} sm={2}>
-                        <FormControl variant="outlined" style={{ margin: "5px 0px" }}>
+                        <FormControl
+                          variant="outlined"
+                          style={{ margin: "5px 0px" }}
+                        >
                           <InputLabel
                             ref={inputLabel}
                             id="demo-simple-select-outlined-label"
