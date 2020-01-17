@@ -34,7 +34,6 @@ const HomePage = () => {
               <Typography
                 variant="h2"
                 style={{
-                  fontFamily: "VCR",
                   background: "-webkit-linear-gradient(#eee, #333)",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent"

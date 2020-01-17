@@ -54,12 +54,8 @@ export default (props: Props) => {
               textAlign: "center"
             }}
           >
-            <Typography variant="h5" style={{ fontFamily: "VCR" }}>
-              Register
-            </Typography>
-            <Typography variant="h6" style={{ fontFamily: "VCR" }}>
-              Fill these fields to sign up
-            </Typography>
+            <Typography variant="h5">Register</Typography>
+            <Typography variant="h6">Fill these fields to sign up</Typography>
             <Grid container spacing={1} justify="center">
               <Field
                 grid={{ xs: 12, sm: 6 }}

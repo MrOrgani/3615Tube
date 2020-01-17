@@ -1,8 +1,8 @@
 @import url("https://fonts.googleapis.com/css?family=Alata&display=swap");
-@font-face {
-  font-family: Georgia, 'Times New Roman', Times, serif;
+/* @font-face {
+  font-family: "VCR";
   src: local("VCR"), url(../src/assets/fonts/VCR.ttf) format("opentype");
-}
+} */
 
 body {
   margin: 0;
@@ -17,4 +17,3 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
-

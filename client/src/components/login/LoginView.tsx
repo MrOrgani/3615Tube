@@ -50,19 +50,22 @@ export default (props: Props) => {
               textAlign: "center"
             }}
           >
-            <Typography variant="h5" style={{ fontFamily: "VCR" }}>
-              Login
-            </Typography>
-            <Typography variant="h6" style={{ fontFamily: "VCR" }}>
-              Please enter your creditials
-            </Typography>
-            <Field required label="Login" name="login" component={FieldInput} />
+            <Typography variant="h4">Login</Typography>
+            <Typography variant="h6">Please enter your creditials</Typography>
+            <Field
+              required
+              label="Login"
+              name="login"
+              component={FieldInput}
+              style={{ margin: "5px 0px" }}
+            />
             <Field
               required
               type="password"
               label="Password"
               name="password"
               component={FieldInput}
+              style={{ margin: "5px 0px" }}
             />
             <Grid item xs={12} container justify="center">
               <Grid item>

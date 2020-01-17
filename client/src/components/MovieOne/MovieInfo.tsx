@@ -54,10 +54,7 @@ const MovieInfo = ({ movieInfo }: any) => {
           <Grid item xl container style={{ padding: "0 14px" }}>
             {/***********  TITLE ********************/}
             <Grid item container justify="flex-start">
-              <Typography
-                variant="h2"
-                style={{ color: "white", fontFamily: "VCR" }}
-              >
+              <Typography variant="h2" style={{ color: "white" }}>
                 {movieInfo.title}
               </Typography>
             </Grid>
@@ -93,7 +90,14 @@ const MovieInfo = ({ movieInfo }: any) => {
           <Grid item container justify="space-evenly">
             {crewInfo.map((pers: any, index: number) => (
               <Grid key={`${index}-Crew`} item>
-                <Paper style={{ height: "auto", width: 100 }}>
+                <Paper
+                  style={{
+                    height: "auto",
+                    width: 100,
+                    minHeight: "85px",
+                    margin: "5px 0px"
+                  }}
+                >
                   <Grid
                     container
                     justify="center"
@@ -127,7 +131,14 @@ const MovieInfo = ({ movieInfo }: any) => {
           <Grid item container justify="space-evenly">
             {castInfo.map((pers: any, index: number) => (
               <Grid key={`${index}-Cast`} item>
-                <Paper style={{ height: "auto", width: 100 }}>
+                <Paper
+                  style={{
+                    height: "auto",
+                    width: 100,
+                    minHeight: "85px",
+                    margin: "5px 0px"
+                  }}
+                >
                   <Grid
                     container
                     justify="center"

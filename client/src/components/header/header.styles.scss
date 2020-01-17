@@ -1,15 +1,14 @@
-@import url("https://fonts.googleapis.com/css?family=Alata&display=swap");
-@font-face {
-  font-family: "VCR";
-  src: local("VCR"), url(../../assets/fonts/VCR.ttf) format("opentype");
-}
+// @import url("https://fonts.googleapis.com/css?family=Alata&display=swap");
+// @font-face {
+//   font-family: "VCR";
+//   src: local("VCR"), url(../../assets/fonts/VCR.ttf) format("opentype");
+// }
 
 .header {
   height: 70px;
 }
 
 .logo-container {
-  font-family: "VCR";
   font-size: 30px;
   margin-left: 5vw;
   color: #ff005b;

@@ -73,17 +73,17 @@ export const ProfileSchema = Yup.object().shape({
   avatar: Yup.string().required("Please, upload a picture"),
   firstName: Yup.string()
     .min(2, "Too Short!")
-    .max(30, "Too Long!")
+    .max(20, "Too Long!")
     .matches(/^[a-zA-Z-_]+$/, "Only letters!")
     .required("Required"),
   lastName: Yup.string()
     .min(2, "Too Short!")
-    .max(30, "Too Long!")
+    .max(20, "Too Long!")
     .matches(/^[a-zA-Z-_]+$/, "Only letters!")
     .required("Required"),
   login: Yup.string()
     .min(2, "Too Short!")
-    .max(30, "Too Long!")
+    .max(20, "Too Long!")
     .matches(/^[a-zA-Z0-9-_]+$/, "Only letters & digits!")
     .required("Required"),
   email: Yup.string()
