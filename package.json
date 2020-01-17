@@ -6,7 +6,8 @@
   "scripts": {
     "server": "nodemon ./server/server.js",
     "client": "cd client && npm start",
-    "dev": "concurrently --names \"server,client\" \"npm run server --silent\" \"npm run client --silent\""
+    "dev": "concurrently --names \"server,client\" \"npm run server --silent\" \"npm run client --silent\"",
+    "installAll": "concurrently \"yarn install --cwd common\" \"yarn install --cwd server\" \"yarn install --cwd client\""
   },
   "repository": {
     "type": "git",
@@ -23,9 +24,6 @@
   },
   "homepage": "https://github.com/MrOrgani/3615Tube#readme",
   "dependencies": {
-    "@types/cookie-parser": "^1.4.2",
-    "concurrently": "^5.0.0",
-    "cookie-parser": "^1.4.4",
-    "graphql": "^14.5.8"
+    "concurrently": "^5.0.0"
   }
 }
