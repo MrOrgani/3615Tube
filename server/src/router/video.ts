@@ -10,12 +10,12 @@ const router = express.Router();
 
 router.route("/sub/:imdbId").get(async (req: any, res: any) => {
   try {
+    res.setHeader("Access-Control-Allow-Origin", "http://127.0.0.1:3000");
+    res.setHeader("Access-Control-Allow-Credentials", true);
     if (!req.session.user) {
       throw new Error("NOT_CONNECTED");
     }
     const language: string = req.session.user.language;
-    res.setHeader("Access-Control-Allow-Origin", "http://127.0.0.1:3000");
-    res.setHeader("Access-Control-Allow-Credentials", true);
     if (language !== "en" && language !== "fr" && language !== "es") {
       throw new Error("BAD_LANGUAGE");
     }
@@ -83,7 +83,7 @@ router.route("/sub/:imdbId").get(async (req: any, res: any) => {
 
 router.route("/:magnet/:imdbId").get(async (req, res) => {
   try {
-    if (!req.session) {
+    if (!req.session!.user) {
       throw new Error("NOT_CONNECTED");
     }
     if (req.headers.range === "bytes=0-") {
