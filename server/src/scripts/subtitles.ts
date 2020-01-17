@@ -38,7 +38,7 @@ export const extSub = (zip: any) => {
             // console.log(file)
             if(path.extname(file[0].name).substr(1) !== 'srt') { reject(new Error("BAD_SUBTITLE")) }
             zipStream.close()
-            rimraf(zip,() => { console.log(`${zip} was removed.`) });
+            // rimraf(zip,() => { console.log(`${zip} was removed.`) });
             resolve(file[0].name)
         });
       })
@@ -53,7 +53,7 @@ export const convSub = (srt: any, imdbId: string, lang: string) => {
       .pipe(srt2vtt())
       .pipe(writestream)
       writestream.on('finish', () => {
-        rimraf(__dirname + '/../../tmp/' + srt, () => { console.log(`${__dirname + '/../../tmp/' + srt} was removed.`) });
+        // rimraf(__dirname + '/../../tmp/' + srt, () => { console.log(`${__dirname + '/../../tmp/' + srt} was removed.`) });
         resolve()
       })
   });

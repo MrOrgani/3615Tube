@@ -12,15 +12,11 @@ const MoviePlayer = () => {
   const [favLanguage, setFavLanguage]: any = useState("en");
   const video = useRef(null) as any;
   const imdbId = document.location.pathname.split("/");
-  useEffect(() => {
-    setSrc(srcTorrent);
-    if (video.current) {
-      video.current.load();
-    }
-  }, [srcTorrent, video]); //remove video if bug here
 
   useEffect(() => {
-    let isSubscribed = true;
+    setSrc(srcTorrent);
+  }, [srcTorrent,video]); //remove video if bug here
+  useEffect(() => {
     const getSubtitles = async () => {
       try {
         // console.log("ON ENTRE TRY");
@@ -32,22 +28,18 @@ const MoviePlayer = () => {
         if (favLanguage[1]) {
           // console.log("favLanguage", favLanguage[1]);
           // console.log("RESPONSE", res.data);
-          isSubscribed && setFavLanguage(favLanguage[1]);
+          setFavLanguage(favLanguage[1]);
         }
-        isSubscribed && setSubtitles(res.data);
-      } catch (err) {
-        console.log(err);
+        setSubtitles(res.data);
+      } catch (err) { 
+        // console.log(err) 
       }
     };
-    if (src) {
-      getSubtitles();
+    if (video.current) {
+      video.current.oncanplay = getSubtitles;
+      video.current.load();
     }
-    return () => {
-      isSubscribed = false;
-    };
-    // eslint-disable-next-line
-  }, [src]);
-
+  }, [src])
   return !src ? (
     <Container
       maxWidth="md"
