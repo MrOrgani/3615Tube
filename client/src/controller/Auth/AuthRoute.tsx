@@ -19,7 +19,9 @@ export const meQuery = gql`
 const AuthRoute = (props: any) => {
   // client!.resetStore();
   // Cache.delete();
-  const { data, loading, refetch } = useQuery(meQuery);
+  const { data, loading, refetch } = useQuery(meQuery, {
+    fetchPolicy: "no-cache"
+  });
   refetch();
   console.log("useQuery(meQuery)", useQuery(meQuery));
 
