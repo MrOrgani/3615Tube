@@ -23,7 +23,6 @@ const AuthRoute = (props: any) => {
     fetchPolicy: "no-cache"
   });
   refetch();
-  console.log("useQuery(meQuery)", useQuery(meQuery));
 
   const renderRoute = (routeProps: any) => {
     const { component } = props;
