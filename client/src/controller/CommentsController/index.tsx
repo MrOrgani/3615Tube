@@ -68,7 +68,7 @@ const CommentController = (props: Props) => {
     } = await mutate({
       variables: values
     });
-
+    // console.log(putCommentary);
     return putCommentary;
   };
 

@@ -16,7 +16,7 @@ export const downSub = (sub: any, imdbId: string) => {
       request(sub)
       .pipe(fs.createWriteStream(`./tmp/${imdbId}.zip`))
       .on('close', function () {
-      console.log('File written!');
+      // console.log('File written!');
       resolve(`./tmp/${imdbId}.zip`)
       });
     });
@@ -35,7 +35,7 @@ export const extSub = (zip: any) => {
           });
           zipStream.on('ready', () => {
             const file: any = Object.values(zipStream.entries())
-            console.log(file)
+            // console.log(file)
             if(path.extname(file[0].name).substr(1) !== 'srt') { reject(new Error("BAD_SUBTITLE")) }
             zipStream.close()
             rimraf(zip,() => { console.log(`${zip} was removed.`) });
@@ -64,13 +64,13 @@ export const getSubtitles = (imdbId: string, language: string, oneLanguage: bool
     const response: any = {
       en: ""
     }
-    console.log("LANGUAGE", language);
+    // console.log("LANGUAGE", language);
     const path = __dirname + `/../../tmp/${imdbId}-en.vtt`;
     const languagePath = __dirname + `/../../tmp/${imdbId}-${language}.vtt`;
     fs.access(path, fs.constants.F_OK, (err) => {
-      console.log(path)
+      // console.log(path)
       if (err) { 
-        console.log("ERR PATH => ", err)
+        // console.log("ERR PATH => ", err)
         reject(new Error('ERR_PATH'))
       } else {
         fs.readFile(path, 'utf8', (err, data) => {
@@ -82,9 +82,9 @@ export const getSubtitles = (imdbId: string, language: string, oneLanguage: bool
           }
           if(oneLanguage === false) {
             fs.access(languagePath, fs.constants.F_OK, (err) => {
-              console.log(path)
+              // console.log(path)
               if (err) { 
-                console.log("ERR PATH => ", err)
+                // console.log("ERR PATH => ", err)
                 reject(new Error('ERR_PATH'))
               } else {
                 fs.readFile(languagePath, 'utf8', (err, data) => {
