@@ -16,10 +16,10 @@ const getYtsPage: any = async (i: number) => {
   return res.data.data.movies;
 };
 
-const seedYts = async () => {
+const seedYts = async (seedBase: number) => {
   console.log("seeding YTS");
   let functionArray: Array<any> = [];
-  for (var i = 0; i < 10; i++) {
+  for (var i = 0; i < seedBase; i++) {
     functionArray.push(getYtsPage(i));
   }
   const rawPagesResults = (await Promise.all(functionArray)) as any;
@@ -49,10 +49,10 @@ const getPctPage: any = async () => {
   return res.data;
 };
 
-const seedPct = async (imdbIdArray: string[]) => {
+const seedPct = async (imdbIdArray: string[], seedBase: number) => {
   console.log("seeding POPCORNTIME");
   let functionArray: Array<any> = [];
-  for (var i = 0; i < 0; i++) {
+  for (var i = 0; i < seedBase; i++) {
     functionArray.push(getPctPage(i));
   }
   const rawPagesResults = (await Promise.all(functionArray)) as any;
@@ -82,13 +82,13 @@ export const seedFilmDatabase = async () => {
       .delete()
       .from(Film)
       .execute();
-    const imdbIdArray: string[] = await seedYts();
+    const imdbIdArray: string[] = await seedYts(30);
     console.log("FINISHED SEEDING YTS");
-    await seedPct(imdbIdArray);
+    await seedPct(imdbIdArray, 10);
     console.log("FINISHED SEEDING THE DATABASE");
   } catch (e) {
     console.log("caugh an error fetching and formating the data", e.message);
   }
 };
 /* Uncomment to launch the script */
-// seedFilmDatabase();
+seedFilmDatabase();

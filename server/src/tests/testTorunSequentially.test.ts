@@ -45,7 +45,6 @@ describe("user Creation, modification and query", () => {
     lastName
   );
   forgotTest(password, newPassword, email, id);
-  findOneFilmTest(login, password, imdbId);
 });
 
 afterAll(() => {

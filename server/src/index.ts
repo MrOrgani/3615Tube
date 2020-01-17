@@ -2,7 +2,7 @@ import "reflect-metadata";
 import bodyParser from "body-parser";
 // import { Request, Response } from "express";
 import { CronJob } from "cron";
-import express from 'express';
+import express from "express";
 import * as torrentManager from "./scripts/torrentManager";
 import { GraphQLServer } from "graphql-yoga";
 import passport from "passport";
@@ -10,7 +10,7 @@ import connectToDb from "./utils/connecToDb";
 import { genSchema } from "./utils/genSchema";
 import { createSession } from "./utils/createSession";
 import { passportSetUp } from "./utils/passportOauth/passportSetUp";
-import {seedFilmDatabase} from './scripts/seedFilmDb/seedFilmDb';
+import { seedFilmDatabase } from "./scripts/seedFilmDb/seedFilmDb";
 
 const startServer = async () => {
   await require("dotenv").config();
@@ -33,7 +33,7 @@ const startServer = async () => {
 
   // EXTRA SET UP: connecting to the db and the sessions (cookie stored using filed store in the session dir)
   server.express.use(createSession());
-  server.express.use(express.static('tmp'))
+  server.express.use(express.static("tmp"));
   await connectToDb();
   await passportSetUp();
   server.express.use(passport.initialize());

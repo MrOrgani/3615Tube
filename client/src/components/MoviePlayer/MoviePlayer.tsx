@@ -12,6 +12,7 @@ const MoviePlayer = () => {
   const [favLanguage, setFavLanguage]: any = useState("en");
   const video = useRef(null) as any;
   const imdbId = document.location.pathname.split("/");
+<<<<<<< HEAD
   const getSubtitles = async () => {
     try {
       // console.log("ON ENTRE TRY");
@@ -30,6 +31,9 @@ const MoviePlayer = () => {
       console.log(err);
     }
   };
+=======
+
+>>>>>>> master
   useEffect(() => {
     setSrc(srcTorrent);
     if (video.current) {
@@ -38,9 +42,34 @@ const MoviePlayer = () => {
   }, [srcTorrent, video]); //remove video if bug here
 
   useEffect(() => {
+<<<<<<< HEAD
     if (src) {
       getSubtitles();
     }
+=======
+    const getSubtitles = async () => {
+      try {
+        console.log("ON ENTRE TRY");
+        const res = await axios.get(
+          `http://127.0.0.1:4000/video/sub/${imdbId[2]}`,
+          { withCredentials: true }
+        );
+        const favLanguage = Object.keys(res.data);
+        if (favLanguage[1]) {
+          console.log("favLanguage", favLanguage[1]);
+          console.log("RESPONSE", res.data);
+          setFavLanguage(favLanguage[1]);
+        }
+        setSubtitles(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    if (src) {
+      getSubtitles();
+    }
+  // eslint-disable-next-line
+>>>>>>> master
   }, [src]);
 
   return !src ? (

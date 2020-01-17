@@ -32,20 +32,24 @@ const resolvers: ResolverMap = {
       } catch (err) {
         return await formatYupError(err, "password");
       }
-      const verifiedId = (jwt.verify(id, process.env.SESSION_SECRET) as any).id;
-      // console.log("forgot password test", id, verifiedId);
-      const user = await User.findOne({
-        where: { id: verifiedId },
-        select: ["id"]
-      });
-      if (!user)
-        return await formatError(
-          "password",
-          "there was an error with your identification"
-        );
-      const hashedPwd = await bcrypt.hash(password, 10);
-      User.update({ id: verifiedId }, { password: hashedPwd });
-      return null;
+      try {
+        const verifiedId = (jwt.verify(id, process.env.SESSION_SECRET) as any)
+          .id;
+        const user = await User.findOne({
+          where: { id: verifiedId },
+          select: ["id"]
+        });
+        if (!user)
+          return await formatError(
+            "password",
+            "there was an error with your identification"
+          );
+        const hashedPwd = await bcrypt.hash(password, 10);
+        User.update({ id: verifiedId }, { password: hashedPwd });
+        return null;
+      } catch (err) {
+        return await formatError("token", "you do not have a valid token");
+      }
     }
   }
 };

@@ -30,7 +30,6 @@ export const findOneFilmTest = (
         const response = (await Axios.post(process.env.BACK_HOST, {
           query: findOneFilmMutation(imdbId)
         })) as any;
-        console.log(response);
         expect(response.data.data.findOneFilm).toEqual({
           title: "parasite"
         });
