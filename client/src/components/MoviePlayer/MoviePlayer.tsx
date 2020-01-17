@@ -25,7 +25,7 @@ const MoviePlayer = () => {
       try {
         console.log("ON ENTRE TRY");
         const res = await axios.get(
-          `http://localhost:4000/video/sub/${imdbId[2]}`,
+          `http://127.0.0.1:4000/video/sub/${imdbId[2]}`,
           { withCredentials: true }
         );
         const favLanguage = Object.keys(res.data);
@@ -42,7 +42,8 @@ const MoviePlayer = () => {
     if (src) {
       getSubtitles();
     }
-  }, [src, imdbId]);
+  // eslint-disable-next-line
+  }, [src]);
 
   return !src ? (
     <Container
