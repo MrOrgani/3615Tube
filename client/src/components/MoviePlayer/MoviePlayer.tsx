@@ -5,6 +5,12 @@ import { Container } from "@material-ui/core";
 // import { Grid } from "@material-ui/core";
 import axios from "axios";
 
+declare global {
+  interface Window {
+    chrome: any;
+  }
+}
+
 const MoviePlayer = () => {
   const [srcTorrent] = useContext(TorrentContext) as any;
   const [src, setSrc] = useState(srcTorrent);
@@ -19,8 +25,10 @@ const MoviePlayer = () => {
     return () => {
       isSubscribed = false;
     };
-  }, [srcTorrent, video]); //remove video if bug here
+    // eslint-disable-next-line
+  }, [srcTorrent]); //remove video if bug here
   useEffect(() => {
+    const isChrome: any = !!window.chrome;
     let isSubscribed = true;
     const getSubtitles = async () => {
       try {
@@ -39,7 +47,9 @@ const MoviePlayer = () => {
     };
     if (video.current) {
       video.current.oncanplay = getSubtitles;
-      video.current.load();
+      if (isChrome) {
+        video.current.load();
+      }
     }
     return () => {
       isSubscribed = false;
