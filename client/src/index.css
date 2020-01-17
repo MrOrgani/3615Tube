@@ -1,3 +1,9 @@
+@import url("https://fonts.googleapis.com/css?family=Alata&display=swap");
+@font-face {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  src: local("VCR"), url(../src/assets/fonts/VCR.ttf) format("opentype");
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -12,11 +18,3 @@ code {
     monospace;
 }
 
-span,
-h1,
-.MuiTypography-h5,
-.MuiTypography-root,
-p,
-body {
-  font-family: "VCR";
-}
