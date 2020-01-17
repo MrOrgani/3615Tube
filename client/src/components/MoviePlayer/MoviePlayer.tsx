@@ -14,31 +14,32 @@ const MoviePlayer = () => {
   const imdbId = document.location.pathname.split("/");
 
   useEffect(() => {
+    setSrc(srcTorrent);
+  }, [srcTorrent,video]); //remove video if bug here
+  useEffect(() => {
     const getSubtitles = async () => {
       try {
-        console.log("ON ENTRE TRY");
+        // console.log("ON ENTRE TRY");
         const res = await axios.get(
           `http://127.0.0.1:4000/video/sub/${imdbId[2]}`,
           { withCredentials: true }
         );
         const favLanguage = Object.keys(res.data);
         if (favLanguage[1]) {
-          console.log("favLanguage", favLanguage[1]);
-          console.log("RESPONSE", res.data);
+          // console.log("favLanguage", favLanguage[1]);
+          // console.log("RESPONSE", res.data);
           setFavLanguage(favLanguage[1]);
         }
         setSubtitles(res.data);
-      } catch (err) {
-        console.log(err);
+      } catch (err) { 
+        // console.log(err) 
       }
     };
-    setSrc(srcTorrent);
     if (video.current) {
       video.current.oncanplay = getSubtitles;
       video.current.load();
     }
-  }, [srcTorrent, video]); //remove video if bug here
-
+  }, [src])
   return !src ? (
     <Container
       maxWidth="md"
