@@ -5,7 +5,7 @@ import session from "express-session";
 export const createSession = () => {
   const fileStore = require("session-file-store")(session);
   return session({
-    store: new fileStore({}),
+    store: new fileStore({ logFn: function() {} }),
     name: "HT_id",
     secret: process.env.SESSION_SECRET,
     resave: false,

@@ -19,7 +19,6 @@ const resolvers: ResolverMap = {
         return await formatYupError(error);
       }
       const user = await User.findOne({ login: login.toLowerCase() });
-      console.log(user);
       if (!user)
         return await formatError("login", "no such login in the database");
       const validPassword = await bcrypt.compare(password, user.password);

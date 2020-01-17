@@ -7,7 +7,7 @@ export const loginMutation = (login: string, password: string) => `mutation{
 export const loginTest = (login: string, password: string) => {
   // const mutation: string = loginMutation(login, password);
   const wrongMutationLogin: string = `mutation{
-  login(login:"AsDf",password:"${password}")
+  login(login:"AsDfa",password:"${password}")
   {path, msg}
 }`;
   const wrongMutationPassword: string = `mutation{
