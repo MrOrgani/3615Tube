@@ -12,24 +12,7 @@ const MoviePlayer = () => {
   const [favLanguage, setFavLanguage]: any = useState("en");
   const video = useRef(null) as any;
   const imdbId = document.location.pathname.split("/");
-  const getSubtitles = async () => {
-    try {
-      console.log("ON ENTRE TRY");
-      const res = await axios.get(
-        `http://localhost:4000/video/sub/${imdbId[2]}`,
-        { withCredentials: true }
-      );
-      const favLanguage = Object.keys(res.data);
-      if (favLanguage[1]) {
-        console.log("favLanguage", favLanguage[1]);
-        console.log("RESPONSE", res.data);
-        setFavLanguage(favLanguage[1]);
-      }
-      setSubtitles(res.data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+
   useEffect(() => {
     setSrc(srcTorrent);
     if (video.current) {
@@ -38,10 +21,28 @@ const MoviePlayer = () => {
   }, [srcTorrent, video]); //remove video if bug here
 
   useEffect(() => {
-    if(src){
-      getSubtitles()
+    const getSubtitles = async () => {
+      try {
+        console.log("ON ENTRE TRY");
+        const res = await axios.get(
+          `http://localhost:4000/video/sub/${imdbId[2]}`,
+          { withCredentials: true }
+        );
+        const favLanguage = Object.keys(res.data);
+        if (favLanguage[1]) {
+          console.log("favLanguage", favLanguage[1]);
+          console.log("RESPONSE", res.data);
+          setFavLanguage(favLanguage[1]);
+        }
+        setSubtitles(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    if (src) {
+      getSubtitles();
     }
-  }, [src])
+  }, [src, imdbId]);
 
   return !src ? (
     <Container
