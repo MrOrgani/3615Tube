@@ -38,7 +38,7 @@ const MovieListLoading = ({ loading, filterList }: MediaProps) => {
 
   return (
     <>
-      <Grid item container lg={12}>
+      <Grid item container lg={12} justify={"center"}>
         {// ********************* FILTERS ********************************
         userIsConnected && pathname === "/movies" && (
           <MovieListFilters filterList={filterList} />

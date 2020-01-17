@@ -50,11 +50,16 @@ const MovieInfo = ({ movieInfo }: any) => {
           <Grid item xl container style={{ padding: "0 14px" }}>
             {/***********  TITLE ********************/}
             <Grid item container justify="flex-start">
-              <Typography variant="h2">{movieInfo.title}</Typography>
+              <Typography
+                variant="h2"
+                style={{ color: "white", fontFamily: "VCR" }}
+              >
+                {movieInfo.title}
+              </Typography>
             </Grid>
             {/***********  INFOS ********************/}
             <Grid item container>
-              <Typography variant="h6">
+              <Typography variant="h6" style={{ color: "white" }}>
                 {movieInfo.year} | ⭐️ {movieInfo.rating} |{" "}
                 {movieInfo.genres.map((element: string, index: number) => (
                   <Chip key={index} label={element} />
@@ -68,7 +73,8 @@ const MovieInfo = ({ movieInfo }: any) => {
                 style={{
                   // padding: "0 10px",
                   textAlign: "justify",
-                  fontStyle: "italic"
+                  fontStyle: "italic",
+                  color: "white"
                 }}
               >
                 {movieInfo.synopsis}

@@ -55,7 +55,7 @@ export default (props: Props) => {
             }}
           >
             <Typography variant="h5" style={{ fontFamily: "VCR" }}>
-              I don't have an account
+              Register
             </Typography>
             <Typography variant="h6" style={{ fontFamily: "VCR" }}>
               Fill these fields to sign up

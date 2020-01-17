@@ -19,6 +19,8 @@ export const meQuery = gql`
 const AuthRoute = (props: any) => {
   const { data, loading } = useQuery(meQuery);
 
+  console.log("useQuery(meQuery)", useQuery(meQuery));
+
   const renderRoute = (routeProps: any) => {
     const { component } = props;
     if (!data || loading) {

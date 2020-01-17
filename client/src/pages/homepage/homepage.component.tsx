@@ -26,7 +26,6 @@ const HomePage = () => {
       <Container maxWidth="sm">
         <Grid
           container
-          sm
           style={{ textAlign: "center", height: "50vh" }}
           alignItems="center"
         >

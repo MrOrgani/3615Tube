@@ -1,6 +1,6 @@
 # import Error from "../../shared.graphql"
 # import User from "../../shared.graphql"
 
-type Query {
+type Query @cacheControl(maxAge: 0) {
   me: User
 }

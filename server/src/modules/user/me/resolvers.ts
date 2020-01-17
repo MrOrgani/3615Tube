@@ -7,6 +7,8 @@ const resolvers: ResolverMap = {
     me: createMiddleware(
       verifyAndSetSession,
       (_: any, __: any, { session }) => {
+        //
+        // console.log(session.user);
         return session.user;
       }
     )

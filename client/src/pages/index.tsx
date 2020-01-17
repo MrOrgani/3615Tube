@@ -37,7 +37,7 @@ export const Pages = ({ loading }: Props) => (
           <Route path="/register" component={RegisterConnector} />
           <Route path="/login" component={LoginConnector} />
           <Route path="/m" component={TextPage} />
-          <Route path="/logout" component={LogoutConnector} />
+          <AuthRoute path="/logout" component={LogoutConnector} />
           <Route path="/confirm/:token" component={ConfirmAccountConnector} />
           <Route path="/forgot-password" component={ForgotPasswordConnector} />
           <Route path="/reset/:key" component={ChangePasswordConnector} />

@@ -51,7 +51,7 @@ export default (props: Props) => {
             }}
           >
             <Typography variant="h5" style={{ fontFamily: "VCR" }}>
-              I have an account
+              Login
             </Typography>
             <Typography variant="h6" style={{ fontFamily: "VCR" }}>
               Please enter your creditials
