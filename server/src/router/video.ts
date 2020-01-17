@@ -76,7 +76,7 @@ router.route("/sub/:imdbId").get(async (req: any, res: any) => {
         }
       });
   } catch (err) {
-    console.log("video.ts", err);
+    console.log("SUBROUTE=>", err);
     res.status(400).end();
   }
 });
@@ -112,7 +112,7 @@ router.route("/:magnet/:imdbId").get(async (req, res) => {
       throw new Error("BAD_EXTENSION");
     }
   } catch (err) {
-    console.log("ERR==>", err);
+    console.log("VIDEOROUTE==>", err);
     res.end();
   }
 });
