@@ -93,7 +93,13 @@ const MovieListFilters = ({ filterList }: any) => {
     <Grid item container xl={12}>
       <Paper
         className="filters-box"
-        style={{ width: "inherit", minHeight: "100px", display: "flex" }}
+        style={{
+          width: "inherit",
+          padding: "10px 80px",
+          borderRadius: "0px",
+          marginBottom: "10px",
+          display: "flex"
+        }}
       >
         <Formik
           initialValues={filters}

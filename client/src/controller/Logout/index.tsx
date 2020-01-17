@@ -19,7 +19,8 @@ const LogoutController = (props: Props) => {
   return props.children({
     logout: async () => {
       await mutate();
-      await client!.resetStore();
+      client!.resetStore();
+      // client.resetStore();
     }
   });
 };

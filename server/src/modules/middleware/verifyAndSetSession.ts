@@ -11,7 +11,7 @@ export default async (
 ) => {
   //middleware
   const { session, res } = context;
-  res.header("Cache-Control", "no-cache, private");
+  res.header("Cache-Control", "no-cache, private, no-store");
   console.log("context.session", session);
   if (!session.userId) {
     if (info.returnType.name || info.returnType.ofType.name === "Film") {

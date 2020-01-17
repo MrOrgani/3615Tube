@@ -120,9 +120,8 @@ const UserProfileView = ({ userInfo, loading }: Props) => {
               src={!userInfoToDiplay.avatar ? image : userInfoToDiplay.avatar}
               alt="MyAvatar"
               style={{
-                borderRadius: "50%",
-                width: "inherit",
-                marginTop: "20px"
+                borderRadius: "20px",
+                width: "70%"
               }}
             />
             {/* </div> */}
