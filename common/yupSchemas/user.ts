@@ -83,7 +83,7 @@ export const ProfileSchema = Yup.object().shape({
     .required("Required"),
   login: Yup.string()
     .min(2, "Too Short!")
-    .max(11, "Too Long!")
+    .max(20, "Too Long!")
     .matches(/^[a-zA-Z0-9-_]+$/, "Only letters & digits!")
     .required("Required"),
   email: Yup.string()
