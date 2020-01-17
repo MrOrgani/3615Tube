@@ -15,7 +15,7 @@ const MoviePlayer = () => {
 
   useEffect(() => {
     setSrc(srcTorrent);
-  }, [srcTorrent,video]); //remove video if bug here
+  }, [srcTorrent, video]); //remove video if bug here
   useEffect(() => {
     const getSubtitles = async () => {
       try {
@@ -31,15 +31,16 @@ const MoviePlayer = () => {
           setFavLanguage(favLanguage[1]);
         }
         setSubtitles(res.data);
-      } catch (err) { 
-        // console.log(err) 
+      } catch (err) {
+        // console.log(err)
       }
     };
     if (video.current) {
       video.current.oncanplay = getSubtitles;
       video.current.load();
     }
-  }, [src])
+    // eslint-disable-next-line
+  }, [src]);
   return !src ? (
     <Container
       maxWidth="md"
