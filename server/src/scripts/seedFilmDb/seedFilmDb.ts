@@ -82,9 +82,9 @@ export const seedFilmDatabase = async () => {
       .delete()
       .from(Film)
       .execute();
-    const imdbIdArray: string[] = await seedYts(30);
+    const imdbIdArray: string[] = await seedYts(300);
     console.log("FINISHED SEEDING YTS");
-    await seedPct(imdbIdArray, 10);
+    await seedPct(imdbIdArray, 100);
     console.log("FINISHED SEEDING THE DATABASE");
   } catch (e) {
     console.log("caugh an error fetching and formating the data", e.message);

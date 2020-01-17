@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useQuery } from "react-apollo";
 import gql from "graphql-tag";
 import { Redirect, Route } from "react-router";
 import { CircularProgress } from "@material-ui/core";
-
+import { UserContext } from "../../components/context";
 export const meQuery = gql`
   query meQuery {
     me {
@@ -17,12 +17,14 @@ export const meQuery = gql`
 `;
 
 const AuthRoute = (props: any) => {
+  const [, setMyInfo] = useContext(UserContext) as any;
   // client!.resetStore();
   // Cache.delete();
   const { data, loading, refetch } = useQuery(meQuery, {
     fetchPolicy: "no-cache"
   });
   refetch();
+  setMyInfo(data && data.me);
 
   const renderRoute = (routeProps: any) => {
     const { component } = props;
@@ -34,7 +36,10 @@ const AuthRoute = (props: any) => {
       ) : null;
     }
 
-    if (!data.me) {
+    if (data.me) {
+      const Component = component as any;
+      return <Component {...routeProps} />;
+    } else
       return (
         <Redirect
           to={{
@@ -43,11 +48,6 @@ const AuthRoute = (props: any) => {
           }}
         />
       );
-    }
-
-    const Component = component as any;
-
-    return <Component {...routeProps} />;
   };
   const { data: _, component: __, ...rest } = props;
   return <Route {...rest} render={renderRoute} />;

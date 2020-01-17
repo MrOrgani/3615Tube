@@ -18,7 +18,7 @@ const profileMutation = gql`
     $login: String!
     $email: String!
     $password: String
-    $avatar: String!
+    $avatar: String
     $language: String!
   ) {
     update(
