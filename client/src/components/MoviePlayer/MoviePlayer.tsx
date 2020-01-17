@@ -12,13 +12,10 @@ const MoviePlayer = () => {
   const [favLanguage, setFavLanguage]: any = useState("en");
   const video = useRef(null) as any;
   const imdbId = document.location.pathname.split("/");
+
   useEffect(() => {
     setSrc(srcTorrent);
-    if (video.current) {
-      video.current.load();
-    }
   }, [srcTorrent, video]); //remove video if bug here
-
   useEffect(() => {
     const getSubtitles = async () => {
       try {
@@ -35,15 +32,14 @@ const MoviePlayer = () => {
         }
         setSubtitles(res.data);
       } catch (err) {
-        // console.log(err);
+        // console.log(err)
       }
     };
-    if (src) {
-      getSubtitles();
+    if (video.current) {
+      video.current.oncanplay = getSubtitles;
+      video.current.load();
     }
-    // eslint-disable-next-line
   }, [src]);
-
   return !src ? (
     <Container
       maxWidth="md"

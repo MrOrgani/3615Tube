@@ -137,11 +137,7 @@ const MovieListFilters = ({ filterList }: any) => {
                     </div>
                   </Grid>
                   <Grid item xs={12} sm style={{ padding: "0 20px" }}>
-                    <Typography
-                      id="range-slider"
-                      gutterBottom
-                      style={{ fontFamily: "VCR" }}
-                    >
+                    <Typography id="range-slider" gutterBottom>
                       Year release
                     </Typography>
                     <Slider
@@ -175,11 +171,7 @@ const MovieListFilters = ({ filterList }: any) => {
                     />
                   </Grid>
                   <Grid item xs={12} sm={2} style={{ padding: "0 20px" }}>
-                    <Typography
-                      id="range-slider"
-                      gutterBottom
-                      style={{ fontFamily: "VCR" }}
-                    >
+                    <Typography id="range-slider" gutterBottom>
                       Rating
                     </Typography>
                     <Slider

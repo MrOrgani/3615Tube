@@ -105,7 +105,7 @@ const MovieListView = ({ data, history, filterList }: MediaProps) => {
                 <Box pr={2}>
                   <Typography
                     variant="body2"
-                    style={{ color: "white", fontFamily: "VCR" }}
+                    style={{ color: "white" }}
                     align="center"
                   >
                     {item.title}

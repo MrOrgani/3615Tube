@@ -15,14 +15,18 @@ const MovieInfo = ({ movieInfo }: any) => {
   const [crewInfo, setCrewInfo] = useState([]) as any;
 
   useEffect(() => {
+    let isSubscribed = true;
     const getCastAndCrew = async () => {
       const { data } = await axios.get(
         `https://api.themoviedb.org/3/movie/${movieInfo.imdbId}/credits?api_key=7d2a25a20cce518da4384c007bd8cd69`
       );
-      setCastInfo(data.cast.slice(0, 8));
-      setCrewInfo(data.crew.slice(0, 8));
+      isSubscribed && setCastInfo(data.cast.slice(0, 8));
+      isSubscribed && setCrewInfo(data.crew.slice(0, 8));
     };
     getCastAndCrew();
+    return () => {
+      isSubscribed = false;
+    };
   }, [movieInfo.imdbId, setCrewInfo, setCastInfo]);
 
   return (
@@ -50,10 +54,7 @@ const MovieInfo = ({ movieInfo }: any) => {
           <Grid item xl container style={{ padding: "0 14px" }}>
             {/***********  TITLE ********************/}
             <Grid item container justify="flex-start">
-              <Typography
-                variant="h2"
-                style={{ color: "white", fontFamily: "VCR" }}
-              >
+              <Typography variant="h2" style={{ color: "white" }}>
                 {movieInfo.title}
               </Typography>
             </Grid>
@@ -89,7 +90,14 @@ const MovieInfo = ({ movieInfo }: any) => {
           <Grid item container justify="space-evenly">
             {crewInfo.map((pers: any, index: number) => (
               <Grid key={`${index}-Crew`} item>
-                <Paper style={{ height: "auto", width: 100, minHeight: "85px", margin: "5px 0px" }}>
+                <Paper
+                  style={{
+                    height: "auto",
+                    width: 100,
+                    minHeight: "85px",
+                    margin: "5px 0px"
+                  }}
+                >
                   <Grid
                     container
                     justify="center"
@@ -123,7 +131,14 @@ const MovieInfo = ({ movieInfo }: any) => {
           <Grid item container justify="space-evenly">
             {castInfo.map((pers: any, index: number) => (
               <Grid key={`${index}-Cast`} item>
-                <Paper style={{ height: "auto", width: 100, minHeight: "85px", margin: "5px 0px" }}>
+                <Paper
+                  style={{
+                    height: "auto",
+                    width: 100,
+                    minHeight: "85px",
+                    margin: "5px 0px"
+                  }}
+                >
                   <Grid
                     container
                     justify="center"

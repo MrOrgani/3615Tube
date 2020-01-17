@@ -1,9 +1,8 @@
 @import url("https://fonts.googleapis.com/css?family=Alata&display=swap");
-@font-face {
+/* @font-face {
   font-family: "VCR";
   src: local("VCR"), url(../src/assets/fonts/VCR.ttf) format("opentype");
-}
-
+} */
 
 body {
   margin: 0;
@@ -17,13 +16,4 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
-}
-
-span,
-h1,
-.MuiTypography-h5,
-.MuiTypography-root,
-p,
-body {
-  font-family: "VCR";
 }

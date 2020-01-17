@@ -105,7 +105,7 @@ const UserProfileView = ({ userInfo, loading }: Props) => {
             className="user-profile-container"
           >
             <Grid item>
-              <Typography variant="h3" style={{ fontFamily: "VCR" }}>
+              <Typography variant="h3">
                 <span role="img" aria-label="avatar">
                   {userInfoToDiplay.login}
                 </span>
@@ -131,7 +131,7 @@ const UserProfileView = ({ userInfo, loading }: Props) => {
               style={{ margin: "10px 0", width: "inherit" }}
             />
             <Grid item>
-              <Typography variant="h5" style={{ fontFamily: "VCR" }}>
+              <Typography variant="h5">
                 {`${userInfoToDiplay.firstName} ${userInfoToDiplay.lastName} `}
                 {flag}
               </Typography>
