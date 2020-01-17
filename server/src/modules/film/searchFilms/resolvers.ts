@@ -21,6 +21,11 @@ const defaultValues: {
   order: { rating: "DESC" }
 };
 
+// const filterMovies = (a:Film, b:Film, order:any) => {
+//   if(Object.keys(order)[0] === "rating")
+//    return Object.values(order)[0] === "ASC" ? a.rating - b.rating
+// }
+
 //https://stackoverflow.com/questions/50705276/typeorm-postgres-where-any-or-in-with-querybuilder-or-find
 const resolvers: ResolverMap = {
   Query: {
@@ -47,7 +52,8 @@ const resolvers: ResolverMap = {
                   `'${(args.genres as string).toLowerCase()}' = ANY(${alias})`
               )
             },
-            order: args.order as any
+            order: args.order as any,
+            take: 1000
           })) as Film[];
           return result
             .slice(args.page * 50, (args.page + 1) * 50)
