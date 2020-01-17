@@ -20,7 +20,7 @@ const MovieTorrents = ({ parsedTorrents }: any) => {
               style={{ display: "flex", justifyContent: "center" }}
             >
               <ButtonBase
-                style={{ minWidth: "-moz-available", height: "50px" }}
+                style={{ minWidth: "-moz-available", height: "50px"}}
                 onClick={() => setSrcTorrent(torrent.magnet)}
               >
                 <Paper
@@ -29,7 +29,8 @@ const MovieTorrents = ({ parsedTorrents }: any) => {
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
-                    minWidth: "max-content"
+                    minWidth: "max-content",
+                    width: "300px"
                   }}
                 >
                   audio:{" "}

@@ -89,7 +89,7 @@ const MovieInfo = ({ movieInfo }: any) => {
           <Grid item container justify="space-evenly">
             {crewInfo.map((pers: any, index: number) => (
               <Grid key={`${index}-Crew`} item>
-                <Paper style={{ height: "auto", width: 100 }}>
+                <Paper style={{ height: "auto", width: 100, minHeight: "85px", margin: "5px 0px" }}>
                   <Grid
                     container
                     justify="center"
@@ -123,7 +123,7 @@ const MovieInfo = ({ movieInfo }: any) => {
           <Grid item container justify="space-evenly">
             {castInfo.map((pers: any, index: number) => (
               <Grid key={`${index}-Cast`} item>
-                <Paper style={{ height: "auto", width: 100 }}>
+                <Paper style={{ height: "auto", width: 100, minHeight: "85px", margin: "5px 0px" }}>
                   <Grid
                     container
                     justify="center"
