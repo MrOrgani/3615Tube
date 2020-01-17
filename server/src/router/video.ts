@@ -13,7 +13,7 @@ router.route('/sub/:imdbId').get(async (req: any, res: any) => {
   try{
     if(!req.session.user) { throw new Error('NOT_CONNECTED') };
     const language:string = req.session.user.language;
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+    res.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:3000');
     res.setHeader('Access-Control-Allow-Credentials', true);
     if(language !== 'en' && language !== 'fr' && language !== 'es'){
       console.log('BAD_LANGUAGE=>', language)
