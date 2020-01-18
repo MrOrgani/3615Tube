@@ -17,7 +17,31 @@ const MoviePlayer = () => {
   const [subtitles, setSubtitles]: any = useState("");
   const [favLanguage, setFavLanguage]: any = useState("en");
   const video = useRef(null) as any;
-  const imdbId = document.location.pathname.split("/");
+  
+  useEffect(() => {
+    let isSubscribed = true;
+    const getSubtitles = async () => {
+      const imdbId = document.location.pathname.split("/");
+      console.log('==>GET SUBTITLES<==')
+      try {
+        const res = await axios.get(
+          `http://127.0.0.1:4000/video/sub/${imdbId[2]}`,
+          { withCredentials: true}
+        );
+        const favLanguage = Object.keys(res.data);
+        if (favLanguage[1]) {
+          isSubscribed && setFavLanguage(favLanguage[1]);
+        }
+        isSubscribed && setSubtitles(res.data);
+      } catch (err) {
+        console.log(err)
+      }
+    };
+    getSubtitles();
+    return () => {
+      isSubscribed = false;
+    }
+  }, [])
 
   useEffect(() => {
     let isSubscribed = true;
@@ -27,35 +51,17 @@ const MoviePlayer = () => {
     };
     // eslint-disable-next-line
   }, [srcTorrent]); //remove video if bug here
+  
   useEffect(() => {
     const isChrome: any = !!window.chrome;
-    let isSubscribed = true;
-    const getSubtitles = async () => {
-      try {
-        const res = await axios.get(
-          `http://127.0.0.1:4000/video/sub/${imdbId[2]}`,
-          { withCredentials: true }
-        );
-        const favLanguage = Object.keys(res.data);
-        if (favLanguage[1]) {
-          isSubscribed && setFavLanguage(favLanguage[1]);
-        }
-        isSubscribed && setSubtitles(res.data);
-      } catch (err) {
-        // console.log(err)
-      }
-    };
     if (video.current) {
-      video.current.oncanplay = getSubtitles;
       if (isChrome) {
         video.current.load();
       }
     }
-    return () => {
-      isSubscribed = false;
-    };
     // eslint-disable-next-line
   }, [src]);
+
   return !src ? (
     <Container
       maxWidth="md"
@@ -79,7 +85,7 @@ const MoviePlayer = () => {
     >
       <source
         src={`http://127.0.0.1:4000/video/${encodeURIComponent(src)}/${
-          imdbId[2]
+          document.location.pathname.split("/")[2]
         }`}
         type="video/mp4"
       />
