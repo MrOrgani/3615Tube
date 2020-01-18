@@ -17,16 +17,16 @@ const MoviePlayer = () => {
   const [subtitles, setSubtitles]: any = useState("");
   const [favLanguage, setFavLanguage]: any = useState("en");
   const video = useRef(null) as any;
-  
+
   useEffect(() => {
     let isSubscribed = true;
     const getSubtitles = async () => {
       const imdbId = document.location.pathname.split("/");
-      console.log('==>GET SUBTITLES<==')
+      // console.log('==>GET SUBTITLES<==')
       try {
         const res = await axios.get(
           `http://127.0.0.1:4000/video/sub/${imdbId[2]}`,
-          { withCredentials: true}
+          { withCredentials: true }
         );
         const favLanguage = Object.keys(res.data);
         if (favLanguage[1]) {
@@ -34,14 +34,14 @@ const MoviePlayer = () => {
         }
         isSubscribed && setSubtitles(res.data);
       } catch (err) {
-        console.log(err)
+        console.log(err);
       }
     };
     getSubtitles();
     return () => {
       isSubscribed = false;
-    }
-  }, [])
+    };
+  }, []);
 
   useEffect(() => {
     let isSubscribed = true;
@@ -51,7 +51,7 @@ const MoviePlayer = () => {
     };
     // eslint-disable-next-line
   }, [srcTorrent]); //remove video if bug here
-  
+
   useEffect(() => {
     const isChrome: any = !!window.chrome;
     if (video.current) {

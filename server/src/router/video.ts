@@ -94,8 +94,14 @@ router.route("/:magnet/:imdbId").get(async (req, res) => {
     }
     const magnet: any = await torrentManager.parseMagnet(req.params.magnet);
     // Encode all trackers URL
+    const regex = RegExp(
+      "^[A-Za-z0-9 \\r\\n@£$¥èéùìòÇØøÅå\u0394_\u03A6\u0393\u039B\u03A9\u03A0\u03A8\u03A3\u0398\u039EÆæßÉ!\"#$%&'()*+,\\-./:;<=>?¡ÄÖÑÜ§¿äöñüà^{}\\\\\\[~\\]|\u20AC]*$"
+    );
     for (const key in magnet.trackers) {
-      magnet.trackers[key] = encodeURIComponent(magnet.trackers[key]);
+      magnet.trackers[key].split("").forEach((letter: string) => {
+        if (!regex.test(letter))
+          magnet.trackers[key] = encodeURIComponent(magnet.trackers[key]);
+      });
     }
     const engine = torrentStream(magnet.uri, {
       connections: 100,
@@ -110,10 +116,10 @@ router.route("/:magnet/:imdbId").get(async (req, res) => {
     const file: any = await torrentManager.getTorrentFile(engine);
     //LISTEN FOR CLIENT ORIGNIATED RESPONSE CLOSE TO AVOID A FRONT CRASH ON FIREFOX
     res.on("close", () => {
-      console.log("detected response close");
+      // console.log("detected response close");
       engine.remove(true, () => {
-        console.log("engine removed all files and cache exept downloaded one");
-        engine.destroy(() => console.log("destroyed connection to peers"));
+        // console.log("engine removed all files and cache exept downloaded one");
+        engine.destroy(() => {});
       });
     });
     //FIND THE TORRENT IN THE DB OR CREATE ONE
