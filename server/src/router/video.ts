@@ -29,34 +29,23 @@ router.route("/sub/:imdbId").get(async (req: any, res: any) => {
     yifySub
       .search({ imdbid: req.params.imdbId, limit: "best" })
       .then(async (sub: any) => {
+        const prepareSub = async (lan: string) => {
+          const zip = await subManager.downSub(
+            sub[lan][0].url,
+            req.params.imdbId
+          );
+          console.log(zip);
+          const srt = await subManager.extSub(zip, req.params.imdbId, lan);
+          console.log(srt);
+          const vtt = await subManager.convSub(srt, req.params.imdbId, lan);
+        };
         try {
           if (!sub.en) {
             throw new Error("NO_SUBTITLES_FOR_FILM");
           }
-          if (sub.en) {
-            const zip = await subManager.downSub(
-              sub.en[0].url,
-              req.params.imdbId
-            ); // Download zip and return zip's path.
-            const srt = await subManager.extSub(zip); // Extract zip path , remove the zip and return srt path.
-            const vtt = await subManager.convSub(srt, req.params.imdbId, "en");
-          }
-          if (language === "fr" && sub.fr) {
-            const zip = await subManager.downSub(
-              sub.fr[0].url,
-              req.params.imdbId
-            ); // Download zip and return zip's path.
-            const srt = await subManager.extSub(zip); // Extract zip path
-            const vtt = await subManager.convSub(srt, req.params.imdbId, "fr");
-          }
-          if (language === "es" && sub.es) {
-            const zip = await subManager.downSub(
-              sub.es[0].url,
-              req.params.imdbId
-            ); // Download zip and return zip's path.
-            const srt = await subManager.extSub(zip); // Extract zip path
-            const vtt = await subManager.convSub(srt, req.params.imdbId, "es");
-          }
+          if (sub.en) await prepareSub("en");
+          if (language === "fr" && sub.fr) await prepareSub("fr");
+          if (language === "es" && sub.es) await prepareSub("es");
           let oneLanguage = null;
           if ((sub.fr && language === "fr") || (sub.es && language === "es")) {
             oneLanguage = false;
@@ -116,9 +105,7 @@ router.route("/:magnet/:imdbId").get(async (req, res) => {
     const file: any = await torrentManager.getTorrentFile(engine);
     //LISTEN FOR CLIENT ORIGNIATED RESPONSE CLOSE TO AVOID A FRONT CRASH ON FIREFOX
     res.on("close", () => {
-      // console.log("detected response close");
       engine.remove(true, () => {
-        // console.log("engine removed all files and cache exept downloaded one");
         engine.destroy(() => {});
       });
     });
