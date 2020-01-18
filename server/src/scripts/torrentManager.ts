@@ -1,5 +1,4 @@
 import pump from "pump";
-import fs from "fs";
 import parseRange from "range-parser";
 import path from "path";
 import ffmpeg from "fluent-ffmpeg";
@@ -75,7 +74,7 @@ export const startStream = (file: any, req: any, res: any) => {
 };
 
 export const getTorrentFile = (engine: any) => {
-  return new Promise(function(resolve, reject) {
+  return new Promise(function(resolve, _reject) {
     engine.on("ready", function() {
       engine.files.forEach(function(file: any) {
         const type = path.extname(file.name).slice(1);
