@@ -91,14 +91,27 @@ router.route("/:magnet/:imdbId").get(async (req, res) => {
       torrentManager.updateSeenFilms(req);
     }
     const magnet: any = await torrentManager.parseMagnet(req.params.magnet);
-    //creeee2er le connection avec les peers, mais pas encore le fichier
+    // Encode all trackers URL
+    for (const key in magnet.trackers) {
+      magnet.trackers[key] = encodeURIComponent(magnet.trackers[key]);
+    }
     const engine = torrentStream(magnet.uri, {
+      connections: 100,
+      uploads: 10,
       path: `./downloads/${magnet.infoHash}`,
       verify: true,
       trackers: magnet.trackers
     });
     //BLOCK AN IP THAT MAD US CRASH
     engine.block("104.26.15.136:80");
+    // Handle closing connection
+    res.on("close", () => {
+      console.log("closing connection");
+      engine.destroy(() => {
+        console.log("engine destroying");
+      });
+      engine.remove(true, () => console.log("engine remove"));
+    });
     const file: any = await torrentManager.getTorrentFile(engine);
     //LISTEN FOR CLIENT ORIGNIATED RESPONSE CLOSE TO AVOID A FRONT CRASH ON FIREFOX
     res.on("close", () => {
