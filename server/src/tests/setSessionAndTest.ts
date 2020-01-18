@@ -14,8 +14,6 @@ export const setSessionAndTest = async function name(
       query: loginMutation(login, password)
     });
     //set cookies we got from the login in the second request
-    // console.log(res.headers);
-
     let [cookie] = res.headers["set-cookie"]
       ? res.headers["set-cookie"]
       : [null];

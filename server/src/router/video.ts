@@ -34,9 +34,7 @@ router.route("/sub/:imdbId").get(async (req: any, res: any) => {
             sub[lan][0].url,
             req.params.imdbId
           );
-          console.log(zip);
           const srt = await subManager.extSub(zip, req.params.imdbId, lan);
-          console.log(srt);
           const vtt = await subManager.convSub(srt, req.params.imdbId, lan);
         };
         try {
