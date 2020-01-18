@@ -10,6 +10,8 @@ import { Film } from "../entity/Films";
 const router = express.Router();
 
 router.route("/sub/:imdbId").get(async (req: any, res: any) => {
+  req.setTimeout(1000 * 10, () => req.abort());
+  res.on("end", () => req.abort());
   try {
     res.setHeader("Access-Control-Allow-Origin", "http://127.0.0.1:3000");
     res.setHeader("Access-Control-Allow-Credentials", true);
@@ -104,6 +106,7 @@ router.route("/:magnet/:imdbId").get(async (req, res) => {
     });
     //BLOCK AN IP THAT MAD US CRASH
     engine.block("104.26.15.136:80");
+    engine.block("104.26.14.136:443");
     const file: any = await torrentManager.getTorrentFile(engine);
     //LISTEN FOR CLIENT ORIGNIATED RESPONSE CLOSE TO AVOID A FRONT CRASH ON FIREFOX
     res.on("close", () => {
