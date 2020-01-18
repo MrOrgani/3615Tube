@@ -5,6 +5,7 @@ import { Torrent } from "../entity/Torrent";
 import torrentStream from "torrent-stream";
 import yifySub from "yifysubtitles-api";
 import { Film } from "../entity/Films";
+// import * as URL from "url";
 
 const router = express.Router();
 
@@ -91,8 +92,8 @@ router.route("/:magnet/:imdbId").get(async (req, res) => {
     }
     const magnet: any = await torrentManager.parseMagnet(req.params.magnet);
     // Encode all trackers URL
-    for(const key in magnet.trackers){
-      magnet.trackers[key] = encodeURIComponent(magnet.trackers[key])
+    for (const key in magnet.trackers) {
+      magnet.trackers[key] = encodeURIComponent(magnet.trackers[key]);
     }
     const engine = torrentStream(magnet.uri, {
       connections: 100,
@@ -101,13 +102,26 @@ router.route("/:magnet/:imdbId").get(async (req, res) => {
       verify: true,
       trackers: magnet.trackers
     });
+    //BLOCK AN IP THAT MAD US CRASH
+    engine.block("104.26.15.136:80");
     // Handle closing connection
-    res.on('close', () => {
-      console.log('closing connection');
-      engine.destroy(() => { console.log('engine destroying') });
-      engine.remove(true, () => console.log('engine remove'))
-    })
+    res.on("close", () => {
+      console.log("closing connection");
+      engine.destroy(() => {
+        console.log("engine destroying");
+      });
+      engine.remove(true, () => console.log("engine remove"));
+    });
     const file: any = await torrentManager.getTorrentFile(engine);
+    //LISTEN FOR CLIENT ORIGNIATED RESPONSE CLOSE TO AVOID A FRONT CRASH ON FIREFOX
+    res.on("close", () => {
+      console.log("detected response close");
+      engine.remove(true, () => {
+        console.log("engine removed all files and cache exept downloaded one");
+        engine.destroy(() => console.log("destroyed connection to peers"));
+      });
+    });
+    //FIND THE TORRENT IN THE DB OR CREATE ONE
     const findTorrent = await Torrent.findOne({
       where: { infoHash: magnet.infoHash }
     });
@@ -116,6 +130,7 @@ router.route("/:magnet/:imdbId").get(async (req, res) => {
       newDbTorrent.infoHash = magnet.infoHash;
       newDbTorrent.save();
     }
+    //START THESTREAM
     if (file.type === "mp4" || file.type === "webm") {
       torrentManager.startStream(file, req, res);
     } else if (file.type === "mkv") {
