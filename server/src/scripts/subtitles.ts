@@ -44,16 +44,20 @@ export const extSub = (zip: any, imdbId: string, lan: string) => {
 
 export const convSub = (srt: any, imdbId: string, lang: string) => {
   return new Promise(function(resolve, reject) {
-    const writestream = fs.createWriteStream(
-      __dirname + "/../../tmp/" + imdbId + "-" + lang + ".vtt"
-    );
-    fs.createReadStream(__dirname + "/../../tmp/" + srt)
-      .pipe(srt2vtt())
-      .pipe(writestream);
-    writestream.on("finish", () => {
-      // rimraf(__dirname + '/../../tmp/' + srt, () => { console.log(`${__dirname + '/../../tmp/' + srt} was removed.`) });
-      resolve();
-    });
+    const srtPath = __dirname + "/../../tmp/" + srt;
+    fs.access(srtPath, fs.constants.F_OK, (err) =>{
+      if(err){ return reject(new Error('BAD_SUBTITLES')) }
+      const writestream = fs.createWriteStream(
+        __dirname + "/../../tmp/" + imdbId + "-" + lang + ".vtt"
+      );
+      fs.createReadStream(srtPath)
+        .pipe(srt2vtt())
+        .pipe(writestream);
+      writestream.on("finish", () => {
+        // rimraf(__dirname + '/../../tmp/' + srt, () => { console.log(`${__dirname + '/../../tmp/' + srt} was removed.`) });
+        resolve();
+      });
+    })
   });
 };
 

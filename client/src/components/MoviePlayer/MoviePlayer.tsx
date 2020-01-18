@@ -34,7 +34,7 @@ const MoviePlayer = () => {
         }
         isSubscribed && setSubtitles(res.data);
       } catch (err) {
-        console.log(err);
+        // console.log(err);
       }
     };
     getSubtitles();
